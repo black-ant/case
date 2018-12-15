@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LoginController {
 
-    @RequestMapping("login")
-    public JSONObject login(){
-        JSONObject root = new JSONObject();
-        return root;
+    @RequestMapping("/")
+    public String home() {
+        return "index";
     }
+
+    @RequestMapping("/hello")
+    public String hello() {
+        return "hello";
+    }
+
 }
