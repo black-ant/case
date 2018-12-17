@@ -1,10 +1,13 @@
 package com.security.demo.entity;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -16,7 +19,7 @@ public class Users implements UserDetails {
     private Long id;
     private String username;
     private String password;
-    @ManyToMany(cascade = {CascadeType.REFRESH},fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<Roles> roles;
 
 
@@ -46,7 +49,13 @@ public class Users implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
+        List<Roles> roles = this.getRoles();
+        for (Roles role : roles) {
+            auths.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return  auths;
+
     }
 
     @Override

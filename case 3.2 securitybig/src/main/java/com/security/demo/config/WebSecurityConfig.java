@@ -1,6 +1,8 @@
 package com.security.demo.config;
 
+import com.security.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +14,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+    @Bean
+    public UserService CustomerUserService() {
+        return new UserService();
+    }
+
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //该方法用于用户认证，此处添加内存用户，并且指定了权限
@@ -19,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("user").password(new BCryptPasswordEncoder().encode("123456")).roles("USER")
                 .and()
                 .withUser("admin").password(new BCryptPasswordEncoder().encode("123456")).roles("ADMIN");
+        auth.userDetailsService(CustomerUserService());
     }
 
     @Override
@@ -31,14 +41,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index").permitAll()
                 .regexMatchers(".*sign.*").permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/admin2").hasAnyRole("ADMIN","USER")
+                .antMatchers("/admin2").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()                      //其它请求都需要校验才能访问
                 .and()
                 .formLogin()
                 .loginPage("/login")                             //定义登录的页面"/login"，允许访问
+                .failureUrl("/login?error")
                 .permitAll()
                 .and()
-                .logout()                                           //默认的"/logout", 允许访问
+                .logout()
                 .permitAll();
 
     }
