@@ -17,6 +17,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserService CustomerUserService() {
+        System.out.print("step1============");
         return new UserService();
     }
 
@@ -37,11 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //其中：antMatchers--使用ant风格的路径匹配
         //regexMatchers--使用正则表达式匹配
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/index").permitAll()
-                .regexMatchers(".*sign.*").permitAll()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/admin2").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()                      //其它请求都需要校验才能访问
                 .and()
                 .formLogin()

@@ -7,7 +7,11 @@
 <body>
 <h2>用户列表</h2>
 <div>
-   <>
+    <form name="form" th:action="@{/login}" action="/login" method="post">
+        <input type="text" name="username">
+        <input type="password" name="password">
+        <input type="submit" id="login" value="Login">
+    </form>
 </div>
 </body>
 </html>
