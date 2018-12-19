@@ -12,15 +12,21 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users user = userRepository.findByUsername(username);
-        System.out.print("step2============");
-        System.out.print(user.getUsername());
-        System.out.print(user.getPassword());
+        System.out.println("step2============");
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
         if(user==null){
             throw  new UsernameNotFoundException("用户不存在");
         }
+        return user;
+    }
+
+    public Users findUserByName(String username){
+        Users user = userRepository.findByUsername(username);
         return user;
     }
 }

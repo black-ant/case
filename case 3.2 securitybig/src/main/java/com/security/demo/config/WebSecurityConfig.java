@@ -38,6 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //其中：antMatchers--使用ant风格的路径匹配
         //regexMatchers--使用正则表达式匹配
         http.authorizeRequests()
+                .antMatchers("/test/**")
+                .permitAll()
                 .anyRequest().authenticated()                      //其它请求都需要校验才能访问
                 .and()
                 .formLogin()
