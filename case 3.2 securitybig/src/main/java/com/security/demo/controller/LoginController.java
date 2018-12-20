@@ -2,6 +2,7 @@ package com.security.demo.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.security.demo.entity.UserLog;
 import com.security.demo.entity.Users;
 import com.security.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,19 @@ public class LoginController {
     @RequestMapping("test001")
     public String test001(){
         return "home";
+    }
+
+    @RequestMapping("getlog")
+    public String findLog(){
+        UserLog log =userService.findLogBySn();
+        System.out.println(log.getUsername()+"---"+log.getLogdesc());
+        return "home";
+    }
+
+    @RequestMapping("getUsersn")
+    public String getUsersn(){
+        Users user =userService.findBySn();
+        System.out.println(user.getUsername()+"---"+user.getRoles());
+        return "getUsersn";
     }
 }

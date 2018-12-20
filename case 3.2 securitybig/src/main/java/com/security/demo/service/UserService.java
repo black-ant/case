@@ -1,7 +1,9 @@
 package com.security.demo.service;
 
 
+import com.security.demo.entity.UserLog;
 import com.security.demo.entity.Users;
+import com.security.demo.repository.UserLogRepository;
 import com.security.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +14,8 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserLogRepository userLogRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -28,5 +32,13 @@ public class UserService implements UserDetailsService {
     public Users findUserByName(String username){
         Users user = userRepository.findByUsername(username);
         return user;
+    }
+    public Users findBySn(){
+        Users user = userRepository.findById(1);
+        return user;
+    }
+
+    public UserLog findLogBySn(){
+        return userLogRepository.findBySn(1);
     }
 }

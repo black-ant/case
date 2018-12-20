@@ -17,7 +17,9 @@ public class Users implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(name="username")
     private String username;
+    @Column(name="password")
     private String password;
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<Roles> roles;
