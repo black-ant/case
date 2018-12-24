@@ -17,11 +17,11 @@ public class Users implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(name="username")
+    @Column(name = "username")
     private String username;
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
-    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<Roles> roles;
 
 
@@ -50,25 +50,26 @@ public class Users implements UserDetails {
     }
 
     @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
         List<Roles> roles = this.getRoles();
         for (Roles role : roles) {
             auths.add(new SimpleGrantedAuthority(role.getName()));
         }
-        return  auths;
+        return auths;
 
     }
 
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
-    }
 
     @Override
     public boolean isAccountNonExpired() {

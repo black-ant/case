@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 public class UserService implements UserDetailsService {
 
@@ -17,12 +20,15 @@ public class UserService implements UserDetailsService {
     @Autowired
     UserLogRepository userLogRepository;
 
+
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users user = userRepository.findByUsername(username);
         System.out.println("step2============");
         System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
+        System.out.println(new BCryptPasswordEncoder().encode(user.getPassword()));
         if(user==null){
             throw  new UsernameNotFoundException("用户不存在");
         }
@@ -34,7 +40,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
     public Users findBySn(){
-        Users user = userRepository.findById(1);
+        Users user = userRepository.findByUsername("gang");
         return user;
     }
 
