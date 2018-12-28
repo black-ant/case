@@ -20,14 +20,11 @@ public class UserService implements UserDetailsService {
     @Autowired
     UserLogRepository userLogRepository;
 
-
-
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users user = userRepository.findByUsername(username);
         System.out.println("step2============");
-        System.out.println(user.getUsername());
+        System.out.println(user.getUsername()+"---"+user.getPassword()+"--"+user.getRoles());
         System.out.println(new BCryptPasswordEncoder().encode(user.getPassword()));
         if(user==null){
             throw  new UsernameNotFoundException("用户不存在");
@@ -43,8 +40,13 @@ public class UserService implements UserDetailsService {
         Users user = userRepository.findByUsername("gang");
         return user;
     }
+    public void saveUser(Users user){
+       userRepository.save(user);
+    }
 
     public UserLog findLogBySn(){
         return userLogRepository.findBySn(1);
     }
+
+
 }
