@@ -3,11 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <title>Insert title here</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <style>
+
+    </style>
 </head>
 <body>
 <h2>起始页</h2>
-<div>
-    <a href="@{/home}">跳转到首页</a>
+<div class = "index method_c">
+   <a class="login" th:href="@{/tologin}">登录</a>
+   <a class="register" th:href="@{/before/register}">注册</a>
 </div>
 </body>
+</html>
 </html>

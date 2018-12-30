@@ -1,8 +1,10 @@
 package com.security.demo.service;
 
 
+import com.security.demo.entity.Roles;
 import com.security.demo.entity.UserLog;
 import com.security.demo.entity.Users;
+import com.security.demo.repository.RolesRepository;
 import com.security.demo.repository.UserLogRepository;
 import com.security.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    RolesRepository rolesRepository;
     @Autowired
     UserLogRepository userLogRepository;
 
@@ -42,6 +46,13 @@ public class UserService implements UserDetailsService {
     }
     public void saveUser(Users user){
        userRepository.save(user);
+    }
+
+    public void saveRoles(Roles role){
+        rolesRepository.save(role);
+    }
+    public Roles findRoles(String name){
+        return rolesRepository.findByName(name);
     }
 
     public UserLog findLogBySn(){

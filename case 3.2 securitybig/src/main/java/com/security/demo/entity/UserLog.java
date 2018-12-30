@@ -19,6 +19,15 @@ public class UserLog {
     private String logdesc;
     private Date date;
 
+    public UserLog() {
+    }
+
+    public UserLog(String userid,String username,String logdesc,Date date) {
+        this.userid = userid;
+        this.username = username;
+        this.logdesc = logdesc;
+        this.date = date;
+    }
 
     public Integer getSn() {
         return sn;

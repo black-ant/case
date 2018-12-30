@@ -20,12 +20,6 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    private SecurityProperties securityProperties;
-
     // AuthenticationException 认证过程中产生的异常
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,

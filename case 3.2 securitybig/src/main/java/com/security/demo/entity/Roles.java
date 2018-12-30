@@ -4,6 +4,8 @@ package com.security.demo.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 public class Roles {
@@ -13,6 +15,8 @@ public class Roles {
     private Long id;
 
     private String name;
+
+
 
     public Long getId() {
         return id;
