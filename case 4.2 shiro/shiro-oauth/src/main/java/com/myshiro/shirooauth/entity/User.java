@@ -8,4 +8,5 @@ package com.myshiro.shirooauth.entity;
  **/
 
 public class User {
+    private String userid;
 }
