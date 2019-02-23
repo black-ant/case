@@ -19,8 +19,8 @@ import java.util.Map;
 public class ShiroConfig {
 
     @Bean
-    public MyShiroRealm myShiroRealm() {
-        MyShiroRealm myShiroRealm = new MyShiroRealm();
+    public ShiroRealm myShiroRealm() {
+        ShiroRealm myShiroRealm = new ShiroRealm();
         return myShiroRealm;
     }
 
@@ -37,22 +37,16 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        // 登录
-        shiroFilterFactoryBean.setLoginUrl("/notLogin");
-        // 设置无权限时跳转的 ur
-        shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");
         // 设置拦截器
-        Map<String,String> map = new LinkedHashMap<String, String>();
-        // 普通用户
+        Map<String, String> map = new LinkedHashMap<String, String>();
         map.put("/user/**", "roles[user]");
-        // admin
         map.put("/admin/**", "roles[admin]");
-        // 开放登陆接口
         map.put("/login", "anon");
-        // 登出
-//        map.put("/logout","logout");
-        // 对所有用户认证
-        map.put("/**","authc");
+
+        // 登录
+        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/index");
+        shiroFilterFactoryBean.setSuccessUrl("/main");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         System.out.println("Shiro拦截器工厂类注入成功");
         return shiroFilterFactoryBean;

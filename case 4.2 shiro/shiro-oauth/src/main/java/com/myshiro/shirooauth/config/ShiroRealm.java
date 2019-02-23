@@ -19,27 +19,10 @@ import java.util.*;
  * @Version 1.0
  **/
 @Component
-public class MyShiroRealm extends AuthorizingRealm {
+public class ShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-//        //获取登录用户名
-//        String name= (String) principalCollection.getPrimaryPrincipal();
-//        //查询用户名称
-//        RespMsgBean respMsgBean = userClientService.findByName(name);
-//        UserVo user = (UserVo) respMsgBean.getData();
-//        //添加角色和权限
-//        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-//        for (RoleVo role : user.getRoles()) {
-//            //添加角色
-//            simpleAuthorizationInfo.addRole(role.getRoleName());
-//            for (PermissionVo permission:role.getPermissions()) {
-//                //添加权限
-//                simpleAuthorizationInfo.addStringPermission(permission.getPermissionName());
-//            }
-//        }
-//        return simpleAuthorizationInfo;
-
         System.out.println("————权限认证————");
         String name = (String) SecurityUtils.getSubject().getPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
@@ -70,20 +53,9 @@ public class MyShiroRealm extends AuthorizingRealm {
     }
 
     public User checkUserFromRedis(String name){
-//        User user = null;
-//        Map<String,User> onLineMap = new HashMap<String, User>();
-//        if(!redisClient.hasKeyOfMap("onLineMap",name)){
-//            RespMsgBean<User> respMsgBean = userClientService.findByName(name);
-//            user = respMsgBean.getData();
-//            // 设置缓存
-//            redisClient.setOneMap("onLineMap",name,user,60*60*24*7);
-////            redisClient.setValue(name,user,60*60*24*7);
-//        }else{
-////            user = (UserVo) redisClient.getValue(name);
-//            user = (User) redisClient.getValueOfMap("onLineMap",name);
-//        }
             User user = new User();
             user.setUserid(1);
+            user.setUsername("gang");
             user.setPassword("123456");
 
         return user;
