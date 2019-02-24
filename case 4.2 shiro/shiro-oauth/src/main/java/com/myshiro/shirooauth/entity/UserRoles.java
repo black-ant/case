@@ -13,6 +13,5 @@ import lombok.Data;
 public class UserRoles {
 
     private int userid;
-    private int role;
-
+    private int roleid;
 }

@@ -12,3 +12,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:1101/eureka/
+
+logging:
+  level:
+    root : INFO
+    com.myshiro.shirooauth.mapper : debug
+

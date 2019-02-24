@@ -1,5 +1,6 @@
 package com.myshiro.shirooauth.config;
 
+import com.myshiro.shirooauth.filter.MyLogoutFilter;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.WebSecurityManager;
@@ -32,6 +33,13 @@ public class ShiroConfig {
         return securityManager;
     }
 
+//    @Bean
+//    public MyLogoutFilter getMyLogoutFilter(){
+//        return new MyLogoutFilter();
+//    }
+
+
+
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(WebSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -41,6 +49,7 @@ public class ShiroConfig {
         Map<String, String> map = new LinkedHashMap<String, String>();
         map.put("/user/**", "roles[user]");
         map.put("/admin/**", "roles[admin]");
+        map.put("/main/**","roles[user]");
         map.put("/login", "anon");
 
         // 登录

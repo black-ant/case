@@ -12,7 +12,15 @@ import lombok.Data;
 @Data
 public class Role {
 
+    private int roleid;
+    private String roletype;
+    private String roledesc;
     private int userid;
-    private int role;
-    private String roleName;
+
+    public Role(){}
+
+    public Role( int role, String roletype) {
+        this.roleid = role;
+        this.roletype = roletype;
+    }
 }
