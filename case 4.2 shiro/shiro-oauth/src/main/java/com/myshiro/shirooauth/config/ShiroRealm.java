@@ -36,7 +36,7 @@ public class ShiroRealm extends AuthorizingRealm {
         String name = (String) SecurityUtils.getSubject().getPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //获得该用户角色
-        User user = checkUserFromRedis(name);
+        User user = userService.findUserByUsername(name);
         List<Role> roles = user.getRoles();
         logger.debug("roles权限：{}",roles.toString());
         logger.info("roles权限：{}",roles.toString());
@@ -78,4 +78,6 @@ public class ShiroRealm extends AuthorizingRealm {
             user.setRoles(roles);
         return user;
     }
+
+
 }

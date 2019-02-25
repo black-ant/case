@@ -32,6 +32,7 @@ public class LoginService {
         User user = userMapper.findByUsername(username);
         logger.info("登陆信息：{}", subject.getPrincipal(),user.getUserid());
         logger.info("User信息：{}",user.getRoles().toArray().toString());
+
         //根据权限，指定返回数据
 //        String role = userMapper.getRole(username);
 //        if ("user".equals(role)) {

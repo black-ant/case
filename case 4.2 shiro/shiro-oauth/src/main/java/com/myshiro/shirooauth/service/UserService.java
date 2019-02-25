@@ -35,5 +35,9 @@ public class UserService {
         logger.info("根据id 查询 Role>>>>");
         return userMapper.findByUsernametest("gang");
     }
+
+    public User findUserByUsername(String username){
+        return userMapper.findByUsername(username);
+    }
 }
 
