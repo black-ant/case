@@ -1,5 +1,6 @@
 package com.myshiro.shirooauth.controller;
 
+import com.myshiro.shirooauth.config.Constants;
 import com.myshiro.shirooauth.service.ClientService;
 import com.myshiro.shirooauth.service.OAuthService;
 import org.apache.commons.lang.StringUtils;
@@ -18,6 +19,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
@@ -42,9 +45,11 @@ public class AuthorizeController {
     private OAuthService oAuthService;
     @Autowired
     private ClientService clientService;
+
     @RequestMapping("/authorize")
     public Object authorize(Model model, HttpServletRequest request)
             throws URISyntaxException, OAuthSystemException {
+
         try {
             //构建OAuth 授权请求
             OAuthAuthzRequest oauthRequest = new OAuthAuthzRequest(request);

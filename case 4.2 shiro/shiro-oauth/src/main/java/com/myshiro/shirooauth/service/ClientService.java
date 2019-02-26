@@ -1,6 +1,9 @@
 package com.myshiro.shirooauth.service;
 
+import com.myshiro.shirooauth.entity.Client;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 10169
@@ -9,5 +12,15 @@ import org.springframework.stereotype.Service;
  * @Version 1.0
  **/
 @Service
-public class ClientService {
+public interface ClientService {
+    public Client createClient(Client client);
+    public Client updateClient(Client client);
+    public void deleteClient(Long clientId);
+
+    Client findOne(Long clientId);
+
+    List<Client> findAll();
+
+    Client findByClientId(String clientId);
+    Client findByClientSecret(String clientSecret);
 }
