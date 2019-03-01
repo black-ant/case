@@ -1,5 +1,6 @@
 package com.mymap.baiduapi;
 
+import org.springframework.beans.factory.support.AbstractBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

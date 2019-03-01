@@ -58,6 +58,12 @@ baidumap = {
             this.map.setCenter(new BMap.Point(arguments[0], arguments[1]));
         }
     },
+    createOverlay :function(){
+        var pt = new BMap.Point(116.417, 39.909);
+        var myIcon = new BMap.Icon("images/001.png", new BMap.Size(300,157));
+        var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+        baidumap.map.addOverlay(marker2);              // 将标注添加到地图中
+    },
     errorcheck: function (code, obj, callback) {
         if ("ok" == code && typeof BMap === "undefined") {
             console.log("百度地图未成功加载,正在重新载入 ... ");

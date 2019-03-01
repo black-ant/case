@@ -1,19 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>地铁图展示</title>
     <link type="text/css" rel="stylesheet" href="css/common.css"></link>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
+    <style>
+        .main_left .msg {
+            width: 89%;
+            height: 3rem;
+            line-height: 0.5rem;
+            background: #efefef;
+            margin: 1vw;
+            border: #b3b3b3 0.3rem solid;
+            border-radius: 0.3rem;
+        }
+    </style>
 </head>
 <body>
-<div id="container" class="map-popup"></div>
+<div class="top">
+    <div class="title">基于WebSocket的位置共享</div>
+</div>
+<div class="main_left">
+    <div class="msg">
+        <p>1 . 手动设置主星位置</p>
+        <p>2 . 当前页面计算其余位置，并且push 到其他页面</p>
+    </div>
+</div>
+<div class="main_center">
+    <div id="container" class="map-popup"></div>
+</div>
+<div class="main_right">
+    <div id="sun"></div>
+
+    <div id="orbity1">
+        <div id="planet1"></div>
+    </div>
+
+    <div id="orbity2">
+        <div id="planet2"></div>
+    </div>
+
+    <div id="orbity3">
+        <div id="planet3"></div>
+    </div>
+
+    <div id="orbity4">
+        <div id="planet4"></div>
+    </div>
+
+    <div id="orbity5">
+        <div id="planet5"></div>
+    </div>
+
+    <div id="orbity6">
+        <div id="planet6"></div>
+    </div>
+
+    <div id="orbity7">
+        <div id="planet7"></div>
+    </div>
+
+    <div id="orbity8">
+        <div id="planet8"></div>
+    </div>
+</div>
+</body>
 <script type="text/javascript">
     addLoadEvent(function () {
         baidumap.init("container");
     });
+    $("#addOverly").on("click", function () {
+        baidumap.createOverlay();
+    });
+    document.getElementById("planet1").innerHTML = Orbity(100,"planet1",47.87,10);
+    document.getElementById("planet2").innerHTML = Orbity(125,"planet2",35.02,20);
+    document.getElementById("planet3").innerHTML = Orbity(150,"planet3",29.78,20);
+    document.getElementById("planet4").innerHTML = Orbity(175,"planet4",24.08,15);
+    document.getElementById("planet5").innerHTML = Orbity(250,"planet5",13.07,40);
+    document.getElementById("planet6").innerHTML = Orbity(300,"planet6",9.69,40);
+    document.getElementById("planet7").innerHTML = Orbity(350,"planet7",6.81,30);
+    document.getElementById("planet8").innerHTML = Orbity(400,"planet8",5.43,30);
 </script>
-</body>
 </html>
