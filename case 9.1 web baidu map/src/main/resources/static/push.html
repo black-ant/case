@@ -67,7 +67,7 @@
     //发送消息
     function send() {
         var message = document.getElementById('text').value;
-        websocket.send(message);
+        socket_do.send("DT001",message);
     }
 </script>
 </html>
