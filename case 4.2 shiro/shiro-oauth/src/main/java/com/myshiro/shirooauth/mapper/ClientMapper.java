@@ -35,5 +35,5 @@ public interface ClientMapper {
     Client findByClientId(@Param("clientId") String clientId);
 
     @Select("SELECT * FROM client WHERE clientSecret = #{secret}")
-    List<Client> findByClientSecret(@Param("secret") String secret);
+    Client findByClientSecret(@Param("secret") String secret);
 }

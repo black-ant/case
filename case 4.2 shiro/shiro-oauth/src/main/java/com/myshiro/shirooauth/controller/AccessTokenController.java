@@ -2,6 +2,7 @@ package com.myshiro.shirooauth.controller;
 
 import com.myshiro.shirooauth.config.Constants;
 import com.myshiro.shirooauth.service.OAuthService;
+import com.myshiro.shirooauth.service.OAuthServiceImpl;
 import com.myshiro.shirooauth.service.UserService;
 import org.apache.oltu.oauth2.as.issuer.MD5Generator;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
@@ -33,10 +34,13 @@ import java.net.URISyntaxException;
  **/
 @RestController
 public class AccessTokenController {
+
     @Autowired
-    private OAuthService oAuthService;
+    private OAuthServiceImpl oAuthService;
     @Autowired
     private UserService userService;
+
+
     @RequestMapping("/accessToken")
     public HttpEntity token(HttpServletRequest request)
             throws URISyntaxException, OAuthSystemException {

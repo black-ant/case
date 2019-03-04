@@ -3,7 +3,15 @@ package com.myshiro.shirooauth.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author 10169
@@ -11,46 +19,44 @@ import org.springframework.stereotype.Service;
  * @Date 2019/2/26 22:43
  * @Version 1.0
  **/
+@Transactional
 @Service
-public class OAuthServiceImpl implements OAuthService  {
-    private Cache cache;
+public class OAuthServiceImpl implements OAuthService {
 
+    private static Map<String, String> cacheMap = new HashMap<>();
+    private static Map<String, String> tokenMap = new HashMap<>();
     @Autowired
     private ClientService clientService;
 
-    @Autowired
-    public OAuthServiceImpl(CacheManager cacheManager) {
-        this.cache = cacheManager.getCache("code-cache");
-    }
-
     @Override
     public void addAuthCode(String authCode, String username) {
-        cache.put(authCode, username);
+        cacheMap.put(authCode, username);
     }
 
     @Override
     public void addAccessToken(String accessToken, String username) {
-        cache.put(accessToken, username);
+        tokenMap.put(accessToken, username);
     }
 
     @Override
+    @CacheEvict
     public String getUsernameByAuthCode(String authCode) {
-        return (String)cache.get(authCode).get();
+        return cacheMap.get(authCode);
     }
 
     @Override
     public String getUsernameByAccessToken(String accessToken) {
-        return (String)cache.get(accessToken).get();
+        return tokenMap.get(accessToken);
     }
 
     @Override
     public boolean checkAuthCode(String authCode) {
-        return cache.get(authCode) != null;
+        return cacheMap.containsKey(authCode);
     }
 
     @Override
     public boolean checkAccessToken(String accessToken) {
-        return cache.get(accessToken) != null;
+        return tokenMap.containsKey(accessToken);
     }
 
     @Override

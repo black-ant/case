@@ -18,6 +18,8 @@ import org.apache.oltu.oauth2.common.utils.OAuthUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -40,7 +42,7 @@ import java.net.URISyntaxException;
 @Controller
 public class AuthorizeController {
 
-
+    Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private OAuthService oAuthService;
     @Autowired
@@ -49,11 +51,17 @@ public class AuthorizeController {
     @RequestMapping("/authorize")
     public Object authorize(Model model, HttpServletRequest request)
             throws URISyntaxException, OAuthSystemException {
-
-        try {
+        logger.info("进入authorize request---：{}",request.toString());
+//        try {
             //构建OAuth 授权请求
-            OAuthAuthzRequest oauthRequest = new OAuthAuthzRequest(request);
-            //检查传入的客户端id是否正确
+        OAuthAuthzRequest oauthRequest = null;
+        try {
+            oauthRequest = new OAuthAuthzRequest(request);
+        } catch (OAuthProblemException e) {
+            logger.info("进入authorize OAuthAuthzRequest---：{}",request.toString());
+            e.printStackTrace();
+        }
+        //检查传入的客户端id是否正确
             if (!oAuthService.checkClientId(oauthRequest.getClientId())) {
                 OAuthResponse response = OAuthASResponse
                         .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
@@ -63,7 +71,7 @@ public class AuthorizeController {
                 return new ResponseEntity(
                         response.getBody(), HttpStatus.valueOf(response.getResponseStatus()));
             }
-
+            logger.info("获取 subject---：{}",SecurityUtils.getSubject().toString());
             Subject subject = SecurityUtils.getSubject();
             //如果用户没有登录，跳转到登陆页面
             if(!subject.isAuthenticated()) {
@@ -73,7 +81,7 @@ public class AuthorizeController {
                     return "oauth2login";
                 }
             }
-
+            logger.info("获取 username---：{}",(String)subject.getPrincipal());
             String username = (String)subject.getPrincipal();
             //生成授权码
             String authorizationCode = null;
@@ -99,22 +107,22 @@ public class AuthorizeController {
             HttpHeaders headers = new HttpHeaders();
             headers.setLocation(new URI(response.getLocationUri()));
             return new ResponseEntity(headers, HttpStatus.valueOf(response.getResponseStatus()));
-        } catch (OAuthProblemException e) {
-            //出错处理
-            String redirectUri = e.getRedirectUri();
-            if (OAuthUtils.isEmpty(redirectUri)) {
-                //告诉客户端没有传入redirectUri直接报错
-                return new ResponseEntity(
-                        "OAuth callback url needs to be provided by client!!!", HttpStatus.NOT_FOUND);
-            }
-            //返回错误消息（如?error=）
-            final OAuthResponse response =
-                    OAuthASResponse.errorResponse(HttpServletResponse.SC_FOUND)
-                            .error(e).location(redirectUri).buildQueryMessage();
-            HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(new URI(response.getLocationUri()));
-            return new ResponseEntity(headers, HttpStatus.valueOf(response.getResponseStatus()));
-        }
+//        } catch (OAuthProblemException e) {
+//            //出错处理
+//            String redirectUri = e.getRedirectUri();
+//            if (OAuthUtils.isEmpty(redirectUri)) {
+//                //告诉客户端没有传入redirectUri直接报错
+//                return new ResponseEntity(
+//                        "OAuth callback url needs to be provided by client!!!", HttpStatus.NOT_FOUND);
+//            }
+//            //返回错误消息（如?error=）
+//            final OAuthResponse response =
+//                    OAuthASResponse.errorResponse(HttpServletResponse.SC_FOUND)
+//                            .error(e).location(redirectUri).buildQueryMessage();
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.setLocation(new URI(response.getLocationUri()));
+//            return new ResponseEntity(headers, HttpStatus.valueOf(response.getResponseStatus()));
+//        }
     }
     private boolean login(Subject subject, HttpServletRequest request) {
         if("get".equalsIgnoreCase(request.getMethod())) {

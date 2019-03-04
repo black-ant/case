@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
  * @Date 2019/2/25 22:18
  * @Version 1.0
  **/
+
 public interface  OAuthService {
     //添加 auth code
     public void addAuthCode(String authCode, String username);
