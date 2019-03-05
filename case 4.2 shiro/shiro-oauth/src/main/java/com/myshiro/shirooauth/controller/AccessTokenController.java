@@ -15,6 +15,8 @@ import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.OAuthResponse;
 import org.apache.oltu.oauth2.common.message.types.GrantType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -35,6 +37,7 @@ import java.net.URISyntaxException;
 @RestController
 public class AccessTokenController {
 
+    Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private OAuthServiceImpl oAuthService;
     @Autowired
@@ -47,7 +50,7 @@ public class AccessTokenController {
         try {
             //构建OAuth请求
             OAuthTokenRequest oauthRequest = new OAuthTokenRequest(request);
-
+            logger.info("step 1 OAuthTokenRequest request---：{}", oauthRequest.toString());
             //检查提交的客户端id是否正确
             if (!oAuthService.checkClientId(oauthRequest.getClientId())) {
                 OAuthResponse response = OAuthASResponse
@@ -69,7 +72,7 @@ public class AccessTokenController {
                 return new ResponseEntity(
                         response.getBody(), HttpStatus.valueOf(response.getResponseStatus()));
             }
-
+            logger.info("step 1 authCode request---：{}",oauthRequest.getParam(OAuth.OAUTH_CODE));
             String authCode = oauthRequest.getParam(OAuth.OAUTH_CODE);
             // 检查验证类型，此处只检查AUTHORIZATION_CODE类型，其他的还有PASSWORD或REFRESH_TOKEN
             if (oauthRequest.getParam(OAuth.OAUTH_GRANT_TYPE).equals(
@@ -88,6 +91,8 @@ public class AccessTokenController {
             //生成Access Token
             OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
             final String accessToken = oauthIssuerImpl.accessToken();
+            logger.info("step 1 accessToken request---：{}",accessToken);
+            logger.info("step 1 username data---：{}",  oAuthService.getUsernameByAuthCode(authCode));
             oAuthService.addAccessToken(accessToken,
                     oAuthService.getUsernameByAuthCode(authCode));
 

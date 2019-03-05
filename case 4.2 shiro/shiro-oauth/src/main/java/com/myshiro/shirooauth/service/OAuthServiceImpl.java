@@ -1,5 +1,7 @@
 package com.myshiro.shirooauth.service;
 
+import com.myshiro.shirooauth.entity.AccessToken;
+import com.myshiro.shirooauth.mapper.AccessTokenMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -10,6 +12,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,36 +30,39 @@ public class OAuthServiceImpl implements OAuthService {
     private static Map<String, String> tokenMap = new HashMap<>();
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private AccessTokenMapper accessTokenMapper;
 
     @Override
     public void addAuthCode(String authCode, String username) {
-        cacheMap.put(authCode, username);
+        AccessToken accessToken = new AccessToken(username, authCode, "", new Date(), new Date());
+        accessTokenMapper.insertTokem(accessToken);
     }
 
     @Override
     public void addAccessToken(String accessToken, String username) {
-        tokenMap.put(accessToken, username);
+        accessTokenMapper.updateTokem(accessToken, username);
     }
 
     @Override
-    @CacheEvict
     public String getUsernameByAuthCode(String authCode) {
-        return cacheMap.get(authCode);
+        return accessTokenMapper.findOneByCode(authCode).getUsername();
     }
 
     @Override
     public String getUsernameByAccessToken(String accessToken) {
-        return tokenMap.get(accessToken);
+
+        return accessTokenMapper.findByAccessToken(accessToken).getUsername();
     }
 
     @Override
     public boolean checkAuthCode(String authCode) {
-        return cacheMap.containsKey(authCode);
+        return accessTokenMapper.countOneCode(authCode) > 0;
     }
 
     @Override
     public boolean checkAccessToken(String accessToken) {
-        return tokenMap.containsKey(accessToken);
+        return accessTokenMapper.countOneTokenn(accessToken) > 0;
     }
 
     @Override

@@ -11,6 +11,9 @@ import org.apache.oltu.oauth2.common.message.types.ParameterStyle;
 import org.apache.oltu.oauth2.common.utils.OAuthUtils;
 import org.apache.oltu.oauth2.rs.request.OAuthAccessResourceRequest;
 import org.apache.oltu.oauth2.rs.response.OAuthRSResponse;
+import org.apache.shiro.SecurityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -30,9 +33,10 @@ import javax.servlet.http.HttpServletResponse;
  **/
 @RestController
 public class UserInfoController {
+
     @Autowired
     private OAuthService oAuthService;
-
+    Logger logger = LoggerFactory.getLogger(getClass());
     @RequestMapping("/userInfo")
     public HttpEntity userInfo(HttpServletRequest request) throws OAuthSystemException {
         try {
@@ -41,7 +45,7 @@ public class UserInfoController {
                     new OAuthAccessResourceRequest(request, ParameterStyle.QUERY);
             //获取Access Token
             String accessToken = oauthRequest.getAccessToken();
-
+            logger.info("step 1 获取 accessToken---：{}",accessToken);
             //验证Access Token
             if (!oAuthService.checkAccessToken(accessToken)) {
                 // 如果不存在/过期了，返回未验证错误，需重新验证
@@ -50,12 +54,13 @@ public class UserInfoController {
                         .setRealm(Constants.RESOURCE_SERVER_NAME)
                         .setError(OAuthError.ResourceResponse.INVALID_TOKEN)
                         .buildHeaderMessage();
-
+                logger.info("step 2 获取 oauthResponse---：{}",oauthResponse);
                 HttpHeaders headers = new HttpHeaders();
                 headers.add(OAuth.HeaderType.WWW_AUTHENTICATE,
                         oauthResponse.getHeader(OAuth.HeaderType.WWW_AUTHENTICATE));
                 return new ResponseEntity(headers, HttpStatus.UNAUTHORIZED);
             }
+            logger.info("step 3 获取 username---：{}",oAuthService.getUsernameByAccessToken(accessToken));
             //返回用户名
             String username = oAuthService.getUsernameByAccessToken(accessToken);
             return new ResponseEntity(username, HttpStatus.OK);

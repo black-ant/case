@@ -3,6 +3,7 @@ package com.myshiro.shirooauth.controller;
 import com.myshiro.shirooauth.config.Constants;
 import com.myshiro.shirooauth.service.ClientService;
 import com.myshiro.shirooauth.service.OAuthService;
+import com.myshiro.shirooauth.service.OAuthServiceImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.oltu.oauth2.as.issuer.MD5Generator;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuerImpl;
@@ -44,24 +45,18 @@ public class AuthorizeController {
 
     Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
-    private OAuthService oAuthService;
+    private OAuthServiceImpl oAuthService;
     @Autowired
     private ClientService clientService;
 
     @RequestMapping("/authorize")
     public Object authorize(Model model, HttpServletRequest request)
             throws URISyntaxException, OAuthSystemException {
-        logger.info("进入authorize request---：{}",request.toString());
-//        try {
-            //构建OAuth 授权请求
-        OAuthAuthzRequest oauthRequest = null;
+        logger.info("step 1 进入authorize request---：{}", request.toString());
         try {
-            oauthRequest = new OAuthAuthzRequest(request);
-        } catch (OAuthProblemException e) {
-            logger.info("进入authorize OAuthAuthzRequest---：{}",request.toString());
-            e.printStackTrace();
-        }
-        //检查传入的客户端id是否正确
+            //构建OAuth 授权请求
+            OAuthAuthzRequest  oauthRequest = new OAuthAuthzRequest(request);
+            //检查传入的客户端id是否正确
             if (!oAuthService.checkClientId(oauthRequest.getClientId())) {
                 OAuthResponse response = OAuthASResponse
                         .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
@@ -71,18 +66,18 @@ public class AuthorizeController {
                 return new ResponseEntity(
                         response.getBody(), HttpStatus.valueOf(response.getResponseStatus()));
             }
-            logger.info("获取 subject---：{}",SecurityUtils.getSubject().toString());
+            logger.info("step 3 获取 subject---：{}", SecurityUtils.getSubject().toString());
             Subject subject = SecurityUtils.getSubject();
             //如果用户没有登录，跳转到登陆页面
-            if(!subject.isAuthenticated()) {
-                if(!login(subject, request)) {//登录失败时跳转到登陆页面
+            if (!subject.isAuthenticated()) {
+                if (!login(subject, request)) {//登录失败时跳转到登陆页面
                     model.addAttribute("client",
                             clientService.findByClientId(oauthRequest.getClientId()));
                     return "oauth2login";
                 }
             }
-            logger.info("获取 username---：{}",(String)subject.getPrincipal());
-            String username = (String)subject.getPrincipal();
+            logger.info("step 4 获取 username---：{}", (String) subject.getPrincipal());
+            String username = (String) subject.getPrincipal();
             //生成授权码
             String authorizationCode = null;
             //responseType目前仅支持CODE，另外还有TOKEN
@@ -90,12 +85,14 @@ public class AuthorizeController {
             if (responseType.equals(ResponseType.CODE.toString())) {
                 OAuthIssuerImpl oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
                 authorizationCode = oauthIssuerImpl.authorizationCode();
+                logger.info("step 5 step  -- authorizationCode :{}", authorizationCode);
                 oAuthService.addAuthCode(authorizationCode, username);
             }
             //进行OAuth响应构建
             OAuthASResponse.OAuthAuthorizationResponseBuilder builder =
                     OAuthASResponse.authorizationResponse(request,
                             HttpServletResponse.SC_FOUND);
+            logger.info("step 5 step  -- OAuthAuthorizationResponseBuilder :{}", builder);
             //设置授权码
             builder.setCode(authorizationCode);
             //得到到客户端重定向地址
@@ -107,31 +104,33 @@ public class AuthorizeController {
             HttpHeaders headers = new HttpHeaders();
             headers.setLocation(new URI(response.getLocationUri()));
             return new ResponseEntity(headers, HttpStatus.valueOf(response.getResponseStatus()));
-//        } catch (OAuthProblemException e) {
-//            //出错处理
-//            String redirectUri = e.getRedirectUri();
-//            if (OAuthUtils.isEmpty(redirectUri)) {
-//                //告诉客户端没有传入redirectUri直接报错
-//                return new ResponseEntity(
-//                        "OAuth callback url needs to be provided by client!!!", HttpStatus.NOT_FOUND);
-//            }
-//            //返回错误消息（如?error=）
-//            final OAuthResponse response =
-//                    OAuthASResponse.errorResponse(HttpServletResponse.SC_FOUND)
-//                            .error(e).location(redirectUri).buildQueryMessage();
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setLocation(new URI(response.getLocationUri()));
-//            return new ResponseEntity(headers, HttpStatus.valueOf(response.getResponseStatus()));
-//        }
+        } catch (OAuthProblemException e) {
+            //出错处理
+            logger.info("step 2 进入authorize OAuthAuthzRequest---：{}", request.toString());
+            String redirectUri = e.getRedirectUri();
+            if (OAuthUtils.isEmpty(redirectUri)) {
+                //告诉客户端没有传入redirectUri直接报错
+                return new ResponseEntity(
+                        "OAuth callback url needs to be provided by client!!!", HttpStatus.NOT_FOUND);
+            }
+            //返回错误消息（如?error=）
+            final OAuthResponse response =
+                    OAuthASResponse.errorResponse(HttpServletResponse.SC_FOUND)
+                            .error(e).location(redirectUri).buildQueryMessage();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setLocation(new URI(response.getLocationUri()));
+            return new ResponseEntity(headers, HttpStatus.valueOf(response.getResponseStatus()));
+        }
     }
+
     private boolean login(Subject subject, HttpServletRequest request) {
-        if("get".equalsIgnoreCase(request.getMethod())) {
+        if ("get".equalsIgnoreCase(request.getMethod())) {
             return false;
         }
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if(StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             return false;
         }
 
