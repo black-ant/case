@@ -5,7 +5,9 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
-import org.springframework.web.util.WebUtils;
+import org.apache.shiro.web.util.WebUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -20,6 +22,8 @@ import java.io.IOException;
  **/
 public class OAuth2AuthenticationFilter extends AuthenticatingFilter {
 
+
+    Logger logger = LoggerFactory.getLogger(getClass());
     //oauth2 authc code参数名
     private String authcCodeParam = "code";
     //客户端id
@@ -65,8 +69,6 @@ public class OAuth2AuthenticationFilter extends AuthenticatingFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-
-
         String error = request.getParameter("error");
         String errorDescription = request.getParameter("error_description");
         if(!StringUtils.isEmpty(error)) {//如果服务端返回了错误

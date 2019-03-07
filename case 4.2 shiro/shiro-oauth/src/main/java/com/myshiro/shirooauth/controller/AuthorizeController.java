@@ -52,9 +52,9 @@ public class AuthorizeController {
     @RequestMapping("/authorize")
     public Object authorize(Model model, HttpServletRequest request)
             throws URISyntaxException, OAuthSystemException {
-        logger.info("step 1 进入authorize request---：{}", request.toString());
+        logger.info("------ > 第一步 进入验证申请", request.toString());
         try {
-            //构建OAuth 授权请求
+            logger.info("------ > 第二步 生成 OAuthAuthzRequest", request.toString());
             OAuthAuthzRequest  oauthRequest = new OAuthAuthzRequest(request);
             //检查传入的客户端id是否正确
             if (!oAuthService.checkClientId(oauthRequest.getClientId())) {
