@@ -20,4 +20,7 @@ public interface DepartmentsRepository extends JpaRepository<Departments,Long> {
     @Query("from Departments u where u.deptname=:deptName")
     Departments findDepartments(@Param("deptName") String deptName);
 
+    @Query("from Departments u where (u.deptname=:deptName or :deptName is null ) and (u.deptno=:deptno or :deptno is null )")
+    Departments findFilters(@Param("deptName") String deptName,@Param("deptno") String deptno);
+
 }

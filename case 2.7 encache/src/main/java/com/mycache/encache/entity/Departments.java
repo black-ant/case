@@ -14,25 +14,31 @@ import java.util.Objects;
  **/
 @Entity
 public class Departments {
-    private String deptno;
-    private String deptname;
-
     @Id
     @Column(name = "deptno")
+    private String deptno;
+    @Basic
+    @Column(name = "deptname")
+    private String deptname;
+
+    public Departments(){}
+
+    public Departments(String deptno, String deptname) {
+        this.deptno = deptno;
+        this.deptname = deptname;
+    }
+
     public String getDeptno() {
         return deptno;
     }
-
     public void setDeptno(String deptno) {
         this.deptno = deptno;
     }
 
-    @Basic
-    @Column(name = "deptname")
+
     public String getDeptname() {
         return deptname;
     }
-
     public void setDeptname(String deptname) {
         this.deptname = deptname;
     }
