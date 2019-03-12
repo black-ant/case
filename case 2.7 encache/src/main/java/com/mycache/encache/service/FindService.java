@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public class FindService {
 
-    private static final String CACHE_KEY = "'deps'";
+    private static final String CACHE_KEY = "deps";
     Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     DepartmentsRepository departmentsRepository;
