@@ -46,6 +46,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new RedisTokenStore(connectionFactory);
     }
 
+
+    /**
+     * 定义了授权和令牌端点和令牌服务
+     * @param endpoints
+     * @throws Exception
+     */
+    @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
                 .authenticationManager(authenticationManager)
@@ -96,6 +103,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .and()
                 .withClient("browser")
                 .authorizedGrantTypes("refresh_token", "authorization_code", "password")
+                .redirectUris("http://localhost:8082/oauth/login/browser")
                 .scopes("ui");
     }
 

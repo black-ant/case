@@ -23,4 +23,16 @@ public class UserController {
         logger.info("in user :{}", user);
         return user;
     }
+
+    @GetMapping("/login/browser")
+    public String userLogin() {
+        logger.info("in userLogin browser :{}");
+        return "login";
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        logger.info("in test :{}");
+        return "ok";
+    }
 }

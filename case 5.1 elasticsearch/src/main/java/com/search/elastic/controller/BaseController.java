@@ -1,6 +1,7 @@
 package com.search.elastic.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author 10169
@@ -9,6 +10,7 @@ import com.alibaba.fastjson.JSONObject;
  * @Version 1.0
  **/
 public abstract class BaseController {
+
 
     protected <T> String apiResponse(T result) {
         return JSONObject.toJSONString(result);

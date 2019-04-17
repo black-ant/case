@@ -30,6 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Autowired
+    LoginSuccessHandle successHandle;
+    @Autowired
+    LoginFailureHandle failureHandle;
+
     /**
      * 注入用户Detail ,也可以使用@Autowired
      *
@@ -55,14 +60,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .requestMatchers()
-                .antMatchers("/oauth/**", "/login/**", "/logout/**")
-                .and()
+//                .requestMatchers()
+//                .antMatchers("/oauth/**", "/login/**", "/logout/**")
+//                .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers("/test").permitAll()
+//                .antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers("/authtest/test").permitAll()
+                .antMatchers("/oauth/**").permitAll()
+                .antMatchers("/login/**").permitAll()
                 .anyRequest().authenticated().and()
-                .httpBasic().and()
+                .formLogin().loginPage("/login").successHandler(successHandle).failureHandler(failureHandle).and()
+//                .httpBasic().and()
                 .csrf().disable();
     }
 

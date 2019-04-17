@@ -44,6 +44,7 @@ public class MyAfterFilter extends ZuulFilter {
         } catch (IOException e) {
             logger.info("exception :{}", e.getMessage());
         }
+
         return null;
     }
 }

@@ -6,6 +6,10 @@ import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
+/**
+ * EnableZuulProxy : 开启Zuul 网关服务
+ * EnableOAuth2Sso  : 标识为授权中心 , 当没有授权的时候会跳转到授权服务
+ */
 @SpringBootApplication
 @EnableZuulProxy
 @EnableDiscoveryClient
