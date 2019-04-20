@@ -7,7 +7,7 @@
     <!--执行generator插件生成文件的命令： call mvn mybatis-generator:generate -e -->
     <!-- 引入配置文件 -->
     <properties resource="config/mybatisGeneratorinit.properties"/>
-    <!--classPathEntry:数据库的JDBC驱动,换成你自己的驱动位置 可选 -->
+    <!--classPathEntry:数据库mappers的JDBC驱动,换成你自己的驱动位置 可选 -->
     <!--<classPathEntry location="D:\generator_mybatis\mysql-connector-java-5.1.24-bin.jar" /> -->
 
     <!-- 一个数据库一个context -->
@@ -50,7 +50,7 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!-- 生成mapxml文件 -->
-        <sqlMapGenerator targetPackage="mappers" targetProject="${resources}" >
+        <sqlMapGenerator targetPackage="mapper" targetProject="${resources}" >
             <property name="enableSubPackages" value="false" />
         </sqlMapGenerator>
         <!-- 生成mapxml对应client，也就是接口dao -->
@@ -62,6 +62,11 @@
             <property name="useActualColumnNames" value="false" />
             <!-- 数据库表主键 -->
             <generatedKey column="sn" sqlStatement="Mysql" identity="true" />
+        </table>
+        <table tableName="order" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="false" />
+            <!-- 数据库表主键 -->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" />
         </table>
     </context>
 </generatorConfiguration>

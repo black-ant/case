@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatistest.demo.mapper.MyOrderMapper">
+    <resultMap id="BaseResultMap" type="com.mybatistest.demo.entity.MyOrder">
+
+    </resultMap>
+
+    <select id="orderList" parameterType="java.lang.String" resultType="com.mybatistest.demo.entity.MyOrder">
+        select * from my_order where ordername =#{name}
+    </select>
+
+    <select id="findAll" resultType="com.mybatistest.demo.entity.MyOrder">
+        select * from my_order
+    </select>
+
+    <select id="findAll" resultType="com.mybatistest.demo.entity.MyOrder">
+        select * from my_order
+    </select>
+</mapper>

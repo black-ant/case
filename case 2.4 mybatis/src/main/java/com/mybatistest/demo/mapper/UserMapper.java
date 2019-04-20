@@ -1,6 +1,7 @@
 package com.mybatistest.demo.mapper;
 
 import com.mybatistest.demo.entity.User;
+import lombok.Data;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;

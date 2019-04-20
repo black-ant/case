@@ -18,7 +18,7 @@ public class StartController {
 
     @RequestMapping("send")
     @ResponseBody
-    public JSONObject login(@RequestParam("username") String username, @RequestParam("username") String password) {
+    public JSONObject login(@RequestParam("username") String username, @RequestParam("password") String password) {
         JSONObject root = new JSONObject();
         boolean isok  = loginService.canLogin(username,password);
         root.put("status",isok);
