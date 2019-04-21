@@ -5,15 +5,139 @@
 
     </resultMap>
 
+    <!-- 简单过滤查询 -->
     <select id="orderList" parameterType="java.lang.String" resultType="com.mybatistest.demo.entity.MyOrder">
         select * from my_order where ordername =#{name}
     </select>
 
+    <!-- 查询所有 -->
     <select id="findAll" resultType="com.mybatistest.demo.entity.MyOrder">
         select * from my_order
     </select>
 
-    <select id="findAll" resultType="com.mybatistest.demo.entity.MyOrder">
-        select * from my_order
+    <!-- 一对一连表查询，此处没用使用 as 别名 ,此处测试会发现重名问题 ，这里可以使用别名解决 -->
+    <select id="findTwoTable" resultMap="oneToOneOrder">
+        select * from my_order o inner join user u on o.createuser = u.sn
     </select>
+    <resultMap id="oneToOneOrder" type="com.mybatistest.demo.entity.MyOrder">
+        <id property="id" column="id"/>
+        <result property="ordername" column="ordername"/>
+        <result property="orderdesc" column="orderdesc"/>
+        <result property="active" column="active"/>
+        <result property="status" column="status"/>
+        <result property="price" column="price"/>
+        <result property="createuser" column="createuser"/>
+        <result property="remarks" column="remarks"/>
+        <association property="users" resultMap="oneToOneUser">
+        </association>
+    </resultMap>
+
+    <resultMap id="oneToOneUser" type="com.mybatistest.demo.entity.User">
+        <id property="sn" column="sn"/>
+        <result property="username" column="username"/>
+        <result property="remarks" column="remarks"/>
+    </resultMap>
+
+    <!-- 一对多连表查询，此处使用 as 别名 ,解决重复问题 -->
+    <select id="findTwoTableMany" resultMap="oneToManyOrder">
+        select o.id as oid ,o.ordername as oname,o.remarks as oremarks,u.sn as uid,u.remarks as uremarks,u.username as uname  from my_order o inner join user u on o.remarks = u.remarks
+    </select>
+    <resultMap id="oneToManyOrder" type="com.mybatistest.demo.entity.MyOrder">
+        <id property="id" column="oid"/>
+        <result property="ordername" column="oname"/>
+        <result property="remarks" column="oremarks"/>
+        <collection property="users" resultMap="oneToManyUser">
+        </collection>
+    </resultMap>
+    <resultMap id="oneToManyUser" type="com.mybatistest.demo.entity.User">
+        <id property="sn" column="uid"/>
+        <result property="username" column="uname"/>
+        <result property="remarks" column="uremarks"/>
+    </resultMap>
+
+    <!-- 重用SQL -->
+    <sql id="sometable">${prefix}_order</sql>
+    <sql id="somewhere">startdate > #{startdate}</sql>
+    <sql id="someinclude">
+        from
+        <include refid="${include_target}"/>
+        where
+        <include refid="${include_where}"/>
+    </sql>
+
+    <select id="findInclude" resultType="map">
+        select
+        ordername, orderdesc, id
+        <include refid="someinclude">
+            <property name="prefix" value="my"/>
+            <property name="include_target" value="sometable"/>
+            <property name="include_where" value="somewhere"/>
+        </include>
+    </select>
+
+    <!-- 字符串转换 -->
+    <select id="findNoParam" resultType="com.mybatistest.demo.entity.MyOrder">
+        select * from my_order where ${key} = #{value};
+    </select>
+
+    <!-- 简单插入数据 -->
+    <insert id="insertone" parameterType="com.mybatistest.demo.entity.MyOrder">
+	    insert into my_order (startDate, ordername, orderdesc, active,status,price) values (
+	    	#{startDate}, #{ordername}, #{orderdesc}, #{active}, #{status}, #{price}
+	    )
+	</insert>
+
+    <!-- 插入数据后 ，返回自增主键 关键代码 :  keyProperty="id" useGeneratedKeys="true"-->
+    <insert id="insertOneReturnId" parameterType="com.mybatistest.demo.entity.MyOrder" keyProperty="id"
+            useGeneratedKeys="true">
+	    insert into my_order (startDate, ordername, orderdesc, active,status,price) values (
+	    	#{startDate}, #{ordername}, #{orderdesc}, #{active}, #{status}, #{price}
+	    )
+	</insert>
+    <!-- 使用 foreach 实现多行插入-->
+    <insert id="insertMany" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into my_order (startDate, ordername, orderdesc, active,status,price) values
+        <foreach item="item" collection="list" separator=",">
+            (#{item.startDate}, #{item.ordername}, #{item.orderdesc}, #{item.active}, #{item.status}, #{item.price})
+        </foreach>
+    </insert>
+    <!-- 使用 selectKey 实现搜索后插入-->
+    <insert id="insertSearch" parameterType="com.mybatistest.demo.entity.MyOrder">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE">
+            select o.id+3 FROM my_order o order by id desc limit 1
+        </selectKey>
+        insert into my_order(id, ordername, orderdesc) values(#{id}, #{ordername}, #{orderdesc})
+    </insert>
+
+    <!-- 基础更新数据,此处使用@param 注解 -->
+    <update id="updateParamDescByid">
+        update my_order set orderdesc=#{orderdesc}
+        where id=#{id}
+    </update>
+
+    <!-- 基础更新数据,序号 : 注意 ，高版本不可再使用 0 ，1 -->
+    <update id="updateNumDescByid">
+        update my_order set orderdesc=#{arg1}
+        where id=#{arg0}
+    </update>
+
+    <!-- 基础更新数据,根据if 判断 是否添加 -->
+    <update id="updateMany" parameterType="com.mybatistest.demo.entity.MyOrder">
+        update my_order
+        <set>
+            <if test="ordername != null">ordername=#{ordername},</if>
+            <if test="orderdesc != null">orderdesc=#{orderdesc},</if>
+            <if test="active != null">active=#{active},</if>
+            <if test="status != null">status=#{status}</if>
+            <if test="price != null">price=#{price}</if>
+            <if test="createuser != null">createuser=#{createuser}</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from my_order
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
 </mapper>

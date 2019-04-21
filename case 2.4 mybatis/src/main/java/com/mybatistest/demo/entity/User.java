@@ -19,6 +19,8 @@ public class User implements Serializable {
 
     private Boolean isactive;
 
+    private String remarks;
+
     private static final long serialVersionUID = 1L;
 
 
