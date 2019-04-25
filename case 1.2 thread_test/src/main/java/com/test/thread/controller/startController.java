@@ -35,6 +35,9 @@ public class startController {
             case "1":
                 simpleThread.startOneThread();
                 break;
+            case "2":
+                simpleThread.stopThread();
+                break;
             default:
                 break;
         }
