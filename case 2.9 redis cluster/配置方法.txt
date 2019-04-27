@@ -1,0 +1,74 @@
+参考自 ：http://dl.bintray.com/oneclick/rubyinstaller 
+（以下为关键命令，便于直接配置）
+
+1  安装服务 （注意每个配置文件的对应 ，尤其是文件夹 ，文件名）
+D:/JavaPlugin/redis/redis-server.exe --service-install D:/JavaPlugin/redis/redis-cluster-conf/7001/redis.conf --service-name redis7001
+D:/JavaPlugin/redis/redis-server.exe --service-install D:/JavaPlugin/redis/redis-cluster-conf/7002/redis.conf --service-name redis7002
+D:/JavaPlugin/redis/redis-server.exe --service-install D:/JavaPlugin/redis/redis-cluster-conf/7003/redis.conf --service-name redis7003
+
+2  配置集群
+D:/JavaPlugin/redis/redis-server.exe --service-start --service-name redis7001
+D:/JavaPlugin/redis/redis-server.exe --service-start --service-name redis7002
+D:/JavaPlugin/redis/redis-server.exe --service-start --service-name redis7003
+
+## 出现错误 
+# Redis安装系统服务1073错误 ：先卸载服务 ，再安装
+redis-server --service-uninstall
+
+# windows 卸载服务方法 
+sc delete 服务名
+
+3 查看版本
+redis-server -v 
+
+# 安装 ruby
+下载 　
+http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.3.3-x64.exe
+安装
+gem install --local m  D:\JavaPlugin\redis\Ruby23-x64\redis-3.2.2.gem
+准备 ruby 脚本（   打开该链接如果没有下载，而是打开一个页面，那么将该页面保存为redis-trib.rb）
+https://raw.githubusercontent.com/MSOpenTech/redis/3.0/src/redis-trib.rb
+
+
+# 创建集群
+redis-trib.rb create --replicas 0 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 
+
+创建成功打印
+D:\JavaPlugin\redis>redis-trib.rb create --replicas 0 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003
+'''xml
+>>> Creating cluster
+Connecting to node 127.0.0.1:7001: OK
+Connecting to node 127.0.0.1:7002: OK
+Connecting to node 127.0.0.1:7003: OK
+>>> Performing hash slots allocation on 3 nodes...
+Using 3 masters:
+127.0.0.1:7001
+127.0.0.1:7002
+127.0.0.1:7003
+M: a36de4cc11ea7b4e8a7fbfa6ebc2dec3f69f7bf0 127.0.0.1:7001
+   slots:0-5460 (5461 slots) master
+M: 46d1c124a65347b17cba6e33047273cbc9801fb5 127.0.0.1:7002
+   slots:5461-10922 (5462 slots) master
+M: ccf89c738c1bd00a60135dfad7e11d1be3c353ac 127.0.0.1:7003
+   slots:10923-16383 (5461 slots) master
+Can I set the above configuration? (type 'yes' to accept): yes
+>>> Nodes configuration updated
+>>> Assign a different config epoch to each node
+>>> Sending CLUSTER MEET messages to join the cluster
+Waiting for the cluster to join..
+>>> Performing Cluster Check (using node 127.0.0.1:7001)
+M: a36de4cc11ea7b4e8a7fbfa6ebc2dec3f69f7bf0 127.0.0.1:7001
+   slots:0-5460 (5461 slots) master
+M: 46d1c124a65347b17cba6e33047273cbc9801fb5 127.0.0.1:7002
+   slots:5461-10922 (5462 slots) master
+M: ccf89c738c1bd00a60135dfad7e11d1be3c353ac 127.0.0.1:7003
+   slots:10923-16383 (5461 slots) master
+[OK] All nodes agree about slots configuration.
+>>> Check for open slots...
+>>> Check slots coverage...
+[OK] All 16384 slots covered.
+'''
+
+
+# 测试
+redis-trib.rb check 127.0.0.1:7001
