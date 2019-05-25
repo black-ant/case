@@ -1,0 +1,144 @@
+@charset "utf-8";
+/*css reset-uimaker.com版权所有*/
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td , i{
+	margin:0;
+	padding:0;
+	border:0;
+	font-weight:inherit;
+	font-style:inherit;
+	font-size:100%;
+	font-family:inherit;
+	vertical-align:baseline;
+}
+body {line-height:1.5;}
+table {border-collapse: collapse;border-spacing:0;}
+caption, th, td ,b,strong{text-align:left;font-weight:normal;}
+table, td, th {vertical-align:middle;}	
+blockquote:before, blockquote:after, q:before, q:after {content:"";}
+blockquote, q {quotes:"" "";}
+a img {border:none;}
+em,cite{font-style:normal;}
+
+
+body { background:#fff; font: 13px/1.5 'Microsoft Yahei',Tahoma,'微软雅黑';color:#000;}
+h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;}
+a {text-decoration:none;cursor:pointer;}
+dl, dt, dd, ol, ul, li{ list-style:none;}
+
+/*some common class*/
+.left{float:left;}
+.right{float:right;}
+
+/*clear*/
+.ue-clear:after{content: ".";display:block;height:0;clear:both;visibility:hidden;overflow: hidden;}
+.ue-clear{display:inline-block;}
+*html .ue-clear{height:1%;}
+.ue-clear{display:block;}
+
+a{color:#0080cc;}
+a:hover{color:#267A01;text-decoration:underline;}
+
+.impInfo{color:#fc0000;}
+
+/*choose样式*/
+.choose{float:left;margin-right:15px;white-space:nowrap;}
+.choose .text{float:left;padding-left:20px;*padding-left:16px;white-space:nowrap; vertical-align:text-bottom;}
+.choose input[type=radio],.choose input[type=checkbox]{position:relative;*top:-3px;float:left;margin-right:-16px;}
+
+/*====================================
+  分页信息（表格依赖样式）
+  ===================================*/
+.pagination{font-size:14px;}
+.pagination a {text-decoration: none;}
+.pagination .pxofy{float:left;margin-left: 5px;height:25px;*padding-top:1px;}	
+.pagination a, .pagination span {display: block;float: left;height:32px;line-height:32px;padding:0 10px;font-family:Arial, Helvetica, sans-serif !important;}
+.pagination .current {cursor:default;border: solid 1px ;}
+.pagination .prev, .pagination .next{/*line-height:22px;*/}
+
+/*分页样式*/
+.pagination a,.pagination span{color: #3399cc;border:1px solid #dddddd;border-left:none;}
+.pagination .current{color:#fff;background:#26a3de;border:1px solid #2396cc;}
+.pagination .current.prev, .pagination .current.next{color:#B9B9B9;border-color:#D3D3D3;background:#fff;}
+.pagination .prev{ border-top-left-radius:3px;border-bottom-left-radius:3px;}
+.pagination .next{ border-top-right-radius:3px;border-bottom-right-radius:3px;}
+.pagination a:first-child{ border-left:1px solid #ddd;}
+.pagination .pxofy{color: #023054;}
+
+
+textarea{height:80px; background:none;}
+
+/*button样式*/
+.button{display:inline-block;width:135px; height:35px; background:url(../img/skin_/formbtnbg.png);border:none; border-radius:3px;color:#fff; font-size:16px; cursor:pointer; font-family:'Microsoft Yahei','微软雅黑';}
+
+.button:active{background:url(../img/skin_/formbtnbg.png);border:none; }
+.button.normal{width:133px; height:33px;background:url(../img/skin_/dialogbtn.png);color:#000;border:1px solid #c0c0c0;}
+.button.long2{width:100px;}
+
+/*====================================
+  表单样式
+  ===================================*/
+.kv-item{margin-bottom:10px;font-size:12px;}
+.kv-item label,.kv-item .kv-item-label{position:relative;float:left;padding-left:7px;width:6em;height:26px;line-height:26px;}
+.kv-item label .impInfo,.kv-item .kv-item-label .impInfo{ position:absolute;left:0;}
+.kv-item-content{float:left;}
+.kv-item .input{float:left;width:100%;margin-top:5px;}
+.kv-item .input:first-child{margin-top:0;}
+/*输入框，文本域， 密码输入框样式*/
+.kv-item input[type=text],.kv-item textarea,.kv-item input[type=password],.kv-item input[type=file],.kv-item .file{width:375px;height:26px;border-width:1px;border-style:solid;border-left-color:#c5c5c5;border-top-color:#c5c5c5;border-right-color:#e0e0e0;border-bottom-color:#e0e0e0;*line-height:26px;outline:none; background:url(../img/skin_/inputbg.png);padding:0 10px;}
+.kv-item input[type=text].error-input,.kv-item textarea.error-input,.kv-item input[type=password].error-input{border:1px solid #e60000;background:#fff2f4;}
+.kv-item textarea{height:80px;overflow-y:auto;resize:none; background:none;padding:5px 10px;}
+.kv-item select{width:397px;height:30px;}
+/*表单中的radio框以及checkbox框的样式*/
+.kv-item .choose{position:relative;top:6px;float:left;margin-right:15px;white-space:nowrap;}
+.kv-item .choose .text{float:left;padding-left:5px;*padding-left:5px;white-space:nowrap;}
+.kv-item .choose input[type=radio],.kv-item .choose input[type=checkbox]{position:relative;*position:static;float:left;margin-right:-16px;}
+/*下拉框样式*/
+.iselect-wrapper{position:relative;width:370px;height:28px;padding:0 20px 0 5px;line-height:28px;border-width:1px;border-style:solid;border-left-color:#c5c5c5;border-top-color:#c5c5c5;border-right-color:#e0e0e0;border-bottom-color:#e0e0e0;background:url(../img/skin_/select_normal.png) no-repeat right center #fff;}
+.iselect-wrapper:hover{background:url(../img/skin_/select_hover.png) no-repeat right center #fff;}
+.iselect-wrapper .iselect{position:absolute;top:-2px;*top:3px;left:-1px;opacity:0;filter:alpha(opacity=0);outline:0 none;z-index:2;}
+/*一段区域数值输入（比如时间段，数字段等）*/
+.kv-item.interval input[type=text],.kv-item .interval input[type=text]{float:left;width:100px;}
+.kv-item .division{float:left;margin:0 5px;color:#666;}
+/*表单中的提示信息*/
+.kv-item-tip{float:left;margin-left:20px;color:#a5a5a5;height:30px;line-height:30px;}
+.kv-item-tip .tipText{margin-top:1px;}
+.kv-item-tip.error{color:#fc0000;}
+.kv-item-tip.success{color:#5cb85c;}
+.kv-item-tip.warn{color:#f0ad4e;}
+/*.kv-item-tip{margin-left:397px;*margin-left:0;}*/
+.kv-item-tip .ue-icon{margin:2px 8px 0 5px;*margin-left:2px;}
+.kv-item-tip .ue-state-highlight .tipText{color:#FAAB00;}   
+
+.kv-item .file{position:relative;line-height:30px;}
+.kv-item .file input[type=file]{position:absolute;right:0px;z-index:1;width:72px;height:35px; opacity:0;filter:alpha(opacity=0);cursor:pointer;}
+.kv-item .file input[type=button]{position:absolute;right:0;top:0;width:72px;z-index:0;height:26px;border-top:none;border-bottom:none;border-radius:0;border-right:none; font-family:'Microsoft Yahei','微软雅黑';font-size:14px;}
+
+.color5{color:#a9a9a9;}
+
+/*radio样式*/
+.checkboxouter {float:left;position:relative; margin:0 auto; width:16px; height:16px; background:url(../img/skin_/radio.png);}
+.checkboxouter input[type="radio"] {opacity: 0;filter:alpha(opacity=0);background:red; position: absolute; cursor: pointer; z-index: 1; height: 100%; width: 100%; left: 0;  top: 0;}
+.checkboxouter .radio{position:absolute;left:0;top:0;height:16px; width: 16px;background:none;}
+.checkboxouter input[type="radio"]:checked ~.radio {background:url(../img/skin_/radiochecked.png)}
+.checkboxouter input[type="radio"].checked ~.radio {background:url(../img/skin_/radiochecked.png)}
+
+/*千里之外*/
+.outwindow{position:fixed;left:-10000px;top:-10000px;}
+
+/*小图标*/
+.time-icon{float:left;width:16px;height:16px; background:url(../img/skin_/date.png);}
+
+/*下拉面板样式*/
+.opt-panel{position:absolute;padding:10px 10px 15px 10px; z-index:111;}
+.opt-panel ul{background:#fff;}
+.opt-panel .opt-panel-tl{position:absolute;left:0;top:0;width:10px;height:10px; background:url(../img/skin_/opt/tleft.png);}
+.opt-panel .opt-panel-tc{position:absolute;left:10px;right:10px;top:0;height:10px; background:url(../img/skin_/opt/tcenter.png);}
+.opt-panel .opt-panel-tr{position:absolute;right:0;top:0;width:10px;height:10px; background:url(../img/skin_/opt/tright.png);}
+
+.opt-panel .opt-panel-ml{position:absolute;left:0;top:10px;bottom:15px;width:10px;background:url(../img/skin_/opt/cleft.png);}
+.opt-panel .opt-panel-mr{position:absolute;right:0;top:10px;bottom:15px;width:10px; background:url(../img/skin_/opt/cright.png);}
+
+.opt-panel .opt-panel-bl{position:absolute;left:0;bottom:0;width:10px;height:15px; background:url(../img/skin_/opt/dleft.png)}
+.opt-panel .opt-panel-bc{position:absolute;left:10px;right:10px;bottom:0;height:15px; background:url(../img/skin_/opt/dcenter.png);}
+.opt-panel .opt-panel-br{position:absolute;right:0;bottom:0;width:10px;height:15px; background:url(../img/skin_/opt/dright.png);}
+.opt-panel .opt-panel-arrow{position:absolute;width:14px;;height:7px;top:-5px;left:30px; background:url(../img/skin_/opt/xljt.png);}

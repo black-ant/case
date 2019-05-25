@@ -42,7 +42,7 @@
         <dependency>
             <groupId>net.tirasa.connid.bundles</groupId>
             <artifactId>net.tirasa.connid.bundles.ldap</artifactId>
-            <version>${connid.ldap.version}</version>
+            <version>1.4.1</version>
         </dependency>
         <dependency>
             <groupId>net.tirasa</groupId>

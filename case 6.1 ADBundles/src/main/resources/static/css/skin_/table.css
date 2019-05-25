@@ -1,0 +1,42 @@
+html{*overflow:auto;}
+#main{margin:15px 10px 0 15px;}
+
+/*搜索区域*/
+.search-box{margin-bottom:15px;}
+.search-box .search-area,.search-box .search-button{ float:left;}
+.search-box .iselect-wrapper{width:100px;}
+.search-box .iselect-wrapper .iselect{width:127px;}
+
+/*自定义区域样式*/
+.define-input{display:none;float:left;}
+.define-input input[type=text]{width:80px;}
+
+/*表格操作区域*/
+.table{}
+.table .opt{margin-bottom:10px;height:40px;border:1px solid #cfcfcf; background:url(../../img/skin_/toolbarbg.png);padding-left:10px;}
+.table .opt .optarea a{float:left;margin:12px 20px 0 0;color:#000;}
+.table .opt .optarea a:hover{ text-decoration:none;}
+.table .opt .optarea a i{float:left;margin-right:3px;*margin-top:1px;width:16px;height:16px;}
+
+.table .opt .optarea a.add i{ background:url(../../img/skin_/ico01_1.png);}
+.table .opt .optarea a.add:hover i{ background:url(../../img/skin_/ico01.png);}
+
+.table .opt .optarea a.delete i{ background:url(../../img/skin_/ico02_1.png);}
+.table .opt .optarea a.delete:hover i{ background:url(../../img/skin_/ico02.png);}
+
+.table .opt .optarea a.statistics i{ background:url(../../img/skin_/ico03_1.png);}
+.table .opt .optarea a.statistics:hover i{ background:url(../../img/skin_/ico03.png);}
+
+.table .opt .optarea a.config i{ background:url(../../img/skin_/ico04_1.png);}
+.table .opt .optarea a.config:hover i{ background:url(../../img/skin_/ico04.png);}
+
+.table .opt .sortarea{float:right;margin-right:10px;line-height:40px;}
+.table .opt .sortarea .sort {margin-right:15px;}
+.table .opt .sortarea .sort .icon{*position:relative;*top:-4px;margin-right:3px;display:inline-block;width:10px;height:9px; background:url(../../img/skin_/px.png);}
+.table .opt .sortarea .sort .text{color:#38a3d5;}
+.table .opt .sortarea .list,.opt .sortarea .card{position:relative;top:2px;*top:-2px;display:inline-block;width:15px;height:13px; cursor:pointer;margin-right:10px;} 
+.table .opt .sortarea .list{ background:url(../../img/skin_/icon1.png);}
+.table .opt .sortarea .card{ background:url(../../img/skin_/icon2.png);}
+
+.table .grid{margin-bottom:10px;}
+
