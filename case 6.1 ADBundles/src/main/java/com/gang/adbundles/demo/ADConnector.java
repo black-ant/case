@@ -1,35 +1,23 @@
 package com.gang.adbundles.demo;
 
-import com.gang.adbundles.demo.config.ADConfigurationImpl;
-import net.tirasa.adsddl.ntsd.controls.SDFlagsControl;
-import net.tirasa.connid.bundles.ad.ADConfiguration;
-import net.tirasa.connid.bundles.ad.ADConnection;
-import net.tirasa.connid.bundles.ad.ADConnector;
-import net.tirasa.connid.bundles.ad.authentication.ADAuthenticate;
-import net.tirasa.connid.bundles.ad.crud.ADCreate;
-import net.tirasa.connid.bundles.ad.crud.ADDelete;
-import net.tirasa.connid.bundles.ad.crud.ADUpdate;
-import net.tirasa.connid.bundles.ad.search.ADSearch;
-import net.tirasa.connid.bundles.ad.sync.ADSyncStrategy;
+import com.gang.adbundles.demo.authentication.ADAuthenticate;
+import com.gang.adbundles.demo.config.ADConfiguration;
+import com.gang.adbundles.demo.crud.ADCreate;
+import com.gang.adbundles.demo.crud.ADDelete;
+import com.gang.adbundles.demo.crud.ADUpdate;
+import com.gang.adbundles.demo.search.ADSearch;
+import com.gang.adbundles.demo.sync.ADSyncStrategy;
+import net.tirasa.connid.bundles.ldap.LdapConfiguration;
+import net.tirasa.connid.bundles.ldap.LdapConnector;
 import net.tirasa.connid.bundles.ldap.commons.LdapConstants;
 import net.tirasa.connid.bundles.ldap.search.LdapFilter;
 import org.identityconnectors.common.security.GuardedString;
-import org.identityconnectors.framework.common.exceptions.ConnectorException;
 import org.identityconnectors.framework.common.objects.*;
+import org.identityconnectors.framework.spi.Configuration;
 import org.identityconnectors.framework.spi.ConnectorClass;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.context.annotation.ApplicationScope;
 
-import javax.naming.NamingException;
-import javax.naming.directory.Attributes;
-import javax.naming.ldap.Control;
-import javax.naming.ldap.LdapContext;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.*;
 
 /**
  * @author 10169
@@ -39,9 +27,36 @@ import java.util.Set;
  **/
 
 @ConnectorClass(configurationClass = ADConfiguration.class, displayNameKey = "ADConnector")
-@Service
-@ApplicationScope
-public class ADConnectorImpl extends ADConnector {
+public class ADConnector extends LdapConnector {
+
+    public static final String OBJECTGUID = "objectGUID";
+
+    public static final String OBJECTSID = "objectSID";
+
+    public static final String PRIMARYGROUPID = "primaryGroupID";
+
+    public static final String MEMBEROF = "memberOf";
+
+    public static final String UACCONTROL_ATTR = "userAccountControl";
+
+    public static final String SDDL_ATTR = "ntSecurityDescriptor";
+
+    // These attributes have to be removed for ADDS 2012
+    public final static List<String> ADDS2012_ATTRIBUTES_TO_BE_REMOVED = Arrays.asList(
+            "msds-memberOfTransitive", "msDS-parentdistname", "msds-memberTransitive");
+
+    //some useful constants from lmaccess.h
+    public static final int UF_ACCOUNTDISABLE = 0x0002;
+
+    public static final int UF_PASSWD_NOTREQD = 0x0020;
+
+    public static final int UF_PASSWD_CANT_CHANGE = 0x0040;
+
+    public static final int UF_NORMAL_ACCOUNT = 0x0200;
+
+    public static final int UF_DONT_EXPIRE_PASSWD = 0x10000;
+
+    public static final int UF_PASSWORD_EXPIRED = 0x800000;
 
     /**
      * 配置类
@@ -58,8 +73,27 @@ public class ADConnectorImpl extends ADConnector {
      */
     private transient ADConnection conn;
 
-    public void start(){
-        ADConfigurationImpl.init();
+    @Override
+    public Configuration getConfiguration() {
+        return config;
+    }
+
+    @Override
+    public void init(final Configuration cfg) {
+
+        config = (ADConfiguration) cfg;
+
+        // TODO: easier and more efficient if conn was protected in superclass
+        conn = new ADConnection(config);
+
+        syncStrategy = new ADSyncStrategy(conn);
+        super.init(cfg);
+    }
+
+    @Override
+    public void dispose() {
+        conn.close();
+        super.dispose();
     }
 
     @Override
@@ -69,6 +103,18 @@ public class ADConnectorImpl extends ADConnector {
             final ResultsHandler handler,
             final OperationOptions options) {
         new ADSearch(conn, oclass, query, handler, options).executeADQuery(handler);
+    }
+
+    @Override
+    public SyncToken getLatestSyncToken(final ObjectClass oclass) {
+        return syncStrategy.getLatestSyncToken();
+    }
+
+    @Override
+    public void sync(final ObjectClass oclass, final SyncToken token,
+                     final SyncResultsHandler handler, final OperationOptions options) {
+
+        syncStrategy.sync(token, handler, options, oclass);
     }
 
     @Override
@@ -189,5 +235,4 @@ public class ADConnectorImpl extends ADConnector {
     public void checkAlive() {
         conn.checkAlive();
     }
-
 }
