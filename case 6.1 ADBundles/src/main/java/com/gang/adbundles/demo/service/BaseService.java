@@ -1,9 +1,8 @@
 package com.gang.adbundles.demo.service;
 
-import com.gang.adbundles.demo.ADConnectorImpl;
-import com.gang.adbundles.demo.config.AbstractADContext;
+import com.gang.adbundles.demo.ADConnector;
+import com.gang.adbundles.demo.AbstractADContext;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author 10169
@@ -14,8 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Data
 public abstract class BaseService extends AbstractADContext {
 
-    @Autowired
-    private ADConnectorImpl adConnector;
-
+//    private ADConnector adConnector;
+    public void start(){
+        AbstractADContext.init();
+    }
 
 }

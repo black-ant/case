@@ -38,7 +38,7 @@ public class TrustAllSocketFactory extends SSLSocketFactory {
 
             ctx.init(
                     null,
-                    new TrustManager[]{new net.tirasa.connid.bundles.ad.util.TrustAllTrustManager()},
+                    new TrustManager[]{new TrustAllTrustManager()},
                     new SecureRandom());
 
             socketFactory = ctx.getSocketFactory();

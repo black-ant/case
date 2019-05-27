@@ -1,30 +1,19 @@
-package com.gang.adbundles.demo.config;
+package com.gang.adbundles.demo;
 
-import net.tirasa.connid.bundles.ad.ADConfiguration;
-import net.tirasa.connid.bundles.ad.ADConnector;
-import net.tirasa.connid.bundles.ad.search.ADDefaultSearchStrategy;
-import net.tirasa.connid.bundles.ad.util.ADUtilities;
-import net.tirasa.connid.bundles.ldap.LdapConfiguration;
-import net.tirasa.connid.bundles.ldap.commons.LdapConstants;
-import net.tirasa.connid.bundles.ldap.commons.ObjectClassMappingConfig;
-import net.tirasa.connid.bundles.ldap.search.DefaultSearchStrategy;
-import org.identityconnectors.common.CollectionUtil;
-import org.identityconnectors.common.StringUtil;
+
+import com.gang.adbundles.demo.config.ADConfiguration;
+import jdk.nashorn.internal.runtime.URIUtils;
 import org.identityconnectors.common.security.GuardedString;
-import org.identityconnectors.framework.api.APIConfiguration;
-import org.identityconnectors.framework.api.ConnectorFacade;
-import org.identityconnectors.framework.api.ConnectorFacadeFactory;
+import org.identityconnectors.framework.api.*;
 import org.identityconnectors.framework.common.exceptions.ConnectorException;
-import org.identityconnectors.framework.common.objects.ObjectClass;
+import org.identityconnectors.framework.impl.api.local.LocalConnectorInfoManagerImpl;
 import org.identityconnectors.framework.spi.Configuration;
-import org.identityconnectors.framework.spi.ConfigurationProperty;
 import org.identityconnectors.framework.spi.Connector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import javax.validation.constraints.AssertFalse;
 import java.io.IOException;
 import java.util.*;
 
@@ -62,22 +51,26 @@ public abstract class AbstractADContext {
 
         conf = getSimpleConf(PROP);
 
-        Assert.isNull(conf, "conf is null");
+//        Assert.isNull(conf, "conf is null");
         conf.validate();
 
         final ConnectorFacadeFactory factory = ConnectorFacadeFactory.getInstance();
 
-        final APIConfiguration impl = createTestConfiguration(ADConnector.class, conf);
-        impl.getResultsHandlerConfiguration().setFilteredResultsHandlerInValidationMode(true);
+        ConnectorInfo info = LocalConnectorInfoManagerImpl.find getConnectorInfo(instance).getRight();
 
-        connector = factory.newInstance(impl);
+        // create default configuration
+        APIConfiguration apiConfig = info.createDefaultAPIConfiguration();
 
-        Assert.isNull(connector, "connector is null");
+        apiConfig.getResultsHandlerConfiguration().setFilteredResultsHandlerInValidationMode(true);
+
+        connector = factory.newInstance(apiConfig);
+
+//        Assert.isNull(connector, "connector is null");
         connector.test();
     }
 
-    public static APIConfiguration createTestConfiguration(Class<? extends Connector> clazz, Configuration config) {
-        return getSpi().createTestConfiguration(clazz, config);
+    public static APIConfiguration createConfiguration(Class<? extends Connector> clazz, Configuration config) {
+        return getSpi().createConfiguration(clazz, config);
     }
 
     private static synchronized AbstractADContext getSpi() {
@@ -105,24 +98,24 @@ public abstract class AbstractADContext {
 
         configuration.setDefaultPeopleContainer(/* "CN=Users," + */ BASE_CONTEXT);
         configuration.setDefaultGroupContainer(/* "CN=Users," + */ BASE_CONTEXT);
-        configuration.setDefaultOrganizationContainer(BASE_CONTEXT);
+//        configuration.setDefaultOrganizationContainer(BASE_CONTEXT);
         configuration.setBaseContexts(prop.getProperty("baseContextToSynchronize"));
         configuration.setObjectClassesToSynchronize("user");
 
         configuration.setHost(prop.getProperty("host"));
         configuration.setPort(Integer.parseInt(prop.getProperty("port")));
-        configuration.setServerNumber(1);
-        configuration.setGeneralServerCount(6);
+//        configuration.setServerNumber(1);
+//        configuration.setGeneralServerCount(6);
         configuration.setAccountObjectClasses("top", "person", "organizationalPerson", "user");
 
-        configuration.setIsvip(true);
-        configuration.setVipServerCount(2);
+//        configuration.setIsvip(true);
+//        configuration.setVipServerCount(2);
 
-        configuration.setExchangeuser(prop.getProperty("exuser"));
-        configuration.setExchangepassword(new GuardedString(prop.getProperty("excredentials").toCharArray()));
-        configuration.setExchangeport(Integer.parseInt(prop.getProperty("export")));
+//        configuration.setExchangeuser(prop.getProperty("exuser"));
+//        configuration.setExchangepassword(new GuardedString(prop.getProperty("excredentials").toCharArray()));
+//        configuration.setExchangeport(Integer.parseInt(prop.getProperty("export")));
         // 这个就是 host ,详见 ADExcgangeConnector (疲敝该项可间接避免创建 exconn 连接)
-        configuration.setExchangeserip(prop.getProperty("exhost"));
+//        configuration.setExchangeserip(prop.getProperty("exhost"));
 
         // 前缀属性RDN --> 属性中默认设置了
 //		configuration.setPrefixProperties("__ACCOUNT__:CN", "__GROUP__:OU", "__ORGANIZATION__:OU");
@@ -154,13 +147,13 @@ public abstract class AbstractADContext {
         // configuration.setDefaultOrganizationContainer(prop.getProperty("defaultOrganizationContainer"));
         // assertFalse(configuration.getMemberships() == null ||
         // configuration.getMemberships().length == 0);
-        configuration.setUidAttribute(prop.getProperty("UidAttribute", OBJECTGUID));
-        configuration.setGidAttribute(prop.getProperty("GidAttribute", OBJECTGUID));
-        configuration.setOidAttribute(prop.getProperty("OidAttribute", OBJECTGUID));
-        configuration.setOrganiztionBaseContexts(prop.getProperty("organiztionBaseContexts", BASE_CONTEXT));
+//        configuration.setUidAttribute(prop.getProperty("UidAttribute", OBJECTGUID));
+//        configuration.setGidAttribute(prop.getProperty("GidAttribute", OBJECTGUID));
+//        configuration.setOidAttribute(prop.getProperty("OidAttribute", OBJECTGUID));
+//        configuration.setOrganiztionBaseContexts(prop.getProperty("organiztionBaseContexts", BASE_CONTEXT));
         configuration.setUserBaseContexts(prop.getProperty("organiztionBaseContexts", BASE_CONTEXT));
         configuration.setGroupBaseContexts(prop.getProperty("groupBaseContexts", BASE_CONTEXT));
-        configuration.setOrganiztionBaseContexts(prop.getProperty("organiztionBaseContexts", BASE_CONTEXT));
+//        configuration.setOrganiztionBaseContexts(prop.getProperty("organiztionBaseContexts", BASE_CONTEXT));
         return configuration;
     }
 

@@ -17,9 +17,14 @@ public class AccountController {
     @Autowired
     ADService adService;
 
-    @GetMapping("isalive")
-    public void testADConnection(){
-        adService.isAlive();
+//    @GetMapping("isalive")
+//    public void testADConnection(){
+//        adService.isAlive();
+//    }
+
+    @GetMapping
+    public void setConfiguration(){
+
     }
 
 

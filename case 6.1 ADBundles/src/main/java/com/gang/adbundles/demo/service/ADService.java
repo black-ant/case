@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ADService extends BaseService {
 
-    public void isAlive() {
-        getAdConnector().checkAlive();
-    }
+
+
+//    public void isAlive() {
+//        getAdConnector().checkAlive();
+//    }
 }
