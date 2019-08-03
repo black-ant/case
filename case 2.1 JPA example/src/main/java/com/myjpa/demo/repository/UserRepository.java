@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Date 2019/4/28 21:59
  * @Version 1.0
  **/
-public interface UserRepository extends JpaRepository<UserEntity,Integer> {
+public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 }

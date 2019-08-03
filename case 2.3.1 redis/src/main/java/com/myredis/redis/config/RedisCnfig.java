@@ -26,8 +26,9 @@ public class RedisCnfig {
      * retemplate相关配置
      * RedisConnection 接收发送和返回二进制值的底层方法
      * template : 复杂对其序列化 和 连接管路
-     *
+     * <p>
      * 序列化程序包,其中提供了常见的实现 -> org.springframework.data.redis.serializer
+     *
      * @param factory
      * @return
      */
