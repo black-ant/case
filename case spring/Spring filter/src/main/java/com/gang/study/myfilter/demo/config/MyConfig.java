@@ -23,7 +23,7 @@ public class MyConfig {
         return new FilterRegistrationBean(new MyFilter());
     }
 
-    
+
 //    @Bean
 //    public ServletListenerRegistrationBean<MyListener> getListener() {
 //        return new ServletListenerRegistrationBean<>(new MyListener());
