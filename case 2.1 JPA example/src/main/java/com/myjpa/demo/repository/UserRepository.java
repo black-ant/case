@@ -2,6 +2,10 @@ package com.myjpa.demo.repository;
 
 import com.myjpa.demo.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 /**
  * @author 10169
@@ -10,4 +14,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Version 1.0
  **/
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+
+
+    @Query("select c from UserEntity c where username = :username")
+    List<UserEntity> getByUserName(@Param("username") String username);
+
+    @Query("select u from UserEntity u ,OrgEntity o where  u.orgid = o.id")
+    List<UserEntity> getUserHaveOrg();
+
 }
