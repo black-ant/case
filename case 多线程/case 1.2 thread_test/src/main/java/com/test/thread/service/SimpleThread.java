@@ -23,13 +23,13 @@ public class SimpleThread {
         logger.info("start 线程是否存活：{}", thread1.isAlive());
 
         thread1.start();
-        new Thread(thread1,"out1").start();
-        new Thread(thread1,"out2").start();
+        new Thread(thread1, "out1").start();
+        new Thread(thread1, "out2").start();
         logger.info("end  线程是否存活：{}", thread1.isAlive());
     }
 
     public void stopThread() {
         ThreadStop thread1 = new ThreadStop();
-        new Thread(thread1,"stop1").start();
+        new Thread(thread1, "stop1").start();
     }
 }

@@ -17,7 +17,7 @@ public class ThreadOne extends Thread {
     @Override
     public void run() {
         Long time = System.currentTimeMillis();
-        logger.info("线程 {} 开始运行，唯一ID ：{} ,开始时间：{}", Thread.currentThread().getName(),this.getId(),time);
+        logger.info("线程 {} 开始运行，唯一ID ：{} ,开始时间：{}", Thread.currentThread().getName(), this.getId(), time);
         logger.info("---------------------");
         try {
             this.sleep(2000);
@@ -26,6 +26,6 @@ public class ThreadOne extends Thread {
         }
         logger.info("run  线程 {} 是否存活：status:{}", Thread.currentThread().getName(), this.isAlive());
 //        logger.info("当前线程信息:{}", JSONObject.toJSONString(Thread.currentThread()));
-        logger.info("线程 -{} 运行结束,运行时间：{}", Thread.currentThread().getName(),System.currentTimeMillis() - time);
+        logger.info("线程 -{} 运行结束,运行时间：{}", Thread.currentThread().getName(), System.currentTimeMillis() - time);
     }
 }

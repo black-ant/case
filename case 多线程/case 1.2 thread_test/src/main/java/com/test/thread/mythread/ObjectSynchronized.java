@@ -13,7 +13,7 @@ public class ObjectSynchronized {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public void test(){
+    public void test() {
 
     }
 }
