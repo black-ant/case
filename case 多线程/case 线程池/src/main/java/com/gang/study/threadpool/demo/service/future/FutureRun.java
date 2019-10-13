@@ -18,7 +18,6 @@ public class FutureRun {
         } catch (InterruptedException e) {
 
         }
-        System.out.println("数据处理完成：" + future.get());
 
     }
 }

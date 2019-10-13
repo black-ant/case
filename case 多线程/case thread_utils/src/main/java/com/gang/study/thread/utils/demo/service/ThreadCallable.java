@@ -12,7 +12,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.FutureTask;
 
-@Service
+//@Service
 public class ThreadCallable implements ApplicationRunner {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());

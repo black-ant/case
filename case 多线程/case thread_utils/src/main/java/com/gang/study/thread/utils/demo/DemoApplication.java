@@ -1,9 +1,6 @@
 package com.gang.study.thread.utils.demo;
 
-import com.gang.study.thread.utils.demo.service.JUCCountDownLatchUtils;
-import com.gang.study.thread.utils.demo.service.JUCCyclicBarrierUtils;
-import com.gang.study.thread.utils.demo.service.ThreadCallable;
-import com.gang.study.thread.utils.demo.service.ThreadParamShard;
+import com.gang.study.thread.utils.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,8 +17,11 @@ public class DemoApplication {
 //    @Autowired
 //    private ThreadCallable threadCallable;
 
+//    @Autowired
+//    private ThreadParamShard threadParamShard;
+
     @Autowired
-    private ThreadParamShard threadParamShard;
+    private ThreadExceptionCatch threadExceptionCatch;
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
