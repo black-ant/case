@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="975434fe-4164-4993-9397-87cae4b08dc8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../case 1.7 easyrest/src/main/java/com/gamg/easyrest/demo/config/JaxrsApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../case 7.4 xxl-job/src/main/java/com/gang/xxljob/demo/config/JobConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../case 7.4 xxl-job/src/main/java/com/gang/xxljob/demo/controller/StartController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../case 7.4 xxl-job/src/main/java/com/gang/xxljob/demo/service/DemoHandleService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../case 7.4 xxl-job/src/main/resources/templates/test.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../case 7.4 xxl-job/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../case 7.4 xxl-job/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../case 7.4 xxl-job/src/test/java/com/gang/xxljob/demo/DemoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../case 7.4 xxl-job/src/test/java/com/gang/xxljob/demo/DemoApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../case Java Other/case Java IO/src/main/java/com/gang/study/io/demo/model/Properties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../case Java Other/case Java IO/src/main/java/com/gang/study/io/demo/model/SerializableModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../case Java Other/case Java IO/src/main/java/com/gang/study/io/demo/service/SerializableService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../case 7.4 xxl-job/demo.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../case Java Other/case Java IO/doc/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../case Java Other/case Java IO/doc/test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../case Java Other/case Java IO/src/main/java/com/gang/study/io/demo/service/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../case Java Other/case Java IO/src/main/java/com/gang/study/io/demo/service/FileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../case Java Other/case Java IO/src/main/java/com/gang/study/io/demo/service/InputOutputService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../case Java Other/case Java IO/src/main/java/com/gang/study/io/demo/service/InputOutputService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../case Java Other/case Java IO/src/main/java/com/gang/study/io/demo/service/ReadWriteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../case Java Other/case Java IO/src/main/java/com/gang/study/io/demo/service/ReadWriteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../case Java Other/case Java IO/src/main/java/com/gang/study/io/demo/service/StartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../case Java Other/case Java IO/src/main/java/com/gang/study/io/demo/service/StartService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -36,19 +38,87 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="case 2.8 kafka" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="D:\java\workspace\git\case\case 2.8 kafka" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="case 2.8 kafka" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="D:\java\workspace\git\case\case 2.8 kafka" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="kafkastep1" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="case 2.8 kafka" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="D:\java\workspace\git\case\case 2.8 kafka" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="kafkastep1" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="case 2.8 kafka" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="D:\java\workspace\git\case\case 2.8 kafka" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="kafkastep1" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="case 2.8 kafka" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="D:\java\workspace\git\case\case 2.8 kafka" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="kafkastep1" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="case 2.8 kafka" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="D:\java\workspace\git\case\case 2.8 kafka" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="kafkastep1" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="case 2.8 kafka" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="D:\java\workspace\git\case\case 2.8 kafka" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="kafkastep1" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="gang" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="case 2.8 kafka" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="D:\java\workspace\git\case\case 2.8 kafka" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="kafkastep1" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="test" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="case 2.8 kafka" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="D:\java\workspace\git\case\case 2.8 kafka" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="kafkastep1" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="target" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="D:/sourceCode/test_project/GMsg" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/kafkastep1" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -85,16 +155,17 @@
       <updated>1563020560675</updated>
       <workItem from="1563020564174" duration="52000" />
       <workItem from="1564019053287" duration="609000" />
+      <workItem from="1571122071521" duration="69000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="661000" />
+    <option name="totallyTimeSpent" value="730000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2533512" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />

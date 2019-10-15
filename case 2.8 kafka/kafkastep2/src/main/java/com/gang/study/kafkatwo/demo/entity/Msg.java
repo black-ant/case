@@ -1,4 +1,4 @@
-package com.mykafka.demo.entity;
+package com.gang.study.kafkatwo.demo.entity;
 
 import lombok.Data;
 

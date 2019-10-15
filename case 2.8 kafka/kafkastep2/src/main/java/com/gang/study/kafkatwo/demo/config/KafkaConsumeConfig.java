@@ -1,4 +1,4 @@
-package com.mykafka.demo.config;
+package com.gang.study.kafkatwo.demo.config;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;

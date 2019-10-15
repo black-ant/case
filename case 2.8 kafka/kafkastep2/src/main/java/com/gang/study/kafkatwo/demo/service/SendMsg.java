@@ -1,4 +1,4 @@
-package com.mykafka.demo.service;
+package com.gang.study.kafkatwo.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

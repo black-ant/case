@@ -1,6 +1,6 @@
-package com.mykafka.demo.controller;
+package com.gang.study.kafkatwo.demo.controller;
 
-import com.mykafka.demo.service.SendMsg;
+import com.gang.study.kafkatwo.demo.service.SendMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class StartController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    SendMsg sendMsg;
+    private SendMsg sendMsg;
 
     @GetMapping("send")
     public void sendMsg(@RequestParam("type") String type, @RequestParam("msg") String msg, @RequestParam("topic") String topic) {
@@ -31,7 +31,39 @@ public class StartController {
             case "2":
                 sendMsg.sendMessageHavaTopic(topic, msg);
                 break;
+            case "3":
+                thread(topic, msg);
+                break;
             default:
+
+        }
+
+    }
+
+    public void thread(String topic, String msg) {
+
+        for (int i = 0; i < 1; i++) {
+            new newThread(topic, msg, String.valueOf(i)).start();
+        }
+    }
+
+    class newThread extends Thread {
+
+        private String topic;
+        private String msg;
+        private String num;
+
+        public newThread(String topic, String msg, String num) {
+            this.topic = topic;
+            this.msg = msg;
+            this.num = num;
+        }
+
+        @Override
+        public void run() {
+            for (int x = 0; x < 100; x++) {
+                sendMsg.sendMessageHavaTopic("all001", x + "--test--" + num);
+            }
 
         }
 

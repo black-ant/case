@@ -20,6 +20,7 @@ public class StartService implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        fileService.run();
+//        fileService.run();
+        inputOutputService.run();
     }
 }

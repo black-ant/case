@@ -1,4 +1,4 @@
-package com.mykafka.demo.config;
+package com.gang.study.kafkatwo.demo.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -20,6 +20,7 @@ import java.util.Map;
  **/
 @Configuration
 public class KafkaProduceConfig {
+
     @Value("${spring.kafka.producer.bootstrap-servers}")
     private String bootstrapServer;
 
