@@ -42,7 +42,7 @@ public class StartController {
 
     public void thread(String topic, String msg) {
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 1000; i++) {
             new newThread(topic, msg, String.valueOf(i)).start();
         }
     }
@@ -61,7 +61,7 @@ public class StartController {
 
         @Override
         public void run() {
-            for (int x = 0; x < 100; x++) {
+            for (int x = 0; x < 300; x++) {
                 sendMsg.sendMessageHavaTopic("all001", x + "--test--" + num);
             }
 
