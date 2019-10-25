@@ -1,18 +1,20 @@
-package com.gang.cxf.demo;
+package com.gang.kafka.exception.kafkaexceptionback;
 
-import com.gang.cxf.demo.service.StartService;
+import com.gang.kafka.exception.kafkaexceptionback.service.StartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.kafka.annotation.EnableKafka;
 
 @SpringBootApplication
-public class DemoApplication {
+//@EnableKafka
+public class KafkaExceptionBackApplication {
 
     @Autowired
     private StartService startService;
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(KafkaExceptionBackApplication.class, args);
     }
 
 }
