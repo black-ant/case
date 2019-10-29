@@ -1,0 +1,23 @@
+resourcePackages:
+- para.cic.msg.common.rest.api
+prettyPrint: true
+cacheTTL: 0
+openAPI:
+  servers:
+  - url: /cic-msg/rest
+  info:
+    version: '1.0'
+    title: cic msg api
+    description: 身份管理
+    termsOfService: http://swagger.io/terms/
+    contact:
+      email: wuj@paraview.cn
+    license:
+      name: para cic
+      url: localhost:8080
+  components:
+    securitySchemes:
+      bearerAuth:            # arbitrary name for the security scheme
+        type: http
+        scheme: bearer
+        bearerFormat: JWT    # optional, arbitrary value for documentation purposes
