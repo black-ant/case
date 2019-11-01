@@ -12,7 +12,7 @@ import java.util.Date;
 @Service
 public class FileService {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static Logger logger = LoggerFactory.getLogger(FileService.class);
 
     public void run() {
         logger.info("------> file is exists :{} <-- -----", checkFileExists("D:\\java\\workspace\\git\\case\\case Java Other\\case Java IO\\doc\\test.txt"));
@@ -129,7 +129,7 @@ public class FileService {
     /**
      * 创建 File 文件
      */
-    public Boolean createFile(File file) {
+    public static Boolean createFile(File file) {
         try {
             return file.createNewFile();
         } catch (IOException e) {
