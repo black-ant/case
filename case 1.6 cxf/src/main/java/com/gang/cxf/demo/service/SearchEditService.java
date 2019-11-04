@@ -45,7 +45,7 @@ public class SearchEditService {
                 continue;
             }
             query.append("(");
-            SearchBean searchBean = searchItem.getCondition();
+            SearchCondition searchBean = searchItem.getCondition();
             switch (searchItem.getConditionType()) {
                 case AND:
                     query.append(searchItem.getCondition());

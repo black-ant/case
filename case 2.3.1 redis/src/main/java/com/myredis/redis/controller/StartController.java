@@ -14,12 +14,18 @@ import org.springframework.web.bind.annotation.*;
  * @Version 1.0
  **/
 @RestController
+@RequestMapping("/")
 public class StartController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     TestService testService;
+
+    @GetMapping("/test")
+    public void test() {
+        logger.info("------> this is in <-------");
+    }
 
     @GetMapping(value = "get")
     public String findOneCity(@RequestParam("id") String id, @RequestParam("type") String type) {
