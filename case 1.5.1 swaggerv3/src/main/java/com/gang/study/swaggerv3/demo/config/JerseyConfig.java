@@ -1,5 +1,7 @@
-package com.gang.study.swaggerv3.demo;
+package com.gang.study.swaggerv3.demo.config;
 
+import com.gang.study.swaggerv3.demo.controller.TestController;
+import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +14,12 @@ import javax.ws.rs.ApplicationPath;
  * @Created by zengzg
  */
 @Component
-@ApplicationPath("/rest/demo")
+@ApplicationPath("/sample")
 public class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig() {
+        register(TestController.class);
+        register(OpenApiResource.class);
     }
 
 }
