@@ -15,6 +15,8 @@ import org.identityconnectors.framework.common.objects.ObjectClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -28,7 +30,7 @@ import java.util.Set;
  * @Created by zengzg
  */
 @Component
-public class OrgOp {
+public class OrgOp implements ApplicationRunner {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -43,6 +45,11 @@ public class OrgOp {
     private LdapCreate ldapCreate;
     private LdapUpdate ldapUpdate;
     private LdapDelete ldapDelete;
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        init();
+    }
 
     public void init() {
         ldapConnector = new LdapConnector();
@@ -64,7 +71,6 @@ public class OrgOp {
     }
 
     public void createOrg() {
-        init();
         ldapCreate = new LdapCreate(ldapConnection, ObjectClass.ACCOUNT, getUserInfo(), null);
         try {
             ldapCreate.execute();
@@ -112,4 +118,6 @@ public class OrgOp {
         attrs.add(AttributeBuilder.build("mail", "")); // 测试传入邮箱是否新建
         return attrs;
     }
+
+
 }

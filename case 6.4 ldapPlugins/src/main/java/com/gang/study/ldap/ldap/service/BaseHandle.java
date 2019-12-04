@@ -40,7 +40,7 @@ public class BaseHandle {
         configuration.setUidAttribute("sAMAccountName");
         configuration.setGidAttribute("sAMAccountName");
         // --> 开启 SSL
-        //		configuration.setSsl(true);
+        //        configuration.setSsl(true);
         configuration.setSsl(false);
 
         configuration.setBaseContexts(prop.getProperty("baseContextToSynchronize"));

@@ -1,5 +1,6 @@
 package com.mybatistest.demo.entity;
 
+import com.mybatistest.demo.util.UUIdGenId;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -7,7 +8,8 @@ import java.io.Serializable;
 @Data
 public class User implements Serializable {
 
-    private Integer sn;
+
+    private String sn;
 
     private String username;
 

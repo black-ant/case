@@ -1,25 +1,30 @@
-package com.mybatistest.demo.service;
+package com.gang.study.devtool.devtool.service;
 
-import com.mybatistest.demo.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Service;
 
+/**
+ * @Classname StartService
+ * @Description TODO
+ * @Date 2019/12/3 23:01
+ * @Created by zengzg
+ */
 @Service
 public class StartService implements ApplicationRunner {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private UserMapper userMapper;
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        logger.info("------> 1111 <-------");
-//        userMapper.selectAll();
-        userMapper.insertSelect("11121","gang");
+        logger.info("------> this is in run112 <-------");
+        test();
     }
+
+    public void test() {
+        logger.info("------> test in 111 okokok<-------");
+    }
+
 }
