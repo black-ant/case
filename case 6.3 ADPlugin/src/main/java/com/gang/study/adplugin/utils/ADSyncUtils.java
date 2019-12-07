@@ -1,6 +1,11 @@
 package com.gang.study.adplugin.utils;
 
+import org.identityconnectors.framework.common.objects.Attribute;
+import org.identityconnectors.framework.common.objects.AttributeBuilder;
+
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * @Classname ADUtilities
@@ -25,4 +30,6 @@ public final class ADSyncUtils {
         }
         return cdata;
     }
+
+
 }

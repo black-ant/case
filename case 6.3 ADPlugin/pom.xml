@@ -54,6 +54,13 @@
             <version>5.0.0</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+            <version>2.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>net.tirasa</groupId>
             <artifactId>adsddl</artifactId>
             <version>${adsddl.verson}</version>
@@ -89,6 +96,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
             </plugin>
         </plugins>
     </build>
