@@ -13,16 +13,16 @@
 <!-- sendExample -->
 <!-- step 1 : open it : MyPush.open(); -->
 <!-- step 2 : MyPush.register(build_duri("test001", "D")); -->
-<!-- step 3 : send Msg :  MyPush.send("Dtest001","this is msg", "TRANS","MSG"); -->
+<!-- step 3 : send Msg :  MyPush.send("Dtest001","userid00001","this is msg", "TRANS","MSG"); -->
 <script>
     function build_duri(groupid, type) {
-        var _duri = new PushRegItem(type + groupid, "MSG", function (e) {
+        var _duri = new PushRegItem(type + groupid, "userid00001", "MSG", function (e) {
             console.log("trigger du" + e);
         });
         return _duri;
     }
 
-    MyPush.open();
+    // MyPush.open();
     MyPush.register(build_duri("test001", "D"));
 
 </script>

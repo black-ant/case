@@ -39,16 +39,6 @@
             <version>${connid.version}</version>
         </dependency>
         <dependency>
-            <groupId>para.cic.sync</groupId>
-            <artifactId>para-cic-sync-common-sdk-api</artifactId>
-            <version>5.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>para.cic.sync</groupId>
-            <artifactId>para-cic-sync-sdk-common-lib</artifactId>
-            <version>5.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>net.tirasa.connid.bundles</groupId>
             <artifactId>net.tirasa.connid.bundles.ad</artifactId>
             <version>5.0.0</version>

@@ -12,10 +12,6 @@ import org.identityconnectors.framework.common.objects.ObjectClass;
 import org.identityconnectors.framework.common.objects.Uid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import para.cic.sync.common.api.AbstractUserOutputService;
-import para.cic.sync.common.lib.to.AbstractConfigTO;
-import para.cic.sync.common.lib.to.DeleteInfo;
-import para.cic.sync.common.lib.to.SearchTO;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -28,7 +24,7 @@ import java.util.Set;
  * @Created by zengzg
  */
 @Component
-public class UserOutputImpl extends AbstractUserOutputService<String, String> {
+public class UserOutputImpl {
 
     @Autowired
     private ADConfig adConfig;
@@ -41,13 +37,11 @@ public class UserOutputImpl extends AbstractUserOutputService<String, String> {
 
     ObjectClass objectClass = ObjectClass.ACCOUNT;
 
-    @Override
-    public void init(AbstractConfigTO abstractConfigTO) {
+    public void init() {
         test();
         adCreate = new ADCreate(adConfig.getAdConnection(), objectClass, getInfo(), null);
     }
 
-    @Override
     public String checkAccessToken() {
         return null;
     }
@@ -57,43 +51,20 @@ public class UserOutputImpl extends AbstractUserOutputService<String, String> {
 
 
      */
-    @Override
-    public String create(String s, AbstractConfigTO abstractConfigTO) {
+    public String create(String s) {
         Uid ui = adCreate.create();
         return ui.getUidValue();
     }
 
-    @Override
-    public String update(String s, AbstractConfigTO abstractConfigTO) {
+    public String update(String s) {
         adUpdate = new ADUpdate(adConfig.getAdConnection(), objectClass, new Uid("f084583a-22f3-48d0-a256-49a5e8ea0b4f"));
         return adUpdate.update(getUpdateInfo()).getUidValue();
     }
 
-    @Override
-    public String delete(DeleteInfo deleteInfo, AbstractConfigTO abstractConfigTO) {
+    public String delete(String deleteInfo) {
         adDelete = new ADDelete(adConfig.getAdConnection(), objectClass, new Uid("4b6df591-5a4b-4e5a-9889-c424f1656a87"));
         adDelete.delete();
         return "delete ok";
-    }
-
-    @Override
-    public AbstractConfigTO checkConfig() {
-        return null;
-    }
-
-    @Override
-    public String get(SearchTO searchTO, AbstractConfigTO abstractConfigTO) {
-        return null;
-    }
-
-    @Override
-    public String list(SearchTO searchTO, AbstractConfigTO abstractConfigTO) {
-        return null;
-    }
-
-    @Override
-    public String listChild(SearchTO searchTO, AbstractConfigTO abstractConfigTO) {
-        return null;
     }
 
     public void test() {

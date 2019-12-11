@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 1、变量表达式 -->
+    <!-- "$" 用来标识一个对象(或理解为变量), "!" 用来强制把不存在的变量显示为空白 -->
+    <title>$!title</title>
+</head>
+<body>
+<!-- 2、字符串替换 -->
+<span>Welcome to our application, $!student.name!</span>
+
+<!-- 3、运算符:+ - * / %  逻辑运算符:== && || ! -->
+<!-- "#" 用来标识 Velocity 的脚本语句, 包括
+##    #set、#if 、#else、#end、#foreach、#end、#include("模板文件名")、#parse("模板文件名")、#macro
+    等 -->
+<!-- "{}" 用来明确标识 Velocity 变量 -->
+    #set($isEven=${count} % 2 == 0)
+<span>$!isEven</span>
+
+<!-- 4、条件语句 -->
+<div>
+    #if($!student.name == "zhangsan")
+        <span>User is an student</span>
+    #elseif($!student.name == "lisi")
+        <span>User is a manager</span>
+    #else
+        <span>User is some other thing</span>
+    #end
+</div>
+
+<!-- 5、遍历 -->
+    #foreach($student in $persons)
+    <tr>
+        <td>$!student.id</td>
+        <td>$!student.name</td>
+    </tr>
+    #end
+</body>
+</html>

@@ -34,30 +34,30 @@ class ComGangStudyAdpluginApplicationTests {
     }
 
     public void testOrg() {
-        orgOutput.init(null);
-        //        logger.info("------> this is back :{} <-------", orgOutput.create(null, null));
+        orgOutput.init();
+        logger.info("------> this is back :{} <-------", orgOutput.create(null));
 
-        //        logger.info("------> this is back :{} <-------", orgOutput.update(null, null));
+        //        logger.info("------> this is back :{} <-------", orgOutput.update(null));
 
-        //        orgOutput.delete(null, null);
+        //        orgOutput.delete(null);
     }
 
     public void testGroup() {
-        //        groupOutpul.init(null);
-        //        logger.info("------> this is back :{} <-------", groupOutpul.create(null, null));
+        //        groupOutpul.init();
+        //        logger.info("------> this is back :{} <-------", groupOutpul.create(null));
 
-        //        logger.info("------> this is back :{} <-------", groupOutpul.update(null, null));
+        //        logger.info("------> this is back :{} <-------", groupOutpul.update(null));
 
-        //        groupOutpul.delete(null, null);
+        //        groupOutpul.delete(null);
     }
 
     public void testUser() {
-        //        userOutput.init(null);
-        //        logger.info("------> this is back :{} <-------", userOutput.create(null, null));
+        //        userOutput.init();
+        //        logger.info("------> this is back :{} <-------", userOutput.create(null));
 
-        //        logger.info("------> this is back :{} <-------", userOutput.update(null, null));
+        //        logger.info("------> this is back :{} <-------", userOutput.update(null));
 
-        userOutput.delete(null, null);
+        //        userOutput.delete("");
     }
 
 }

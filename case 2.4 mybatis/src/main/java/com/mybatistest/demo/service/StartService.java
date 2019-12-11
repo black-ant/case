@@ -19,7 +19,7 @@ public class StartService implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         logger.info("------> 1111 <-------");
-//        userMapper.selectAll();
-        userMapper.insertSelect("11121","gang");
+        userMapper.selectAll();
+        //        userMapper.insertSelect("11121","gang");
     }
 }

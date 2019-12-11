@@ -1,7 +1,8 @@
 // 基础用法 :
 //消息注册单位
-function PushRegItem(gid, type, onM, onO, onC, onE, onD) {
+function PushRegItem(gid, sid, type, onM, onO, onC, onE, onD) {
     this.gid = gid; //消息注册单位ID
+    this.sid = sid;
     this.type = type || "MSG"; //MSG_正常消息,DU_数据唯一性检测刷新
     this.onMessage = onM; //来消息时执行
     this.onOpen = onO; //打开连接时执行
@@ -32,9 +33,9 @@ var MyPush = (function () {
             }
         },
         //发送消息
-        //gid=消息组id, content=消息内容,event=事件类型[REG_组注册,TRANS_消息传输,UNREG_组注销], msgType=消息类型[MSG_正常消息,DU_数据唯一性检测刷新]
-        send: function (gid, ctt, evt, mtp) {
-            var _msg = {gid: gid, content: ctt, event: evt || "TRANS", msgType: mtp || "MSG"};
+        //gid=消息组id, content=消息内容,event=事件类型[REG_组注册,TRANS_消息传输,UNREG_组注销,CHECK_反馈], msgType=消息类型[MSG_正常消息,DU_数据唯一性检测刷新,RF_数据刷新]
+        send: function (gid, sid, ctt, evt, mtp) {
+            var _msg = {gid: gid, sid: sid, content: ctt, event: evt || "TRANS", msgType: mtp || "MSG"};
             webSocket.send(JSON.stringify(_msg));
         },
         register: function (_pushRegItem) {
@@ -115,7 +116,7 @@ var MyPush = (function () {
     function _register(_regItem, _isOpenReg) {
         if (_isOpenReg) {
             //为打开连接时候的统一注册时,则只发注册消息.  普通注册勿填写
-            _pushObj.send(_regItem.gid, null, "REG", event);
+            _pushObj.send(_regItem.gid, _regItem.sid, null, "REG", event);
             return;
         }
         //不存在于列表中就添加到列表
@@ -123,7 +124,7 @@ var MyPush = (function () {
             regItems.push(_regItem);
         //连接打开则注册到服务器
         if (_pushObj.getState() === 1)
-            _pushObj.send(_regItem.gid, null, "REG", event);
+            _pushObj.send(_regItem.gid, _regItem.sid, null, "REG", event);
         //页面加载完毕并且push连接为打开时, 执行打开操作
         if (document.readyState === "complete" && _pushObj.getState() > 1)
             _pushObj.open();

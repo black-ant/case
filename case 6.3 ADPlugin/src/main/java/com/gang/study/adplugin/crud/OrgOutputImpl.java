@@ -12,10 +12,6 @@ import org.identityconnectors.framework.common.objects.ObjectClass;
 import org.identityconnectors.framework.common.objects.Uid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import para.cic.sync.common.api.AbstractGroupOutputService;
-import para.cic.sync.common.lib.to.AbstractConfigTO;
-import para.cic.sync.common.lib.to.DeleteInfo;
-import para.cic.sync.common.lib.to.SearchTO;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +23,7 @@ import java.util.Set;
  * @Created by zengzg
  */
 @Component
-public class OrgOutputImpl extends AbstractGroupOutputService<String, String> {
+public class OrgOutputImpl {
 
     @Autowired
     private ADConfig adConfig;
@@ -40,25 +36,21 @@ public class OrgOutputImpl extends AbstractGroupOutputService<String, String> {
 
     ObjectClass objectClass = new ObjectClass("__ORGANIZATION__");
 
-    @Override
-    public void init(AbstractConfigTO abstractConfigTO) {
+    public void init() {
         test();
         adCreate = new ADCreate(adConfig.getAdConnection(), objectClass, getInfo(), null);
     }
 
-    @Override
     public String checkAccessToken() {
         return null;
     }
 
-    @Override
-    public String create(String s, AbstractConfigTO abstractConfigTO) {
+    public String create(String s) {
         Uid ui = adCreate.create();
         return ui.getUidValue();
     }
 
-    @Override
-    public String update(String s, AbstractConfigTO abstractConfigTO) {
+    public String update(String s) {
         adUpdate = new ADUpdate(adConfig.getAdConnection(), objectClass, new Uid("535de16d-3bdf-4e8e-a394-849915a0bf06"));
         return adUpdate.update(getInfo()).getUidValue();
     }
@@ -66,31 +58,10 @@ public class OrgOutputImpl extends AbstractGroupOutputService<String, String> {
     /*
      271
      */
-    @Override
-    public String delete(DeleteInfo deleteInfo, AbstractConfigTO abstractConfigTO) {
+    public String delete(String deleteInfo) {
         adDelete = new ADDelete(adConfig.getAdConnection(), objectClass, new Uid("751af60a-878f-4ba4-a8e9-33839d0cf6f7"));
         adDelete.delete();
         return "delete ok";
-    }
-
-    @Override
-    public AbstractConfigTO checkConfig() {
-        return null;
-    }
-
-    @Override
-    public String get(SearchTO searchTO, AbstractConfigTO abstractConfigTO) {
-        return null;
-    }
-
-    @Override
-    public String list(SearchTO searchTO, AbstractConfigTO abstractConfigTO) {
-        return null;
-    }
-
-    @Override
-    public String listChild(SearchTO searchTO, AbstractConfigTO abstractConfigTO) {
-        return null;
     }
 
     public void test() {
@@ -108,7 +79,7 @@ public class OrgOutputImpl extends AbstractGroupOutputService<String, String> {
          */
         String nameString = ADSyncUtils.dataCreateUtil("name", "武汉研发");
         attrs.add(AttributeBuilder.build("__NAME__", nameString));
-        attrs.add(AttributeBuilder.build("__ORG__", "5a58a54e-caed-462e-b80e-23e57abf2dd5"));
+        //        attrs.add(AttributeBuilder.build("__ORG__", "5a58a54e-caed-462e-b80e-23e57abf2dd5"));
         return attrs;
     }
 }
