@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.gang.study.ldap.ldap.service.GroupOutpulImpl;
 import com.gang.study.ldap.ldap.service.OrgOutputImpl;
 import com.gang.study.ldap.ldap.service.UserOutputImpl;
+import com.gang.study.ldap.ldap.to.ADBaseTO;
 import com.gang.study.ldap.ldap.to.ADConfigInfoTO;
 import com.gang.study.ldap.ldap.to.ADGroupTO;
 import com.gang.study.ldap.ldap.to.ADOrgTO;
@@ -15,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 
 @SpringBootTest
@@ -46,52 +49,50 @@ public class LdapApplicationTests {
         }
     }
 
+    /**
+     * 110b3994-b0f9-1039-9626-b39b22fadbd2
+     */
     public void testOrg() {
-        orgOutput.init(getConfigTO());
+        //        ADOrgTO adOrgTO = orgOutput.create(createOrgTO(), getConfigTO());
 
-        ADOrgTO adOrgTO = orgOutput.create(createOrgTO(), getConfigTO());
-
-        //       ADOrgTO adOrgTO =  orgOutput.update(null, null)
+        //        ADOrgTO adOrgTO = orgOutput.update(updateOrgTO(), getConfigTO());
 
         //        orgOutput.delete(null, null);
 
-        //        orgOutput.search(getSearchInfo(), null);
+        orgOutput.search(getSearchInfo(), getConfigTO());
 
         //        orgOutput.get(getSearchInfo(), null);
 
         //        orgOutput.search();
 
-
-        logger.info("------> this is back key  :{} <-------", adOrgTO.getKey());
-        logger.info("------> this is back TO :{} <-------", JSONObject.toJSONString(adOrgTO));
+        //        logger.info("------> this is back key  :{} <-------", adOrgTO.getKey());
+        //        logger.info("------> this is back TO :{} <-------", JSONObject.toJSONString(adOrgTO));
     }
 
     public void testGroup() {
-        //        groupOutpul.init(getConfigTO());
 
         //        ADGroupTO adGroupTO = groupOutpul.create(creatGroupTO(), getConfigTO());
 
         //        ADGroupTO adGroupTO = groupOutpul.create(creatGroupTO(), getConfigTO());
 
-        //        groupOutpul.search(getSearchInfo(), null);
+        groupOutpul.search(getSearchInfo(), getConfigTO());
 
 
         //        groupOutpul.delete(null, null);
-
+        //
         //        logger.info("------> this is back key  :{} <-------", adGroupTO.getKey());
         //        logger.info("------> this is back TO :{} <-------", JSONObject.toJSONString(adGroupTO));
     }
 
     public void testUser() {
-        //        userOutput.init(getConfigTO());
 
         //        ADUserTO adUserTO = userOutput.create(creatUserTO(), getConfigTO());
 
-        //        ADUserTO adUserTO = userOutput.search(getSearchInfo(), null);
+        List<ADBaseTO> adUserTO = userOutput.search(getSearchInfo(), getConfigTO());
 
-        //        ADUserTO adUserTO = adUserTO = userOutput.update(updateUserTO(), null);
+        //        ADUserTO adUserTO = adUserTO = userOutput.update(updateUserTO(), getConfigTO());
 
-        //            ADUserTO adUserTO = adUserTO = userOutput.delete(getDeleteInfo(), null);
+        //        ADUserTO adUserTO = userOutput.delete("e170be94-b101-1039-962a-b39b22fadbd2", getConfigTO());
 
         //        logger.info("------> this is back key  :{} <-------", adUserTO.getKey());
         //        logger.info("------> this is back TO :{} <-------", adUserTO);
@@ -129,7 +130,7 @@ public class LdapApplicationTests {
         String nameString = ADSyncUtils.dataCreateUtil("name", "武汉研发1206-");
         ADOrgTO adOrgTO = new ADOrgTO();
         adOrgTO.setName(nameString + "name");
-        adOrgTO.setCn(nameString + "cn");
+        //        adOrgTO.setCn(nameString + "cn");
         adOrgTO.setDescription("test");
         //                adOrgTO.setOrg("5a58a54e-caed-462e-b80e-23e57abf2dd5");
         adOrgTO.setOrg("");
@@ -141,7 +142,9 @@ public class LdapApplicationTests {
         String nameString = ADSyncUtils.dataCreateUtil("name", "武汉研发");
         ADOrgTO adOrgTO = new ADOrgTO();
         adOrgTO.setName(nameString);
-        adOrgTO.setOrg("5a58a54e-caed-462e-b80e-23e57abf2dd5");
+        adOrgTO.setKey("110b3994-b0f9-1039-9626-b39b22fadbd2");
+        adOrgTO.setDescription("test123456");
+        //        adOrgTO.setOrg("110b3994-b0f9-1039-9626-b39b22fadbd2");
         return adOrgTO;
     }
 
@@ -155,12 +158,12 @@ public class LdapApplicationTests {
         String nameString = ADSyncUtils.dataCreateUtil("name", "武汉研发");
         ADGroupTO adGroupTO = new ADGroupTO();
         adGroupTO.setName(nameString);
-        adGroupTO.setOrg("44233412-7e89-4914-b82d-e1144fc33cae");
-        adGroupTO.setDisplayName(nameString);
+        //        adGroupTO.setOrg("44233412-7e89-4914-b82d-e1144fc33cae");
+        //        adGroupTO.setDisplayName(nameString);
         adGroupTO.setDescription("test");
-        adGroupTO.setMail("11111");
-        adGroupTO.setInfo(nameString + "info is info");
-        adGroupTO.setSAMAccountName(nameString);
+        //        adGroupTO.setMail("11111");
+        //        adGroupTO.setInfo(nameString + "info is info");
+        //        adGroupTO.setSAMAccountName(nameString);
         adGroupTO.setCn(nameString);
 
         // 管理者  -- AD 中存在管理者概念 , 这个待确定
@@ -187,50 +190,53 @@ public class LdapApplicationTests {
         String nameString = ADSyncUtils.dataCreateUtil("name", "Sync");
         ADUserTO adUserTO = new ADUserTO();
         adUserTO.setName(nameString);
-        adUserTO.setOrg("44233412-7e89-4914-b82d-e1144fc33cae");
+        //        adUserTO.setOrg("44233412-7e89-4914-b82d-e1144fc33cae");
         adUserTO.setDisplayName(nameString);
         adUserTO.setSnName("zeng");
 
-        // --> ok
-        adUserTO.setUsername(nameString);
-        adUserTO.setUserPrincipalName(nameString);
-        adUserTO.setSAMAccountName(nameString);
+
         adUserTO.setCn(nameString);
         adUserTO.setTitle(nameString);
-        //        adUserTO.setIpPhone("互联网电话");
-        //        adUserTO.setMobile(nameString);
-        //        adUserTO.setStreetAddress(nameString);
+        adUserTO.setMobile(nameString);
+        adUserTO.setStreetAddress(nameString);
+
+        adUserTO.setInitials("aaaa");
+        adUserTO.setPostalCode("邮政编码");
+        adUserTO.setMail("mail");
+        adUserTO.setTelephoneNumber("123456789");
+        adUserTO.setPhysicalDeliveryOfficeName("办公室");
+        adUserTO.setHomePhone("123456789");
+
+        adUserTO.setDescription("描述");
+        // --> ok
         //        adUserTO.setInfo(nameString);
-        //        adUserTO.setInitials("aaaa");
-        //        adUserTO.setPostalCode("邮政编码");
-        //        adUserTO.setPostOfficeBox("邮箱");
-        //        adUserTO.setCity("武汉");
-        //        adUserTO.setProvince("省");
-        //        adUserTO.setMail("mail");
-        //        adUserTO.setTelephoneNumber("联系电话");
-        //        adUserTO.setPhysicalDeliveryOfficeName("办公室");
-        //        adUserTO.setHomePhone("家庭电话");
         //        adUserTO.setCompany("公司");
         //        adUserTO.setDepartment("部门");
-        //        adUserTO.setDescription("描述");
+        //        adUserTO.setUsername(nameString);
+        //        adUserTO.setUserPrincipalName(nameString);
+        //        adUserTO.setSAMAccountName(nameString);
         //        adUserTO.setWWWHomePage("网页");
 
         //        adUserTO.setMemberOf(new String[]{
         //                "10bddaf5-8be8-4aae-b2a1-5c5020e18448"
         //        });
 
-        adUserTO.setLdapGroups(new String[]{
-                "10bddaf5-8be8-4aae-b2a1-5c5020e18448"
-        });
+        //        adUserTO.setLdapGroups(new String[]{
+        //                "10bddaf5-8be8-4aae-b2a1-5c5020e18448"
+        //        });
         // --> not
         //        adGroupTO.setCountry("contry");
 
-        //        adGroupTO.setGivename("gang");
+        //        adUserTO.setGivename("111");
 
         return adUserTO;
     }
 
-
+    /**
+     * Sync405
+     *
+     * @return
+     */
     public ADUserTO updateUserTO() {
 
         String nameString = ADSyncUtils.dataCreateUtil("name", "Sync") + "改";
@@ -242,21 +248,20 @@ public class LdapApplicationTests {
         //        adGroupTO.setUserPrincipalName(nameString);
         //        adGroupTO.setSAMAccountName(nameString);
         //        adGroupTO.setCn(nameString);
-        adGroupTO.setKey("739b57b8-344c-4682-ac3a-b0791b4a5898");
+        adGroupTO.setKey("e170be94-b101-1039-962a-b39b22fadbd2");
         adGroupTO.setTitle(nameString);
-        adGroupTO.setIpPhone(nameString);
-        adGroupTO.setMobile(nameString);
+        adGroupTO.setMobile("1232145");
         adGroupTO.setStreetAddress(nameString);
-        adGroupTO.setLdapGroups(new String[]{
-                "10bddaf5-8be8-4aae-b2a1-5c5020e18448"
-        });
+        //        adGroupTO.setLdapGroups(new String[]{
+        //                "10bddaf5-8be8-4aae-b2a1-5c5020e18448"
+        //        });
         return adGroupTO;
     }
 
     public SearchTO<String, String> getSearchInfo() {
         SearchTO<String, String> searchTO = new SearchTO<String, String>();
-        searchTO.setKey("5a58a54e-caed-462e-b80e-23e57abf2dd5");
-        searchTO.setParentId("5a58a54e-caed-462e-b80e-23e57abf2dd5");
+        //        searchTO.setKey("5a58a54e-caed-462e-b80e-23e57abf2dd5");
+        searchTO.setParentId("5612b0ae-aeaf-1039-992e-592c3f64a295");
         return searchTO;
     }
 

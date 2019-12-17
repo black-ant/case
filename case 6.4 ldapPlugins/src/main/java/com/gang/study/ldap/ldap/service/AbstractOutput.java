@@ -4,9 +4,12 @@ import com.gang.study.ldap.ldap.to.ADBaseTO;
 import com.gang.study.ldap.ldap.to.ADConfigInfoTO;
 import com.gang.study.ldap.ldap.to.AbstractConfigTO;
 import com.gang.study.ldap.ldap.to.SearchTO;
+import com.gang.study.ldap.ldap.utils.ADSearchUtils;
 import com.gang.study.ldap.ldap.utils.ADSyncUtils;
 import org.identityconnectors.framework.common.objects.ObjectClass;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * @Classname AbstractOutput
@@ -57,16 +60,16 @@ public abstract class AbstractOutput<T extends ADBaseTO, E extends ADBaseTO> {
         return null;
     }
 
-    //    public T get(SearchTO searchTO, AbstractConfigTO abstractConfigTO) {
-    //        init(abstractConfigTO);
-    //        List<ADBaseTO> list = ADSearchUtils.getTO(objectClass, adBase.getUtils(), "objectGUID", (String) searchTO.getKey(), "OU=上海派拉技术有限公司,DC=wdhacpoc,DC=com,DC=cn", adBase.getAdConnection());
-    //        return list.isEmpty() ? null : (T) list.get(0);
-    //    }
-    //
-    //    public List<ADBaseTO> search(SearchTO searchTO, AbstractConfigTO abstractConfigTO) {
-    //        init(abstractConfigTO);
-    //        return ADSearchUtils.searchInvoke(objectClass, adBase.getUtils(), "OU=上海派拉技术有限公司,DC=wdhacpoc,DC=com,DC=cn", adBase.getAdConnection());
-    //    }
+    public T get(SearchTO searchTO, AbstractConfigTO abstractConfigTO) {
+        init(abstractConfigTO);
+        List<ADBaseTO> list = ADSearchUtils.getTO(objectClass, "objectGUID", (String) searchTO.getKey(), adBase.getAdConfiguration().getBaseContexts()[0], adBase.getAdConnection());
+        return list.isEmpty() ? null : (T) list.get(0);
+    }
+
+    public List<ADBaseTO> search(SearchTO searchTO, AbstractConfigTO abstractConfigTO) {
+        init(abstractConfigTO);
+        return ADSearchUtils.searchInvokeType(objectClass, adBase.getAdConfiguration().getBaseContexts()[0], adBase.getAdConnection());
+    }
 
     public T list(SearchTO searchTO, AbstractConfigTO abstractConfigTO) {
         return null;

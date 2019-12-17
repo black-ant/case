@@ -104,16 +104,16 @@ public class ADBaseInfo {
         configuration.setBaseContexts(prop.getBaseContext());
         configuration.setBaseContextsToSynchronize(prop.getBaseContext());
 
-        configuration.setUidAttribute("sAMAccountName");
-        configuration.setGidAttribute("sAMAccountName");
-
-        configuration.setObjectClassesToSynchronize("user");
-
-
-        configuration.setAccountObjectClasses("top", "person", "organizationalPerson", "user");
-
-        configuration.setUidAttribute(prop.getUidAttribute());
-        configuration.setGidAttribute(prop.getGidAttribute());
+        //        configuration.setUidAttribute("sAMAccountName");
+        //        configuration.setGidAttribute("sAMAccountName");
+        //
+        //        configuration.setObjectClassesToSynchronize("user");
+        //
+        //
+        //        configuration.setAccountObjectClasses("top", "person", "organizationalPerson", "user");
+        //
+        //        configuration.setUidAttribute(prop.getUidAttribute());
+        //        configuration.setGidAttribute(prop.getGidAttribute());
         return configuration;
     }
 

@@ -22,4 +22,5 @@ public class BaseController {
     public void test() {
         logger.info("this is ok");
     }
+
 }
