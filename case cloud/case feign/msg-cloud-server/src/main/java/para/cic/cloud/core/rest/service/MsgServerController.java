@@ -41,13 +41,13 @@ public class MsgServerController {
         sendTO.setTitle("测试发送11");
         sendTO.setContent("邮件消息11");
         sendTO.setReceiver("value");
-//        try {
-        JSONObject obj = msgServerMapper.sendext(sendTO);
+        //        try {
+        //        JSONObject obj = msgServerMapper.sendext(sendTO);
         logger.info("------> this is over <-------");
-//        } catch (Exception e) {
-//            logger.info("------> this is e  :{}--:{}<-------", e.getClass(), e.getMessage());
-//            logger.info("------> : {} --{} <-------",e.getCause());
-//        }
+        //        } catch (Exception e) {
+        //            logger.info("------> this is e  :{}--:{}<-------", e.getClass(), e.getMessage());
+        //            logger.info("------> : {} --{} <-------",e.getCause());
+        //        }
 
     }
 

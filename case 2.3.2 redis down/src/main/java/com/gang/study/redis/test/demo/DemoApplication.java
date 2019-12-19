@@ -1,14 +1,14 @@
-package com.gang.base;
+package com.gang.study.redis.test.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
-public class BaseApplication {
+public class DemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BaseApplication.class, args);
+        SpringApplication.run(DemoApplication.class, args);
     }
 
 }
