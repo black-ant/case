@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Bean;
 
 import javax.ws.rs.ApplicationPath;
 
+/**
+ * swagger 使用 ,访问地址
+ */
 @SpringBootApplication
 public class DemoApplication {
 
@@ -14,9 +17,9 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-//    @Bean
-//    public OpenApiResource openApiResource() {
-//        return new OpenApiResource();
-//    }
+    //    @Bean
+    //    public OpenApiResource openApiResource() {
+    //        return new OpenApiResource();
+    //    }
 
 }

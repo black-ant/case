@@ -1,13 +1,17 @@
-package com.gang.swagger.demo;
+package com.gang.study.many.one.demo;
 
+import com.gang.study.many.one.demo.service.StartService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * desc :http://localhost:8080/swagger-ui.html
- */
 @SpringBootApplication
 public class DemoApplication {
+
+
+    @Autowired
+    private StartService startService;
+
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
