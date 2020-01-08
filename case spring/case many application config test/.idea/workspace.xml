@@ -2,21 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aad2838d-4f02-4cd8-9b98-44c45d03a837" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/many_one/src/main/java/com/gang/study/many/one/demo/service/StartService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/many_two/src/main/java/com/gang/study/many/two/demo/service/StartService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../case springTogether/gang-study-module/src/main/java/com/gang/study/module/gangstudymodule/dao/MyOrderMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../case springTogether/gang-study-module/src/main/java/com/gang/study/module/gangstudymodule/entity/MyOrder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../case springTogether/gang-study-module/src/main/java/com/gang/study/module/gangstudymodule/service/OrderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../case springTogether/gang-study-module/src/main/java/com/gang/study/module/gangstudymodule/service/StartService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../case springTogether/gang-study-module/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../case springTogether/gang-study-module/src/main/resources/config/mybatis-config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../case springTogether/gang-study-module/src/main/resources/mapper/MyOrderMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../case springTogether/user/src/main/java/com/gang/study/springtogether/user/demo/service/StartTwoService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../case springTogether/user/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../case 1.5 swagger/src/main/java/com/gang/swagger/demo/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../case 1.5 swagger/src/main/java/com/gang/swagger/demo/DemoApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../case 1.5.1 swaggerv3/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../case 1.5.1 swaggerv3/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../case 1.5.1 swaggerv3/src/main/java/com/gang/study/swaggerv3/demo/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../case 1.5.1 swaggerv3/src/main/java/com/gang/study/swaggerv3/demo/DemoApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../case 1.5.1 swaggerv3/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../case 1.5.1 swaggerv3/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/java/com/myredis/redis/controller/HashMapController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/java/com/myredis/redis/controller/ListController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/java/com/myredis/redis/controller/SetController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/java/com/myredis/redis/util/RedisSetUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/java/com/myredis/redis/controller/StartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/java/com/myredis/redis/controller/StartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -115,7 +108,7 @@
         <entry file="file://$PROJECT_DIR$/many_two/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="66">
-              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -195,7 +188,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="950" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
@@ -206,6 +199,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -660,7 +654,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -668,9 +661,10 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="D:/sourceCode/test_project/feignTest/msg-cloud" />
+    <property name="last_opened_file_path" value="D:/sourceCode/gitlab/CIC/para-cic-sync/sync-sdk-dev" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.language.Kotlin.scripting" />
@@ -714,18 +708,18 @@
       <option name="presentableId" value="Default" />
       <updated>1578376272886</updated>
       <workItem from="1578376277496" duration="4504000" />
-      <workItem from="1578409879526" duration="286000" />
+      <workItem from="1578409879526" duration="883000" />
+      <workItem from="1578453060342" duration="657000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4790000" />
+    <option name="totallyTimeSpent" value="6044000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2533512" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25670242" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="JRebel" order="3" side_tool="true" />
@@ -749,7 +743,7 @@
       <window_info anchor="bottom" id="Database Changes" order="13" />
       <window_info anchor="bottom" id="Version Control" order="14" />
       <window_info anchor="bottom" id="JRebel Executor" order="15" />
-      <window_info anchor="bottom" id="JRebel Console" order="16" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="JRebel Console" order="16" side_tool="true" visible="true" weight="0.32991204" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -844,7 +838,7 @@
     <entry file="file://$PROJECT_DIR$/many_two/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>

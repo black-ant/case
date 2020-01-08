@@ -27,6 +27,12 @@ public class StartController {
         logger.info("------> this is in <-------");
     }
 
+    @GetMapping("/testSet")
+    public String testSet() {
+        logger.info("------> this is in <-------");
+        return "ok";
+    }
+
     @GetMapping(value = "get")
     public String findOneCity(@RequestParam("id") String id, @RequestParam("type") String type) {
         logger.info("find by key :{}", id);
