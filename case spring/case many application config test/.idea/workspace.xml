@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aad2838d-4f02-4cd8-9b98-44c45d03a837" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/java/com/myredis/redis/controller/HashMapController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/java/com/myredis/redis/controller/ListController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/java/com/myredis/redis/controller/SetController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/java/com/myredis/redis/util/RedisSetUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/java/com/myredis/redis/controller/StartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/java/com/myredis/redis/controller/StartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../case 2.3.1 redis/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="aad2838d-4f02-4cd8-9b98-44c45d03a837" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/many_one/target/" />
