@@ -32,9 +32,18 @@ public class RedisSetUtils {
         return val == null ? null : val.toString();
     }
 
+    public <K, V> Map<K, V> hgetMap(String key) {
+        return redisTemplate.opsForHash().entries(key);
+    }
+
     public void hset(String key, String field, String value) {
         redisTemplate.opsForHash().put(key, field, value);
     }
+
+    public <V> void hsetMap(String key, Map<String, V> map) {
+        redisTemplate.opsForHash().putAll(key, map);
+    }
+
 
     public void hdel(String key, String field) {
         redisTemplate.opsForHash().delete(key, field);

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gang.study.mybatisgeneratorgui.mybatisgeneratorgui.mapper.CicMsgTypeDAO">
+  <resultMap id="BaseResultMap" type="com.gang.study.mybatisgeneratorgui.mybatisgeneratorgui.entity.CicMsgType">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="msg_type" jdbcType="VARCHAR" property="msgType" />
+    <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
+    <result column="msg_class" jdbcType="VARCHAR" property="msgClass" />
+    <result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+    <result column="display_name" jdbcType="VARCHAR" property="displayName" />
+    <result column="domain_id" jdbcType="VARCHAR" property="domainId" />
+    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <result column="connet_policy_type" jdbcType="VARCHAR" property="connetPolicyType" />
+    <result column="check_policy_type" jdbcType="VARCHAR" property="checkPolicyType" />
+    <result column="user_type" jdbcType="VARCHAR" property="userType" />
+    <result column="control" jdbcType="VARCHAR" property="control" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, msg_type, supplier_name, msg_class, supplier_id, display_name, domain_id, permission, 
+    connet_policy_type, check_policy_type, user_type, control
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cic_msg_type
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from cic_msg_type
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gang.study.mybatisgeneratorgui.mybatisgeneratorgui.entity.CicMsgType">
+    insert into cic_msg_type (id, msg_type, supplier_name, 
+      msg_class, supplier_id, display_name, 
+      domain_id, permission, connet_policy_type, 
+      check_policy_type, user_type, control
+      )
+    values (#{id,jdbcType=VARCHAR}, #{msgType,jdbcType=VARCHAR}, #{supplierName,jdbcType=VARCHAR}, 
+      #{msgClass,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR}, 
+      #{domainId,jdbcType=VARCHAR}, #{permission,jdbcType=VARCHAR}, #{connetPolicyType,jdbcType=VARCHAR}, 
+      #{checkPolicyType,jdbcType=VARCHAR}, #{userType,jdbcType=VARCHAR}, #{control,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gang.study.mybatisgeneratorgui.mybatisgeneratorgui.entity.CicMsgType">
+    insert into cic_msg_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="msgType != null">
+        msg_type,
+      </if>
+      <if test="supplierName != null">
+        supplier_name,
+      </if>
+      <if test="msgClass != null">
+        msg_class,
+      </if>
+      <if test="supplierId != null">
+        supplier_id,
+      </if>
+      <if test="displayName != null">
+        display_name,
+      </if>
+      <if test="domainId != null">
+        domain_id,
+      </if>
+      <if test="permission != null">
+        permission,
+      </if>
+      <if test="connetPolicyType != null">
+        connet_policy_type,
+      </if>
+      <if test="checkPolicyType != null">
+        check_policy_type,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="control != null">
+        control,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="msgType != null">
+        #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierName != null">
+        #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="msgClass != null">
+        #{msgClass,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null">
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null">
+        #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainId != null">
+        #{domainId,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="connetPolicyType != null">
+        #{connetPolicyType,jdbcType=VARCHAR},
+      </if>
+      <if test="checkPolicyType != null">
+        #{checkPolicyType,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="control != null">
+        #{control,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gang.study.mybatisgeneratorgui.mybatisgeneratorgui.entity.CicMsgType">
+    update cic_msg_type
+    <set>
+      <if test="msgType != null">
+        msg_type = #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierName != null">
+        supplier_name = #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="msgClass != null">
+        msg_class = #{msgClass,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null">
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null">
+        display_name = #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainId != null">
+        domain_id = #{domainId,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="connetPolicyType != null">
+        connet_policy_type = #{connetPolicyType,jdbcType=VARCHAR},
+      </if>
+      <if test="checkPolicyType != null">
+        check_policy_type = #{checkPolicyType,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="control != null">
+        control = #{control,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gang.study.mybatisgeneratorgui.mybatisgeneratorgui.entity.CicMsgType">
+    update cic_msg_type
+    set msg_type = #{msgType,jdbcType=VARCHAR},
+      supplier_name = #{supplierName,jdbcType=VARCHAR},
+      msg_class = #{msgClass,jdbcType=VARCHAR},
+      supplier_id = #{supplierId,jdbcType=VARCHAR},
+      display_name = #{displayName,jdbcType=VARCHAR},
+      domain_id = #{domainId,jdbcType=VARCHAR},
+      permission = #{permission,jdbcType=VARCHAR},
+      connet_policy_type = #{connetPolicyType,jdbcType=VARCHAR},
+      check_policy_type = #{checkPolicyType,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      control = #{control,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
