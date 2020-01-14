@@ -1,8 +1,7 @@
-package com.myjpa.demo.service;
+package com.gang.study.multiplysource.multiplysource.service;
 
-import com.myjpa.demo.entity.UserEntity;
-import com.myjpa.demo.repository.UserRepository;
-import org.apache.catalina.User;
+import com.gang.study.multiplysource.multiplysource.common.entity.UserEntity;
+import com.gang.study.multiplysource.multiplysource.jpa.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,7 @@ public class UserService {
         logger.info("------> this is find User <-------");
         return userRepository.findAll();
     }
+
 
     public List<UserEntity> findByUsername() {
         logger.info("------> this is  findByUsername<-------");
