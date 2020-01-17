@@ -1,0 +1,35 @@
+/*css reset*/
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td , i{
+	margin:0;
+	padding:0;
+	border:0;
+	font-weight:inherit;
+	font-style:inherit;
+	font-size:100%;
+	font-family:inherit;
+	vertical-align:baseline;
+}
+body {line-height:1.5;}
+table {border-collapse: collapse;border-spacing:0;}
+caption, th, td ,b,strong{text-align:left;font-weight:normal;}
+table, td, th {vertical-align:middle;}	
+blockquote:before, blockquote:after, q:before, q:after {content:"";}
+blockquote, q {quotes:"" "";}
+a img {border:none;}
+em,cite{font-style:normal;}
+
+
+body { background:#fff; font: 12px/1.5 Tahoma,'宋体';color:#000;}
+h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;}
+a {text-decoration:none;cursor:pointer;}
+dl, dt, dd, ol, ul, li{ list-style:none;}
+
+/*some common class*/
+.left{float:left;}
+.right{float:right;}
+
+/*clear*/
+.ue-clear:after{content: ".";display:block;height:0;clear:both;visibility:hidden;}
+.ue-clear{display:inline-block; overflow:hidden;}
+*html .ue-clear{height:1%;}
+.ue-clear{display:block; overflow:hidden;}

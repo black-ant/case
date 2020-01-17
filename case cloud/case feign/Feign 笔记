@@ -1,0 +1,180 @@
+# Feign 操作笔记
+
+[TOC]
+
+
+
+## Feign 文档记录
+
+```
+
+
+> Feign 通过注解和接口来描述Rest 请求
+
+> Feign 支持 Feign 注解 和 JAX-RS 注解
+
+> Feign 支持编码和解码
+
+> Feign 通过 Ribbon and Eureka 支持 load balance
+
+> Feign client interface 可以通过继承进行API的通用
+
+
+	
+```
+
+## Feign 常见用法
+
+### 配置 自定义 Configuration
+
+```java
+@FeignClient(contextId = "fooClient", name = "stores", configuration = FooConfiguration.class)
+public interface FooClient {
+    //..
+}
+```
+
+
+
+
+
+### 手动创建 Feign 客户端 Client
+
+```java
+// 创建了两个具有相同接口的伪客户端，但每个伪客户端都配置了一个单独的请求拦截器
+
+@Import(FeignClientsConfiguration.class)
+class FooController {
+
+	private FooClient fooClient;
+
+	private FooClient adminClient;
+
+    	@Autowired
+	public FooController(Decoder decoder, Encoder encoder, Client client, Contract contract) {
+		this.fooClient = Feign.builder().client(client)
+				.encoder(encoder)
+				.decoder(decoder)
+				.contract(contract)
+				.requestInterceptor(new BasicAuthRequestInterceptor("user", "user"))
+				.target(FooClient.class, "https://PROD-SVC");
+
+		this.adminClient = Feign.builder().client(client)
+				.encoder(encoder)
+				.decoder(decoder)
+				.contract(contract)
+				.requestInterceptor(new BasicAuthRequestInterceptor("admin", "admin"))
+				.target(FooClient.class, "https://PROD-SVC");
+    }
+}
+```
+
+
+
+
+
+### 断路回调  Hystrix Fallbacks
+
+```java
+@FeignClient(name = "hello", fallback = HystrixClientFallback.class)
+protected interface HystrixClient {
+    @RequestMapping(method = RequestMethod.GET, value = "/hello")
+    Hello iFailSometimes();
+}
+
+static class HystrixClientFallback implements HystrixClient {
+    @Override
+    public Hello iFailSometimes() {
+        return new Hello("fallback");
+    }
+}
+
+
+// Factory 版
+@FeignClient(name = "hello", fallbackFactory = HystrixClientFallbackFactory.class)
+protected interface HystrixClient {
+	@RequestMapping(method = RequestMethod.GET, value = "/hello")
+	Hello iFailSometimes();
+}
+
+@Component
+static class HystrixClientFallbackFactory implements FallbackFactory<HystrixClient> {
+	@Override
+	public HystrixClient create(Throwable cause) {
+		return new HystrixClient() {
+			@Override
+			public Hello iFailSometimes() {
+				return new Hello("fallback; reason was: " + cause.getMessage());
+			}
+		};
+	}
+}
+```
+
+
+
+
+
+### FeignClient 优先级
+
+```java
+@FeignClient(name = "hello", primary = false)
+public interface HelloClient {
+	// methods here
+}
+
+// 这个是为了定义一个优先级 ，单纯来说可能没什么用，但是当使用 Hystrix fallbacks 可能是有作用的
+```
+
+
+
+### Feign request / response 压缩
+
+```json
+feign.compression.request.enabled=true
+feign.compression.response.enabled=true
+
+feign.compression.request.enabled=true
+feign.compression.request.mime-types=text/xml,application/xml,application/json
+feign.compression.request.min-request-size=2048
+```
+
+
+
+### Feign 对 Client  log 进行限制 
+
+```java
+logging.level.project.user.UserClient: DEBUG
+
+
+// Bean 模式
+@Configuration
+public class FooConfiguration {
+    @Bean
+    Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
+    }
+}
+```
+
+### Feign 配置
+
+```
+feign:
+  client:
+    config:
+      feignName:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+        errorDecoder: com.example.SimpleErrorDecoder
+        retryer: com.example.SimpleRetryer
+        requestInterceptors:
+          - com.example.FooRequestInterceptor
+          - com.example.BarRequestInterceptor
+        decode404: false
+        encoder: com.example.SimpleEncoder
+        decoder: com.example.SimpleDecoder
+        contract: com.example.SimpleContract
+```
+

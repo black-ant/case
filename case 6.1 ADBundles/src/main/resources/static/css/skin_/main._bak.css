@@ -1,0 +1,48 @@
+@charset "utf-8";
+/*结构*/
+html{*overflow:auto;}
+
+/* CSS Document */
+#hd{position:relative;height:114px;padding-left:20px;background:url(../../img/skin_/topbg.png);}
+/*头部样式*/
+.mainHd{height:64px;}
+.mainHd h1{float:left;margin-right:10px;}
+.mainHd h1 img{margin-top:7px;width:188px;height:49px;}
+/*系统切换样式*/
+.mainHd .system-switch {float:left;margin:24px 30px 0 0;}
+.mainHd .system-switch i{float:left;width:16px;height:15px; background:url(../../img/skin_/topxl.png) no-repeat; cursor:pointer;}
+
+/*用户信息区域*/
+.mainHd .user-info{float:left;margin-top:13px; cursor:pointer;}
+.mainHd .user-info .photo {position:relative;float:left;height:34px;}
+.mainHd .user-info .photo img{width:34px;height:34px;}
+.mainHd .user-info .photo .msg-num{position:absolute;right:-4px;top:-4px;width:16px;height:16px; background:url(../../img/skin_/msg.png);color:#fff; text-align:center;line-height:16px;}
+.mainHd .user-info .user-name{float:left;margin:0 8px;color:#fff;font-size:14px;line-height:34px;}
+.mainHd .user-info .opt {float:left;margin-top:17px;}
+.mainHd .user-info .opt .opt-icon{float:left;width:7px;height:4px; background:url(../../img/skin_/userxl.png); cursor:pointer;}
+
+/*右侧设置样式*/
+.mainHd .system-settings{position:absolute;right:0;line-height:64px;}
+.mainHd .system-settings .skin-switch{float:left;position:relative;margin-right:5px;margin:20px 8px 0 0;text-align:center; cursor:pointer;}
+.mainHd .system-settings .skin-switch .text{line-height:28px;*position:relative;*top:-18px;color:#666;}
+.mainHd .system-settings .skin-switch i{position:absolute;}
+.mainHd .system-settings .skin-switch i.skin-icon{left:3px;top:9px;width:11px; height:10px; background:url(../../img/skin_/skinicon.png);}
+.mainHd .system-settings .skin-switch i.arrow-icon{right:5px;top:12px;width:7px; height:4px; background:url(../../img/skin_/skinxl.png);}
+.mainHd .system-settings .skin-switch:hover i.arrow-icon{background-position:-7px 0;}
+.mainHd .system-settings .switch-bar{width:82px;height:29px; background:url(../../img/skin_/skin-bg.png);}
+.mainHd .system-settings a{float:left;margin-right:10px;color:#fff;font-size:14px;}
+.mainHd .system-settings .login-out{float:left;margin:25px 20px 0 0;width:14px;height:15px; background:url(../../img/skin_/quit.png); cursor:pointer;}
+.mainHd .system-settings .login-out:hover{ background-position:-14px 0;}
+
+/*导航样式*/
+.nav{height:50px;position:relative;padding-right:80px;overflow:hidden;}
+.nav .nav-list{line-height:50px;font-size:14px;color:#3C3C3C;}
+.nav .nav-list .nav-item{float:left; cursor:pointer;margin-left:30px;}
+.nav .nav-list .nav-item.home{margin-top:10px;width:25px;height:25px; background:url(../../img/skin_/home.png);}
+
+.nav .opt{position:absolute;right:10px;top:12px;width:50px;height:23px;}
+.nav .opt a{float:left;width:22px;height:23px;background:url(../../img/skin_/leftright.png);}
+.nav .opt a.prev{background-position:0 0;}
+.nav .opt a.next{background-position:-23px -23px;}
+.nav .opt a.prev:hover{ background-position:0 -23px;}
+.nav .opt a.next:hover{ background-position:-23px 0;}

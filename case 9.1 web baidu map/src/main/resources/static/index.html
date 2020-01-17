@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>地铁图展示</title>
+    <link type="text/css" rel="stylesheet" href="css/common.css"></link>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/push.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <!--<script type="text/javascript" src="https://app.51yuntuo.com/push/push.js"></script>-->
+    <style>
+        .main_left .msg {
+            width: 89%;
+            height: 3rem;
+            line-height: 0.5rem;
+            background: #efefef;
+            margin: 1vw;
+            border: #b3b3b3 0.3rem solid;
+            border-radius: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+<div class="top">
+    <div class="title">基于WebSocket的位置共享</div>
+</div>
+<div class="main_left">
+    <div class="msg">
+        <p>1 . 手动设置主星位置</p>
+        <p>2 . 当前页面计算其余位置，并且push 到其他页面</p>
+    </div>
+</div>
+<div class="main_center">
+    <div id="container" class="map-popup"></div>
+</div>
+<div class="main_right">
+    <div class="right_top">
+        <div class="select_item" data-pid="001.png">水星</div>
+        <div class="select_item" data-pid="002.png">金星</div>
+        <div class="select_item" data-pid="003.png">地球</div>
+        <div class="select_item" data-pid="004.png">火星</div>
+        <div class="select_item" data-pid="005.png">木星</div>
+        <div class="select_item" data-pid="006.png">土星</div>
+        <div class="select_item" data-pid="007.png">天王星</div>
+        <div class="select_item" data-pid="008.png">海王星</div>
+        <div class="select_item" data-pid="009.png">冥王星</div>
+    </div>
+    <div class="right_bottom">
+        <div class="chat_pop">
+        </div>
+        <input class="_sock_msg">
+        <div id="send_id">发送</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+
+    addLoadEvent(function () {
+        baidumap.init("container");
+    });
+    $("#addOverly").on("click", function () {
+        baidumap.createOverlay();
+    });
+    $("#send_id").on("click", function () {
+        socket_do.register(build_duri("D001", "MSG",chatMessage));
+        var msg = $("._sock_msg").val();
+        socket_do.send("D001", msg);
+    });
+
+    function chatMessage(data) {
+        var jsdata = JSON.parse(data.data);
+        console.log("data is " + jsdata);
+    }
+</script>
+</html>

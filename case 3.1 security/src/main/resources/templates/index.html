@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Security Example</title>
+    <style>
+        .redirect{
+            width: 100%;
+            height: 100%;
+        }
+        .redirect p{
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="redirect">
+    <p ><a th:href="@{/hello}">访问</a> </p>
+    <p>点击后访问网站hello页面，如果有权限直接访问，无权限则会跳转到登录页面</p>
+
+    <p ><a th:href="@{/signmessage}">正则表达式跳转</a> </p>
+    <p>点击后访问网站hello页面，如果有权限直接访问，无权限则会跳转到登录页面</p>
+
+    <p ><a th:href="@{/admin}">仅admin权限可以访问</a> </p>
+    <p>点击后仅admin可以访问，其他仍然登录</p>
+
+
+    <p ><a th:href="@{/admin2}">admin,User权限可以访问</a> </p>
+    <p>点击后仅admin可以访问，其他仍然登录</p>
+</div>
+
+</body>
+</html>

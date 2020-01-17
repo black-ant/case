@@ -1,0 +1,38 @@
+/*css reset-uimaker.com版权所有*/
+html{*overflow:auto;}
+#container{position:relative;background:url(../../img/skin_/loginlight.png) no-repeat center center;background-color:#0170a4;}
+
+/*页面主体*/
+#bd{min-height:430px;}
+#main{ position:relative;width:640px; height:426px; margin:0 auto 0; background:url(../../img/skin_/loginbox.png) no-repeat;min-height:443px;}
+
+/*logo*/
+.login-box #logo{position:absolute; left:68px; top:7px; width:68px; height:72px; background:url(../../img/skin_/loginlogo.png) no-repeat;}
+.login-box h1{position:absolute; left:99px; top:107px; width:329px; height:62px; background:url(../../img/skin_/loginname.png) no-repeat;}
+
+/*登陆框*/
+.login-box .input{position:absolute; left:78px; width:311px; height:39px;}
+.login-box .input label{height:37px; line-height:37px; font-size:14px;}
+.login-box .input input{position:absolute; left:67px; top:0; width:176px; height:39px; *line-height:39px;  padding:0 20px 0 48px; border:none; outline:none; }
+.login-box .username{ top:217px;}
+.login-box .username input{background:url(../../img/skin_/userinput.png);font-size:14px; font-weight:bold;color:#33AED8;}
+.login-box .psw{ top:267px;}
+.login-box .psw input { background:url(../../img/skin_/passwordinput.png);}
+.login-box .validate{ position:relative; top:317px;}
+.login-box .validate input{width:204px; padding:0 20px 0 20px; background:url(../../img/skin_/yzminput.png);font-size:14px;}
+.login-box .validate .value{ position:absolute; right:33px; top:11px; height:16px; line-height:16px; color:#fff; font-size:16px;}
+
+/*风格*/
+.styleArea{ position:absolute; left:409px; top:217px;}
+.styleArea .styleWrap{width:133px;height:39px;background:url(../../img/skin_/loginstyleinput.png);}
+.styleArea .iselect-wrapper{top:2px;left:2px;border:none;width:105px;height:36px;line-height:36px;}
+.styleArea .iselect-wrapper .iselect{height:39px;width:133px;*top:10px;}
+.styleArea .iselect-wrapper .iselwrap-val{padding-left:10px;font-size:14px;}
+
+/*登录按钮*/
+#btn{ position:absolute; left:409px; top:317px;}
+#btn input{ width:133px; height:39px; background:url(../../img/skin_/loginbtn.png); border:none; outline:none; cursor:pointer; font-size:16px; font-weight:bold;}
+#btn input:hover{background:url(../../img/skin_/loginbtn_active.png);}
+
+/*页脚*/
+#ft{position:absolute;bottom:40px;left:0;right:0;height:12px;width:100%; text-align:center; line-height:12px;color:#095071;}

@@ -1,0 +1,33 @@
+@charset "utf-8";
+/*结构*/
+html{*overflow:auto;}
+
+#bd{padding-left:202px;}
+#bd .siderBar{float:left;margin-left:-202px;width:202px;}
+#bd .content{float:left;width:100%;}
+
+/*侧边栏导航样式*/
+.siderBar .sider-nav-list{}
+.siderBar .sider-nav-list li{ cursor:pointer;}
+.siderBar .sider-nav-list .sider-nav-item .sider-nav-text{height:36px;line-height:36px;padding-left:15px;background:url(../../img/skin_/leftmenubg1.png) repeat-x;}
+.siderBar .sider-nav-list .sider-nav-item .sider-nav-text .text{font-size:14px;color:#4a4a4a;}
+.siderBar .sider-nav-list .sider-nav-item .sider-nav-text .safety{display:inline-block;margin-right:5px;width:15px;height:13px; background:url(../../img/skin_/icon1.png);}
+
+.siderBar .sider-nav-list .sider-nav-item .sider-nav-text i.icon{display:inline-block;margin-right:5px;width:15px;height:9px; background:url(../../img/skin_/leftmenu.png) no-repeat;}
+
+.siderBar .sider-nav-list .sider-nav-item.current .sider-nav-text{color:#047db6;}
+.siderBar .sider-nav-list .sider-nav-item.current .sider-nav-text i.icon{display:inline-block;width:9px;height:5px; background:url(../../img/skin_/leftmenu1.png);}
+.siderBar .sider-nav-list .sider-nav-item.current .sider-nav-text .text{color:#047db6; font-weight:bold;}
+/*无子元素样式*/
+.siderBar .sider-nav-list .sider-nav-item.nochildren.current .sider-nav-text{background:url(../../img/skin_/leftmenubg.png);}
+.siderBar .sider-nav-list .sider-nav-item.nochildren.current .sider-nav-text .text{color:#fff;}
+.siderBar .sider-nav-list .sider-nav-item.nochildren.current .sider-nav-text .safety{display:inline-block;width:15px;height:13px; background:url(../../img/skin_/lefticon.png);}
+
+.siderBar .sider-nav-list .sider-nav-item .sub-nav-item{height:30px;line-height:30px;font-size:12px;color:#000;border-left:3px solid #fff;padding-left:35px;}
+.siderBar .sider-nav-list .sider-nav-item .sub-nav-item.current{background:#38a3d5;color:#fff;border-left:3px solid #f24a39;}
+
+/*子列表样式*/
+.siderBar .sider-nav-list .sider-nav-item .sub-nav-item i.icon{position:relative;display:inline-block;top:2px;width:12px;height:15px; background:url(../../img/skin_/leftlist.png);}
+
+.siderBar .sider-nav-list .sider-nav-item .sub-nav{display:none;}
+.siderBar .sider-nav-list .sider-nav-item.current .sub-nav{ display:block;}

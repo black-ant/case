@@ -1,0 +1,13 @@
+html{*overflow:auto;}
+body{padding-bottom:20px;}
+#main{margin:15px 10px 0 15px;}
+.subfild{ height:26px; border-bottom:1px solid #dbdbdb; margin-bottom:20px;}
+.subfild span{ display:block; margin-left:1px; width:75px; text-align:center; height:24px; line-height:24px; border-bottom:3px solid #0e8bc5; font-size:16px;}
+
+
+.subfild-content {margin-bottom:25px;}
+
+.kv-item.time .kv-item-content{ position:relative;}
+.kv-item.time .kv-item-content .time-icon{position:absolute;right:10px;top:6px;*top:8px;}
+
+.button{margin-left:80px;}

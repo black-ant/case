@@ -1,0 +1,36 @@
+html{*overflow:auto;}
+body{padding-bottom:20px;}
+#main{margin:15px 10px 0 15px;}
+
+.nav-list{margin-bottom:20px;}
+.nav-list .nav-item{float:left;margin-right:30px; cursor:pointer;}
+.nav-list .nav-item a{color:#000;}
+.nav-list .nav-item a:hover{text-decoration:none;}
+.nav-list .nav-item .icon{width:70px;height:70px;}
+.nav-list .nav-item .title{ text-align:center; font-size:14px;}
+.nav-list .nav-item.desk .icon{ background:url(../../img/skin_/t01.png);}
+.nav-list .nav-item.news .icon{ background:url(../../img/skin_/t02.png);}
+.nav-list .nav-item.notice .icon{ background:url(../../img/skin_/t03.png);}
+.nav-list .nav-item.plan .icon{ background:url(../../img/skin_/t04.png);}
+.nav-list .nav-item.contacts .icon{ background:url(../../img/skin_/t05.png);}
+.nav-list .nav-item.mail .icon{ background:url(../../img/skin_/t06.png);}  
+.nav-list .nav-item.logs .icon { background:url(../../img/skin_/t07.png);} 
+.nav-list .nav-item.dosthings .icon{ background:url(../../img/skin_/t08.png);}   
+.nav-list .nav-item.fav .icon{ background:url(../../img/skin_/t09.png);}
+.nav-list .nav-item.browser  .icon{ background:url(../../img/skin_/t10.png);}
+
+.content-list{}
+.content-list .content-item{float:left;border:1px solid #cfcfcf;margin:0 10px 10px 0;width:382px;}
+.content-list .content-item .content-hd{height:36px; font-size:14px; line-height:36px;padding-left:15px;background:url(../../img/skin_/toolbarbg.png);border-bottom:1px solid #cfcfcf; cursor:move;}
+.content-list .content-item .content-hd .opt{float:right;margin-right:10px;*margin:13px 5px 0 0;}
+.content-list .content-item .content-hd .opt span{display:inline-block;width:12px;height:12px; cursor:pointer;*margin-right:5px;}
+.content-list .content-item .content-hd .opt span.refresh{ background:url(../../img/skin_/p01.png);}
+.content-list .content-item .content-hd .opt span.setting{ background:url(../../img/skin_/p02.png);}
+.content-list .content-item .content-hd .opt span.report{ background:url(../../img/skin_/p03.png);}
+.content-list .content-item .content-hd .opt span.close{ background:url(../../img/skin_/p04.png);}
+
+.content-list .content-item .content-bd{height:170px;color:#000; overflow:auto; background:#fff;width:100%;}
+.content-list .content-item .content-bd .content-list{padding:10px;}
+.content-list .content-item .content-bd .content-list-item {margin-bottom:10px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.content-list .content-item .content-bd .content-list-item .icon{*position:relative;*top:-3px;display:inline-block;margin-right:5px;width:8px;height:9px; background:url(../../img/skin_/plist.png);}
+.content-list .content-item .content-bd .content-list-item a{color:#000;}

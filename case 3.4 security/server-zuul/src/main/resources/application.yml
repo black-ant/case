@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    config:
+      profile: dev
+      label: master
+      uri: http://localhost:9001/
+
+server:
+  port: 8082
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1101/eureka/
+
+zuul:
+  routes:
+      uaa:
+          path: /uaa/**
+          sensitiveHeaders: "*"
+          serviceId: auth-service
+      authtest:
+          path: /authtest/**
+          sensitiveHeaders: "*"
+          serviceId: auth-service
+      server-produce:
+          path: /apiproduce/**
+          serviceId: server-produce
+  add-proxy-headers: true
+
+
+
+
+security:
+  oauth2:
+    client:
+      access-token-uri: http://localhost:${server.port}/uaa/oauth/token
+      user-authorization-uri: http://localhost:${server.port}/uaa/oauth/authorize
+      client-id: browser
+    resource:
+      user-info-uri: http://localhost:${server.port}/uaa/user
+      prefer-token-info: false

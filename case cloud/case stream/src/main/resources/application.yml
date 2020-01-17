@@ -1,0 +1,18 @@
+#spring:
+#  main:
+#    allow-bean-definition-overriding: true
+#  cloud:
+#    stream:
+#      bindings:
+#        SyncEventProducer:
+#          destination: SyncEvent
+para:
+  idm:
+    common:
+      sync:
+        entity-producer: true
+        event-consumer: true
+        #
+        entity-consumer: true
+        event-producer: true
+        enable: true
