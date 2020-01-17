@@ -1,8 +1,0 @@
- 1 port 6380       #端口号
- 2 loglevel notice    #日志的记录级别，notice是适合生产环境的
- 3 logfile "Logs/redis6380_log.txt"      #指定log的保持路径,默认是创建在Redis安装目录下，如果有子目录需要手动创建，如此处的Logs目录
- 4 syslog-enabled yes                         #是否使用系统日志
- 5 syslog-ident redis6380                   #在系统日志的标识名
- 6 appendonly yes                              #数据的保存为aof格式
- 7 appendfilename "appendonly.6380.aof"    #数据保存文件
- 8 cluster-enabled yes                                    #是否开启集群
