@@ -1,6 +1,7 @@
 package com.gamg.easyrest.demo.controller;
 
 
+import com.gamg.easyrest.demo.entity.RESTHeaders;
 import com.gamg.easyrest.demo.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes({
         MediaType.APPLICATION_JSON, RESTHeaders.APPLICATION_YAML, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN
 })
-public class UserAPIService {
+public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 

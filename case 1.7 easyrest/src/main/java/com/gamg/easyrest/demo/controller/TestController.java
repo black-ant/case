@@ -4,17 +4,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-/**
- * Test API 的 实现类
- * 注意 ： 此处要加 @Component 用于 spring 的托管
- */
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+
+@Path("/other")
 @Component
-public class TestAPIService implements TestAPI {
+public class TestController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Override
-    public void showMsg() {
-        logger.info("show msg is start");
+    @GET
+    @Path("/test")
+    public void test() {
+        logger.info("------> test in .... <-------");
     }
 }

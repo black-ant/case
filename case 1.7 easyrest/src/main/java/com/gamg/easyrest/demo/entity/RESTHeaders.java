@@ -1,4 +1,4 @@
-package com.gamg.easyrest.demo.controller;
+package com.gamg.easyrest.demo.entity;
 
 import javax.ws.rs.core.MediaType;
 
