@@ -1,5 +1,11 @@
 package com.gang.study.stream.stram;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
+
 import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -10,7 +16,10 @@ import java.util.function.Function;
  * 冒号 运算符
  * 箭头表达式
  */
-public class BaseStream {
+@Component
+public class BaseStream implements ApplicationRunner {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public static void execute(BaseInteface worker) {
         worker.baseFunction("111");
@@ -21,7 +30,6 @@ public class BaseStream {
         execute((data) -> System.out.println(data));
     }
 
-
     public void happen(double money, Consumer<Double> con) {
         con.accept(money);
     }
@@ -31,6 +39,17 @@ public class BaseStream {
     }
 
 
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        test();
+        new Thread()
+    }
 
-
+    public void test() {
+        logger.info("------> this is in test <-------");
+        baseFunction -> {
+            return 20;
+        };
+        logger.info("------> num is :{} <-------", num);
+    }
 }
