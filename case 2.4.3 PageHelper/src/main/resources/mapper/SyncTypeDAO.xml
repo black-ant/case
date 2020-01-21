@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gang.study.pagehelper.demo.mapper.SyncTypeDAO">
+    <resultMap id="BaseResultMap" type="com.gang.study.pagehelper.demo.entity.SyncType">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="type_code" jdbcType="VARCHAR" property="typeCode"/>
+        <result column="type_class" jdbcType="VARCHAR" property="typeClass"/>
+        <result column="type_policy" jdbcType="VARCHAR" property="typePolicy"/>
+        <result column="type_name" jdbcType="VARCHAR" property="typeName"/>
+        <result column="supplier_id" jdbcType="VARCHAR" property="supplierId"/>
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName"/>
+        <result column="data_type" jdbcType="VARCHAR" property="dataType"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, type_code, type_class, type_policy, type_name, supplier_id, supplier_name, data_type
+  </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sync_type
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sync_type
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sync_type
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insert" parameterType="com.gang.study.pagehelper.demo.entity.SyncType">
+    insert into sync_type (id, type_code, type_class, 
+      type_policy, type_name, supplier_id, 
+      supplier_name, data_type)
+    values (#{id,jdbcType=VARCHAR}, #{typeCode,jdbcType=VARCHAR}, #{typeClass,jdbcType=VARCHAR}, 
+      #{typePolicy,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, 
+      #{supplierName,jdbcType=VARCHAR}, #{dataType,jdbcType=VARCHAR})
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.gang.study.pagehelper.demo.entity.SyncType">
+        insert into sync_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="typeCode != null">
+                type_code,
+            </if>
+            <if test="typeClass != null">
+                type_class,
+            </if>
+            <if test="typePolicy != null">
+                type_policy,
+            </if>
+            <if test="typeName != null">
+                type_name,
+            </if>
+            <if test="supplierId != null">
+                supplier_id,
+            </if>
+            <if test="supplierName != null">
+                supplier_name,
+            </if>
+            <if test="dataType != null">
+                data_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="typeCode != null">
+                #{typeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="typeClass != null">
+                #{typeClass,jdbcType=VARCHAR},
+            </if>
+            <if test="typePolicy != null">
+                #{typePolicy,jdbcType=VARCHAR},
+            </if>
+            <if test="typeName != null">
+                #{typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierId != null">
+                #{supplierId,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierName != null">
+                #{supplierName,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType != null">
+                #{dataType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gang.study.pagehelper.demo.entity.SyncType">
+        update sync_type
+        <set>
+            <if test="typeCode != null">
+                type_code = #{typeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="typeClass != null">
+                type_class = #{typeClass,jdbcType=VARCHAR},
+            </if>
+            <if test="typePolicy != null">
+                type_policy = #{typePolicy,jdbcType=VARCHAR},
+            </if>
+            <if test="typeName != null">
+                type_name = #{typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierId != null">
+                supplier_id = #{supplierId,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierName != null">
+                supplier_name = #{supplierName,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType != null">
+                data_type = #{dataType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.gang.study.pagehelper.demo.entity.SyncType">
+    update sync_type
+    set type_code = #{typeCode,jdbcType=VARCHAR},
+      type_class = #{typeClass,jdbcType=VARCHAR},
+      type_policy = #{typePolicy,jdbcType=VARCHAR},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      supplier_id = #{supplierId,jdbcType=VARCHAR},
+      supplier_name = #{supplierName,jdbcType=VARCHAR},
+      data_type = #{dataType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
