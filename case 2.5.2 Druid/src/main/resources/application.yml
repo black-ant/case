@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/expengine?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&useSSL=false&allowMultiQueries=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #       下面为连接池设置，应用到上面的数据源中（一些最基本的设置）
+    #初始大小
+    initialSize: 5
+    #最小
+    minIdle: 5
+    #最大
+    maxActive: 20
+    #获取连接等待超时时间
+    maxWait: 60000
