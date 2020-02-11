@@ -19,7 +19,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @Date 2019/4/27 19:17
  * @Version 1.0
  **/
-@Configuration
+//@Configuration
 public class RedisCnfig {
 
     /**
@@ -39,11 +39,12 @@ public class RedisCnfig {
         // 配置连接工厂
         template.setConnectionFactory(factory);
         //此配置用于指定是否使用默认实现 ，对原始字节数组使用 RedisTemplate ，默认为true
-//        template.setEnableDefaultSerializer(false);
+        //        template.setEnableDefaultSerializer(false);
 
 
         //使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值,此时转换为JSON格式（默认使用JDK的序列化方式）
-        //常见的还有 GenericJackson2JsonRedisSerializer ，JdkSerializationRedisSerializer ，GenericToStringSerializer ，OxmSerializer
+        //常见的还有 GenericJackson2JsonRedisSerializer ，JdkSerializationRedisSerializer ，GenericToStringSerializer
+        // ，OxmSerializer
         Jackson2JsonRedisSerializer jacksonSeial = new Jackson2JsonRedisSerializer(Object.class);
 
         ObjectMapper om = new ObjectMapper();

@@ -21,7 +21,7 @@ public class SetController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
+    //    @Autowired
     RedisSetUtils redisSetUtils;
 
     @GetMapping("/get/{key}")

@@ -21,7 +21,7 @@ public class ListController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
+    //    @Autowired
     RedisSetUtils redisSetUtils;
 
     @GetMapping("/get/{key}/{field}")
@@ -31,7 +31,8 @@ public class ListController {
     }
 
     @GetMapping("/set/{key}/{filed}/{value}")
-    public String set(@PathVariable("key") String key, @PathVariable("filed") Long field, @PathVariable("value") String value) {
+    public String set(@PathVariable("key") String key, @PathVariable("filed") Long field,
+                      @PathVariable("value") String value) {
         logger.info("------> this is in :{} --{} -{}  <-------", key, field, value);
         redisSetUtils.listSet(key, field, value);
         return "set ok " + key + "-" + field + "-" + value;

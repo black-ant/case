@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UtilController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired
+
+    //    @Autowired
     UseUtilService useUtilService;
 
     @GetMapping(value = "get")
@@ -38,7 +39,8 @@ public class UtilController {
     }
 
     @GetMapping(value = "set")
-    public String setOneKey(@RequestParam("id") String id, @RequestParam("data") String data, @RequestParam("type") String type) {
+    public String setOneKey(@RequestParam("id") String id, @RequestParam("data") String data,
+                            @RequestParam("type") String type) {
         logger.info("setOneKey by key :{},{}", id, data);
         switch (type) {
             case "1":

@@ -18,14 +18,15 @@ import java.util.concurrent.TimeUnit;
 public class TestService {
 
     //StringRedisTemplate使用的是StringRedisSerializer
+
     @Autowired
     StringRedisTemplate stringRedisTemplate;
 
     //RedisTemplate使用的是JdkSerializationRedisSerializer
     //此时存入的为字节数组 ，取出后会将字节码转换为 相关对象
     // 当！存入的数据不是字节数组,而是可见字符串的时候 ，就会导致取出的为null
-//    @Autowired
-//    RedisTemplate<String,String> redisTemplate;
+    //    @Autowired
+    //    RedisTemplate<String,String> redisTemplate;
 
     // RedisTemplate 如果没有 预定义泛型 ，查出来的为null , 可以屏蔽后尝试
     @Autowired

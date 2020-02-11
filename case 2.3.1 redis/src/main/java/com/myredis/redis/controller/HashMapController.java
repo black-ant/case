@@ -27,7 +27,7 @@ public class HashMapController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
+    //    @Autowired
     RedisSetUtils redisSetUtils;
 
     @GetMapping("/set/{key}")
