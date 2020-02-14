@@ -7,9 +7,15 @@ import com.ang.study.email.demo.entity.EmailSetting;
 import com.sun.mail.util.MailSSLSocketFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Service;
+import para.sdk.common.msg.manager.MsgFactoryImp;
+import para.sdk.common.msg.service.ISendService;
+import para.sdk.msg.email.logic.EmailSendService;
+import para.sdk.msg.email.to.EmailMsgContent;
+import para.sdk.msg.email.to.EmailMsgSetting;
 
 import java.security.GeneralSecurityException;
 import java.util.Date;
@@ -26,17 +32,47 @@ public class EmailService implements ApplicationRunner {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
+    @Autowired
+    protected MsgFactoryImp factoryImp;
+
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        //        send();
+        sendSDK();
+    }
 
+    public void sendSDK() {
+
+        EmailMsgContent msgContent = new EmailMsgContent();
+        msgContent.setContenTitle("邮件测试");
+        msgContent.setTemplateContent("123456Test");
+        msgContent.setReceiverUser("zengzg@paraview.cn");
+
+        String setting = "{'permissionAccount':'2331746732@qq.com','permissionPassword':'wyiyyjowgxtndjde'," +
+                "'protocol':'SMTP','host':'smtp.qq.com','port':'465','auth':'true','enable':true,'time':20}";
+
+        EmailMsgSetting emailMsgSetting = JSONObject.toJavaObject(JSONObject.parseObject(setting),
+                EmailMsgSetting.class);
+
+
+        ISendService sendService = factoryImp.buildSendService(emailMsgSetting,
+                EmailSendService.class);
+
+        String back = sendService.send(msgContent);
+
+        logger.info("------> this is back :[} <-------", back);
+    }
+
+    public void send() {
         String eamilSetting;
 
         EmailContent msgContent;
 
         JSONObject settingJson = new JSONObject();
 
-        settingJson.put("account", "111111@qq.com");
-        settingJson.put("password", "123456");
+        settingJson.put("account", "2331746732@qq.com");
+        settingJson.put("password", "wyiyyjowgxtndjde");
 
         settingJson.put("protocol", "SMTP");
         settingJson.put("host", "smtp.qq.com");
@@ -57,7 +93,6 @@ public class EmailService implements ApplicationRunner {
         msgContent.setType("txt");
 
         send(eamilSetting, msgContent);
-
     }
 
     static class MyAuthenricator extends Authenticator {
