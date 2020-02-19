@@ -29,9 +29,14 @@
         </dependency>
         <dependency>
             <groupId>com.gang</groupId>
-            <artifactId>com-gang-common-schedule</artifactId>
+            <artifactId>com-gang-common-lib</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.gang</groupId>-->
+        <!--            <artifactId>com-gang-common-schedule</artifactId>-->
+        <!--            <version>1.0.0</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

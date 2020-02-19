@@ -1,0 +1,16 @@
+ConnId Active Directory bundle (JNDI implementation) 
+Copyright 2011-2015 ConnId
+
+This product includes software developed by:
+The ConnId project (https://connid.tirasa.net/).
+
+The following copyright notice(s) were affixed to portions of this code
+with which this file is now or was at one time distributed.
+
+==
+
+This product includes software developed by the ConnId LDAP bundle project (https://github.com/Tirasa/ConnIdLDAPBundle).
+
+==
+
+This project includes software developed by the ADSDDL project (https://github.com/Tirasa/ADSDDL)
