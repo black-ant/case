@@ -34,11 +34,11 @@ class DemoApplicationTests {
     @Test
     public void contextLoads() {
 
-        //        testOrg();
+        testOrg();
 
         //        testGroup();
 
-        testUser();
+        //        testUser();
         //        try {
         //            Thread.sleep(5000);
         //        } catch (InterruptedException e) {
@@ -59,7 +59,7 @@ class DemoApplicationTests {
 
         //        orgOutput.get(getSearchInfo(), null);
 
-        //        orgOutput.search();
+        orgOutput.search();
 
 
         logger.info("------> this is back key  :{} <-------", adOrgTO.getKey());
@@ -85,11 +85,11 @@ class DemoApplicationTests {
     public void testUser() {
         //        userOutput.init(getConfigTO());
 
-        ADUserTO adUserTO = userOutput.create(creatUserTO(), getConfigTO());
+        //        ADUserTO adUserTO = userOutput.create(creatUserTO(), getConfigTO());
 
         //        ADUserTO adUserTO = userOutput.search(getSearchInfo(), null);
 
-        //        ADUserTO adUserTO = adUserTO = userOutput.update(updateUserTO(), null);
+        ADUserTO adUserTO = adUserTO = userOutput.update(updateUserTO(), getConfigTO());
 
         //            ADUserTO adUserTO = adUserTO = userOutput.delete(getDeleteInfo(), null);
 

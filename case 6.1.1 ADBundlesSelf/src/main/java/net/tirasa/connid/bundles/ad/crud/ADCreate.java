@@ -286,8 +286,8 @@ public class ADCreate extends LdapModifyOperation {
         if (!isEmpty(ldapGroups)) {
             //            groupHelper.addLdapGroupMemberships(entryDN, ldapGroups);
             // ADD TO GROUP : AD MUST GOUP ADD MEMBER , USER CAN NOT ADD MEMBER OF
-            addUserToMemberGroup(entryDN, ldapGroups, conn);
         }
+        addUserToMemberGroup(entryDN, ldapGroups, conn);
 
         if (StringUtil.isNotBlank(primaryGroupDN)) {
             // ---------------------------------

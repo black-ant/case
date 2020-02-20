@@ -1,16 +1,24 @@
 package com.gang.study.adsource.demo.logic;
 
 import com.alibaba.fastjson.JSONObject;
+import com.gang.study.adsource.demo.to.ObjectClass;
+import com.gang.study.adsource.demo.type.ADSearchType;
+import com.gang.study.adsource.demo.utils.ADSearchUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.naming.Context;
+import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.BasicAttributes;
+import javax.naming.directory.SearchControls;
+import javax.naming.directory.SearchResult;
 import javax.naming.ldap.LdapContext;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -59,10 +67,6 @@ public class OrgLogic {
      */
     public void createOrg(String ouName) throws NamingException {
 
-        if (null == ctx) {
-            init();
-        }
-
         // step2 : 准备属性
         final BasicAttributes adAttrs = getAttriutes();
 
@@ -80,11 +84,41 @@ public class OrgLogic {
      * @throws NamingException
      */
     public void update(String oldName, String newName) throws NamingException {
-        if (null == ctx) {
-            init();
-        }
         ctx.rename("OU=" + oldName + ",DC=wdhacpoc,DC=com,DC=cn", "OU=" + newName + ",DC=wdhacpoc,DC=com,DC=cn");
     }
+
+    public void search(String info, String baseOUName) throws NamingException {
+
+        // step 1 : 搜索根路径 --> baseDN
+        baseOUName = "OU=" + baseOUName + ",DC=wdhacpoc,DC=com,DC=cn";
+
+        // step 2 : 定义搜索范围
+        SearchControls searchCtls = new SearchControls();
+        searchCtls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+
+        // step 3 : 准备搜索语句
+        String searchFilter = ADSearchUtils.getNativeFilter(ADSearchType.EQUALS, "name",
+                info, ObjectClass.ORGANIZATION);
+
+        // step 4 : 搜索
+        try {
+            final NamingEnumeration<SearchResult> results = ctx.search(baseOUName, searchFilter, searchCtls);
+
+            // step 5 : 处理结果
+            Set backMap = new HashSet();
+            while (results.hasMoreElements()) {
+                SearchResult sr = (SearchResult) results.next();
+                logger.info("------> this is result :{} <-------", sr.getAttributes().get("name"));
+                backMap.add(sr.getAttributes());
+            }
+
+            logger.info("------> this back is :{} <-------", backMap.size());
+        } catch (NamingException e) {
+            logger.error("E----> error :{} -- content :{}", e.getClass() + e.getMessage(), e);
+            throw e;
+        }
+    }
+
 
     /**
      * 删除组织
@@ -93,11 +127,6 @@ public class OrgLogic {
      * @throws NamingException
      */
     public void delete(String ouName) throws NamingException {
-
-        if (null == ctx) {
-            init();
-        }
-
         ctx.destroySubcontext("OU=" + ouName + ",DC=wdhacpoc,DC=com,DC=cn");
     }
 

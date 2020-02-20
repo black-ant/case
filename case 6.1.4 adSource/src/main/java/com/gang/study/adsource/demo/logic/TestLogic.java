@@ -33,13 +33,15 @@ public class TestLogic implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        //        testOrg();
+        testOrg();
         //        testGroup();
-        testUser();
+        //        testUser();
     }
 
     public void testOrg() {
         try {
+            orgLogic.init();
+
             logger.info("------> this is in create <-------");
             //            orgLogic.createOrg("gang0219");
 
@@ -47,7 +49,10 @@ public class TestLogic implements ApplicationRunner {
             //            orgLogic.update("gang0219", "gang021901");
 
             logger.info("------> this is in delete <-------");
-            orgLogic.delete("gang021901");
+            //            orgLogic.delete("gang021901");
+
+            logger.info("------> this is search <-------");
+            orgLogic.search("武汉研发1206-13", "上海派拉技术有限公司");
 
         } catch (NamingException e) {
             logger.error("E----> error :{} -- content :{}", e.getClass() + e.getMessage(), e);

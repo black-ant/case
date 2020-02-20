@@ -10,6 +10,7 @@ import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
+import javax.naming.directory.AttributeInUseException;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.BasicAttributes;
@@ -87,10 +88,6 @@ public class UserLogic {
         logger.info("------> this in ok :{} <-------", JSONObject.toJSONString(context));
     }
 
-    public void addGroup() {
-
-    }
-
     public void update(String ouName) throws NamingException {
         if (null == ctx) {
             init();
@@ -100,8 +97,42 @@ public class UserLogic {
         final BasicAttributes updateAttrs = getUpdateAttriutes();
 
         //        editAttribute("CN=" + ouName + ",OU=武汉研发194,DC=wdhacpoc,DC=com,DC=cn", updateAttrs);
+        addGroup(ouName);
+        //        ctx.modifyAttributes("CN=" + ouName + ",OU=武汉研发194,DC=wdhacpoc,DC=com,DC=cn", 3, getUpdateAttriutes
+        //        ());
+    }
 
-        ctx.modifyAttributes("CN=" + ouName + ",OU=武汉研发194,DC=wdhacpoc,DC=com,DC=cn", 3, getUpdateAttriutes());
+    public void addGroup(String ouName) {
+        logger.info("------> this is add Group <-------");
+        String memberAttr = "member";
+        String memberValue = "CN=" + ouName + ",OU=武汉研发194,DC=wdhacpoc,DC=com,DC=cn";
+        String groupDN = "CN=Sync126,DC=wdhacpoc,DC=com,DC=cn";
+        //        addMemberToGroup(memberAttr, memberValue, groupDN);
+        removeMemberToGroup(memberAttr, memberValue, groupDN);
+    }
+
+    private void addMemberToGroup(String memberAttr, String memberValue, String groupDN) {
+        BasicAttribute attr = new BasicAttribute(memberAttr, memberValue);
+        ModificationItem item = new ModificationItem(DirContext.ADD_ATTRIBUTE,
+                attr);
+
+        try {
+            ctx.modifyAttributes(groupDN, new ModificationItem[]{item});
+        } catch (Exception e) {
+            logger.error("E----> error :{} -- content :{}", e.getClass() + e.getMessage(), e);
+        }
+    }
+
+    private void removeMemberToGroup(String memberAttr, String memberValue, String groupDN) {
+        BasicAttribute attr = new BasicAttribute(memberAttr, memberValue);
+        ModificationItem item = new ModificationItem(DirContext.REMOVE_ATTRIBUTE,
+                attr);
+
+        try {
+            ctx.modifyAttributes(groupDN, new ModificationItem[]{item});
+        } catch (Exception e) {
+            logger.error("E----> error :{} -- content :{}", e.getClass() + e.getMessage(), e);
+        }
     }
 
     public void editAttribute(String dn, Attributes attributes) {
@@ -112,7 +143,7 @@ public class UserLogic {
 
         while (attrEnum.hasMoreElements()) {
             final javax.naming.directory.Attribute attr = attrEnum.nextElement();
-            modItems.add(new ModificationItem(REMOVE_ATTRIBUTE, attr));
+            modItems.add(new ModificationItem(REPLACE_ATTRIBUTE, attr));
         }
         logger.info("------> DN IS :{} <-------", dn);
         try {
