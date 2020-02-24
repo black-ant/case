@@ -1,0 +1,23 @@
+server:
+  port: 18006
+  servlet:
+    session:
+      cookie:
+        name: OAUTH2-CLIENT-SESSIONID #防止Cookie冲突，冲突会导致登录验证不通过
+oauth2-server-url: http://localhost:8089
+spring:
+  application:
+    name: oauth2-client
+security:
+  oauth2: #与oauth2-server对应的配置
+    client:
+      client-id: admin
+      client-secret: admin123456
+      user-authorization-uri: ${oauth2-server-url}/oauth/authorize
+      access-token-uri: ${oauth2-server-url}/oauth/token
+    resource:
+      #      Jwt 格式
+      #      jwt:
+      #        key-uri: ${oauth2-server-url}/oauth/token_key
+      token-info-uri: ${oauth2-server-url}/oauth/check_token
+      user-info-uri: ${oauth2-server-url}/user
