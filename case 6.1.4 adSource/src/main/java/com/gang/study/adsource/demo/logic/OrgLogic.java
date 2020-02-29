@@ -85,6 +85,8 @@ public class OrgLogic {
      */
     public void update(String oldName, String newName) throws NamingException {
         ctx.rename("OU=" + oldName + ",DC=wdhacpoc,DC=com,DC=cn", "OU=" + newName + ",DC=wdhacpoc,DC=com,DC=cn");
+
+
     }
 
     public void search(String info, String baseOUName) throws NamingException {
