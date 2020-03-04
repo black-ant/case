@@ -10,15 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.naming.Context;
+import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.BasicAttributes;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
+import javax.naming.ldap.Control;
+import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
+import javax.naming.ldap.PagedResultsControl;
+import javax.naming.ldap.PagedResultsResponseControl;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -89,6 +96,21 @@ public class OrgLogic {
 
     }
 
+    /**
+     * 单纯得搜索出list
+     *
+     * @param baseOUName
+     * @throws NamingException
+     */
+    public void searchList(String baseOUName) throws NamingException {
+        NamingEnumeration<NameClassPair> results = ctx.list("OU=" + baseOUName + ",DC=wdhacpoc,DC=com,DC=cn");
+        while (results.hasMoreElements()) {
+            NameClassPair sr = (NameClassPair) results.next();
+            logger.info("------> this is sr :{} <-------", sr.getName());
+            //            logger.info("------> this is result :{} <-------", sr.getAttributes().get("name"));
+        }
+    }
+
     public void search(String info, String baseOUName) throws NamingException {
 
         // step 1 : 搜索根路径 --> baseDN
@@ -119,6 +141,88 @@ public class OrgLogic {
             logger.error("E----> error :{} -- content :{}", e.getClass() + e.getMessage(), e);
             throw e;
         }
+    }
+
+    /**
+     * 假分页 :
+     *
+     * @param page
+     * @param size
+     * @param baseOUName
+     * @param cookie
+     * @return
+     */
+    public byte[] searchPage(Integer page, Integer size, String baseOUName, byte[] cookie) {
+
+        // step 1 : 搜索根路径 --> baseDN
+        baseOUName = "OU=" + baseOUName + ",DC=wdhacpoc,DC=com,DC=cn";
+
+        // step 3 : 准备搜索语句
+        String searchFilter = ADSearchUtils.getSearchClassFilter(ObjectClass.ACCOUNT);
+
+        try {
+            SearchControls searchCtls = new SearchControls();
+            String returnedAtts[] = {"sn", "givenName", "mail"};
+            searchCtls.setReturningAttributes(returnedAtts);
+            searchCtls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+
+
+            Control[] ctls = new Control[0];
+
+            ctx.setRequestControls(new Control[]{new PagedResultsControl(page, cookie, Control
+                    .CRITICAL)});
+
+            //            ctls = new Control[]{new
+            //                    PagedResultsControl(size, Boolean.TRUE)};
+            //            ctx.setRequestControls(ctls);
+
+            int totalResults = 0;
+
+            //            do {
+
+            NamingEnumeration results = ctx.search(baseOUName, searchFilter, searchCtls);
+
+            while (results != null && results.hasMoreElements()) {
+
+                SearchResult sr = (SearchResult) results.next();
+                System.out.println("name: " + sr.getName());
+                totalResults++;
+            }
+            cookie = parseControls(ctx.getResponseControls());
+
+            //            } while ((cookie != null) && (cookie.length != 0));
+            //            ctx.close();
+            System.out.println("Total entries: " + totalResults);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return cookie;
+    }
+
+
+    /**
+     * 简单点说 , 获取 执行后的 cookie
+     *
+     * @param controls
+     * @return
+     * @throws NamingException
+     */
+    static byte[] parseControls(Control[] controls) throws NamingException {
+
+        byte[] cookie = null;
+
+        if (controls != null) {
+            for (int i = 0; i < controls.length; i++) {
+                if (controls[i] instanceof PagedResultsResponseControl) {
+                    PagedResultsResponseControl prrc = (PagedResultsResponseControl) controls[i];
+                    cookie = prrc.getCookie();
+                    System.out.println(">>Next Page \n");
+                }
+            }
+        }
+        return (cookie == null) ? new byte[0] : cookie;
+
     }
 
 

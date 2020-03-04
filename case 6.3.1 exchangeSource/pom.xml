@@ -5,10 +5,10 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.4.RELEASE</version>
+        <version>2.2.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.gang.study.adsource</groupId>
+    <groupId>com.gang.exchangeSource</groupId>
     <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo</name>
@@ -19,21 +19,19 @@
     </properties>
 
     <dependencies>
-        <!-- 分页处理 -->
-        <dependency>
-            <groupId>com.sun</groupId>
-            <artifactId>ldapbp</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>com.profesorfalken</groupId>
+            <artifactId>jPowerShell</artifactId>
+            <version>3.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.10.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -45,6 +43,11 @@
             <version>1.2.58</version>
         </dependency>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -54,6 +57,11 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.10.1</version>
         </dependency>
     </dependencies>
 

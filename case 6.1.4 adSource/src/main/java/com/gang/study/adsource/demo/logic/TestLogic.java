@@ -31,6 +31,9 @@ public class TestLogic implements ApplicationRunner {
     @Autowired
     private UserLogic userLogic;
 
+    @Autowired
+    private RangeSearch rangeSearch;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         testOrg();
@@ -42,21 +45,34 @@ public class TestLogic implements ApplicationRunner {
         try {
             orgLogic.init();
 
-            logger.info("------> this is in create <-------");
+            //            logger.info("------> this is in create <-------");
             //            orgLogic.createOrg("gang0219");
 
-            logger.info("------> this is in update <-------");
+            //            logger.info("------> this is in update <-------");
             //            orgLogic.update("gang0219", "gang021901");
 
-            logger.info("------> this is in delete <-------");
+            //            logger.info("------> this is in delete <-------");
             //            orgLogic.delete("gang021901");
 
-            logger.info("------> this is search <-------");
-            orgLogic.search("武汉研发1206-13", "上海派拉技术有限公司");
+            //            logger.info("------> this is search <-------");
+            //            orgLogic.search("武汉研发1206-13", "上海派拉技术有限公司");
 
-        } catch (NamingException e) {
+            testPage();
+
+            //            byte[] cookie = null;
+            //            cookie = orgLogic.searchPage(3, 9, "武汉研发194", cookie);
+            //            cookie = orgLogic.searchPage(3, 9, "武汉研发194", cookie);
+            //            cookie = orgLogic.searchPage(3, 9, "武汉研发194", cookie);
+
+            //            orgLogic.searchList("武汉研发194");
+
+        } catch (Exception e) {
             logger.error("E----> error :{} -- content :{}", e.getClass() + e.getMessage(), e);
         }
+    }
+
+    public void testPage() throws NamingException {
+        rangeSearch.search("武汉研发194", 0, 5);
     }
 
     public void testGroup() {

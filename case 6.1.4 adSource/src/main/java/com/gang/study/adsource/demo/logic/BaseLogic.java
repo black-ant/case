@@ -40,7 +40,7 @@ public class BaseLogic {
 
     private ADConfig config;
 
-//    public static void main(String[] args) {
+    //    public static void main(String[] args) {
     //        LOG.info("------> this is in main <-------");
     //        BaseLogic logic = new BaseLogic();
     //        logic.init();
