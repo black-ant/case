@@ -15,6 +15,7 @@
         <startEvent id="startEvent"/>
         <sequenceFlow sourceRef="startEvent" targetRef="approveTask"/>
 
+        <!-- 设置审批人 -->
         <userTask id="approveTask" name="Approve or reject request" flowable:candidateGroups="managers"/>
         <sequenceFlow sourceRef="approveTask" targetRef="decision"/>
 
@@ -26,7 +27,7 @@
         ]]>
             </conditionExpression>
         </sequenceFlow>
-        <sequenceFlow  sourceRef="decision" targetRef="sendRejectionMail">
+        <sequenceFlow sourceRef="decision" targetRef="sendRejectionMail">
             <conditionExpression xsi:type="tFormalExpression">
                 <![CDATA[
           ${!approved}
@@ -35,20 +36,23 @@
         </sequenceFlow>
 
         <serviceTask id="externalSystemCall" name="Enter holidays in external system"
-                     flowable:class="com.hebaohua.workflow.delegate.CallExternalSystemDelegate"/>
+                     flowable:class="org.flowable.CallExternalSystemDelegate"/>
         <sequenceFlow sourceRef="externalSystemCall" targetRef="holidayApprovedTask"/>
 
+        <!-- 任务指派给请假申请的提交人-->
         <userTask id="holidayApprovedTask" name="Holiday approved" flowable:assignee="${employee}"/>
         <sequenceFlow sourceRef="holidayApprovedTask" targetRef="approveEnd"/>
 
         <serviceTask id="sendRejectionMail" name="Send out rejection email"
-                     flowable:class="com.hebaohua.workflow.delegate.CallExternalSystemDelegate"/>
+                     flowable:class="org.flowable.SendRejectionMail"/>
         <sequenceFlow sourceRef="sendRejectionMail" targetRef="rejectEnd"/>
 
         <endEvent id="approveEnd"/>
 
         <endEvent id="rejectEnd"/>
 
+
     </process>
 
 </definitions>
+

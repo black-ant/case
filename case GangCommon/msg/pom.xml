@@ -28,9 +28,14 @@
             <artifactId>com-gang-common-msg-api</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.gang</groupId>-->
+        <!--            <artifactId>com-gang-common-msg-rabbitmq</artifactId>-->
+        <!--            <version>1.0.0</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.gang</groupId>
-            <artifactId>com-gang-common-msg-rabbitmq</artifactId>
+            <artifactId>com-gang-common-msg-sms</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
