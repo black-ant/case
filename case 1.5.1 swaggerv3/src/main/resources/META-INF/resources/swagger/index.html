@@ -19,75 +19,75 @@ under the License.
 -->
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <!-- <ParaIdm> -->
-    <!--<title>Swagger UI</title>-->
-    <title>Swagger UI - Para CIC Msg Server</title>
-    <!-- </ParaIdm> -->
-    <link rel="stylesheet" type="text/css" href="./swagger-ui.css">
-    <link rel="icon" type="image/png" href="./favicon-32x32.png"
-          sizes="32x32"/>
-    <link rel="icon" type="image/png" href="./favicon-16x16.png"
-          sizes="16x16"/>
-    <style>
-        html {
-            box-sizing: border-box;
-            overflow: -moz-scrollbars-vertical;
-            overflow-y: scroll;
-        }
+<meta charset="UTF-8">
+<!-- <ParaIdm> -->
+<!--<title>Swagger UI</title>-->
+<title>Swagger UI - Para CIC Msg Server</title>
+<!-- </ParaIdm> -->
+<link rel="stylesheet" type="text/css" href="./swagger-ui.css">
+<link rel="icon" type="image/png" href="./favicon-32x32.png"
+	sizes="32x32" />
+<link rel="icon" type="image/png" href="./favicon-16x16.png"
+	sizes="16x16" />
+<style>
+html {
+	box-sizing: border-box;
+	overflow: -moz-scrollbars-vertical;
+	overflow-y: scroll;
+}
 
-        *, *:before, *:after {
-            box-sizing: inherit;
-        }
+*, *:before, *:after {
+	box-sizing: inherit;
+}
 
-        body {
-            margin: 0;
-            background: #fafafa;
-        }
-    </style>
+body {
+	margin: 0;
+	background: #fafafa;
+}
+</style>
 </head>
 
 <body>
-<div id="swagger-ui"></div>
+	<div id="swagger-ui"></div>
 
-<script src="./swagger-ui-bundle.js">
+	<script src="./swagger-ui-bundle.js">
 
-</script>
-<script src="./swagger-ui-standalone-preset.js">
+	</script>
+	<script src="./swagger-ui-standalone-preset.js">
 
-</script>
-<script>
-    window.onload = function () {
-        var baseUrl = window.location.href.substring(0,
-            window.location.href.lastIndexOf('/'));
-        var _index = baseUrl.indexOf('#');
-        if (_index > 0) {
-            baseUrl = baseUrl.substring(0, _index);
-            baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/'));
-        }
-        // Build a system
-        const ui = SwaggerUIBundle({
-            // <ParaIdm>
-            urls: [{
-                url: baseUrl + "/../sample/openapi.json",
-                name: "Swagger  V3"
-            }],
-            docExpansion: 'none',
-            displayOperationId: false,
-            operationsSorter: 'alpha',
-            tagsSorter: 'alpha',
-            // </ParaIdm>
-            dom_id: '#swagger-ui',
-            deepLinking: true,
-            presets: [SwaggerUIBundle.presets.apis,
-                SwaggerUIStandalonePreset],
-            plugins: [SwaggerUIBundle.plugins.DownloadUrl],
-            layout: "StandaloneLayout"
-        })
+	</script>
+	<script>
+		window.onload = function() {
+			var baseUrl = window.location.href.substring(0,
+					window.location.href.lastIndexOf('/'));
+			var _index = baseUrl.indexOf('#');
+			if (_index > 0) {
+				baseUrl = baseUrl.substring(0, _index);
+				baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/'));
+			}
+			// Build a system
+			const ui = SwaggerUIBundle({
+				// <ParaIdm>
+				urls : [ {
+					url : baseUrl + "/../msaple/openapi.json",
+					name : "SASS MSG"
+				} ],
+				docExpansion : 'none',
+				displayOperationId : false,
+				operationsSorter : 'alpha',
+				tagsSorter : 'alpha',
+				// </ParaIdm>
+				dom_id : '#swagger-ui',
+				deepLinking : true,
+				presets : [ SwaggerUIBundle.presets.apis,
+						SwaggerUIStandalonePreset ],
+				plugins : [ SwaggerUIBundle.plugins.DownloadUrl ],
+				layout : "StandaloneLayout"
+			})
 
-        window.ui = ui
-    }
-</script>
+			window.ui = ui
+		}
+	</script>
 </body>
 </html>
 
