@@ -1,0 +1,7 @@
+server:
+  port: 8086
+azure:
+  activedirectory:
+    ActiveDirectoryGroups: Users
+    client-id: 4362cd35-d4d8-48d4-b272-5b5e0eb5c78d
+    client-secret: .N]3[8LNoLjA2v6Mxm:sPx9XvUNIXA8E
