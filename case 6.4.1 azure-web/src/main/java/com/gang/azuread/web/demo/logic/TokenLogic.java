@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 import javax.naming.ServiceUnavailableException;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -80,6 +82,19 @@ public class TokenLogic {
             throw new ServiceUnavailableException("authentication result was null");
         }
         return result;
+    }
+
+    private String getRedirectUrl(String currentUri, String state, String nonce)
+            throws UnsupportedEncodingException {
+        String redirectUrl = authority
+                + this.tenant
+                + "/oauth2/authorize?response_type=code&scope=directory.read.all&response_mode=form_post&redirect_uri="
+                + URLEncoder.encode(currentUri, "UTF-8") + "&client_id="
+                + clientId + "&resource=https%3a%2f%2fgraph.microsoft.com"
+                + "&state=" + state
+                + "&nonce=" + nonce;
+
+        return redirectUrl;
     }
 
 }

@@ -282,6 +282,7 @@ public class BasicFilter implements Filter {
     private AuthenticationResult getAccessToken(
             AuthorizationCode authorizationCode, String currentUri)
             throws Throwable {
+        logger.info("------> code :{} <-------", authorizationCode);
         String authCode = authorizationCode.getValue();
         ClientCredential credential = new ClientCredential(clientId,
                 clientSecret);
@@ -323,7 +324,7 @@ public class BasicFilter implements Filter {
                 + this.tenant
                 + "/oauth2/authorize?response_type=code&scope=directory.read.all&response_mode=form_post&redirect_uri="
                 + URLEncoder.encode(currentUri, "UTF-8") + "&client_id="
-                + clientId + "&resource=https%3a%2f%2fgraph.microsoft.com"
+                + clientId + "&resource=https://303370752qq.onmicrosoft.com/adal4jsample"
                 + "&state=" + state
                 + "&nonce=" + nonce;
 

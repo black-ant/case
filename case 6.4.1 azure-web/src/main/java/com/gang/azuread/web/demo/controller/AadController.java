@@ -60,7 +60,9 @@ public class AadController {
         if (result != null) {
             try {
                 String tenant = session.getServletContext().getInitParameter("tenant");
-                userList = getUsernamesFromGraph(result.getAccessToken(), tenant);
+                String token = result.getAccessToken();
+                logger.info("------> this token is :{} <-------", token);
+                userList = getUsernamesFromGraph(token, tenant);
             } catch (Exception e) {
                 logger.error("E----> error :{} -- content :{}", e.getClass(), e.getMessage());
             }
