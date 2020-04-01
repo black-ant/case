@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: elastic
+server:
+  port: 8086
