@@ -28,7 +28,7 @@
     <!-- 为logstash输出的JSON格式的Appender -->
     <appender name="logstash"
               class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>127.0.0.1:5044</destination>
+        <destination>127.0.0.1:4667</destination>
         <!-- 日志输出编码 -->
         <encoder
                 class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
