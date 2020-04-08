@@ -12,9 +12,16 @@
 
     <groupId>com.gang.study.cloud.nacos</groupId>
     <artifactId>gang-cloud-nacos</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>gang-cloud-nacos</name>
     <description>Demo project for Spring Boot</description>
+
+    <modules>
+        <module>nacos-client</module>
+        <module>nacos-server</module>
+        <module>nacos-feign</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,7 +41,7 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>2.1.0.RELEASE</version>
+                <version>2.1.6.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
