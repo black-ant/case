@@ -26,14 +26,14 @@ public class QuartzConfig {
 
     private static final int TIME = 2; // 更新频率
 
-    // JobDetail
+    // JobDetail :  注册任务
     @Bean
     public JobDetail weatherDataSyncJobDetail() {
         return JobBuilder.newJob(CronQuartzJobBean.class).withIdentity("myjob")
                 .storeDurably().build();
     }
 
-    // Trigger
+    // Trigger : 触发器
     @Bean
     public Trigger weatherDataSyncTrigger() {
 

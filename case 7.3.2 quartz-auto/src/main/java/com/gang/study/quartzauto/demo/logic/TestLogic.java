@@ -1,24 +1,25 @@
-package com.gang.study.quartz.demo.logic;
+package com.gang.study.quartzauto.demo.logic;
 
 import org.quartz.Job;
-import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
- * @Classname ScheduleJob
+ * @Classname TestLogic
  * @Description TODO
- * @Date 2020/2/16 15:46
+ * @Date 2020/4/13 19:04
  * @Created by zengzg
  */
-public class ScheduleJob implements Job {
+@Component
+public class TestLogic implements Job {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        logger.info("------>ScheduleJob  this is in  execute<-------");
+        logger.info("------> execute :{} <-------", jobExecutionContext.getJobDetail());
     }
 }

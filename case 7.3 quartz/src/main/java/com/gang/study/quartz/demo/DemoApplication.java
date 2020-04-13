@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import java.text.SimpleDateFormat;
 
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 public class DemoApplication {
 
     public static void main(String[] args) {
