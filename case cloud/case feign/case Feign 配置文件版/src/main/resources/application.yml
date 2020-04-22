@@ -1,0 +1,9 @@
+com:
+  gang:
+    feign:
+      config:
+        example:
+          context-path: /cloud-service
+          server-id: CLOUD-SERVICE
+          bean-injections:
+            - com.gang.study.feign.config.demo.mapper.ServiceMapper
