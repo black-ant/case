@@ -1,0 +1,8 @@
+com:
+  gang:
+    jersey:
+      applicationName: test
+      jerseyPackage:
+        - com.gang.study.jersey.demo.controller
+server:
+  port: 8088
