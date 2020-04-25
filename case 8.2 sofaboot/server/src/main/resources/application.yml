@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: sofatest
+server:
+  port: 8086
