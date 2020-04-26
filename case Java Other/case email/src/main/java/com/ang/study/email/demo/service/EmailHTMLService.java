@@ -1,7 +1,7 @@
 package com.ang.study.email.demo.service;
 
-
 import com.alibaba.fastjson.JSONObject;
+import com.ang.study.email.demo.entity.DefaultProperties;
 import com.ang.study.email.demo.entity.EmailContent;
 import com.ang.study.email.demo.entity.EmailSetting;
 import com.sun.mail.util.MailSSLSocketFactory;
@@ -9,34 +9,47 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+import sun.misc.BASE64Encoder;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.GeneralSecurityException;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Properties;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
-@Service
-public class EmailService implements ApplicationRunner {
-
+/**
+ * @Classname EmailHTMLService
+ * @Description TODO
+ * @Date 2020/4/26 14:39
+ * @Created by zengzg
+ */
+@Component
+public class EmailHTMLService implements ApplicationRunner {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        //        send();
+        logger.info("------> this is in html service <-------");
+        sendHTML();
     }
 
-
-    //        String setting = "{'permissionAccount':'2331746732@qq.com','permissionPassword':'wyiyyjowgxtndjde'," +
-    //                "'protocol':'SMTP','host':'smtp.qq.com','port':'465','auth':'true','enable':true,'time':20}";
-
-
-    public void send() {
+    public void sendHTML() {
         String eamilSetting;
 
         EmailContent msgContent;
@@ -134,16 +147,17 @@ public class EmailService implements ApplicationRunner {
 
         logger.info("------> send before <-------");
         Session session = Session.getInstance(properties,
-                new MyAuthenricator(emailSetting.getAccount(), emailSetting.getPassword()));
+                new EmailService.MyAuthenricator(emailSetting.getAccount(), emailSetting.getPassword()));
         MimeMessage mimeMessage = new MimeMessage(session);
         try {
-            mimeMessage.setFrom(new InternetAddress(emailSetting.getAccount(), ""));
-            mimeMessage.setSubject(sendContent.getTitle());
-            mimeMessage.setSentDate(new Date());
-            mimeMessage.setText(sendContent.getContent());
-            mimeMessage.setContent(sendContent.getContent(), "text/html;charset =utf-8");
-            mimeMessage.saveChanges();
+            // Base 64 版本
+            String baseStr = ImageToBase64("C:\\Users\\10169\\Pictures\\Saved Pictures\\git.jpg");
+            String htmlBody = DefaultProperties.HTML.replace("${base64IMG}", baseStr);
 
+            mimeMessage.setContent(htmlBody, "text/html;charset =utf-8");
+            mimeMessage.setSentDate(new Date());
+
+            mimeMessage.setFrom(new InternetAddress(emailSetting.getAccount(), ""));
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(sendContent.getReceiverUser()));
             Transport.send(mimeMessage);
 
@@ -151,7 +165,26 @@ public class EmailService implements ApplicationRunner {
 
             logger.error("E----> send error  :{} -- content :{}", e.getClass() + e.getMessage(), e);
         }
+
+
     }
 
+    private static String ImageToBase64(String imgPath) {
+        byte[] data = null;
+        // 读取图片字节数组
+        try {
+            InputStream in = new FileInputStream(imgPath);
+            data = new byte[in.available()];
+            in.read(data);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 对字节数组Base64编码
+        BASE64Encoder encoder = new BASE64Encoder();
+        // 返回Base64编码过的字节数组字符串
 
+        //        LOG.info("------> base 64 : {} <-------", encoder.encode(Objects.requireNonNull(data)));
+        return encoder.encode(Objects.requireNonNull(data));
+    }
 }
