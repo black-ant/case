@@ -1,0 +1,7 @@
+
+
+ant:
+  common:
+    config:
+      cache:
+        type: redis
