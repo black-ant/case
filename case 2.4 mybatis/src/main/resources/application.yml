@@ -28,3 +28,25 @@ mybatis:
   config-location: classpath:/config/mybatis-config.xml
 server:
   port: 8089
+#mybatis:
+#  configuration:
+#    cache-enabled: true
+#    lazy-loading-enabled: true
+#    aggressive-lazy-loading: false
+#    multiple-result-sets-enabled: true
+#    use-column-label: true
+#    use-generated-keys: false
+#    auto-mapping-behavior: partial
+#    default-executor-type: simple
+#    default-statement-timeout: 2500
+#    default-fetch-size: 25
+#    safe-row-bounds-enabled: false
+#    map-underscore-to-camel-case: true
+#    localCacheScope: statement
+#    jdbcTypeForNull: null
+#    #lazyLoadTriggerMethods: null
+#    callSettersOnNulls: true
+#  #    #configuration-factory: para.cic.idm.core.mybatis.MybatisConfiguration
+#  #  config-location: classpath:/mybatis/mybatis-config.xml
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  mapper-locations: classpath*:/mybatis-mapper/*Mapper.xml
