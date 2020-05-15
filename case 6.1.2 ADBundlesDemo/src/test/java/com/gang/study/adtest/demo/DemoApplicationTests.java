@@ -1,6 +1,7 @@
 package com.gang.study.adtest.demo;
 
 import com.alibaba.fastjson.JSONObject;
+import com.gang.study.adtest.demo.output.ADBundlesLogic;
 import com.gang.study.adtest.demo.output.GroupOutpulImpl;
 import com.gang.study.adtest.demo.output.OrgOutputImpl;
 import com.gang.study.adtest.demo.output.UserOutputImpl;
@@ -31,10 +32,14 @@ class DemoApplicationTests {
     @Autowired
     private GroupOutpulImpl groupOutpul;
 
+    @Autowired
+    private ADBundlesLogic adBundlesLogic;
+
     @Test
     public void contextLoads() {
 
-        testOrg();
+        testController();
+        //        testOrg();
 
         //        testGroup();
 
@@ -44,6 +49,12 @@ class DemoApplicationTests {
         //        } catch (InterruptedException e) {
         //            e.printStackTrace();
         //        }
+    }
+
+    public void testController() {
+
+        adBundlesLogic.test(getConfigTO());
+
     }
 
     public void testOrg() {
@@ -101,13 +112,13 @@ class DemoApplicationTests {
 
     public ADConfigInfoTO getConfigTO() {
         ADConfigInfoTO adConfigInfoTO = new ADConfigInfoTO();
-        adConfigInfoTO.setHost("127.0.0.1");
+        adConfigInfoTO.setHost("192.168.2.75");
         //        adConfigInfoTO.setPort("43891");
-        adConfigInfoTO.setPort("46361");
-        adConfigInfoTO.setAccount("administrator@wdhacpoc");
-        adConfigInfoTO.setPassword("19950824");
-        adConfigInfoTO.setBaseContext("DC=wdhacpoc,DC=com,DC=cn");
-        adConfigInfoTO.setIsSSL(Boolean.TRUE);
+        adConfigInfoTO.setPort("389");
+        adConfigInfoTO.setAccount("devad\\administrator");
+        adConfigInfoTO.setPassword("Passw0rd@2019");
+        adConfigInfoTO.setBaseContext("DC=devad,DC=com,DC=cn");
+        adConfigInfoTO.setIsSSL(Boolean.FALSE);
         return adConfigInfoTO;
     }
 
