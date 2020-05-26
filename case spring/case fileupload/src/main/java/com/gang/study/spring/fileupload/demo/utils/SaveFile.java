@@ -1,6 +1,6 @@
 package com.gang.study.spring.fileupload.demo.utils;
 
-import com.zhangzhihao.FileUpload.Java.Controller.FileUploadController;
+import com.gang.study.spring.fileupload.demo.controller.FileUploadController;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,6 +15,7 @@ import java.util.zip.ZipOutputStream;
 
 public class SaveFile {
     private static final File uploadDirectory = new File(getRealPath());
+
     /**
      * @param savePath
      * @param fileFullName
@@ -22,18 +23,18 @@ public class SaveFile {
      * @return
      * @throws Exception
      */
-    public static boolean saveFile( final String savePath,
-                                    final String fileFullName,
-                                    final MultipartFile file)
+    public static boolean saveFile(final String savePath,
+                                   final String fileFullName,
+                                   final MultipartFile file)
             throws Exception {
         byte[] data = readInputStream(file.getInputStream());
         //new一个文件对象用来保存图片，默认保存当前工程根目录
         File uploadFile = new File(savePath + fileFullName);
         //判断文件夹是否存在，不存在就创建一个
         File fileDirectory = new File(savePath);
-        synchronized (uploadDirectory){
-            if(!uploadDirectory.exists()){
-                if(!uploadDirectory.mkdir()){
+        synchronized (uploadDirectory) {
+            if (!uploadDirectory.exists()) {
+                if (!uploadDirectory.mkdir()) {
                     throw new Exception("保存文件的父文件夹创建失败！路径为：" + savePath);
                 }
             }
@@ -81,8 +82,8 @@ public class SaveFile {
     public static String getRealPath() {
         String realPath;
         String path = FileUploadController.class.getResource("/").getFile();
-        int index = path.indexOf("build");
-        realPath = path.substring(0, index) + "/src/main/webapp/upload/";
+        int index = path.indexOf("target");
+        realPath = path.substring(0, index) + "/src/main/resources/upload/";
         realPath = realPath.replaceFirst("/", "");
         return realPath;
     }

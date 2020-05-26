@@ -1,6 +1,9 @@
 package com.gang.study.spring.fileupload.demo.controller;
 
+import com.gang.study.spring.fileupload.demo.model.File;
 import com.gang.study.spring.fileupload.demo.service.FileService;
+import com.gang.study.spring.fileupload.demo.utils.CreateMd5;
+import com.gang.study.spring.fileupload.demo.utils.SaveFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,12 +40,12 @@ public class FileUploadController {
         try {
             String ext = name.substring(name.lastIndexOf("."));
             fileName = UUID.randomUUID().toString() + ext;
-            saveFile(getRealPath(), fileName, file);
+            SaveFile.saveFile(SaveFile.getRealPath(), fileName, file);
         } catch (Exception ex) {
             return "{\"error\":true}";
         }
         try {
-            fileService.save(new File(fileName, createMd5(file).toString(), new Date()));
+            fileService.save(new File(fileName, CreateMd5.createMd5(file).toString(), new Date()));
         } catch (Exception e) {
             return "{\"error\":true}";
         }

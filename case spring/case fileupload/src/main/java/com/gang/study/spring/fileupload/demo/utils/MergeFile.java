@@ -1,12 +1,6 @@
 package com.gang.study.spring.fileupload.demo.utils;
 
-
-
 import java.io.*;
-
-import static com.zhangzhihao.FileUpload.Java.Utils.DeleteFolder.deleteFolder;
-import static com.zhangzhihao.FileUpload.Java.Utils.StreamUtil.saveStreamToFile;
-
 
 public class MergeFile {
 
@@ -18,13 +12,13 @@ public class MergeFile {
      * @throws Exception
      */
     public static void mergeFile(final int chunksNumber,
-                                  final String ext,
-                                  final String guid,
-                                  final String uploadFolderPath)
+                                 final String ext,
+                                 final String guid,
+                                 final String uploadFolderPath)
             throws Exception {
         /*合并输入流*/
         String mergePath = uploadFolderPath + guid + "/";
-        SequenceInputStream s ;
+        SequenceInputStream s;
         InputStream s1 = new FileInputStream(mergePath + 0 + ext);
         InputStream s2 = new FileInputStream(mergePath + 1 + ext);
         s = new SequenceInputStream(s1, s2);
@@ -34,10 +28,10 @@ public class MergeFile {
         }
 
         //通过输出流向文件写入数据
-        saveStreamToFile(s, uploadFolderPath + guid + ext);
+        StreamUtil.saveStreamToFile(s, uploadFolderPath + guid + ext);
 
         //删除保存分块文件的文件夹
-        deleteFolder(mergePath);
+        DeleteFolder.deleteFolder(mergePath);
 
     }
 }

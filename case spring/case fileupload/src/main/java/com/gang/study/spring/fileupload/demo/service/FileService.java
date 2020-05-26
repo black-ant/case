@@ -1,11 +1,11 @@
 package com.gang.study.spring.fileupload.demo.service;
 
 import com.gang.study.spring.fileupload.demo.dao.Query;
+import com.gang.study.spring.fileupload.demo.model.File;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.File;
 import java.util.List;
 
 @Service

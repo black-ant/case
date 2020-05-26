@@ -1,8 +1,9 @@
 package com.gang.study.spring.fileupload.demo.utils;
 
 
-import com.zhangzhihao.FileUpload.Java.Model.UploadInfo;
-import com.zhangzhihao.FileUpload.Java.Service.FileService;
+import com.gang.study.spring.fileupload.demo.model.File;
+import com.gang.study.spring.fileupload.demo.model.UploadInfo;
+import com.gang.study.spring.fileupload.demo.service.FileService;
 
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.zhangzhihao.FileUpload.Java.Utils.MergeFile.mergeFile;
+import static com.gang.study.spring.fileupload.demo.utils.MergeFile.mergeFile;
 
 public class IsAllUploaded {
 
@@ -22,8 +23,8 @@ public class IsAllUploaded {
      * @param chunks
      * @return
      */
-    public static boolean isAllUploaded( final String md5,
-                                         final String chunks) {
+    public static boolean isAllUploaded(final String md5,
+                                        final String chunks) {
         int size = uploadInfoList.stream()
                 .filter(item -> item.getMd5().equals(md5))
                 .distinct()
@@ -47,14 +48,14 @@ public class IsAllUploaded {
      * @param ext         文件后缀名
      * @param fileService fileService
      */
-    public static void Uploaded( final String md5,
-                                 final String guid,
-                                 final String chunk,
-                                 final String chunks,
-                                 final String uploadFolderPath,
-                                 final String fileName,
-                                 final String ext,
-                                 final FileService fileService)
+    public static void Uploaded(final String md5,
+                                final String guid,
+                                final String chunk,
+                                final String chunks,
+                                final String uploadFolderPath,
+                                final String fileName,
+                                final String ext,
+                                final FileService fileService)
             throws Exception {
         synchronized (uploadInfoList) {
             uploadInfoList.add(new UploadInfo(md5, chunks, chunk, uploadFolderPath, fileName, ext));
@@ -64,7 +65,7 @@ public class IsAllUploaded {
 
         if (allUploaded) {
             mergeFile(chunksNumber, ext, guid, uploadFolderPath);
-            fileService.save(new com.zhangzhihao.FileUpload.Java.Model.File(guid + ext, md5, new Date()));
+            fileService.save(new File(guid + ext, md5, new Date()));
         }
     }
 }

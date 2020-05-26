@@ -2,6 +2,7 @@ package com.gang.study.spring.fileupload.demo.controller;
 
 import com.gang.study.spring.fileupload.demo.model.File;
 import com.gang.study.spring.fileupload.demo.service.FileService;
+import com.gang.study.spring.fileupload.demo.utils.SaveFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,7 +54,7 @@ public class ImageUploadController {
             String realpath = getRealPath();
             String ext = name.substring(name.lastIndexOf("."));
             fileName = UUID.randomUUID().toString() + ext;
-            saveFile(realpath, fileName, saveFile);
+            SaveFile.saveFile(realpath, fileName, saveFile);
 
             fileService.save(new File(fileName, createMd5(file).toString(), new Date()));
 

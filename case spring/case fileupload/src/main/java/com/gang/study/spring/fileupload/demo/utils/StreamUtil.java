@@ -1,8 +1,5 @@
 package com.gang.study.spring.fileupload.demo.utils;
 
-
-
-
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,10 +12,10 @@ public class StreamUtil {
      * @param filePath    保存路径
      * @throws Exception 异常 抛异常代表失败了
      */
-    public static void saveStreamToFile( final InputStream inputStream,
-                                         final String filePath)
+    public static void saveStreamToFile(final InputStream inputStream,
+                                        final String filePath)
             throws Exception {
-         /*创建输出流，写入数据，合并分块*/
+        /*创建输出流，写入数据，合并分块*/
         OutputStream outputStream = new FileOutputStream(filePath);
         byte[] buffer = new byte[1024];
         int len = 0;
