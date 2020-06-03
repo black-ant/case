@@ -1,0 +1,27 @@
+<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui" entityID="https://paraview.sso360.in/cic-sso/idp">
+    <IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol urn:mace:shibboleth:1.0">
+        <Extensions>
+            <shibmd:Scope regexp="false">scope</shibmd:Scope>
+        </Extensions>
+        <KeyDescriptor use="signing">
+            <ds:KeyInfo>
+                <ds:X509Data>
+                    <ds:X509Certificate>MIIDEjCCAfqgAwIBAgIVALk110Y4xrgnNgDMCuSvY6gZ7UIRMA0GCSqGSIb3DQEB CwUAMBcxFTATBgNVBAMMDDE5Mi4xNjguMi42ODAeFw0yMDA1MDcxNDAzNTlaFw00 MDA1MDcxNDAzNTlaMBcxFTATBgNVBAMMDDE5Mi4xNjguMi42ODCCASIwDQYJKoZI hvcNAQEBBQADggEPADCCAQoCggEBAKSouQKaHEX7ew2eRZfuLXUdV2ULj3yZ1e3u /h9+rJXKbXxX77t2G71GMhkpf2NuEDQGWyh2XXgSDXJLKl+E/OOIktVMliBMJ70z uwTmo7vj+vbBXJQP0uW50OPKPbeFtuhyLbyrP/oCFIytLq1zZGPWN5xlD2cD3P9q j+2C2V7wZczZMGdnQ5UDhSKIJb+Dn+5AlMeq8NUW+WsSnzm3SWHeWCn++MiHPKrC IRda7vwNNpddE2a5BnT/2f+e32QZ3Wwa/ooSgdGU4F0SYYeEcE58a2iL8V6TvdvC n2zkrn6lbwTG7G6UJtW24oLVOd1TN5QYWAS0YkENv3eO8l/Z/7MCAwEAAaNVMFMw HQYDVR0OBBYEFPOChJO0bRERmy6q+/q4sgdF8pHEMDIGA1UdEQQrMCmCDDE5Mi4x NjguMi42OIYZMTkyLjE2OC4yLjY4L2lkcC9tZXRhZGF0YTANBgkqhkiG9w0BAQsF AAOCAQEAd9K5MsQaMYykG9KeZ0ggdayFEHYnumbbFelXWDLhxh1O1elFHN1Wd2zr zvaOnZjLttx73LT+Xx7UKRjH+2ZFrrsAp/1J+Sutx8XD7nd0olAQPpfhVLjdpGn0 bHbXZ//tb0Xm82rOhRxbAE2ZrCwLMmzNVLeiYLI0Ti/LKzcK4+8wvFhwSzLrb9X7 1n80PSQJAU9+DDVUNv0Pp1yMO3ZnDD59Hi0cANRee0Mv68FPOyRE8Zwqi5l3JHOn bvmmdigMJyoVsW4x2hPU6n3v/S663Y/eQu7hZKX0x+E9sIaO5fZfG0WNX33QbVuG IQ5dC/0CrZTPBSL1JiJWnhWz9bLO3g==</ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </KeyDescriptor>
+        <KeyDescriptor use="encryption">
+            <ds:KeyInfo>
+                <ds:X509Data>
+                    <ds:X509Certificate>MIIDETCCAfmgAwIBAgIURt/gnqE9ikaszm7iwxyX6phFs+EwDQYJKoZIhvcNAQEL BQAwFzEVMBMGA1UEAwwMMTkyLjE2OC4yLjY4MB4XDTIwMDUwNzE0MDM1OVoXDTQw MDUwNzE0MDM1OVowFzEVMBMGA1UEAwwMMTkyLjE2OC4yLjY4MIIBIjANBgkqhkiG 9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhTKXr1S+8rBaTzRA/71860f2qa1EsbRROOeA uVDy3DCHk8PVNhi7ZipmST7T9CH2XNEvvJcihtlfqQll4GO4LF/jIstXxjdFo8GD q7N39x6bFdOY3+3ZzuLhlCmWTIF1ShJUHYSke0TNRmKZbP0pOw5uqRQayI8YVHBH BLxMGI3hadgSnboq+Z17HiYO2gbTiur7pT1mdb2lGg1qF59UjeZt8cATzJ32YWZ6 b9mdXLyplP0751XUVGCX5R+kFYSNSToGULRynMOvASyPIGSIEYvED52avLegaQO+ 37pul+iLUw3RdGTp+LiXA+C5LuKZYpmRhREmck0D++R6nnbPMQIDAQABo1UwUzAd BgNVHQ4EFgQUdBJFiEM2+s062VvnF2qoxBp7cigwMgYDVR0RBCswKYIMMTkyLjE2 OC4yLjY4hhkxOTIuMTY4LjIuNjgvaWRwL21ldGFkYXRhMA0GCSqGSIb3DQEBCwUA A4IBAQBkOfYTYk1utGNg5EyQcQ3HYizl1QiRy9f3pCNtIVQVIaH+wSVSbLp0vYRi 2lMXA48OUef/S6M6wW/bJMbsoyb1uLt7qFbB79KNI3qk/JVrFXc52nlKggiu5MMB cjB2ZDo1ADob3MYyxRkaRg18qt/kSzIphSWyWJsh44Rfhh06px1osqOWDD3WJpQf AFptdRiSDSiGWlMYojIynkeGTF5CaLNKqhTbKLbr0yXSb1QnlzXt/H5GM1VTSjxI D+mxDJRVJX0A+RQQc/NC/QNPSlOFrxjKUr7nOsHFQoNQ/zbfaCVlIzqOGPKvUDae b6Lyknr5A9w34Or2RiXSe8wiV1PR</ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </KeyDescriptor>
+        <NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://paraview.sso360.in/cic-sso/idp/profile/SAML2/POST/SLO"/>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://paraview.sso360.in/cic-sso/idp/profile/SAML2/POST/SSO"/>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://paraview.sso360.in/cic-sso/idp/profile/SAML2/Redirect/SSO"/>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://paraview.sso360.in/cic-sso/idp/profile/SAML2/SOAP/ECP"/>
+    </IDPSSODescriptor>
+</EntityDescriptor>
