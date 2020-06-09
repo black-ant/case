@@ -1,0 +1,16 @@
+server:
+  ##设置https端口
+  port: 8086
+  ##设置http端口，访问此端口将被重定向到https端口
+  http:
+    port: 8088
+    ####定义项目的访问上下文
+    context-path: /myspringssh
+  ##开启Https协议
+  ## keytool -genkey -alias springssh -keypass 123456 -keyalg RSA -keysize 1024 -validity 365 -keystore springssh.keystore -storepass 123456
+  # 找不到文件需要mvn install 一下
+  ssl:
+    key-store: classpath:springssh.keystore
+    key-store-password: 123456
+    key-store-type: jks
+    key-alias: springssh
