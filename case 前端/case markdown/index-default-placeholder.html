@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/toastui-editor.min.css"/>
+    <link rel="stylesheet" href="css/codemirror.min.css"/>
+</head>
+<body>
+<div id="editor"></div>
+
+
+<script src="js/toastui-editor-all.min.js"></script>
+<script>
+
+
+    const Editor = toastui.Editor;
+    const editor = new toastui.Editor({
+        el: document.querySelector('#editor'),
+        previewStyle: 'vertical',
+        height: '500px',
+        placeholder: 'Please enter text.'
+    });
+</script>
+
+</body>
+</html>
