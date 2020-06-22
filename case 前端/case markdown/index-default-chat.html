@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/toastui-editor-viewer.min.css"/>
+    <link rel="stylesheet" href="js/tui-chart.css"/>
+</head>
+<body>
+
+<div id="viewer">
+    <strong>The example code can be slower than your environment because the code is transpiled by
+        babel-standalone in runtime.</strong>
+</div>
+
+<script src="js/chat-default.js"></script>
+<script src="js/toastui-editor-viewer.js"></script>
+<script src="js/toastui-editor-plugin-chart.min.js"></script>
+<script>
+
+    const Viewer = toastui.Editor;
+    const {chart} = Viewer.plugin;
+
+    const chartOptions = {
+        minWidth: 100,
+        maxWidth: 600,
+        minHeight: 100,
+        maxHeight: 300
+    };
+
+    const viewer = new Viewer({
+        el: document.querySelector('#viewer'),
+        initialValue: chartContent,
+        plugins: [[chart, chartOptions]]
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css"/>
+</head>
+<body>
+
+<div id="viewer">
+    <strong>The example code can be slower than your environment because the code is transpiled by
+        babel-standalone in runtime.</strong>
+</div>
+
+<script src="js/md-default.js"></script>
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.js"></script>
+
+<script>
+    const Editor = toastui.Editor;
+    const viewer = new toastui.Editor({
+        el: document.querySelector('#viewer'),
+        initialValue: content
+    });
+
+</script>
+</body>
+
+</html>
