@@ -20,8 +20,8 @@ public class SingleThreadScheduledExecutorService {
 
 
     public void run() {
-//        schedule();
-        example2();
+        //        schedule();
+        //        example2();
     }
 
     public void schedule() {

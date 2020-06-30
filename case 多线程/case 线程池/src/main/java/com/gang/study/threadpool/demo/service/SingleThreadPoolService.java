@@ -38,8 +38,8 @@ public class SingleThreadPoolService {
             return null;
         });
         // 立即停止 ，后续均不执行
-//        executor.shutdownNow();
-//        executor.shutdown();
+        //        executor.shutdownNow();
+        //        executor.shutdown();
         logger.info("------> poolsize :{} <-------", executor.isShutdown());
 
         executor.submit(() -> {

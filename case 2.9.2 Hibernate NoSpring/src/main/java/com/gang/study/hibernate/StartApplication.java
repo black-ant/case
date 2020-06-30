@@ -1,5 +1,8 @@
 package com.gang.study.hibernate;
 
+import com.gang.study.hibernate.dao.UserDao;
+import org.hibernate.Session;
+
 /**
  * @Classname StartApplication
  * @Description TODO
@@ -8,4 +11,10 @@ package com.gang.study.hibernate;
  */
 
 public class StartApplication {
+
+    public static void main(String[] args) {
+        UserDao userDao = new UserDao();
+        //        userDao.create();
+        userDao.getOne();
+    }
 }

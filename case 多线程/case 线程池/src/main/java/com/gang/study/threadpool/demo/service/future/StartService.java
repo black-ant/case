@@ -32,9 +32,9 @@ public class StartService implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//        singleThreadPoolService.run();
-//        threadPoolService.run();
-//        cachedThreadPoolService.run();
-        singleThreadScheduledExecutorService.run();
+        //        singleThreadPoolService.run();
+        //        threadPoolService.run();
+        //        cachedThreadPoolService.run();
+        //        singleThreadScheduledExecutorService.run();
     }
 }
