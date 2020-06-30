@@ -17,7 +17,7 @@ import java.util.Optional;
  * @Date 2020/6/30 15:49
  * @Created by zengzg
  */
-public class LTPAInterceptor extends HandlerInterceptorAdapter {
+public class LtpaInterceptor extends HandlerInterceptorAdapter {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
