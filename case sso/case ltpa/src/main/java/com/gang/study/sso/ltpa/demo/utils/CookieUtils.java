@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.regex.Pattern;
 
 /**
  * @Classname CookieUtils
@@ -19,6 +21,26 @@ import java.net.URLEncoder;
 public class CookieUtils {
 
     private static Logger logger = LoggerFactory.getLogger(CookieUtils.class);
+
+
+    /**
+     * 获取指定名称的Cookie
+     *
+     * @param request
+     * @param cookieName
+     * @return
+     */
+    public static Cookie getCookieByName(final HttpServletRequest request, String cookieName) {
+        final Cookie[] cookies = request.getCookies();
+        Cookie backCookie = null;
+        for (Cookie cookieItem : Arrays.asList(cookies)) {
+            if (cookieItem.getName().equals(cookieName)) {
+                backCookie = cookieItem;
+                break;
+            }
+        }
+        return backCookie;
+    }
 
     /**
      * 得到Cookie的值, 不编码
@@ -195,9 +217,11 @@ public class CookieUtils {
             serverName = serverName.substring(7);
             final int end = serverName.indexOf("/");
             serverName = serverName.substring(0, end);
-            final String[] domains = serverName.split("\\.");
+            final String[] domains = serverName.split("\\.|\\:");
             int len = domains.length;
-            if (len > 3) {
+            if (matchsIp(serverName)) {
+                domainName = domains[0] + "." + domains[1] + "." + domains[2] + "." + domains[3];
+            } else if (len > 3) {
                 // www.xxx.com.cn
                 domainName = domains[len - 3] + "." + domains[len - 2] + "." + domains[len - 1];
             } else if (len <= 3 && len > 1) {
@@ -213,5 +237,19 @@ public class CookieUtils {
             domainName = ary[0];
         }
         return domainName;
+    }
+
+    public static boolean matchsIp(String ip) {
+        if (ip.contains(":")) {
+            ip = ip.substring(0, ip.indexOf(":"));
+        }
+        if (ip == null || "".equals(ip))
+            return false;
+        String regex = "^(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|[1-9])\\."
+                + "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\."
+                + "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\."
+                + "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)$";
+
+        return ip.matches(regex);
     }
 }

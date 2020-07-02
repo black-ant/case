@@ -116,6 +116,19 @@ public class LtpaTokenUtils {
         return new UserMetadata(plainToken, "");
     }
 
+    /**
+     * 创建私钥
+     *
+     * @return
+     */
+    public static String createPrivateKey() {
+        return "";
+    }
+
+    private static String createSign() {
+        return "";
+    }
+
 
     /**
      * @param userInfo

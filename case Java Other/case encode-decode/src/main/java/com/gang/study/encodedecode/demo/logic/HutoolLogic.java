@@ -27,7 +27,11 @@ public class HutoolLogic implements ApplicationRunner {
         //        utils.generateKeyHavaLength();
         //        utils.generateKeyHavaKeySpec();
         //        utils.generatePublicKey();
-        utils.aesBuild();
+        //        utils.aesBuild();
+        //        utils.desBuild();
+        //        utils.dESedeBuild();
+        //        utils.sha();
+        //        utils.sha256();
     }
 
 }

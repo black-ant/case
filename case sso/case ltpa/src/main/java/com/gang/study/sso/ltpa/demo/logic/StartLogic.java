@@ -29,12 +29,12 @@ public class StartLogic implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        Map<String, String> properties = LtpaTokenUtils.getLtpaProperties();
-        String code = CryptUtils.DESencode("this is ltpa key store Plaintext", properties.get("KeyPassword"));
-        logger.info("------> this is token  encode :{}<-------", code);
-
-        String decode = CryptUtils.DESdecode(code, properties.get("KeyPassword"));
-        logger.info("------> this is token decode :{}<-------", decode);
+        //        Map<String, String> properties = LtpaTokenUtils.getLtpaProperties();
+        //        String code = CryptUtils.DESencode("this is ltpa key store Plaintext", properties.get("KeyPassword"));
+        //        logger.info("------> this is token  encode :{}<-------", code);
+        //
+        //        String decode = CryptUtils.DESdecode(code, properties.get("KeyPassword"));
+        //        logger.info("------> this is token decode :{}<-------", decode);
 
 
         //        String enCode = CryptUtils.desDecode(properties.get("PrivateKey"), properties.get("KeyPassword"));

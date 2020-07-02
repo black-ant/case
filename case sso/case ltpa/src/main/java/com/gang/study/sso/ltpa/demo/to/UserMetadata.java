@@ -12,8 +12,9 @@ public class UserMetadata {
 
     private String otherInfo;
 
-    public UserMetadata(String token, String username) {
+    public UserMetadata(String username, String otherInfo) {
         this.username = username;
+        this.otherInfo = otherInfo;
     }
 
     public String getUsername() {

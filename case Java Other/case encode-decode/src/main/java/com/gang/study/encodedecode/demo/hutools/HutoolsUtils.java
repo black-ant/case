@@ -3,10 +3,13 @@ package com.gang.study.encodedecode.demo.hutools;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.RSA;
 import cn.hutool.crypto.symmetric.AES;
+import cn.hutool.crypto.symmetric.DES;
+import cn.hutool.crypto.symmetric.DESede;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.crypto.SecretKey;
 import javax.crypto.spec.DESKeySpec;
 import java.security.spec.KeySpec;
 
@@ -20,16 +23,8 @@ public class HutoolsUtils {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private static String password = "1234567819";
+    private final static String ENCODE_DATA = "123456789";
 
-    /**
-     * MD5 加密
-     *
-     * @param data
-     */
-    public void md5(String data) {
-        logger.info("------> md5 :{} <-------", SecureUtil.md5().digest(data));
-    }
 
     /**
      * 生成 对称key
@@ -71,10 +66,57 @@ public class HutoolsUtils {
     }
 
     public void aesBuild() {
-        AES aes = SecureUtil.aes();
-        byte[] passwordNew = aes.encrypt(password);
-        logger.info("------> this is aes :{} <-------", JSONObject.toJSONString(passwordNew));
 
-        logger.info("------> this is aes :{} <-------", JSONObject.toJSONString(aes.decrypt(passwordNew)));
+        SecretKey aesKey = SecureUtil.generateKey("AES");
+        logger.info("------> this is aesKey :{} <-------", JSONObject.toJSONString(aesKey));
+
+        AES aes = SecureUtil.aes(aesKey.getEncoded());
+        String passwordNew = aes.encryptBase64(ENCODE_DATA);
+        logger.info("------> this is aes encrypt :{} <-------", JSONObject.toJSONString(passwordNew));
+        logger.info("------> this is aes decrypt :{} <-------", JSONObject.toJSONString(aes.decryptStr(passwordNew)));
+
+    }
+
+    public void desBuild() {
+
+        SecretKey desKey = SecureUtil.generateKey("DES");
+        logger.info("------> this is aesKey :{} <-------", JSONObject.toJSONString(desKey));
+
+        DES des = SecureUtil.des(desKey.getEncoded());
+        String passwordNew = des.encryptBase64(ENCODE_DATA);
+        logger.info("------> this is aes encrypt :{} <-------", JSONObject.toJSONString(passwordNew));
+        logger.info("------> this is aes decrypt :{} <-------", JSONObject.toJSONString(des.decryptStr(passwordNew)));
+
+    }
+
+    public void dESedeBuild() {
+
+        SecretKey desKey = SecureUtil.generateKey("DESede");
+        logger.info("------> this is aesKey :{} <-------", JSONObject.toJSONString(desKey));
+
+        DESede des = SecureUtil.desede(desKey.getEncoded());
+        String passwordNew = des.encryptBase64(ENCODE_DATA);
+        logger.info("------> this is aes encrypt :{} <-------", JSONObject.toJSONString(passwordNew));
+        logger.info("------> this is aes decrypt :{} <-------", JSONObject.toJSONString(des.decryptStr(passwordNew)));
+
+    }
+
+    public void sha() {
+        String sha = SecureUtil.sha1(ENCODE_DATA);
+        logger.info("------> this is aes encrypt :{} <-------", JSONObject.toJSONString(sha));
+    }
+
+    public void sha256() {
+        String sha = SecureUtil.sha256(ENCODE_DATA);
+        logger.info("------> this is aes encrypt :{} <-------", JSONObject.toJSONString(sha));
+    }
+
+    /**
+     * MD5 加密
+     *
+     * @param data
+     */
+    public void md5(String data) {
+        logger.info("------> md5 :{} <-------", SecureUtil.md5().digest(data));
     }
 }
