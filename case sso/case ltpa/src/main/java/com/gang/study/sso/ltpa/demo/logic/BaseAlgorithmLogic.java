@@ -8,12 +8,4 @@ package com.gang.study.sso.ltpa.demo.logic;
  */
 public class BaseAlgorithmLogic {
 
-    public String rsaEncode() {
-
-    }
-
-    public String rsaDecode() {
-
-    }
-
 }
