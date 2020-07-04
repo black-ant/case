@@ -18,7 +18,7 @@ public class FileService {
         logger.info("------> file is exists :{} <-- -----", checkFileExists("D:\\java\\workspace\\git\\case\\case Java Other\\case Java IO\\doc\\test.txt"));
         logger.info("------> file is exists :{} <-- -----", checkFileExists("D:\\java\\workspace\\git\\case\\case Java Other\\case Java IO\\doc", "test.txt"));
         writeFile("D:\\java\\workspace\\git\\case\\case Java Other\\case Java IO\\doc\\test.txt");
-//        readFile("D:\\java\\workspace\\git\\case\\case Java Other\\case Java IO\\doc\\test.txt", 0);
+        //        readFile("D:\\java\\workspace\\git\\case\\case Java Other\\case Java IO\\doc\\test.txt", 0);
         readLine("D:\\java\\workspace\\git\\case\\case Java Other\\case Java IO\\doc\\test.txt");
 
     }

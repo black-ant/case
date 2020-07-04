@@ -21,11 +21,14 @@ public class StartService implements ApplicationRunner {
     @Autowired
     BigFile bigFile;
 
+    @Autowired
+    private SimpleInputStreamService simpleInputStreamService;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//        fileService.run();
-//        inputOutputService.run();
-//        readWriteService.run();
-        bigFile.run();
+        //        fileService.run();
+        //        inputOutputService.run();
+        //        readWriteService.run();
+        //        bigFile.run();
     }
 }
