@@ -1,0 +1,3 @@
+archivesBaseName = "com-gang-gradle-many-client"
+jar.enable = true
+bootJar.enable = true

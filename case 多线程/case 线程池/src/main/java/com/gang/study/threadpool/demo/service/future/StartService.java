@@ -34,7 +34,7 @@ public class StartService implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         //        singleThreadPoolService.run();
         //        threadPoolService.run();
-        //        cachedThreadPoolService.run();
+        cachedThreadPoolService.run();
         //        singleThreadScheduledExecutorService.run();
     }
 }

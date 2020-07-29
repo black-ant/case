@@ -1,0 +1,5 @@
+rootProject.name = 'com-gang-gradle-many'
+include 'com-gang-gradle-many-one'
+include 'com-gang-gradle-many-two'
+include 'com-gang-gradle-many-client'
+

@@ -47,6 +47,16 @@
             <version>2.0.0-RC3</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+        </dependency>
+
         <!-- Ldaptive -->
         <!--        <dependency>-->
         <!--            <groupId>org.ldaptive</groupId>-->
