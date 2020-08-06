@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
  * @Created by zengzg
  */
 @Service
-public class DubboServerApplication {
+public class DubboServerService {
 }

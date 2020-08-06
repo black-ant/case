@@ -1,6 +1,0 @@
-#Dubbo 服务提供者配置
-spring.dubbo.application.name=provider
-spring.dubbo.registry.address=zookeeper://127.0.0.1:
-spring.dubbo.protocol.name=dubbo
-spring.dubbo.protocal.port=20880
-spring.dubbo.scan=cn.hzr0523.service
