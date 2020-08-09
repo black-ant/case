@@ -1,9 +1,11 @@
 package com.gang.study.ldap.demo.service;
 
+import com.gang.study.ldap.demo.ldapactive.LdapActiveService;
 import com.gang.study.ldap.demo.to.LDAPConfig;
 import com.gang.study.ldap.demo.to.LdapAuthType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -23,10 +25,23 @@ public class StartController implements ApplicationRunner {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    private LdapActiveService ldapActiveService;
+
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        //        test();
+        test2();
 
+    }
+
+    public void test2() {
+        //        ldapActiveService.doSearch();
+        ldapActiveService.doSearchCas();
+    }
+
+    public void test() throws Exception {
         // LDAP Simple
         //        LDAPConfig config = new LDAPConfig("192.168.2.75", "389", "devad\\administrator", "Passw0rd@2019", Boolean.FALSE);
 
