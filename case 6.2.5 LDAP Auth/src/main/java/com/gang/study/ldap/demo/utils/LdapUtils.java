@@ -629,88 +629,88 @@ public class LdapUtils {
         return newLdaptiveSearchExecutor(baseDn, filterQuery, new ArrayList<>(0));
     }
 
-    /**
-     * New ldap authenticator.
-     *
-     * @param l the ldap settings.
-     * @return the authenticator
-     */
-    public static Authenticator newLdaptiveAuthenticator(final AbstractLdapAuthenticationProperties l) {
-        switch (l.getType()) {
-            case AD:
-                LOGGER.debug("Creating active directory authenticator for [{}]", l.getLdapUrl());
-                return getActiveDirectoryAuthenticator(l);
-            case DIRECT:
-                LOGGER.debug("Creating direct-bind authenticator for [{}]", l.getLdapUrl());
-                return getDirectBindAuthenticator(l);
-            case AUTHENTICATED:
-                LOGGER.debug("Creating authenticated authenticator for [{}]", l.getLdapUrl());
-                return getAuthenticatedOrAnonSearchAuthenticator(l);
-            default:
-                LOGGER.debug("Creating anonymous authenticator for [{}]", l.getLdapUrl());
-                return getAuthenticatedOrAnonSearchAuthenticator(l);
-        }
-    }
+    //    /**
+    //     * New ldap authenticator.
+    //     *
+    //     * @param l the ldap settings.
+    //     * @return the authenticator
+    //     */
+    //    public static Authenticator newLdaptiveAuthenticator(final AbstractLdapAuthenticationProperties l) {
+    //        switch (l.getType()) {
+    //            case AD:
+    //                LOGGER.debug("Creating active directory authenticator for [{}]", l.getLdapUrl());
+    //                return getActiveDirectoryAuthenticator(l);
+    //            case DIRECT:
+    //                LOGGER.debug("Creating direct-bind authenticator for [{}]", l.getLdapUrl());
+    //                return getDirectBindAuthenticator(l);
+    //            case AUTHENTICATED:
+    //                LOGGER.debug("Creating authenticated authenticator for [{}]", l.getLdapUrl());
+    //                return getAuthenticatedOrAnonSearchAuthenticator(l);
+    //            default:
+    //                LOGGER.debug("Creating anonymous authenticator for [{}]", l.getLdapUrl());
+    //                return getAuthenticatedOrAnonSearchAuthenticator(l);
+    //        }
+    //    }
 
-    private static Authenticator getAuthenticatedOrAnonSearchAuthenticator(final AbstractLdapAuthenticationProperties l) {
-        if (StringUtils.isBlank(l.getBaseDn())) {
-            throw new IllegalArgumentException("Base dn cannot be empty/blank for authenticated/anonymous authentication");
-        }
-        if (StringUtils.isBlank(l.getSearchFilter())) {
-            throw new IllegalArgumentException("User filter cannot be empty/blank for authenticated/anonymous authentication");
-        }
-        final PooledConnectionFactory connectionFactoryForSearch = newLdaptivePooledConnectionFactory(l);
-        final PooledSearchDnResolver resolver = new PooledSearchDnResolver();
-        resolver.setBaseDn(l.getBaseDn());
-        resolver.setSubtreeSearch(l.isSubtreeSearch());
-        resolver.setAllowMultipleDns(l.isAllowMultipleDns());
-        resolver.setConnectionFactory(connectionFactoryForSearch);
-        resolver.setUserFilter(l.getSearchFilter());
-        if (l.isFollowReferrals()) {
-            resolver.setReferralHandler(new SearchReferralHandler());
-        }
-        if (StringUtils.isNotBlank(l.getDerefAliases())) {
-            resolver.setDerefAliases(DerefAliases.valueOf(l.getDerefAliases()));
-        }
+    //    private static Authenticator getAuthenticatedOrAnonSearchAuthenticator(final AbstractLdapAuthenticationProperties l) {
+    //        if (StringUtils.isBlank(l.getBaseDn())) {
+    //            throw new IllegalArgumentException("Base dn cannot be empty/blank for authenticated/anonymous authentication");
+    //        }
+    //        if (StringUtils.isBlank(l.getSearchFilter())) {
+    //            throw new IllegalArgumentException("User filter cannot be empty/blank for authenticated/anonymous authentication");
+    //        }
+    //        final PooledConnectionFactory connectionFactoryForSearch = newLdaptivePooledConnectionFactory(l);
+    //        final PooledSearchDnResolver resolver = new PooledSearchDnResolver();
+    //        resolver.setBaseDn(l.getBaseDn());
+    //        resolver.setSubtreeSearch(l.isSubtreeSearch());
+    //        resolver.setAllowMultipleDns(l.isAllowMultipleDns());
+    //        resolver.setConnectionFactory(connectionFactoryForSearch);
+    //        resolver.setUserFilter(l.getSearchFilter());
+    //        if (l.isFollowReferrals()) {
+    //            resolver.setReferralHandler(new SearchReferralHandler());
+    //        }
+    //        if (StringUtils.isNotBlank(l.getDerefAliases())) {
+    //            resolver.setDerefAliases(DerefAliases.valueOf(l.getDerefAliases()));
+    //        }
+    //
+    //        final Authenticator auth;
+    //        if (StringUtils.isBlank(l.getPrincipalAttributePassword())) {
+    //            auth = new Authenticator(resolver, getPooledBindAuthenticationHandler(l, newLdaptivePooledConnectionFactory(l)));
+    //        } else {
+    //            auth = new Authenticator(resolver, getPooledCompareAuthenticationHandler(l, newLdaptivePooledConnectionFactory(l)));
+    //        }
+    //
+    //        if (l.isEnhanceWithEntryResolver()) {
+    //            auth.setEntryResolver(newLdaptiveSearchEntryResolver(l, newLdaptivePooledConnectionFactory(l)));
+    //        }
+    //        return auth;
+    //    }
 
-        final Authenticator auth;
-        if (StringUtils.isBlank(l.getPrincipalAttributePassword())) {
-            auth = new Authenticator(resolver, getPooledBindAuthenticationHandler(l, newLdaptivePooledConnectionFactory(l)));
-        } else {
-            auth = new Authenticator(resolver, getPooledCompareAuthenticationHandler(l, newLdaptivePooledConnectionFactory(l)));
-        }
-
-        if (l.isEnhanceWithEntryResolver()) {
-            auth.setEntryResolver(newLdaptiveSearchEntryResolver(l, newLdaptivePooledConnectionFactory(l)));
-        }
-        return auth;
-    }
-
-    private static Authenticator getDirectBindAuthenticator(final AbstractLdapAuthenticationProperties l) {
-        if (StringUtils.isBlank(l.getDnFormat())) {
-            throw new IllegalArgumentException("Dn format cannot be empty/blank for direct bind authentication");
-        }
-        final FormatDnResolver resolver = new FormatDnResolver(l.getDnFormat());
-        final Authenticator authenticator = new Authenticator(resolver, getPooledBindAuthenticationHandler(l, newLdaptivePooledConnectionFactory(l)));
-
-        if (l.isEnhanceWithEntryResolver()) {
-            authenticator.setEntryResolver(newLdaptiveSearchEntryResolver(l, newLdaptivePooledConnectionFactory(l)));
-        }
-        return authenticator;
-    }
-
-    private static Authenticator getActiveDirectoryAuthenticator(final AbstractLdapAuthenticationProperties l) {
-        if (StringUtils.isBlank(l.getDnFormat())) {
-            throw new IllegalArgumentException("Dn format cannot be empty/blank for active directory authentication");
-        }
-        final FormatDnResolver resolver = new FormatDnResolver(l.getDnFormat());
-        final Authenticator authn = new Authenticator(resolver, getPooledBindAuthenticationHandler(l, newLdaptivePooledConnectionFactory(l)));
-
-        if (l.isEnhanceWithEntryResolver()) {
-            authn.setEntryResolver(newLdaptiveSearchEntryResolver(l, newLdaptivePooledConnectionFactory(l)));
-        }
-        return authn;
-    }
+    //    private static Authenticator getDirectBindAuthenticator(final AbstractLdapAuthenticationProperties l) {
+    //        if (StringUtils.isBlank(l.getDnFormat())) {
+    //            throw new IllegalArgumentException("Dn format cannot be empty/blank for direct bind authentication");
+    //        }
+    //        final FormatDnResolver resolver = new FormatDnResolver(l.getDnFormat());
+    //        final Authenticator authenticator = new Authenticator(resolver, getPooledBindAuthenticationHandler(l, newLdaptivePooledConnectionFactory(l)));
+    //
+    //        if (l.isEnhanceWithEntryResolver()) {
+    //            authenticator.setEntryResolver(newLdaptiveSearchEntryResolver(l, newLdaptivePooledConnectionFactory(l)));
+    //        }
+    //        return authenticator;
+    //    }
+    //
+    //    private static Authenticator getActiveDirectoryAuthenticator(final AbstractLdapAuthenticationProperties l) {
+    //        if (StringUtils.isBlank(l.getDnFormat())) {
+    //            throw new IllegalArgumentException("Dn format cannot be empty/blank for active directory authentication");
+    //        }
+    //        final FormatDnResolver resolver = new FormatDnResolver(l.getDnFormat());
+    //        final Authenticator authn = new Authenticator(resolver, getPooledBindAuthenticationHandler(l, newLdaptivePooledConnectionFactory(l)));
+    //
+    //        if (l.isEnhanceWithEntryResolver()) {
+    //            authn.setEntryResolver(newLdaptiveSearchEntryResolver(l, newLdaptivePooledConnectionFactory(l)));
+    //        }
+    //        return authn;
+    //    }
 
     private static PooledBindAuthenticationHandler getPooledBindAuthenticationHandler(final AbstractLdapAuthenticationProperties l,
                                                                                       final PooledConnectionFactory factory) {
@@ -982,90 +982,90 @@ public class LdapUtils {
         return cp;
     }
 
-    /**
-     * New dn resolver entry resolver.
-     * Creates the necessary search entry resolver.
-     *
-     * @param l       the ldap settings
-     * @param factory the factory
-     * @return the entry resolver
-     */
-    public static EntryResolver newLdaptiveSearchEntryResolver(final AbstractLdapAuthenticationProperties l,
-                                                               final PooledConnectionFactory factory) {
-        if (StringUtils.isBlank(l.getBaseDn())) {
-            throw new IllegalArgumentException("To create a search entry resolver, base dn cannot be empty/blank ");
-        }
-        if (StringUtils.isBlank(l.getSearchFilter())) {
-            throw new IllegalArgumentException("To create a search entry resolver, user filter cannot be empty/blank");
-        }
-
-        final BinaryAttributeAwarePooledSearchEntryResolver entryResolver = new BinaryAttributeAwarePooledSearchEntryResolver();
-        entryResolver.setBaseDn(l.getBaseDn());
-        entryResolver.setUserFilter(l.getSearchFilter());
-        entryResolver.setSubtreeSearch(l.isSubtreeSearch());
-        entryResolver.setConnectionFactory(factory);
-        entryResolver.setAllowMultipleEntries(l.isAllowMultipleEntries());
-        entryResolver.setBinaryAttributes(l.getBinaryAttributes());
-
-        if (StringUtils.isNotBlank(l.getDerefAliases())) {
-            entryResolver.setDerefAliases(DerefAliases.valueOf(l.getDerefAliases()));
-        }
-
-        final List<SearchEntryHandler> handlers = new ArrayList<>();
-        //        l.getSearchEntryHandlers().forEach(h -> {
-        //            switch (h.getType()) {
-        //                case CASE_CHANGE:
-        //                    final CaseChangeEntryHandler eh = new CaseChangeEntryHandler();
-        //                    eh.setAttributeNameCaseChange(CaseChangeEntryHandler.CaseChange.valueOf(h.getCasChange().getAttributeNameCaseChange()));
-        //                    eh.setAttributeNames(h.getCasChange().getAttributeNames().toArray(new String[]{}));
-        //                    eh.setAttributeValueCaseChange(CaseChangeEntryHandler.CaseChange.valueOf(h.getCasChange().getAttributeValueCaseChange()));
-        //                    eh.setDnCaseChange(CaseChangeEntryHandler.CaseChange.valueOf(h.getCasChange().getDnCaseChange()));
-        //                    handlers.add(eh);
-        //                    break;
-        //                case DN_ATTRIBUTE_ENTRY:
-        //                    final DnAttributeEntryHandler ehd = new DnAttributeEntryHandler();
-        //                    ehd.setAddIfExists(h.getDnAttribute().isAddIfExists());
-        //                    ehd.setDnAttributeName(h.getDnAttribute().getDnAttributeName());
-        //                    handlers.add(ehd);
-        //                    break;
-        //                case MERGE:
-        //                    final MergeAttributeEntryHandler ehm = new MergeAttributeEntryHandler();
-        //                    ehm.setAttributeNames(h.getMergeAttribute().getAttributeNames().toArray(new String[]{}));
-        //                    ehm.setMergeAttributeName(h.getMergeAttribute().getMergeAttributeName());
-        //                    handlers.add(ehm);
-        //                    break;
-        //                case OBJECT_GUID:
-        //                    handlers.add(new ObjectGuidHandler());
-        //                    break;
-        //                case OBJECT_SID:
-        //                    handlers.add(new ObjectSidHandler());
-        //                    break;
-        //                case PRIMARY_GROUP:
-        //                    final PrimaryGroupIdHandler ehp = new PrimaryGroupIdHandler();
-        //                    ehp.setBaseDn(h.getPrimaryGroupId().getBaseDn());
-        //                    ehp.setGroupFilter(h.getPrimaryGroupId().getGroupFilter());
-        //                    handlers.add(ehp);
-        //                    break;
-        //                case RANGE_ENTRY:
-        //                    handlers.add(new RangeEntryHandler());
-        //                    break;
-        //                case RECURSIVE_ENTRY:
-        //                    handlers.add(new RecursiveEntryHandler(h.getRecursive().getSearchAttribute(),
-        //                            h.getRecursive().getMergeAttributes().toArray(new String[]{})));
-        //                    break;
-        //                default:
-        //                    break;
-        //            }
-        //        });
-
-        if (!handlers.isEmpty()) {
-            LOGGER.debug("Search entry handlers defined for the entry resolver of [{}] are [{}]", l.getLdapUrl(), handlers);
-            entryResolver.setSearchEntryHandlers(handlers.toArray(new SearchEntryHandler[]{}));
-        }
-        if (l.isFollowReferrals()) {
-            entryResolver.setReferralHandler(new SearchReferralHandler());
-        }
-        return entryResolver;
-    }
+    //    /**
+    //     * New dn resolver entry resolver.
+    //     * Creates the necessary search entry resolver.
+    //     *
+    //     * @param l       the ldap settings
+    //     * @param factory the factory
+    //     * @return the entry resolver
+    //     */
+    //    public static EntryResolver newLdaptiveSearchEntryResolver(final AbstractLdapAuthenticationProperties l,
+    //                                                               final PooledConnectionFactory factory) {
+    //        if (StringUtils.isBlank(l.getBaseDn())) {
+    //            throw new IllegalArgumentException("To create a search entry resolver, base dn cannot be empty/blank ");
+    //        }
+    //        if (StringUtils.isBlank(l.getSearchFilter())) {
+    //            throw new IllegalArgumentException("To create a search entry resolver, user filter cannot be empty/blank");
+    //        }
+    //
+    //        final BinaryAttributeAwarePooledSearchEntryResolver entryResolver = new BinaryAttributeAwarePooledSearchEntryResolver();
+    //        entryResolver.setBaseDn(l.getBaseDn());
+    //        entryResolver.setUserFilter(l.getSearchFilter());
+    //        entryResolver.setSubtreeSearch(l.isSubtreeSearch());
+    //        entryResolver.setConnectionFactory(factory);
+    //        entryResolver.setAllowMultipleEntries(l.isAllowMultipleEntries());
+    //        entryResolver.setBinaryAttributes(l.getBinaryAttributes());
+    //
+    //        if (StringUtils.isNotBlank(l.getDerefAliases())) {
+    //            entryResolver.setDerefAliases(DerefAliases.valueOf(l.getDerefAliases()));
+    //        }
+    //
+    //        final List<SearchEntryHandler> handlers = new ArrayList<>();
+    //        //        l.getSearchEntryHandlers().forEach(h -> {
+    //        //            switch (h.getType()) {
+    //        //                case CASE_CHANGE:
+    //        //                    final CaseChangeEntryHandler eh = new CaseChangeEntryHandler();
+    //        //                    eh.setAttributeNameCaseChange(CaseChangeEntryHandler.CaseChange.valueOf(h.getCasChange().getAttributeNameCaseChange()));
+    //        //                    eh.setAttributeNames(h.getCasChange().getAttributeNames().toArray(new String[]{}));
+    //        //                    eh.setAttributeValueCaseChange(CaseChangeEntryHandler.CaseChange.valueOf(h.getCasChange().getAttributeValueCaseChange()));
+    //        //                    eh.setDnCaseChange(CaseChangeEntryHandler.CaseChange.valueOf(h.getCasChange().getDnCaseChange()));
+    //        //                    handlers.add(eh);
+    //        //                    break;
+    //        //                case DN_ATTRIBUTE_ENTRY:
+    //        //                    final DnAttributeEntryHandler ehd = new DnAttributeEntryHandler();
+    //        //                    ehd.setAddIfExists(h.getDnAttribute().isAddIfExists());
+    //        //                    ehd.setDnAttributeName(h.getDnAttribute().getDnAttributeName());
+    //        //                    handlers.add(ehd);
+    //        //                    break;
+    //        //                case MERGE:
+    //        //                    final MergeAttributeEntryHandler ehm = new MergeAttributeEntryHandler();
+    //        //                    ehm.setAttributeNames(h.getMergeAttribute().getAttributeNames().toArray(new String[]{}));
+    //        //                    ehm.setMergeAttributeName(h.getMergeAttribute().getMergeAttributeName());
+    //        //                    handlers.add(ehm);
+    //        //                    break;
+    //        //                case OBJECT_GUID:
+    //        //                    handlers.add(new ObjectGuidHandler());
+    //        //                    break;
+    //        //                case OBJECT_SID:
+    //        //                    handlers.add(new ObjectSidHandler());
+    //        //                    break;
+    //        //                case PRIMARY_GROUP:
+    //        //                    final PrimaryGroupIdHandler ehp = new PrimaryGroupIdHandler();
+    //        //                    ehp.setBaseDn(h.getPrimaryGroupId().getBaseDn());
+    //        //                    ehp.setGroupFilter(h.getPrimaryGroupId().getGroupFilter());
+    //        //                    handlers.add(ehp);
+    //        //                    break;
+    //        //                case RANGE_ENTRY:
+    //        //                    handlers.add(new RangeEntryHandler());
+    //        //                    break;
+    //        //                case RECURSIVE_ENTRY:
+    //        //                    handlers.add(new RecursiveEntryHandler(h.getRecursive().getSearchAttribute(),
+    //        //                            h.getRecursive().getMergeAttributes().toArray(new String[]{})));
+    //        //                    break;
+    //        //                default:
+    //        //                    break;
+    //        //            }
+    //        //        });
+    //
+    //        if (!handlers.isEmpty()) {
+    //            LOGGER.debug("Search entry handlers defined for the entry resolver of [{}] are [{}]", l.getLdapUrl(), handlers);
+    //            entryResolver.setSearchEntryHandlers(handlers.toArray(new SearchEntryHandler[]{}));
+    //        }
+    //        if (l.isFollowReferrals()) {
+    //            entryResolver.setReferralHandler(new SearchReferralHandler());
+    //        }
+    //        return entryResolver;
+    //    }
 
 }

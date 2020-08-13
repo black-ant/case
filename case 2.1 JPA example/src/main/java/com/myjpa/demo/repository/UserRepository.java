@@ -19,7 +19,14 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     @Query("select c from UserEntity c where username = :username")
     List<UserEntity> getByUserName(@Param("username") String username);
 
+    @Query("select c from UserEntity c where username = :username :#{and }}")
+    List<UserEntity> getByUserName(@Param("username") String username, @Param("orgid") String age);
+
+    @Query("select c from UserEntity c where username = ?1")
+    List<UserEntity> getByUserName1(String username);
+
     @Query("select u from UserEntity u ,OrgEntity o where  u.orgid = o.id")
     List<UserEntity> getUserHaveOrg();
+
 
 }

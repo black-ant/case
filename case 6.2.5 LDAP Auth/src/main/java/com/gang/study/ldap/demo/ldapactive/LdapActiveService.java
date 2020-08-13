@@ -34,7 +34,7 @@ public class LdapActiveService {
 
     public void doSearchCas() {
 
-        ConnectionFactory connection = new DefaultConnectionFactory("ldap://192.168.2.75:389");
+        ConnectionFactory connection = new DefaultConnectionFactory("ldap://192.168.2.11:389");
 
 
         SearchFilter searchFilter = new SearchFilter();

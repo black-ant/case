@@ -19,14 +19,13 @@ import java.util.List;
  * @Created by zengzg
  */
 @Component
-public class TestController implements ApplicationRunner {
+public class TestController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserRepository userRepository;
 
-    @Override
     public void run(ApplicationArguments args) throws Exception {
         List<UserEntity> user = userRepository.getByUserName("gang");
         logger.info("------> this is :{} <-------", JSONObject.toJSONString(user));
