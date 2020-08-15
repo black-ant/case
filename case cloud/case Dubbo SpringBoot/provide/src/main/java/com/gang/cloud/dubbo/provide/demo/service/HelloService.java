@@ -1,7 +1,11 @@
 package com.gang.cloud.dubbo.provide.demo.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @Classname HelloService
@@ -12,4 +16,12 @@ import org.springframework.stereotype.Component;
 @Service(interfaceClass = IHelloService.class)
 @Component
 public class HelloService implements IHelloService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Override
+    public String getUserAddressList(String userId) {
+        logger.info("------> this <-------");
+        return "success";
+    }
 }

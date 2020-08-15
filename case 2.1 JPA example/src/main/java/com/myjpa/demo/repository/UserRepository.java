@@ -2,6 +2,7 @@ package com.myjpa.demo.repository;
 
 import com.myjpa.demo.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,8 +20,12 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     @Query("select c from UserEntity c where username = :username")
     List<UserEntity> getByUserName(@Param("username") String username);
 
-    @Query("select c from UserEntity c where username = :username :#{and }}")
-    List<UserEntity> getByUserName(@Param("username") String username, @Param("orgid") String age);
+    @Modifying
+    @Query(value = "update UserEntity t set t.usertype=?1 where t.userid=?2")
+    Integer updateUser(String userorg, Integer userid);
+
+    //    @Query("select c from UserEntity c where username = :username :#{and }}")
+    //    List<UserEntity> getByUserName(@Param("username") String username, @Param("orgid") String age);
 
     @Query("select c from UserEntity c where username = ?1")
     List<UserEntity> getByUserName1(String username);

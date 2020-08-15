@@ -1,5 +1,7 @@
 package com.gang.cloud.dubbo.provide.demo.service;
 
+import java.util.List;
+
 /**
  * @Classname IHelloService
  * @Description TODO
@@ -7,4 +9,6 @@ package com.gang.cloud.dubbo.provide.demo.service;
  * @Created by zengzg
  */
 public interface IHelloService {
+
+    String getUserAddressList(String userId);
 }
