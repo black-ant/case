@@ -54,7 +54,8 @@ public class LDAPConnect {
         // 访问当时 账号 / 密码
         if (LdapAuthType.NONE.equals(config.getAuthType())) {
             env.put(Context.SECURITY_AUTHENTICATION, LdapAuthType.NONE.getCode());
-            env.put(Context.PROVIDER_URL, env.get(Context.PROVIDER_URL) + "/" + config.getAccount());
+            //            env.put(Context.PROVIDER_URL, env.get(Context.PROVIDER_URL) + "/" + config.getAccount());
+            env.put(Context.PROVIDER_URL, env.get(Context.PROVIDER_URL));
         } else if (LdapAuthType.STRONG.equals(config.getAuthType())) {
             throw new LdapException("System Error , not support LdapAuthType : Strong");
         } else {
@@ -96,10 +97,7 @@ public class LDAPConnect {
             if (StringUtils.isEmpty(config.getBaseContxt())) {
                 throw new LdapException("LDAP No BaseContext");
             }
-            //            String baseOu = ADUtils.getParentDN(config.getBaseContxt());
-            String baseOu = ADUtils.entryDNName(config.getBaseContxt());
-            LOG.debug("------> baseOu :{} <-------", baseOu);
-            builder.append("ldap://").append(config.getHost()).append(':').append(config.getPort()).append("/").append("ou=").append(baseOu);
+            builder.append("ldap://").append(config.getHost()).append(':').append(config.getPort());
         } else {
             builder.append("ldap://").append(config.getHost()).append(':').append(config.getPort());
         }

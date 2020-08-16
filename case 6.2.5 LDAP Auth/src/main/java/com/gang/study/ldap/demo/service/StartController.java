@@ -4,6 +4,8 @@ import com.gang.study.ldap.demo.ldapactive.LdapAuthService;
 import com.gang.study.ldap.demo.ldapactive.LdapNoneAuthService;
 import com.gang.study.ldap.demo.to.LDAPConfig;
 import com.gang.study.ldap.demo.to.LdapAuthType;
+import com.gang.study.ldap.demo.utils.SearchUtils;
+import org.ldaptive.schema.ObjectClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.naming.Context;
 import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
+import javax.naming.directory.Attributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import javax.naming.ldap.LdapContext;
@@ -42,10 +45,10 @@ public class StartController implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        //        test();
+        test();
         //        test2();
         //        ldapAuthService.auth();
-        doAuthNone();
+        //        doAuthNone();
         //        ldapNoneAuthService.run();
 
     }
@@ -54,23 +57,22 @@ public class StartController implements ApplicationRunner {
         // Set up environment for creating initial context
         Hashtable<String, Object> env = new Hashtable<String, Object>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-        env.put(Context.PROVIDER_URL, "ldap://192.168.2.75:389/");
-        env.put(Context.SECURITY_PRINCIPAL, "DC=devad,DC=com,DC=cn");
+        env.put(Context.PROVIDER_URL, "ldap://192.168.158.149:389/");
+        env.put(Context.SECURITY_PRINCIPAL, "dc=test,dc=com");
         env.put(Context.REFERRAL, "follow");
         env.put(Context.SECURITY_AUTHENTICATION, "none");
 
         // Create initial context
         DirContext ctx = new InitialDirContext(env);
         logger.info("------> ctx :{} <-------", ctx);
-        ctx.bind("CN=Administrator,CN=Users,DC=devad,DC=com,DC=cn", ctx);
 
-        NamingEnumeration<NameClassPair> list = ctx.list("Sync382");
+        NamingEnumeration<NameClassPair> list = ctx.list("Sync579");
         logger.info("------> list :{} <-------", list);
     }
 
     public void test2() {
         //        ldapActiveService.doSearch();
-        //        ldapActiveService.doSearchCas();
+        //                ldapActiveService.doSearchCas();
     }
 
 
@@ -79,9 +81,9 @@ public class StartController implements ApplicationRunner {
         //        LDAPConfig config = new LDAPConfig("192.168.2.11", "389", "devad\\administrator", "11", Boolean.FALSE);
 
         // LDAP None Auth
-        LDAPConfig config = new LDAPConfig("192.168.2.75", "636", null, null, Boolean.TRUE);
+        LDAPConfig config = new LDAPConfig("192.168.158.149", "389", null, null, Boolean.FALSE);
         config.setAuthType(LdapAuthType.NONE);
-        config.setBaseContxt("DC=devad,DC=com,DC=cn");
+        config.setBaseContxt("dc=test,dc=com");
 
         LdapContext context = null;
         try {
@@ -92,8 +94,7 @@ public class StartController implements ApplicationRunner {
 
         logger.info("------> this is Auth Over <-------");
 
-
-        NamingEnumeration<NameClassPair> name = context.list("administrator");
-        logger.info("------> name :{} <-------", name);
+        Attributes searchBack = SearchUtils.doSarchByObjectKey(context, "Sync579", "dc=test,dc=com");
+        logger.info("------> name :{} <-------", searchBack);
     }
 }
