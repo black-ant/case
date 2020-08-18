@@ -205,13 +205,11 @@ Git 变基的关键是 merge 和 rebase 命令 ，我们假设有2条线
  |-> 回退到指定次数版本 --- git reset --hard HEAD~20
     git reset --hard 9576da5eda90cb3051b4574d0239d170f3939690
  |-> 解除与远程的关系 --- git remote remove gitlab
- |-> 添加额外的远程仓库 --- git remote add gitlab http://gitlab.paraview.cn/zengzg-example/case.git
+ |-> 添加额外的远程仓库 --- git remote add gitlab http://.....
  |-> 修改用户名 --- git config user.name 你的目标用户名；
-     	-> git config user.name black-ant
-     	-> git config user.name 曾志刚
+
  |-> 修改用户邮箱 --- git config user.email 你的目标邮箱名；
-     	-> git config user.email 1016930479@qq.com
-     	-> git config user.email zengzg@paraview.cn
+
  |-> 修改全局用户名 --- git config  --global user.name 你的目标用户名；
  |-> 修改全局用户邮箱 --- git config  --global user.email 你的目标邮箱名;
  |-> 修改当前项目用户名 --- git config user.name 你的目标用户名;
