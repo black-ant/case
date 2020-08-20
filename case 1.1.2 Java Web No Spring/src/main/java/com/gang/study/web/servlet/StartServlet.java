@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,12 +16,14 @@ import java.io.IOException;
  * @Date 2020/7/9 17:24
  * @Created by zengzg
  */
+@WebServlet(name = "StartServlet",urlPatterns = "/start")
 public class StartServlet extends HttpServlet {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        logger.info("------> this is doGet <-------");
         doPost(request, response);
     }
 

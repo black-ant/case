@@ -9,6 +9,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 /**
@@ -17,6 +18,7 @@ import java.io.IOException;
  * @Date 2020/7/9 15:49
  * @Created by zengzg
  */
+@WebFilter(filterName = "MyFilter")
 public class MyFilter implements Filter {
 
     private static final Logger logger = LoggerFactory.getLogger(MyFilter.class);
