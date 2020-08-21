@@ -1,6 +1,7 @@
 package com.myjpa.demo.entity;
 
 
+import com.myjpa.demo.entity.api.IOrgEntity;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -11,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "org")
 @Data
-public class OrgEntity {
+public class OrgEntity implements IOrgEntity {
 
     @Id
     private int id;
