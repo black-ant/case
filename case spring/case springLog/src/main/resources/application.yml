@@ -1,0 +1,11 @@
+#配置日志 -- 解开该注释 , 配置文件生效
+#logging:
+#  config: classpath:loggback.xml
+
+#在application.yml引入log4j2.yml
+#logging:
+#  config: classpath:log4j2.yml
+
+#在application.yml引入log4j2.yml
+logging:
+  config: classpath:log4j2.yml
