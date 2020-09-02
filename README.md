@@ -5,7 +5,7 @@
 
 
 ## 前言
-	关于一些框架的测试和梳理 , 以及源码解读文档
+	关于一些框架的测试和梳理 , 以及源码解读文档 
 
 
 
@@ -126,15 +126,15 @@
 | case gateway                     |      |      |
 | case gradle                      |      |      |
 | case Java Other                  |      |      |
-| 子 -  case annotation               |      |      |
-| 子 -  case collection               |      |      |
-| 子 -  case ding                     |      |      |
-| 子 -  case dingding                 |      |      |
-| 子 -  case email                    |      |      |
-| 子 -  case encode-decode            |      |      |
+| 子 -  case annotation               | 自定义注解 |      |
+| 子 -  case collection               | 集合操作 |      |
+| 子 -  case ding                     | 钉钉 |      |
+| 子 -  case dingding                 | 钉钉 |      |
+| 子 -  case email                    | 邮箱操作 |      |
+| 子 -  case encode-decode            | 加密解密 |      |
 | 子 -  case get resource file        |      |      |
-| 子 -  case git-plugins              |      |      |
-| 子 -  case invoke                   |      |      |
+| 子 -  case git-plugins              | Git 插件 |      |
+| 子 -  case invoke                   | 代理 |      |
 | 子 -  case Java IO                  |      |      |
 | 子 -  case java-reflect             |      |      |
 | 子 -  case request util             |      |      |
@@ -143,21 +143,21 @@
 | 子 -  case utils                    |      |      |
 | case maven                       |      |      |
 | case netty                       |      |      |
-| case Origin Source               |      |      |
+| case Origin Source               | 源代码 |      |
 | case sourceAnalysis              |      |      |
-| case spring                      |      |      |
-|  子 -  case admin                                  |      |      |
-|  子 -  case configration                           |      |      |
-|  子 -  case devtool                                |      |      |
-|  子 -  case fileupload                             |      |      |
+| case spring                      | Spring 系列集合 |      |
+|  子 -  case admin                                  | Spring Admin |      |
+|  子 -  case configration                           | Spring Configration |      |
+|  子 -  case devtool                                | Spring devtoo; |      |
+|  子 -  case fileupload                             | Sping 文件上传 |      |
 |  子 -  case many application config test多配置文件 |      |      |
-|  子 -  case resource                               |      |      |
-|  子 -  case RestTemplate                           |      |      |
-|  子 -  case Sping ExceptionHandle                  |      |      |
-|  子 -  case spring cache                           |      |      |
+|  子 -  case resource                               | Spring resource 处理 |      |
+|  子 -  case RestTemplate                           | Spring RestTemplate 工具 |      |
+|  子 -  case Sping ExceptionHandle                  | Spring 自定义异常处理 |      |
+|  子 -  case spring cache                           | Spring Cache 缓存操作 |      |
 |  子 -  case Spring Credhub                         |      |      |
 |  子 -  case Spring Filter                          |      |      |
-|  子 -  case Spring LDAP                            |      |      |
+|  子 -  case Spring LDAP                            | Spring LDAP 操作 |      |
 |  子 -  case spring osgi                            |      |      |
 |  子 -  case spring ssh                             |      |      |
 |  子 -  case Spring 序列化                          |      |      |
@@ -179,7 +179,7 @@
 | case 协议                        |      |      |
 | case 压力测试                    |      |      |
 | case 多线程                      |      |      |
-|   子 -  case AQS                 |      |      |
+|   子 -  case AQS                 | 多线程 AQS 操作 |      |
 |   子 -  case Commonly            |      |      |
 |   子 -  case consumer-produce    |      |      |
 |   子 -  case container           |      |      |
