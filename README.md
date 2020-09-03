@@ -50,11 +50,11 @@
 | case 2.7 encache                 | Encache 缓存 |      |
 | case 2.8.1 TCC-Transaction       |      |      |
 | case 2.8.2 hmily                 |      |      |
-| case 2.8.3 seata                 |      |      |
+| case 2.8.3 seata                 | Seate |      |
 | case 2.9.1 Hibernate             |      |      |
-| case 2.9.2 Hibernate NoSpring    |      |      |
+| case 2.9.2 Hibernate NoSpring    | Hibernate No Spring 使用方式 |      |
 | case 3.1 security                |      |      |
-| case 3.2 securitybig             |      |      |
+| case 3.2 securitybig             | Spring Security |      |
 | case 3.3 shiro                   |      |      |
 | case 3.4 security                |      |      |
 | case 3.4.1 securitySaml          |      |      |
@@ -75,8 +75,8 @@
 | case 5.3 docker                  |      |      |
 | case 5.4 arthas                  |      |      |
 | case 5.5 tablesaw                |      |      |
-| case 6.1 ADBundles               |      |      |
-| case 6.1.1 ADBundlesSelf         |      |      |
+| case 6.1 ADBundles               | AD Bundle 推送 |      |
+| case 6.1.1 ADBundlesSelf         | AD 个人Bundles |      |
 | case 6.1.2 ADBundlesDemo         |      |      |
 | case 6.1.3 ADPlugin              |      |      |
 | case 6.1.4 adSource              |      |      |
@@ -159,12 +159,12 @@
 |  子 -  case Spring Filter                          |      |      |
 |  子 -  case Spring LDAP                            | Spring LDAP 操作 |      |
 |  子 -  case spring osgi                            |      |      |
-|  子 -  case spring ssh                             |      |      |
+|  子 -  case spring ssh                             | Spring SSH ? |      |
 |  子 -  case Spring 序列化                          |      |      |
 |  子 -  case SpringAdmin                            |      |      |
 |  子 -  case springAutoConfiguration                |      |      |
 |  子 -  case springAutowird                         |      |      |
-|  子 -  case SpringBatch                            |      |      |
+|  子 -  case SpringBatch                            | Spring Batch 批处理 |      |
 |  子 -  case SpringBatch Sample                     |      |      |
 |  子 -  case SpringInterceptors                     |      |      |
 |  子 -  case SpringModuleManage                     |      |      |
@@ -182,14 +182,14 @@
 |   子 -  case AQS                 | 多线程 AQS 操作 |      |
 |   子 -  case Commonly            |      |      |
 |   子 -  case consumer-produce    |      |      |
-|   子 -  case container           |      |      |
-|   子 -  case design              |      |      |
-|   子 -  case future              |      |      |
-|   子 -  case headPoolExecutor    |      |      |
-|   子 -  case high thread         |      |      |
-|   子 -  case lock                |      |      |
-|   子 -  case queue               |      |      |
-|   子 -  case spring_thread       |      |      |
+|   子 -  case container           | 多线程容器 |      |
+|   子 -  case design              | 多线程设计 |      |
+|   子 -  case future              | 多线程 Future 操作 |      |
+|   子 -  case headPoolExecutor    | 高并发连接池 |      |
+|   子 -  case high thread         | 高并发 |      |
+|   子 -  case lock                | 线程 Lock |      |
+|   子 -  case queue               | Queue 工具 |      |
+|   子 -  case spring_thread       | Spring 线程 |      |
 |   子 -  case thread_spring_cloud |      |      |
 |   子 -  case thread_test         |      |      |
 |   子 -  case thread_utils        |      |      |
