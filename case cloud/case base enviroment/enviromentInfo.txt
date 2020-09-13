@@ -1,0 +1,6 @@
+eureka : 
+    port : 13001
+
+
+server one :
+    port : 13006
