@@ -18,7 +18,7 @@ import java.io.IOException;
  * @Date 2020/7/9 15:49
  * @Created by zengzg
  */
-@WebFilter(filterName = "MyFilter")
+@WebFilter(filterName = "MyFilter", urlPatterns = {"/*"})
 public class MyFilter implements Filter {
 
     private static final Logger logger = LoggerFactory.getLogger(MyFilter.class);

@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @Classname StartServlet
+ * @Classname ServerServlet
  * @Description TODO
- * @Date 2020/7/9 17:24
+ * @Date 2020/9/14 22:58
  * @Created by zengzg
  */
-@WebServlet(name = "StartServlet",urlPatterns = {"/start"})
-public class StartServlet extends HttpServlet {
+@WebServlet(name = "ServerServlet", urlPatterns = {"/*"})
+public class ServerServlet extends HttpServlet {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
