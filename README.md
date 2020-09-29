@@ -99,7 +99,7 @@
 | case 7.2 sharding-jdbc           |      |      |
 | case 7.3 quartz                  |      |      |
 | case 7.3.1 quartz-database       |      |      |
-| case 7.3.2 quartz-auto           |      |      |
+| case 7.3.2 quartz-auto           | test |      |
 | case 7.4 xxl-job                 |      |      |
 | case 7.5 ibeetl                  |      |      |
 | case 7.7 velocity                |      |      |
