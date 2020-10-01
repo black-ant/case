@@ -20,7 +20,7 @@
     <modules>
         <module>nacos-config-mysql</module>
         <module>nacos-client</module>
-        <module>nacos-server</module>
+        <module>nacos-discovery</module>
         <module>nacos-feign</module>
     </modules>
 
