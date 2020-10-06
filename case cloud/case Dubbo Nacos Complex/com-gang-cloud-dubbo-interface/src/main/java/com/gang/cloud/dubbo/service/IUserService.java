@@ -11,5 +11,20 @@ import java.io.Serializable;
  * @Created by zengzg
  */
 public interface IUserService {
+
+    /**
+     * dubbo 测试
+     *
+     * @return
+     */
     UserTO getUser();
+
+    /**
+     * Dubbo 熔断测试
+     *
+     * @return
+     */
+    UserTO fuse();
+
+
 }
