@@ -1,5 +1,6 @@
 package com.gang.unittest.simple.demo;
 
+import com.gang.unittest.simple.demo.logic.IUserService;
 import com.gang.unittest.simple.demo.logic.UnitLogic;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * Spring 的单元测试方式是最容易的
- *
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -22,10 +22,16 @@ public class DemoApplicationTests {
     @Autowired
     private UnitLogic logic;
 
+    @Autowired
+    private IUserService userService;
+
     @Test
     public void contextLoads() {
-        logger.info("------> this is in loads <-------");
-        logic.test();
+        //        logger.info("------> this is in loads <-------");
+        //        logic.test();
+
+        userService.getUser();
     }
+
 
 }

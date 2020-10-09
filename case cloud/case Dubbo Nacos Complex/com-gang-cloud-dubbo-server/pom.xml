@@ -46,18 +46,17 @@
             <artifactId>dubbo</artifactId>
             <version>2.7.3</version>
         </dependency>
-
-        <!--        &lt;!&ndash; Dubbo Registry Nacos &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.dubbo</groupId>-->
-        <!--            <artifactId>dubbo-registry-nacos</artifactId>-->
-        <!--            <version></version>-->
-        <!--        </dependency>-->
-
         <dependency>
             <groupId>com.alibaba.nacos</groupId>
             <artifactId>nacos-client</artifactId>
             <version>1.2.1</version>
+        </dependency>
+
+        <!-- sentinel -->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-core</artifactId>
+            <version>1.8.0</version>
         </dependency>
 
     </dependencies>
