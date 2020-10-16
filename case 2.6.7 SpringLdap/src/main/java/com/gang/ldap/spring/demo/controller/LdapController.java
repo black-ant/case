@@ -1,5 +1,6 @@
 package com.gang.ldap.spring.demo.controller;
 
+import com.gang.ldap.spring.demo.logic.LDAPConnector;
 import com.gang.ldap.spring.demo.logic.LdapAuthLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +24,17 @@ public class LdapController {
     @Autowired
     private LdapAuthLogic ldapAuthLogic;
 
-    @GetMapping
+    @GetMapping("/1")
     public void test() {
         logger.info("------> test <-------");
         ldapAuthLogic.doLdapAuthSpring();
+    }
+
+    @GetMapping("/2")
+    public void test2() {
+        logger.info("------> this is test2 <-------");
+//        LDAPConnector.getInstance().validateUser("yangm", "qqqqqq!1");
+        LDAPConnector.getInstance().login("yangm", "qqqqqq!1");
     }
 
 }

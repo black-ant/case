@@ -11,6 +11,8 @@ import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.ldap.pool.factory.PoolingContextSource;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Classname LDAPConfig
@@ -24,22 +26,23 @@ import java.util.Collections;
 public class LdapConfig {
     @Autowired
     private LdapProperties properties;
-    @Autowired
-    private Environment environment;
 
     @Bean
     public LdapContextSource ldapContextSource() {
-        //        baseConfig.openLdapSystem("127.0.0.1", "6389", "cn=root,dc=test,dc=com", "123456")
-        //                .closeLdapSSL()
-        //                .ldapVersion(LDAPVersion.OPENLDAP)
-        //                .setBaseContxt("cn=root,dc=test,dc=com");
-
         LdapContextSource source = new LdapContextSource();
-        source.setUserDn("cn=root,dc=test,dc=com");
-        source.setPassword("123456");
-        source.setBase("cn=root,dc=test,dc=com");
-        source.setUrls(new String[]{"ldap://192.168.158.149:389"});
-        source.setBaseEnvironmentProperties(Collections.unmodifiableMap(properties.getBaseEnvironment()));
+        source.setUserDn("cn=Directory Manager");
+        source.setPassword("welcome1");
+        source.setBase("ou=People,o=hisense.com,o=isp");
+        source.setUrls(new String[]{"ldap://10.19.34.218:1389"});
+
+        Map<String, String> env = new HashMap<>();
+//        source.setPooled(Boolean.TRUE);
+//                env.put("com.sun.jndi.ldap.connect.pool", "true");
+//                env.put("com.sun.jndi.ldap.connect.pool.maxsize", "2000");
+//                env.put("com.sun.jndi.ldap.connect.pool.prefsize", "200");
+//                env.put("com.sun.jndi.ldap.connect.pool.timeout", "300000");
+//                env.put("com.sun.jndi.ldap.connect.pool.initsize", "200");
+        source.setBaseEnvironmentProperties(Collections.unmodifiableMap(env));
         return source;
     }
 
