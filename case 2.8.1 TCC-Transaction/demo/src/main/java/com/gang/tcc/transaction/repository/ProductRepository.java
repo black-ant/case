@@ -1,10 +1,6 @@
 package com.gang.tcc.transaction.repository;
 
-import com.gang.tcc.transaction.entity.Order;
 import com.gang.tcc.transaction.entity.Product;
-import org.mengyun.tcctransaction.sample.order.domain.entity.Product;
-import org.mengyun.tcctransaction.sample.order.infrastructure.dao.ProductDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -22,10 +22,10 @@ public class OrderFactory {
 
         Order order = new Order(payerUserId, payeeUserId);
 
-        for (Pair<Long, Integer> pair : productQuantities) {
-            long productId = pair.getLeft();
-            order.addOrderLine(new OrderLine(productId, pair.getRight(), productRepository.findById(productId).getPrice()));
-        }
+//        for (Pair<Long, Integer> pair : productQuantities) {
+//            long productId = pair.getLeft();
+//            order.setOrderLines(new OrderLine(productId, pair.getRight(), productRepository.findById(productId).getPrice()));
+//        }
 
         return order;
     }

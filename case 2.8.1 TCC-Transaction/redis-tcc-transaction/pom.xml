@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.1.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.gang</groupId>
+    <artifactId>tcc-transaction-sample-domain</artifactId>
+    <version>1.0.0</version>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.gang</groupId>
+                <artifactId>tcc-transaction-sample-common</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.69</version>
+        </dependency>
+    </dependencies>
+
+    <packaging>pom</packaging>
+    <modules>
+        <module>tcc-transaction-sample-common</module>
+        <module>tcc-transaction-redis-capital-api</module>
+        <module>tcc-transaction-redis-capital</module>
+        <module>tcc-transaction-redis-order</module>
+        <module>tcc-transaction-redis-redpacket-api</module>
+        <module>tcc-transaction-redis-redpacket</module>
+    </modules>
+
+
+</project>
