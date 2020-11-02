@@ -1,6 +1,7 @@
 package com.gang.study.io.demo.service;
 
 import com.gang.study.io.demo.model.Properties;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -17,17 +18,37 @@ public class InputOutputService {
     String dest = "D:\\java\\workspace\\git\\case\\case Java Other\\case Java IO\\doc\\test1.txt";
 
     public void run() {
+
+        try {
+            inputStream(path);
+            readStream();
+        } catch (Exception e) {
+            logger.error("E----> error :{} -- content :{}", e.getClass(), e.getMessage());
+        }
         // read
-//        readStream();
+
 
         // copy file
-        try {
-            copyFile(path, dest);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+//        try {
+//            copyFile(path, dest);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    public void inputStream(String filePath) throws Exception {
+        File file = new File(filePath);
+        InputStream is = new FileInputStream(file);
+        byte[] buffer = new byte[1000];
+        StringBuffer backMsg = new StringBuffer();
+        int count = 0;
+        while ((count = is.read(buffer)) > 0) {
+            backMsg.append(new String(buffer, 0, count));
         }
+        logger.info("----> msg is :{}", backMsg.toString());
+
     }
 
 
