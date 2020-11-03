@@ -22,6 +22,7 @@
         <module>nacos-client</module>
         <module>nacos-discovery</module>
         <module>nacos-feign</module>
+        <module>nacos-config-sample</module>
     </modules>
 
     <properties>

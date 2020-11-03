@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.gang.maven</groupId>
+    <artifactId>maven-default-jar</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>maven-default-jar</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 方案 2-1 -->
+        <!--        <dependency>-->
+        <!--            <groupId>com.gang</groupId>-->
+        <!--            <artifactId>base</artifactId>-->
+        <!--            <version>0.0.1-SNAPSHOT</version>-->
+        <!--        </dependency>-->
+
+        <!-- 方案 1-1 : 实际无作用-->
+        <dependency>
+            <groupId>com.gang</groupId>
+            <artifactId>base</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/baseSpring.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!--            &lt;!&ndash; 方案 2-2 &ndash;&gt;-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-install-plugin</artifactId>-->
+            <!--                <version>2.5.2</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>install-data-sdk-bms</id>-->
+            <!--                        <phase>clean</phase>-->
+            <!--                        <configuration>-->
+            <!--                            <file>${project.basedir}/lib/baseSpring.jar</file>-->
+            <!--                            <repositoryLayout>default</repositoryLayout>-->
+            <!--                            <groupId>com.gang</groupId>-->
+            <!--                            <artifactId>base</artifactId>-->
+            <!--                            <version>0.0.1-SNAPSHOT</version>-->
+            <!--                            <packaging>jar</packaging>-->
+            <!--                            <generatePom>true</generatePom>-->
+            <!--                        </configuration>-->
+            <!--                        <goals>-->
+            <!--                            <goal>install-file</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>lib</directory>
+                <targetPath>/BOOT-INF/lib/</targetPath>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+</project>
