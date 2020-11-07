@@ -11,6 +11,8 @@
     <modules>
         <module>com-gang-nacos-service</module>
         <module>com-gang-nacos-client</module>
+        <module>nacos-hystrix</module>
+        <module>nacos-feign</module>
     </modules>
 
 
