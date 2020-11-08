@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>com-gang-nacos-client</artifactId>
+    <artifactId>com-gang-nacos-dubbo</artifactId>
 
 
 </project>
