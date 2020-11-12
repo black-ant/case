@@ -15,8 +15,16 @@ import java.util.List;
  */
 public interface OrgRepository extends JpaRepository<OrgEntity, Integer> {
 
-    List<IOrgEntity> findByOrgname(String orgName);
+    List<IOrgEntity> findByOrgName(String orgName);
 
-    List<IOrgEntity> findByOrOrgnameLike(String orgName);
+    List<IOrgEntity> findByOrOrgNameLike(String orgName);
+
+    /**
+     * 查询首个 , 如果未查询到不会报错
+     *
+     * @param orgType
+     * @return
+     */
+    IOrgEntity findFirstByOrgType(String orgType);
 
 }

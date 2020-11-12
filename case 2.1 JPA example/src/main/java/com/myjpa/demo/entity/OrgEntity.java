@@ -17,6 +17,11 @@ public class OrgEntity implements IOrgEntity {
     @Id
     private int id;
 
-    @Column(name = "orgname")
-    private String orgname;
+    @Column(name = "org_name")
+    private String orgName;
+
+    @Column(name = "org_type")
+    private String orgType;
+
+
 }

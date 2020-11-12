@@ -1,6 +1,7 @@
 package com.myjpa.demo.controller;
 
 import com.myjpa.demo.entity.api.IOrgEntity;
+import com.myjpa.demo.repository.OrgRepository;
 import com.myjpa.demo.service.OrgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,9 @@ public class OrgController {
     @Autowired
     private OrgService orgService;
 
+    @Autowired
+    private OrgRepository orgRepository;
+
     @GetMapping("name/{name}")
     public List<IOrgEntity> findByOrgName(@PathVariable("name") String name) {
         return orgService.findByOrgName(name);
@@ -32,6 +36,11 @@ public class OrgController {
     @GetMapping("like/{name}")
     public List<IOrgEntity> findByOrgNameLike(@PathVariable("name") String name) {
         return orgService.findByOrOrgnameIsLike(name);
+    }
+
+    @GetMapping("first/{type}")
+    public IOrgEntity findFirstByOrgType(@PathVariable("type") String type) {
+        return orgRepository.findFirstByOrgType(type);
     }
 
 }

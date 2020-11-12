@@ -21,13 +21,13 @@ public class OrgService {
 
 
     public List<IOrgEntity> findByOrgName(String name) {
-        List<IOrgEntity> orgEntity = orgRepository.findByOrgname(name);
+        List<IOrgEntity> orgEntity = orgRepository.findByOrgName(name);
         return orgEntity;
     }
 
     public List<IOrgEntity> findByOrOrgnameIsLike(String name) {
         name = "%" + name + "%";
-        List<IOrgEntity> orgEntity = orgRepository.findByOrOrgnameLike(name);
+        List<IOrgEntity> orgEntity = orgRepository.findByOrOrgNameLike(name);
         return orgEntity;
     }
 

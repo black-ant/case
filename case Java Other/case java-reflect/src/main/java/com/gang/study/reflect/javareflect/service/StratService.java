@@ -17,6 +17,6 @@ public class StratService implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 //        reflectService.reflectGetEntity();
-        fliedReflectService.run();
+//        fliedReflectService.run();
     }
 }
