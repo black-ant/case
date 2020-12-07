@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="http://passport.cnblogs.com/scripts/jsencrypt.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>RSApublicKey</div>
+    <input v-model="publicKey" placeholder="">
+    <input v-model="message" placeholder="">
+    <button v-on:click="getSecret()">获取</button>
+
+
+    <div>AESpublicKey</div>
+    <input v-model="AESpublicKey" placeholder="">
+    <input v-model="AESmessage" placeholder="">
+    <button v-on:click="getSecretAES()">获取</button>
+</div>
+
+
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue.js!',
+            publicKey:'',
+            AESmessage: 'Hello Vue.js!',
+            AESpublicKey:''
+        },
+        methods: {
+            getSecret: function () {
+                console.log("getSecret");
+                var encrypt = new JSEncrypt();
+
+                encrypt.setPublicKey(this.publicKey);
+                this.message = encrypt.encrypt("123456");
+                console.log(this.message);
+
+            },
+            getSecretAES: function () {
+                console.log("getSecret");
+                var encrypt = new JSEncrypt();
+
+                encrypt.setPublicKey(this.AESpublicKey);
+                this.AESmessage = encrypt.encrypt("123456");
+                console.log(this.AESmessage);
+
+            }
+        }
+    })
+</script>
+
+</html>
