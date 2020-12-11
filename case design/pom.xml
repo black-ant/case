@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.0</version>
+        <version>2.4.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.gang.jvm</groupId>
-    <artifactId>jvm-jol</artifactId>
+    <groupId>com.gang.design</groupId>
+    <artifactId>design</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>jvm-jol</name>
+    <name>design</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -29,12 +29,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.openjdk.jol</groupId>
-            <artifactId>jol-core</artifactId>
-            <version>0.14</version>
-        </dependency>
-
     </dependencies>
 
     <build>

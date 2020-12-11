@@ -24,4 +24,19 @@ public class DemoController {
         modelAndView.setViewName("pages/callback");
         return modelAndView;
     }
+
+    @GetMapping("staticHtml")
+    public ModelAndView staticHtml(){
+        ModelAndView modelAndView = new ModelAndView();
+        LOG.info("is in callback");
+        modelAndView.setViewName("testStatic");
+        return modelAndView;
+    }
+
+    @GetMapping("staticHtml1")
+    public String staticHtml1(){
+        ModelAndView modelAndView = new ModelAndView();
+        LOG.info("is in callback staticHtml1");
+        return "testStatic.html";
+    }
 }

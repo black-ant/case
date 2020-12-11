@@ -30,4 +30,8 @@ public class DateStartService {
             logger.info("------> this is in  StartService<-------");
         }
     }
+
+    public void doLogTrach() {
+        throw new RuntimeException("测试 log");
+    }
 }
