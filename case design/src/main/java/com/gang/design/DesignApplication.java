@@ -1,4 +1,4 @@
-package com.gang.design.design;
+package com.gang.design;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
