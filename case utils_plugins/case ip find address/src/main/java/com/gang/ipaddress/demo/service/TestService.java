@@ -38,10 +38,10 @@ public class TestService implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        String address = IpRegionUtil.getIpCity("59.174.217.84");
-        logger.info("------> this is address :{} <-------", address);
-        String address2 = getIpCity("59.174.217.84");
-        logger.info("------> this is address2 :{} <-------", address2);
+//        String address = IpRegionUtil.getIpCity("59.174.217.84");
+//        logger.info("------> this is address :{} <-------", address);
+//        String address2 = getIpCity("59.174.217.84");
+//        logger.info("------> this is address2 :{} <-------", address2);
 
     }
 
