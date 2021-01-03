@@ -16,7 +16,7 @@ import java.io.IOException;
  * @Date 2020/7/9 17:24
  * @Created by zengzg
  */
-@WebServlet(name = "StartServlet",urlPatterns = {"/start"})
+//@WebServlet(name = "StartServlet",urlPatterns = {"/start"})
 public class StartServlet extends HttpServlet {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());

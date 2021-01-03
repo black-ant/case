@@ -18,12 +18,12 @@ import java.io.IOException;
 
 /**
  * @Classname APIFilter
- * @Description TODO
+ * @Description 模拟 Bean 的加载顺序
  * @Date 2020/9/29 15:45
  * @Created by zengzg
  */
-@Component
-@Conditional(SelfConfition.class)
+//@Component
+//@Conditional(SelfConfition.class)
 //@Order(0)
 public class APIFilter implements Filter {
 

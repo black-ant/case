@@ -16,7 +16,7 @@ import java.io.IOException;
  * @Date 2020/9/14 22:58
  * @Created by zengzg
  */
-@WebServlet(name = "ServerServlet", urlPatterns = {"/*"})
+//@WebServlet(name = "ServerServlet", urlPatterns = {"/*"})
 public class ServerServlet extends HttpServlet {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());

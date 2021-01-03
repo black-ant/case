@@ -20,8 +20,8 @@ import java.io.IOException;
  * @Date 2020/9/29 15:22
  * @Created by zengzg
  */
-@Component
-@ConditionalOnMissingBean
+//@Component
+//@ConditionalOnMissingBean
 //@Order(999)
 public class APIFilter implements Filter {
 
