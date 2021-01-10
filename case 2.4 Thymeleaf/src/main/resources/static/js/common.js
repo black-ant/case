@@ -105,9 +105,6 @@ String.prototype.createHTML = function (dt) {
     for (var x in dt) {
         var argsObj = dt[x];
         console.log(argsObj);
-        if () {
-
-        }
     }
 }
 
@@ -132,7 +129,7 @@ String.prototype.format = function (data) {
                 }
             }
         } else {
-            
+
         }
     }
     // else {

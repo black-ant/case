@@ -39,4 +39,6 @@ public class DemoController {
         LOG.info("is in callback staticHtml1");
         return "testStatic.html";
     }
+
+
 }

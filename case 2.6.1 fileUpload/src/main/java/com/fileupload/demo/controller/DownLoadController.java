@@ -1,5 +1,14 @@
 package com.fileupload.demo.controller;
 
+import com.fileupload.demo.to.DownloadTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -20,10 +29,25 @@ import java.net.URLConnection;
  * @Date 2021/1/9 23:05
  * @Created by
  */
+@RestController
+@RequestMapping("/download")
 public class DownLoadController {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public HttpServletResponse download(String path, HttpServletResponse response) {
+    /**
+     * 以流的方式下载.
+     * Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986
+     * 注意编码 :: D:/SpringBoot.pdf
+     *
+     * @param path
+     * @param response
+     * @return
+     */
+    @GetMapping("stream")
+    public HttpServletResponse download(@RequestParam(name = "path") String path, HttpServletResponse response) {
+
+        logger.info("------> this is in stream <-------");
         try {
             // path是指欲下载的文件的路径。
             File file = new File(path);
@@ -53,7 +77,16 @@ public class DownLoadController {
         return response;
     }
 
-    public void downloadLocal(String path, HttpServletResponse response) throws FileNotFoundException {
+    /**
+     * 保存到本地
+     *
+     * @param path
+     * @param response
+     * @throws FileNotFoundException
+     */
+    @GetMapping("download2")
+    public void downloadLocal(@RequestParam(name = "path") String path, HttpServletResponse response) throws FileNotFoundException {
+
         // 下载本地文件
         String fileName = "Operator.doc".toString(); // 文件的默认保存名
         // 读到流中
@@ -74,7 +107,18 @@ public class DownLoadController {
         }
     }
 
-    public void downloadNet(String pathUrl, HttpServletResponse response) throws MalformedURLException {
+    /**
+     * 下载网络图片
+     *
+     * @param pathUrl
+     * @param outPutPath
+     * @param response
+     * @throws MalformedURLException
+     */
+    @GetMapping("download3")
+    public void downloadNet(@RequestParam(name = "pathUrl") String pathUrl,
+                            @RequestParam(name = "outPutPath") String outPutPath,
+                            HttpServletResponse response) throws MalformedURLException {
         // 下载网络文件
         int bytesum = 0;
         int byteread = 0;
@@ -84,7 +128,7 @@ public class DownLoadController {
         try {
             URLConnection conn = url.openConnection();
             InputStream inStream = conn.getInputStream();
-            FileOutputStream fs = new FileOutputStream("c:/abc.gif");
+            FileOutputStream fs = new FileOutputStream(outPutPath);
 
             byte[] buffer = new byte[1204];
             int length;
@@ -100,7 +144,16 @@ public class DownLoadController {
         }
     }
 
-    public void downLoad(String filePath, HttpServletResponse response, boolean isOnLine) throws Exception {
+    /**
+     * 127.0.0.1:8088/download/download4?path=D:/avataaars.png&isOnLine=true
+     * @param filePath
+     * @param response
+     * @param isOnLine
+     * @throws Exception
+     */
+    @GetMapping("download4")
+    public void downLoad(@RequestParam(name = "path") String filePath, HttpServletResponse response,
+                         @RequestParam(name = "isOnLine") boolean isOnLine) throws Exception {
         File f = new File(filePath);
         if (!f.exists()) {
             response.sendError(404, "File not found!");

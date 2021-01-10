@@ -21,6 +21,6 @@ public class SwaggerController {
     @ApiOperation(value="获取组织列表", notes="根据orgs对象创建用户")
     @ApiImplicitParam(name = "user", value = "根据orgs对象创建用户", required = true, dataType = "User")
     public String findOrgs(@RequestParam("orgid") String orgid) {
-        return "上海派拉";
+        return "小蚂蚁";
     }
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="common_left(name)">
+    <div class="left-sidebar-pro">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <a href="#"><img src="img/message/1.jpg" alt=""/>
+                </a>
+                <h3>Andrar Son</h3>
+                <p>Developer</p>
+                <strong>AP+</strong>
+            </div>
+            <div class="left-custom-menu-adp-wrap">
+                <ul class="nav navbar-nav left-sidebar-menu-pro">
+                    <li class="nav-item">
+                        <a th:href="@{/index}"><i class="fa big-icon fa-home"></i> <span
+                                class="mini-dn">首页</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/user/list}"><i class="fa big-icon fa-home"></i> <span
+                                class="mini-dn">人员</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/folder/list}"><i class="fa big-icon fa-home"></i> <span
+                                class="mini-dn">文件</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/type/list}"><i class="fa big-icon fa-home"></i> <span
+                                class="mini-dn">类型管理</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/operation}"><i class="fa big-icon fa-home"></i> <span
+                                class="mini-dn">博客运维</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/setting/list}"><i class="fa big-icon fa-home"></i> <span
+                                class="mini-dn">配置管理</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/tag/list}"><i class="fa big-icon fa-home"></i> <span
+                                class="mini-dn">标签管理</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/content/list}"><i class="fa big-icon fa-home"></i> <span
+                                class="mini-dn">文章管理</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/content/list}"><i class="fa big-icon fa-home"></i> <span
+                                class="mini-dn">退出</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+</html>

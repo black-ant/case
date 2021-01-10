@@ -13,20 +13,20 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication
 public class DemoApplication extends SpringBootServletInitializer {
 
-    //    public static void main(String[] args) {
-    //        SpringApplication.run(DemoApplication.class, args);
-    //    }
-
-
-    /**
-     * 方式一
-     * https://www.jianshu.com/p/c14a9028e6e7
-     * @param args
-     */
     public static void main(String[] args) {
-        new DemoApplication()
-                .configure(new SpringApplicationBuilder(DemoApplication.class))
-                .run(args);
+        SpringApplication.run(DemoApplication.class, args);
     }
+
+
+//    /**
+//     * 方式一
+//     * https://www.jianshu.com/p/c14a9028e6e7
+//     * @param args
+//     */
+//    public static void main(String[] args) {
+//        new DemoApplication()
+//                .configure(new SpringApplicationBuilder(DemoApplication.class))
+//                .run(args);
+//    }
 
 }

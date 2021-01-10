@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script th:src="@{/js/jquery.min.js}"></script>
-    <script th:src="@{/js/common.js}"></script>
+
+<head th:replace="common/commonHead :: common_header(~{::title},~{::link})">
+    <title>Blog Content</title>
 </head>
+
 <body>
+<div th:replace="common/commonTop::common_top(~{::name})"></div>
+
+<div id="index">indexJS 未生效</div>
 <div class="title top_nav">欢迎</div>
-<div class="submit">点击进行登录逻辑</div>
+<a th:href="@{/login}">点击进行登录逻辑</a>
 </body>
+
+<div th:replace="common/commonJS::common_js(~{::script})"></div>
 
 </html>

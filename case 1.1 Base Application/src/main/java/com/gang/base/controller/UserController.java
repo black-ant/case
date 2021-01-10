@@ -25,26 +25,34 @@ public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @GetMapping("test")
+    @GetMapping("get/test")
     public String test() {
         return "test";
     }
 
-    @PostMapping(value = "create", produces = "application/json", consumes = "application/json")
-    public User create(@RequestBody User user) {
-        logger.info("------> this is in create add  :{}<-------", JSONObject.toJSONString(user));
-        return user;
-    }
-
-    @GetMapping("pathtest/{key}")
+    @GetMapping("get/path/{key}")
     public String pathTest(@PathVariable("key") String key) {
         logger.info("------> this is key :{} <-------", key);
         return key;
     }
 
-    @PostMapping("posttest")
+    @GetMapping("get/param")
+    public String getTest(@RequestParam("key") String key) {
+        logger.info("------> this is getTest :{} <-------", key);
+        return key;
+    }
+
+    @PostMapping("post/test")
     public String postTest(@RequestParam("key") String key) {
         logger.info("------> this isi key :{} <-------", key);
         return key;
     }
+
+    @PostMapping(value = "post/create", produces = "application/json", consumes = "application/json")
+    public User create(@RequestBody User user) {
+        logger.info("------> this is in create add  :{}<-------", JSONObject.toJSONString(user));
+        user.setAge(19);
+        return user;
+    }
+
 }
