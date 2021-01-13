@@ -1,5 +1,9 @@
 package com.gang.study.encodedecode.demo.utils;
 
+import cn.hutool.core.codec.Base64;
+import cn.hutool.core.codec.Base64Decoder;
+import cn.hutool.core.codec.Base64Encoder;
+
 /**
  * @Classname Base64Utils
  * @Description TODO
@@ -7,4 +11,13 @@ package com.gang.study.encodedecode.demo.utils;
  * @Created by zengzg
  */
 public class Base64Utils {
+
+
+    private static String encode64(String data) {
+        return Base64.encode(data);
+    }
+
+    private static String decode(String data) {
+        return Base64.decodeStr(data);
+    }
 }

@@ -39,19 +39,10 @@ public class AESController {
     @GetMapping("/getPublicKey")
     public String getPublicKey() {
         logger.info("------> this is in get <-------");
-
-        logger.info("------> this is in get public key:{} <-------", rsa.getPublicKeyBase64());
-        PRIVATE_KEY = rsa.getPrivateKey();
-        logger.info("------> this is in get private key:{} <-------", rsa.getPrivateKeyBase64());
-        return rsa.getPublicKeyBase64();
-    }
-
-    @PostMapping("/check")
-    public String check(@RequestBody String key) {
-        logger.info("------> this is in get :{}<-------", key);
-        String pwd = rsa.decryptStr(key, KeyType.PrivateKey);
-        logger.info("------> this is in pwd :{}<-------", pwd);
-        return pwd;
+        byte[] publicKey = SecureUtil.generateKey(SymmetricAlgorithm.AES.getValue()).getEncoded();
+        String PUBLIC_KEY = Base64Utils.encodeToString(publicKey);
+        logger.info("------> this is in get public key:{} <-------", PUBLIC_KEY);
+        return PUBLIC_KEY;
     }
 
     /**
