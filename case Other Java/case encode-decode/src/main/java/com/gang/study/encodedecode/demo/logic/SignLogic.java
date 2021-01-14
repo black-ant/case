@@ -40,13 +40,12 @@ public class SignLogic implements ApplicationRunner {
         // Step 1 : Base64 处理
         String base64 = Base64.encode(sign);
         logger.info("------> before :{} <-------", base64);
-
-        // Step 2 : 进行移位处理
+        // Step 2 : 进行移位处理 , 获取当前 Base64 长度的百分之30的字符下标
         int num = (int) (base64.length() * 0.3);
         List<Character> arrays = base64.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
+        // Step 3 : 取出该下标对应的字符并且放在首位
         arrays.add(0, arrays.remove(num));
         String newStr = arrays.stream().map(e -> e.toString()).reduce((acc, e) -> acc + e).get();
-//        logger.info("------> newStr :{} <-------", newStr);
 
         reversibleSignDecode(newStr);
     }
@@ -63,7 +62,6 @@ public class SignLogic implements ApplicationRunner {
         List<Character> arrays = encodeStr.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
         arrays.add(num, arrays.remove(0));
         String base64 = arrays.stream().map(e -> e.toString()).reduce((acc, e) -> acc + e).get();
-//        logger.info("------> after :{} <-------", base64);
         String result = Base64.decodeStr(base64);
 
         logger.info("------> result :{} <-------", result);
