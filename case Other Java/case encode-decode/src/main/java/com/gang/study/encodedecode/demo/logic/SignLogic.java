@@ -36,7 +36,7 @@ public class SignLogic implements ApplicationRunner {
      */
     public void reversibleSignEncode() {
 
-        String sign = "IQqao1p4bPlKDfF55a1+6Q==";
+        String sign = "signLogic";
         // Step 1 : Base64 处理
         String base64 = Base64.encode(sign);
         logger.info("------> before :{} <-------", base64);
