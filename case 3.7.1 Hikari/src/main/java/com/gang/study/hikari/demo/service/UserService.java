@@ -1,7 +1,7 @@
-package com.gang.study.multiplysource.multiplysource.service;
+package com.gang.study.hikari.demo.service;
 
-import com.gang.study.multiplysource.multiplysource.common.entity.UserEntity;
-import com.gang.study.multiplysource.multiplysource.jpa.repository.UserRepository;
+import com.gang.study.hikari.demo.entity.UserEntity;
+import com.gang.study.hikari.demo.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,11 +1,12 @@
-package com.gang.study.multiplysource.multiplysource.jpa.repository;
+package com.gang.study.hikari.demo.repository;
 
-import com.gang.study.multiplysource.multiplysource.common.entity.UserEntity;
+import com.gang.study.hikari.demo.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+
 
 /**
  * @author 10169
@@ -19,7 +20,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     @Query("select c from UserEntity c where username = :username")
     List<UserEntity> getByUserName(@Param("username") String username);
 
-    @Query("select u from UserEntity u ,OrgEntity o where  u.orgid = o.id")
-    List<UserEntity> getUserHaveOrg();
+//    @Query("select u from UserEntity u  where  u.orgid = o.id")
+//    List<UserEntity> getUserHaveOrg();
 
 }

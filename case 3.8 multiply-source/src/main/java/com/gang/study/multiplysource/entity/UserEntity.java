@@ -1,4 +1,4 @@
-package com.gang.study.multiplysource.multiplysource.common.entity;
+package com.gang.study.multiplysource.entity;
 
 
 import lombok.Data;
@@ -7,8 +7,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -40,7 +38,7 @@ public class UserEntity {
     @Column(name = "orgid")
     private String orgid;
 
-    @OneToOne
-    @JoinColumn(name = "userid", insertable = false, updatable = false)
-    private OrgEntity orglist;
+//    @OneToOne
+//    @JoinColumn(name = "userid", insertable = false, updatable = false)
+//    private OrgEntity orglist;
 }

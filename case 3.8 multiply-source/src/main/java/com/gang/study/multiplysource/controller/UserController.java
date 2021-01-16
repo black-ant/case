@@ -1,8 +1,8 @@
-package com.gang.study.multiplysource.multiplysource.controller;
+package com.gang.study.multiplysource.controller;
 
 
-import com.gang.study.multiplysource.multiplysource.common.entity.UserEntity;
-import com.gang.study.multiplysource.multiplysource.service.UserService;
+import com.gang.study.multiplysource.entity.UserEntity;
+import com.gang.study.multiplysource.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

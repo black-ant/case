@@ -1,4 +1,4 @@
-package com.gang.study.multiplysource.multiplysource;
+package com.gang.study.multiplysource;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
