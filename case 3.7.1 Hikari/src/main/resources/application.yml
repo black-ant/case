@@ -3,7 +3,7 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://rm-bp13ob37pbw72yp1kso.mysql.rds.aliyuncs.com:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&useSSL=false&allowMultiQueries=true
+    url: jdbc:mysql://rm-bp13ob37pbw72yp1kso.mysql.rds.aliyuncs.com:3306/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.jdbc.Driver
     username: gang
     continue-on-error: true
@@ -14,8 +14,8 @@ spring:
       maximum-pool-size: 15
       minimum-idle: 5
       jdbc-url: ${spring.datasource.url}
-      username: ${spring.datasource.password}
-      password: ${spring.datasource.username}
+      username: ${spring.datasource.username}
+      password: ${spring.datasource.password}
       allow-pool-suspension: true
       auto-commit: true
       idle-timeout: 300000
@@ -23,13 +23,5 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 300000
       connection-test-query: SELECT 1
-mybatis:
-  mapper-locations: classpath*:/mapper/*.xml
-  config-location: classpath:/config/mybatis-config.xml
-pagehelper:
-  helperDialect: mysql
-  params: count=countSql
-  reasonable: true
-  supportMethodsArguments: true
 server:
   port: 8088
