@@ -27,7 +27,10 @@ public class SignLogic implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 //        logger.info("------> this is in signLogic Run <-------");
-        reversibleSignEncode();
+//        reversibleSignEncode();
+//        irreversibilityEncode();
+//        reversibleSignDecode("VbTVqdzBSYl4SDBFcmt5RXZvSjNlQT09");
+
         irreversibilityEncode();
     }
 
@@ -71,8 +74,11 @@ public class SignLogic implements ApplicationRunner {
      * Sign 不可逆加密
      */
     public void irreversibilityEncode() {
-        String sign = "SignLogic";
-        String salt1 = "IQqao1p4bPlKDfF55a1+6Q==";
+        String sign = "123456120210118202700";
+        // 85
+        String salt1 = "HUlV6b1kxOA4T3VMMXJKb3ZFM0Nadz09";
+        // Default
+//        String salt1 = "kQkRUVnY3dNsV2hBVDUxN2lyelBXQT09";
         String md5Result = MD5.create().digestHex(sign);
         logger.info("------> md5Result :{} <-------", md5Result);
 
