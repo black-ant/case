@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+    <!-- 起始节点 -->
+    <on-start>
+        <evaluate expression="initAction"/>
+    </on-start>
+
+    <action-state id="doLoginAction">
+        <evaluate expression="loginAction"/>
+    </action-state>
+
+
+    <!-- View 系列节点 , WebFlow 执行完成后会根据结果跳转到对应的 View 节点 -->
+    <view-state id="helloWorldView"/>
+
+    <!--    <view-state id="doLoginView">-->
+    <!--        <transition on="submit" to="helloWorldView"/>-->
+    <!--    </view-state>-->
+
+</flow>
