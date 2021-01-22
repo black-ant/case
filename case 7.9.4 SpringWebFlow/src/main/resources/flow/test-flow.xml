@@ -11,6 +11,7 @@
 
     <action-state id="doLoginAction">
         <evaluate expression="loginAction"/>
+        <transition on="success" to="helloWorldView"></transition>
     </action-state>
 
 
