@@ -27,16 +27,22 @@ public class DingTalkService implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         logger.info("------> this is in DingTlkService <-------");
+//        getAccessToken();
     }
 
+    /**
+     * Step 1 : 进入 钉钉开放平台
+     * Step 2 : 应用开发 -> 新建应用
+     * Step 3 : 从 凭证 栏目下获取 appKey , appSecret
+     */
     public void getAccessToken() {
 
-        String appId = "appId";
+        String appKey = "appKey";
         String appSecret = "appSecret";
 
         DefaultDingTalkClient client = new DefaultDingTalkClient(ACCESS_TOKEN_URL);
         OapiGettokenRequest request = new OapiGettokenRequest();
-        request.setAppkey(appId);
+        request.setAppkey(appKey);
         request.setAppsecret(appSecret);
         request.setHttpMethod("GET");
         try {
