@@ -20,7 +20,8 @@ public class FeishuService implements ApplicationRunner {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public static final String ACCESS_TOKEN_URL = "https://oapi.dingtalk.com/gettoken";
+    public static final String ACCESS_TOKEN_URL = "https://open.feishu.cn/open-apis/authen/v1/index" +
+            "?redirect_uri=REDIRECT_URI&app_id=APPID&state=STATE";
     private OkHttpClient client = new OkHttpClient();
 
     @Override
@@ -48,6 +49,10 @@ public class FeishuService implements ApplicationRunner {
         try (Response response = client.newCall(request).execute()) {
             logger.info("------> this is response :{} <-------", response.body().string());
         }
+
+    }
+
+    public void getUserinfo(String token) {
 
     }
 
