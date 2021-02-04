@@ -34,46 +34,11 @@ public class SignLogic implements ApplicationRunner {
 //        logger.info("------> this is in signLogic Run <-------");
 //        reversibleSignEncode();
 //        irreversibilityEncode();
-        reversibleSignDecode("XNUlDT3BmcBZQzdVeVFCODhXSitRQT09");
 
         irreversibilityEncode();
     }
 
-    /**
-     * Sign 可逆操作加密
-     */
-    public void reversibleSignEncode() {
 
-        String sign = "signLogic";
-        // Step 1 : Base64 处理
-        String base64 = Base64.encode(sign);
-        logger.info("------> before :{} <-------", base64);
-        // Step 2 : 进行移位处理 , 获取当前 Base64 长度的百分之30的字符下标
-        int num = (int) (base64.length() * 0.3);
-        List<Character> arrays = base64.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
-        // Step 3 : 取出该下标对应的字符并且放在首位
-        arrays.add(0, arrays.remove(num));
-        String newStr = arrays.stream().map(e -> e.toString()).reduce((acc, e) -> acc + e).get();
-
-        reversibleSignDecode(newStr);
-    }
-
-    /**
-     * Sign 可逆操作解密
-     *
-     * @param encodeStr
-     */
-    public void reversibleSignDecode(String encodeStr) {
-
-        int num = (int) (encodeStr.length() * 0.3);
-
-        List<Character> arrays = encodeStr.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
-        arrays.add(num, arrays.remove(0));
-        String base64 = arrays.stream().map(e -> e.toString()).reduce((acc, e) -> acc + e).get();
-        String result = Base64.decodeStr(base64);
-
-        logger.info("------> result :{} <-------", result);
-    }
 
     /**
      * Sign 不可逆加密
