@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Boston Robberies by month: Jan 1966-Oct 1975</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id='target' ></div>
+        <script>
+        var target_target = document.getElementById('target');
+        var layout = {
+    title: 'Boston Robberies by month: Jan 1966-Oct 1975',
+    height: 600,
+    width: 800,
+    xaxis: {
+    title: 'date',
+    },
+
+    yaxis: {
+    title: 'num',
+    },
+
+};
+
+var trace0 =
+{
+x: ["0.0","1.0","2.0","3.0","4.0","5.0","6.0","7.0","8.0","9.0","10.0","11.0","12.0"],
+y: ["1","2","3","4","5","6","7","8","9","10","11","12","13"],
+mode: 'lines',
+fill: 'tonexty',
+xaxis: 'x',
+yaxis: 'y',
+type: 'scatter',
+name: '',
+};
+
+        var data = [ trace0];
+Plotly.newPlot(target_target, data, layout);            </script>
+
+</body>
+</html>

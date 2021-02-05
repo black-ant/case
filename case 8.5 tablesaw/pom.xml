@@ -41,6 +41,22 @@
             <artifactId>tablesaw-core</artifactId>
             <version>0.38.1</version>
         </dependency>
+
+        <!-- HTML 页面支持 -->
+        <dependency>
+            <groupId>tech.tablesaw</groupId>
+            <artifactId>tablesaw-html</artifactId>
+            <version>0.38.1</version>
+        </dependency>
+
+        <!-- 数据可视化 -->
+        <dependency>
+            <groupId>tech.tablesaw</groupId>
+            <artifactId>tablesaw-jsplot</artifactId>
+            <version>0.38.1</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

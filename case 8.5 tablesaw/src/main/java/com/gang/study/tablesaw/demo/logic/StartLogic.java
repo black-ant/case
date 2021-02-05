@@ -5,9 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import tech.tablesaw.api.ColumnType;
 import tech.tablesaw.api.DoubleColumn;
+import tech.tablesaw.api.NumberColumn;
 import tech.tablesaw.api.StringColumn;
 import tech.tablesaw.api.Table;
+import tech.tablesaw.columns.numbers.NumberColumnFormatter;
+import tech.tablesaw.plotly.Plot;
+import tech.tablesaw.plotly.api.AreaPlot;
 
 /**
  * @Classname StartLogic
@@ -22,8 +27,12 @@ public class StartLogic implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        createTable();
+//        createTable();
+
+//        loadVCsv();
+        showTable();
     }
+
 
     /**
      * 创建表格
@@ -35,6 +44,29 @@ public class StartLogic implements ApplicationRunner {
                 StringColumn.create("姓名", students),
                 DoubleColumn.create("分数", scores));
 
-        logger.info("------> this is show :{} <-------", table.print());
+        logger.info("{} ", table.print());
+    }
+
+    /**
+     * 加载 csv 文件
+     */
+    public void loadVCsv() throws Exception {
+        Table table = Table.read().csv("C:\\Users\\10169\\Desktop\\test.csv");
+        Table whoPercents = table.xTabPercents("name");
+        whoPercents.columnsOfType(ColumnType.DOUBLE)
+                .forEach(x -> ((NumberColumn) x).setPrintFormatter(
+                        NumberColumnFormatter.percent(0)));
+        System.out.println(whoPercents.toString());
+    }
+
+    /**
+     *
+     */
+    public void showTable() throws Exception {
+        Table robberies = Table.read().csv("C:\\Users\\10169\\Desktop\\test.csv");
+        Plot.show(
+                AreaPlot.create(
+                        "Boston Robberies by month: Jan 1966-Oct 1975",
+                        robberies, "date", "num"));
     }
 }
