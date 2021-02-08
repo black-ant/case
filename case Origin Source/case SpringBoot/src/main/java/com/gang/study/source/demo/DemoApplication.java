@@ -19,11 +19,11 @@ public class DemoApplication {
         logger.info("------> context :{} <-------", context instanceof ApplicationContext);
     }
 
-    public void buildSelfBanner(String[] args) {
-        SpringApplication app = new SpringApplication(MySpringConfiguration.class);
-        app.setBannerMode(Banner.Mode.OFF);
-        app.run(args);
-    }
+//    public void buildSelfBanner(String[] args) {
+//        SpringApplication app = new SpringApplication(MySpringConfiguration.class);
+//        app.setBannerMode(Banner.Mode.OFF);
+//        app.run(args);
+//    }
 
     // SpringApplication.run(DemoApplication.class, args);
     // ->
