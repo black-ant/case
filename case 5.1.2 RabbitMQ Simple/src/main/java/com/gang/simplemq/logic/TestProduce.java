@@ -24,7 +24,7 @@ public class TestProduce implements ApplicationRunner {
 
     public void run(ApplicationArguments args) throws Exception {
         logger.info("------> this is run <-------");
-        send();
+//        send();
     }
 
     public void send() {

@@ -1,0 +1,13 @@
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  stream:
+    bindings:
+      testMessage:
+        group: order
+        content-type: application/json
+server:
+  port: 8089

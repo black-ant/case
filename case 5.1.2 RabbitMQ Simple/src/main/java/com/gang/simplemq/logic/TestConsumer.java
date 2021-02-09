@@ -40,12 +40,25 @@ public class TestConsumer {
     }
 
     /**
+     *
+     * 自动创建队列
+     *
+     * @param message
+     */
+    @RabbitListener(queuesToDeclare = @Queue("myQueue"))
+    public void listenExchange(String message) {
+        logger.info("------> 自动创建 queue 发送接收成功   :{}<-------", message);
+    }
+
+
+    /**
      * 绑定Exchange
      *
      * @param message
      */
     @RabbitListener(bindings = @QueueBinding(
             value = @Queue("myQueueex"),
+            key = "thread",
             exchange = @Exchange("myExchange")
     ))
     public void processBindExchange(String message) {
