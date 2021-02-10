@@ -1,19 +1,13 @@
 package com.gang.study.quartz.demo.config;
 
 import com.gang.study.quartz.demo.logic.CronQuartzJobBean;
-import com.gang.study.quartz.demo.logic.ScheduleJob;
-import com.gang.study.quartz.demo.logic.TestJob;
-import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
-import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 
 /**
  * @Classname QuartzConfig
@@ -23,26 +17,6 @@ import org.springframework.scheduling.quartz.JobDetailFactoryBean;
  */
 @Configuration
 public class QuartzConfig {
-
-    private static final int TIME = 2; // 更新频率
-
-    // JobDetail :  注册任务
-    @Bean
-    public JobDetail weatherDataSyncJobDetail() {
-        return JobBuilder.newJob(CronQuartzJobBean.class).withIdentity("myjob")
-                .storeDurably().build();
-    }
-
-    // Trigger : 触发器
-    @Bean
-    public Trigger weatherDataSyncTrigger() {
-
-        SimpleScheduleBuilder schedBuilder = SimpleScheduleBuilder.simpleSchedule()
-                .withIntervalInSeconds(TIME).repeatForever();
-
-        return TriggerBuilder.newTrigger().forJob(weatherDataSyncJobDetail())
-                .withIdentity("weatherDataSyncTrigger").withSchedule(schedBuilder).build();
-    }
 
 
     //

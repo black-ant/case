@@ -23,7 +23,7 @@ public class CronQuartzJobBean extends QuartzJobBean {
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        logger.info("------> this is in  CronQuartzJobBean<-------");
+        logger.info("------> EA0001 CronQuartzJobBean :{}<-------", new Date().getSeconds());
     }
 
 }
