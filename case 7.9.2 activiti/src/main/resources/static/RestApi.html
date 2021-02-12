@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://127.0.0.1:8087/static/jquery-1.11.3.min.js"></script>
+    <script src="http://127.0.0.1:8087/static/restApi.js"></script>
+</head>
+<body>
+<button onclick="doGet()">doGetList</button>
+<button onclick="doSave()">save</button>
+
+<script>
+    function doGet() {
+        restApi.doGetJSON(function (data) {
+            console.log(data);
+        });
+    }
+    function doSave() {
+        restApi.doSaveActiviti(function (data) {
+            console.log(data);
+        });
+    }
+</script>
+
+</body>
+</html>

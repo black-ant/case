@@ -6,7 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * 参考官方方案及补充 : https://spring.io/blog/2015/03/08/getting-started-with-activiti-and-spring-boot
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+        org.activiti.spring.boot.SecurityAutoConfiguration.class
+})
 public class ActivitiApplication {
 
     public static void main(String[] args) {

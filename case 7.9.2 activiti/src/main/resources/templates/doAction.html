@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div ng-controller="myAudit">
+    <h2 ng-init="myAudit()">待我审核的请假</h2>
+    <table border="0">
+        <tr>
+            <td>任务名称</td>
+            <td>任务时间</td>
+            <td>申请人</td>
+            <td>申请时间</td>
+            <td>天数</td>
+            <td>事由</td>
+            <td>操作</td>
+        </tr>
+        <tr ng-repeat="vacTask in vacTaskList">
+            <td>{{vacTask.name}}</td>
+            <td>{{vacTask.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{vacTask.vac.applyUser}}</td>
+            <td>{{vacTask.vac.applyTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{vacTask.vac.days}}</td>
+            <td>{{vacTask.vac.reason}}</td>
+            <td>
+                <button type="button" ng-click="passAudit(vacTask.id, 1)">审核通过</button>
+                <button type="button" ng-click="passAudit(vacTask.id, 0)">审核拒绝</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    app.controller("myAudit", function ($scope, $http, $window) {
+        $scope.vacTaskList = [];
+
+        $scope.myAudit = function () {
+            $http.get(
+                "/myAudit"
+            ).then(function (response) {
+                $scope.vacTaskList = response.data;
+            })
+        };
+
+        $scope.passAudit = function (taskId, result) {
+            $http.post(
+                "/passAudit",
+                {
+                    "id": taskId,
+                    "vac": {
+                        "result": result >= 1 ? "审核通过" : "审核拒绝"
+                    }
+                }
+            ).then(function (response) {
+                if (response.data === true) {
+                    alert("操作成功！");
+                    $window.location.reload();
+                } else {
+                    alert("操作失败！");
+                }
+            })
+        }
+    });
+</script>
+
+</body>
+</html>
