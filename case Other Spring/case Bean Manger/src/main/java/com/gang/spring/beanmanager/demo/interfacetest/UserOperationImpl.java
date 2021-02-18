@@ -1,4 +1,4 @@
-package com.gang.spring.beanmanager.demo.interfaceTest;
+package com.gang.spring.beanmanager.demo.interfacetest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

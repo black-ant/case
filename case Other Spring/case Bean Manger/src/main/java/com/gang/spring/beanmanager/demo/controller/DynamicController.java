@@ -1,7 +1,6 @@
 package com.gang.spring.beanmanager.demo.controller;
 
-import com.gang.spring.beanmanager.demo.interfacetest.IUserOperation;
-import com.gang.spring.beanmanager.demo.interfacetest.UserOperationImpl;
+import com.gang.spring.beanmanager.demo.dynamic.DynamicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,28 +9,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @Classname InterfaceController
+ * @Classname DynamicController
  * @Description TODO
- * @Date 2020/12/21 11:02
+ * @Date 2021/2/18 10:08
  * @Created by zengzg
  */
 @RestController
-@RequestMapping("/interface")
-public class InterfaceController {
+@RequestMapping("/dynamic")
+public class DynamicController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    IUserOperation userOperation;
-    @Autowired
-    UserOperationImpl userOperationImpl;
+    private DynamicService dynamicService;
 
-    @GetMapping
-    public String test() {
+    @GetMapping("/test")
+    public String testDynamic() {
 
-        logger.info("------> this is in test <-------");
-        userOperation.doOperation();
-        userOperationImpl.doOperation();
+        logger.info("------> 修改Bean前 <-------");
+        dynamicService.show();
+
+        logger.info("------> 修改Bean后 <-------");
+        dynamicService.show();
+
         return "success";
     }
 }
