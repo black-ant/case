@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.concurrent.*;
 
-@Service
+/**
+ * Future Get 添加超时时间
+ */
+//@Service
 public class FutureNewCallable extends AbstractService {
 
     private static Long startTime;

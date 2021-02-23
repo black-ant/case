@@ -12,7 +12,7 @@ public class StartService {
 //    @Autowired
 //    private FutureTimeService futureTimeService;
 
-    @Autowired
-    private FutureNewCallable futureTimeService;
+//    @Autowired
+//    private FutureNewCallable futureTimeService;
 }
 
