@@ -1,5 +1,7 @@
 package com.gang.study.thread.aqs.demo.logic;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
@@ -12,10 +14,14 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
  */
 public class SimpleLock extends AbstractQueuedSynchronizer {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     protected boolean tryAcquire(int unused) {
+        logger.info("------> try tryAcquire :{}  <-------", unused);
         //使用compareAndSetState控制AQS中的同步变量
         if (compareAndSetState(0, 1)) {
+            logger.info("------> cas success ");
             setExclusiveOwnerThread(Thread.currentThread());
             return true;
         }
@@ -24,6 +30,7 @@ public class SimpleLock extends AbstractQueuedSynchronizer {
 
     @Override
     protected boolean tryRelease(int unused) {
+        logger.info("------> try tryRelease :{} <-------", unused);
         setExclusiveOwnerThread(null);
         //使用setState控制AQS中的同步变量
         setState(0);

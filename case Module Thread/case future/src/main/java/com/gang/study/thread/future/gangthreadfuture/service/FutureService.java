@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
-@Service
+//@Service
 public class FutureService extends AbstractService implements ApplicationRunner, Callable<String> {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());

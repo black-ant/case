@@ -66,5 +66,8 @@ public class FixedThreadPoolService {
         });
         logger.info("------> poolsize :{} <-------", executor.getPoolSize());
         logger.info("------> queue size :{} <-------", executor.getQueue().size());
+
+        executor.shutdown();
+
     }
 }

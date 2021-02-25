@@ -26,7 +26,7 @@ public class StartLogic implements ApplicationRunner {
                 @Override
                 public void run() {
                     simpleLock.lock();
-                    System.out.println(Thread.currentThread().getId() + " acquired the lock!");
+                    logger.info("------> acquired the lock! <-------");
                     simpleLock.unlock();
                 }
             }).start();
