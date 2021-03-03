@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @Classname StartService
- * @Description TODO
+ * @Description 手动修改Class 即可实现
  * @Date 2019/12/3 23:01
  * @Created by zengzg
  */
@@ -19,7 +19,7 @@ public class StartService implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        logger.info("------> this is in run112 <-------");
+        logger.info("------> this is in run 33<-------");
         test();
     }
 

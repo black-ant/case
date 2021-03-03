@@ -1,13 +1,13 @@
-package com.gang.study.devtool.devtool;
+package com.gang.study.devtools.source.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DevtoolApplication {
+public class DemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DevtoolApplication.class, args);
+        SpringApplication.run(DemoApplication.class, args);
     }
 
 }
