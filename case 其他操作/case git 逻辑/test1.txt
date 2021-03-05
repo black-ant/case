@@ -1,0 +1,43 @@
+git add .
+
+git commit -m "new info"
+
+git branch test1
+
+git checkout test1
+
+git add .
+
+git commit -m "add test1"
+
+git branch
+
+git ckeckout master
+
+git merge master
+
+git log
+
+#git cherry -pick before
+
+
+git cherry -pick some
+
+
+##### cherry 01
+
+
+##### cherry 02
+
+
+##### cherry 03
+
+
+##### cherry 04
+
+<<<<<<< HEAD
+=======
+##### cherry 05
+
+##### cherry 06
+>>>>>>> 53b5321... ##### cherry 06
