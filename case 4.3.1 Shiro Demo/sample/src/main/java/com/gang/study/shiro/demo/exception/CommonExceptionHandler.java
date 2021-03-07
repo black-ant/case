@@ -1,5 +1,7 @@
 package com.gang.study.shiro.demo.exception;
 
+import com.alibaba.fastjson.JSONObject;
+import com.gang.study.shiro.demo.common.ResponseTO;
 import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,19 +16,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Created by zengzg
  */
 @ControllerAdvice
-public class MyExceptionHandler {
+public class CommonExceptionHandler {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
+     * MVC 统一异常处理 , 非 Shiro 核心内容
      *
      * @param e
      * @return
      */
     @ExceptionHandler
     @ResponseBody
-    public String ErrorHandler(AuthorizationException e) {
-        logger.error("没有通过权限验证！", e);
-        return "没有通过权限验证！";
+    public String ErrorHandler(AuthorizationException exception) {
+        logger.info("------> Shiro 认证出现异常 , 抛出  AuthorizationException <-------");
+        ResponseTO responseTO = new ResponseTO();
+        responseTO.setCode("500");
+        responseTO.setMsg("认证异常 : " + exception.getMessage());
+        return JSONObject.toJSONString(responseTO);
     }
 }
