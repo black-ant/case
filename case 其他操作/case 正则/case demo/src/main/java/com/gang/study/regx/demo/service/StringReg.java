@@ -31,7 +31,9 @@ public class StringReg implements ApplicationRunner {
 
 //        matchesGroupNum();
 
-        matchesGroupCapture();
+//        matchesGroupCapture();
+
+//        groupLink();
     }
 
 
@@ -266,6 +268,16 @@ public class StringReg implements ApplicationRunner {
             }
         }
 
+//        logger.info("------> pattern3    <-------");
+//        Pattern pattern3 = Pattern.compile("(((?<Open>\\()[^\\(\\)]*)+((?<CloseOpen>\\))[^\\(\\)]*)+)*(?(Open)(?!))$");
+//        String source3 = "3+2^((1-3)*(3-1))";
+//        Matcher matcher3 = pattern3.matcher(source3);
+//        if (matcher3.matches()) {
+//            for (int i = 0; i <= matcher3.groupCount(); i++) {
+//                System.out.println("group " + i + ":" + matcher3.group(i));
+//            }
+//        }
+
 
     }
 
@@ -321,9 +333,9 @@ public class StringReg implements ApplicationRunner {
         String source3_2 = "543543   bca";  //而“543543   bc” 却匹配失败因为bc已经被原子分组匹配了，当(\\w)进行匹配的时候前面的分组由于是贪婪型匹配所以不会突出以匹配的字符
         Matcher matcher3_2 = pattern3_2.matcher(source3_2);
         if (matcher3_2.matches()) {
-            logger.info("------> 原子分组 匹配成功 :{} <-------",source3_2);
-        }else{
-            logger.info("------> 原子分组 匹配失败 :{}<-------",source3_2);
+            logger.info("------> 原子分组 匹配成功 :{} <-------", source3_2);
+        } else {
+            logger.info("------> 原子分组 匹配失败 :{}<-------", source3_2);
         }
 
         // b 已经被匹配走了
@@ -331,9 +343,9 @@ public class StringReg implements ApplicationRunner {
         String source3_3 = "543543   bca";  //而“543543   bc” 却匹配失败因为bc已经被原子分组匹配了，当(\\w)进行匹配的时候前面的分组由于是贪婪型匹配所以不会突出以匹配的字符
         Matcher matcher3_3 = pattern3_3.matcher(source3_3);
         if (matcher3_3.matches()) {
-            logger.info("------> 原子分组 匹配成功 :{} <-------",source3_3);
-        }else{
-            logger.info("------> 原子分组 匹配失败 :{}<-------",source3_3);
+            logger.info("------> 原子分组 匹配成功 :{} <-------", source3_3);
+        } else {
+            logger.info("------> 原子分组 匹配失败 :{}<-------", source3_3);
         }
 
 
@@ -354,27 +366,27 @@ public class StringReg implements ApplicationRunner {
         Matcher matcher5 = pattern5.matcher(source5);
         // 先找到坐标 s , s前面得符合空格 , s 后面为字母
         if (matcher5.matches()) {
-            logger.info("------> 正前向查找分组 匹配成功 :{} <-------",source5);
-        }else{
-            logger.info("------> 正前向查找分组 匹配失败 :{}<-------",source5);
+            logger.info("------> 正前向查找分组 匹配成功 :{} <-------", source5);
+        } else {
+            logger.info("------> 正前向查找分组 匹配失败 :{}<-------", source5);
         }
 
         // 匹配失败 :
         String source5_1 = "543543   ttseett";
         Matcher matcher5_1 = pattern5.matcher(source5_1);
         if (matcher5_1.matches()) {
-            logger.info("------> 正前向查找分组 匹配成功 :{} <-------",matcher5_1);
-        }else{
-            logger.info("------> 正前向查找分组 匹配失败 :{}<-------",matcher5_1);
+            logger.info("------> 正前向查找分组 匹配成功 :{} <-------", matcher5_1);
+        } else {
+            logger.info("------> 正前向查找分组 匹配失败 :{}<-------", matcher5_1);
         }
 
         Pattern pattern5_2 = Pattern.compile("(\\d+)\\s+tt(?=r)(\\w+)");
         String source5_2 = "543543   ttreets";
         Matcher matcher5_2 = pattern5_2.matcher(source5_2);
         if (matcher5_2.matches()) {
-            logger.info("------> 正前向查找分组 匹配成功 :{} <-------",source5_2);
-        }else{
-            logger.info("------> 正前向查找分组 匹配失败 :{}<-------",source5_2);
+            logger.info("------> 正前向查找分组 匹配成功 :{} <-------", source5_2);
+        } else {
+            logger.info("------> 正前向查找分组 匹配失败 :{}<-------", source5_2);
         }
 
         // 先匹配到 543543   ttr 后面的空格 , 但是含空格的字符不匹配 \w+
@@ -382,9 +394,9 @@ public class StringReg implements ApplicationRunner {
         String source5_3 = "543543   1tccc";
         Matcher matcher5_3 = pattern5_3.matcher(source5_3);
         if (matcher5_3.matches()) {
-            logger.info("------> 正前向查找分组 匹配成功 :{} <-------",source5_3);
-        }else{
-            logger.info("------> 正前向查找分组 匹配失败 :{}<-------",source5_3);
+            logger.info("------> 正前向查找分组 匹配成功 :{} <-------", source5_3);
+        } else {
+            logger.info("------> 正前向查找分组 匹配失败 :{}<-------", source5_3);
         }
 
         /**
@@ -399,18 +411,18 @@ public class StringReg implements ApplicationRunner {
         String source6 = "543543   ttreets";  //如"543543   streets" 匹配失败
         Matcher matcher6 = pattern6.matcher(source6);
         if (matcher6.matches()) {
-            logger.info("------> 负前向查找分组 匹配成功 :{} <-------",source6);
-        }else{
-            logger.info("------> 负前向查找分组 匹配失败 :{}<-------",source6);
+            logger.info("------> 负前向查找分组 匹配成功 :{} <-------", source6);
+        } else {
+            logger.info("------> 负前向查找分组 匹配失败 :{}<-------", source6);
         }
 
         // 因为前匹配成功后第一个 是 s
         String source6_1 = "543543   streets";
         Matcher matcher6_1 = pattern6.matcher(source6_1);
         if (matcher6_1.matches()) {
-            logger.info("------> 负前向查找分组 匹配成功 :{} <-------",source6_1);
-        }else{
-            logger.info("------> 负前向查找分组 匹配失败 :{}<-------",source6_1);
+            logger.info("------> 负前向查找分组 匹配成功 :{} <-------", source6_1);
+        } else {
+            logger.info("------> 负前向查找分组 匹配失败 :{}<-------", source6_1);
         }
 
 
@@ -430,9 +442,9 @@ public class StringReg implements ApplicationRunner {
         String source7 = "66666   abttts";
         Matcher matcher7 = pattern7.matcher(source7);
         if (matcher7.matches()) {
-            logger.info("------> 正后向查找分组 匹配成功 :{} <-------",source7);
-        }else{
-            logger.info("------> 正后向查找分组 匹配失败 :{}<-------",source7);
+            logger.info("------> 正后向查找分组 匹配成功 :{} <-------", source7);
+        } else {
+            logger.info("------> 正后向查找分组 匹配失败 :{}<-------", source7);
         }
 
         // 匹配成功 , 因为 sbttttt 前面是空格
@@ -440,9 +452,9 @@ public class StringReg implements ApplicationRunner {
         String source7_1 = "66666   sbttttt";
         Matcher matcher7_1 = pattern7_1.matcher(source7_1);
         if (matcher7_1.matches()) {
-            logger.info("------> 正后向查找分组 匹配成功 :{} <-------",source7_1);
-        }else{
-            logger.info("------> 正后向查找分组 匹配失败 :{}<-------",source7_1);
+            logger.info("------> 正后向查找分组 匹配成功 :{} <-------", source7_1);
+        } else {
+            logger.info("------> 正后向查找分组 匹配失败 :{}<-------", source7_1);
         }
 
 
@@ -450,9 +462,9 @@ public class StringReg implements ApplicationRunner {
         String source7_2 = "66666   sbttttt";
         Matcher matcher7_2 = pattern7_2.matcher(source7_2);
         if (matcher7_2.matches()) {
-            logger.info("------> 正后向查找分组 匹配成功 :{} <-------",source7_2);
-        }else{
-            logger.info("------> 正后向查找分组 匹配失败 :{}<-------",source7_2);
+            logger.info("------> 正后向查找分组 匹配成功 :{} <-------", source7_2);
+        } else {
+            logger.info("------> 正后向查找分组 匹配失败 :{}<-------", source7_2);
         }
 
         // 扩展 , 能看出为什么成功了吗?
@@ -460,9 +472,9 @@ public class StringReg implements ApplicationRunner {
         String source7_3 = "66666   sbttttt";
         Matcher matcher7_3 = pattern7_3.matcher(source7_2);
         if (matcher7_3.matches()) {
-            logger.info("------> 正后向查找分组 匹配成功 :{} <-------",source7_3);
-        }else{
-            logger.info("------> 正后向查找分组 匹配失败 :{}<-------",source7_3);
+            logger.info("------> 正后向查找分组 匹配成功 :{} <-------", source7_3);
+        } else {
+            logger.info("------> 正后向查找分组 匹配失败 :{}<-------", source7_3);
         }
 
         /**
@@ -479,9 +491,9 @@ public class StringReg implements ApplicationRunner {
         String source8 = "543543   ttreets";  //如果正则表达式为(\\d+)\\s+(?<!\\s)(\\w+)则匹配失败
         Matcher matcher8 = pattern8.matcher(source8);
         if (matcher8.matches()) {
-            logger.info("------> 负后向查找分组 匹配成功 :{} <-------",source8);
-        }else{
-            logger.info("------> 负后向查找分组 匹配失败 :{}<-------",source8);
+            logger.info("------> 负后向查找分组 匹配成功 :{} <-------", source8);
+        } else {
+            logger.info("------> 负后向查找分组 匹配失败 :{}<-------", source8);
         }
 
         // 此时 c(\w+) 匹配到的是 creets , 前面是s ,所以匹配失败
@@ -489,18 +501,55 @@ public class StringReg implements ApplicationRunner {
         String source8_1 = "543543   screets";
         Matcher matcher8_1 = pattern8_1.matcher(source8_1);
         if (matcher8_1.matches()) {
-            logger.info("------> 负后向查找分组 匹配成功 :{} <-------",matcher8_1);
-        }else{
-            logger.info("------> 负后向查找分组 匹配失败 :{}<-------",matcher8_1);
+            logger.info("------> 负后向查找分组 匹配成功 :{} <-------", matcher8_1);
+        } else {
+            logger.info("------> 负后向查找分组 匹配失败 :{}<-------", matcher8_1);
         }
 
         Pattern pattern8_2 = Pattern.compile("(\\d+)\\s+(?<!\\s)(\\w+)");
         String source8_2 = "543543   streets";
         Matcher matcher8_2 = pattern8_2.matcher(source8_2);
         if (matcher8_2.matches()) {
-            logger.info("------> 负后向查找分组 匹配成功 :{} <-------",matcher8_2);
-        }else{
-            logger.info("------> 负后向查找分组 匹配失败 :{}<-------",matcher8_2);
+            logger.info("------> 负后向查找分组 匹配成功 :{} <-------", matcher8_2);
+        } else {
+            logger.info("------> 负后向查找分组 匹配失败 :{}<-------", matcher8_2);
+        }
+    }
+
+    /**
+     * 反向引用
+     */
+    public void groupLink() {
+
+
+        logger.info("------> pattern2 <-------");
+        Pattern pattern2 = Pattern.compile("(\\w)\\1");
+        String source2 = "seed";
+        Matcher matcher2 = pattern2.matcher(source2);
+        if (matcher2.find()) {
+            logger.info("------> 反向引用 匹配成功 :{} <-------", matcher2.group(0));
+        } else {
+            logger.info("------> 反向引用 匹配失败 :{}<-------", matcher2.group(0));
+        }
+
+        Pattern pattern1 = Pattern.compile("(?<char>\\w)\\k<char>");
+        String source1 = "seed";
+        Matcher matcher1 = pattern1.matcher(source1);
+        if (matcher1.find()) {
+            logger.info("------> 反向引用 匹配成功 :{} <-------", matcher1.group(0));
+        } else {
+            logger.info("------> 反向引用 匹配失败 :{}<-------", matcher1.group(0));
+        }
+
+        logger.info("------> 查找重复单词 <-------");
+        String pattern = "\\b(\\w+)\\b[\\w\\W]*\\b\\1\\b";
+        Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+        String phrase = "unique is not duplicate but unique, Duplicate is duplicate.";
+        Matcher m = p.matcher(phrase);
+        while (m.find()) {
+            String val = m.group();
+            System.out.println("Matching subsequence is \"" + val + "\"");
+            System.out.println("Duplicate word: " + m.group(1) + "\n");
         }
     }
 
