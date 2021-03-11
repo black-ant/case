@@ -5,11 +5,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
@@ -28,6 +33,23 @@ public class CachedThreadPoolService {
         newRunable();
     }
 
+    /**
+     * 通过 new ThreadPoolExecutor 可以很有效的控制线程池的使用 , 根据业务情况进行处理 ,  避免 OOM
+     */
+    public void theadPoolCreate() {
+
+        // 构造一个线程池
+        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(5, 6, 3, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(3));
+
+        // 对比 newCachedThreadPool
+        ThreadPoolExecutor threadPool2 = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
+
+    }
+
+
+    /**
+     * Executors 创建线程虽然很简单 , 但是可能导致 OOM , 简单但是不推荐
+     */
     public void cache() {
         //        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
         //        ThreadFactory threadFactory = new ThreadFactory();
@@ -39,6 +61,7 @@ public class CachedThreadPoolService {
 
             return null;
         });
+
         executor.submit(() -> {
             logger.info("------> this is run 22222 <-------");
             Thread.sleep(1000);

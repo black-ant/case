@@ -45,13 +45,13 @@ public class TestController {
         return "ok";
     }
 
-    @GetMapping("send/{routing}/{msg}")
+    @GetMapping("sendExchange/{routing}/{msg}")
     public String sendExchange(@PathVariable("msg") String msg) {
         //        logger.info("------> 发送基本消息 <-------");
         //        rabbitTemplate.convertAndSend("myQueue", "测试发送消息 myQueue ");
 
-        logger.info("------> 发送带exchange 消息 <-------");
-        rabbitTemplate.convertAndSend("myExchange", routing, "测试 : exchange + queue" + msg);
+//        logger.info("------> 发送带exchange 消息 <-------");
+//        rabbitTemplate.convertAndSend("myExchange", routing, "测试 : exchange + queue" + msg);
 
         //        logger.info("------> 发送带key消息 <-------");
         //        rabbitTemplate.convertAndSend("myExchange", "myQueue", "测试 : exchange + queue");
