@@ -18,6 +18,7 @@ public class CommonTO {
 
     private String lock = new String("lock");
     private String lock2 = "lock";
+    private String msg = "no msg";
 
     public void operation(Integer check) {
 
@@ -162,5 +163,13 @@ public class CommonTO {
 
     public void setShowNum(Integer showNum) {
         this.showNum = showNum;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

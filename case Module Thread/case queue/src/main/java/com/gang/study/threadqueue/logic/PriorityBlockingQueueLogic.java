@@ -1,5 +1,7 @@
 package com.gang.study.threadqueue.logic;
 
+import java.util.concurrent.PriorityBlockingQueue;
+
 /**
  * @Classname PriorityBlockingQueueLogic
  * @Description TODO
@@ -7,4 +9,6 @@ package com.gang.study.threadqueue.logic;
  * @Created by zengzg
  */
 public class PriorityBlockingQueueLogic {
+
+    PriorityBlockingQueue queue = new PriorityBlockingQueue();
 }

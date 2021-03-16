@@ -23,7 +23,7 @@ public class SynchronizedSampleDemo implements ApplicationRunner {
 
 //        showThread();
 
-        showThreadClass();
+//        showThreadClass();
 
     }
 

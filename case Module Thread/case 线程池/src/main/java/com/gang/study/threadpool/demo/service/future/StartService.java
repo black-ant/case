@@ -1,6 +1,7 @@
 package com.gang.study.threadpool.demo.service.future;
 
 import com.gang.study.threadpool.demo.service.CachedThreadPoolService;
+import com.gang.study.threadpool.demo.service.CustomerService;
 import com.gang.study.threadpool.demo.service.FixedThreadPoolService;
 import com.gang.study.threadpool.demo.service.SingleThreadPoolService;
 import com.gang.study.threadpool.demo.service.SingleThreadScheduledExecutorService;
@@ -30,11 +31,17 @@ public class StartService implements ApplicationRunner {
     @Autowired
     private SingleThreadScheduledExecutorService singleThreadScheduledExecutorService;
 
+    @Autowired
+    private CustomerService customerService;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         //        singleThreadPoolService.run();
         //        threadPoolService.run();
-        cachedThreadPoolService.run();
+        //        cachedThreadPoolService.run();
         //        singleThreadScheduledExecutorService.run();
+
+        customerService.run();
+
     }
 }
