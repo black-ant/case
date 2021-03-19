@@ -97,6 +97,13 @@
             <version>1.2.69</version>
         </dependency>
 
+        <!-- Common Self -->
+        <dependency>
+            <groupId>com.gang.cloud.template</groupId>
+            <artifactId>com-gang-cloud-template-common-lib</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -110,7 +117,9 @@
 
     <modules>
         <module>user-server</module>
+        <module>common-lib</module>
         <module>account-server</module>
+        <module>order-server</module>
         <module>product-server</module>
         <module>eureka-server</module>
         <module>config-server</module>

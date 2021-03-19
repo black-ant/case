@@ -67,6 +67,11 @@ public class SingleThreadScheduledExecutorService {
         }
         future.cancel(true);
     }
+
+
+    public void testScheduledFutureTask(){
+        ScheduledFutureTask task;
+    }
 }
 
 

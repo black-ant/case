@@ -1,0 +1,32 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: account-server
+  datasource: # order service datasource config
+    url: jdbc:mysql://localhost:3306/easytransaction?characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+easytrans:
+  master:
+    zk:
+      zooKeeperUrl: localhost:2181
+  stringcodec:
+    zk:
+      zooKeeperUrl: ${easytrans.master.zk.zooKeeperUrl}
+  idgen:
+    trxId:
+      zkSnow:
+        zooKeeperUrl: ${easytrans.master.zk.zooKeeperUrl}
+  log:
+    database:
+      logCleanEnabled: true
+      logReservedDays: 14
+      logCleanTime: 01:22:00
+      druid:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/easytransaction?characterEncoding=UTF-8&useSSL=false
+        username: root
+        password: 123456

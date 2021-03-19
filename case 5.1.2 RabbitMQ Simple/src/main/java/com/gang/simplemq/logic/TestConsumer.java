@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 /**
  * @Classname TestConsumer
  * @Description TODO
- * @Date 2020/3/1 16:27
+ * @Date 2020/3/1
  * @Created by zengzg
  */
 @Component

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @Classname ConfigController
  * @Description TODO
- * @Date 2020/1/17 10:36
  * @Created by zengzg
  */
 

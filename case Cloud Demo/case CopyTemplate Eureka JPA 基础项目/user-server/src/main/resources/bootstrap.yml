@@ -1,0 +1,18 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1003/eureka/
+server:
+  port: 8087
+spring:
+  application:
+    name: user-server
+  cloud:
+    config:
+      name: default
+      profile: dev   #对应spring.profiles.active
+      discovery:
+        enabled: false  #默认false，设为true表示使用注册中心中的configserver配置，而不是自己配置configserver的uri
+        service-id: config-server  #指定config server在服务发现中的serviceId，默认为：configserver
+      enabled: false # 默认不需要config
+

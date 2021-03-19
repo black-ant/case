@@ -19,8 +19,8 @@ public class VolatileService implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        logger.info("------> VolatileService <-------");
-        atom();
+//        logger.info("------> VolatileService <-------");
+//        atom();
     }
 
 

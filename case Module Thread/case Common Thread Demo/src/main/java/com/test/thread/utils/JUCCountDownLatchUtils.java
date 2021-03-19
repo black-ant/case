@@ -26,6 +26,10 @@ public class JUCCountDownLatchUtils implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
+//        test();
+    }
+
+    public void test() throws Exception{
         CountDownLatch countDownLatch = new CountDownLatch(5);
 
         //Boss线程启动

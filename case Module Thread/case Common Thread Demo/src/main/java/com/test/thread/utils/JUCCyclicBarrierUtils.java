@@ -14,9 +14,13 @@ public class JUCCyclicBarrierUtils implements ApplicationRunner {
     private static Logger logger = LoggerFactory.getLogger(JUCCyclicBarrierUtils.class);
 
 
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
+
+        test();
+    }
+
+    public void test() throws Exception {
         logger.info("------> this is in <-------");
 
 
@@ -33,7 +37,6 @@ public class JUCCyclicBarrierUtils implements ApplicationRunner {
 
         cyclicBarrier.await();
         logger.info("------> countinue <-------");
-
     }
 
     static class TaskThread extends Thread {

@@ -1,0 +1,11 @@
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+  instance:
+    hostname: localhost
+server:
+  port: 1003
+spring:
+  application:
+    name: eureka-server

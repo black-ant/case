@@ -17,6 +17,10 @@ public class ThreadParamShard implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         logger.info("------> this is run <-------");
+//        test();
+    }
+
+    public void test() throws Exception {
 
 
 //        new TaskThread(3, "one 111").start();
