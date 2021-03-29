@@ -48,6 +48,4 @@ public class ForkJoinPoolService extends RecursiveTask<Integer> {
         return sum;
     }
 
-
-
 }

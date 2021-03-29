@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: account-service
+  datasource:
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/gang?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    initial-size: 5
+    max-idle: 10
+    max-wait: 10000
+    min-idle: 5
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+dubbo:
+  application:
+    id: account-service #dubbo提供者的别名，只是个标识
+  base-package: com.gang.cloud # dubbo服务发布者所在的包
+  registry:
+    address: zookeeper://127.0.0.1:2181 # zookeeper注册中心的地址
+    port: 2181       # zookeeper注册中心的端口
+    protocol: zookeeper
+    register: true
+  protocol:
+    name: dubbo #dubbo协议
+    port: 20880 #duboo端口号
+    accesslog: true
+  provider:
+    retries: 1
+    delay: -1
+server:
+  port: 8081
+

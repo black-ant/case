@@ -25,7 +25,7 @@ public class AtomClassTest implements ApplicationRunner {
 
 //        testAtomicInteger();
 
-        testThead();
+//        testThead();
     }
 
     public void testAtomicInteger() {

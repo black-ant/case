@@ -29,5 +29,11 @@ public class ForkStartService implements ApplicationRunner {
         ForkJoinPoolService countTask = new ForkJoinPoolService(1, 200);
         ForkJoinTask<Integer> forkJoinTask = forkJoinPool.submit(countTask);
         System.out.println(forkJoinTask.get());
+
+
+        ForkJoinPool forkJoinPool1 = new ForkJoinPool();
+        FileForkJoinService countTask1 = new FileForkJoinService();
+        ForkJoinTask<Integer> forkJoinTask1 = forkJoinPool.submit(countTask);
+        System.out.println(forkJoinTask.get());
     }
 }

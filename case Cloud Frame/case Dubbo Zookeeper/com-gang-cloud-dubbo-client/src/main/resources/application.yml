@@ -1,0 +1,21 @@
+dubbo:
+  application:
+    id: service-consumer #dubbo提供者的别名，只是个标识
+  base-package: com.gang.cloud # dubbo服务发布者所在的包
+  registry:
+    address: zookeeper://127.0.0.1:2181 # zookeeper注册中心的地址
+    port: 2181       # zookeeper注册中心的端口
+    protocol: zookeeper
+    register: true
+  protocol:
+    name: dubbo #dubbo协议
+    port: 20880 #duboo端口号
+    accesslog: true
+  provider:
+    retries: 1
+    delay: -1
+server:
+  port: 8081
+spring:
+  application:
+    name: service-consumer
