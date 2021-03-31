@@ -125,7 +125,7 @@ public class TestTypeController {
         return "success";
     }
 
-    @GetMapping("topic")
+    @GetMapping("header")
     public String getHeader(@RequestParam("msg") String msg) throws Exception {
         logger.info("------> fanout type 测试发送 No Exchange  开始 :[{}] <-------", msg);
         rabbitTemplate.convertAndSend("ONE", "发送消息 :" + msg);
