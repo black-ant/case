@@ -21,29 +21,33 @@ public class TestHeaderService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RabbitListener(bindings = @QueueBinding(
-            value = @Queue("FanoutA"),
-            key = "ONE",
-            exchange = @Exchange(name = "FanoutExchange", type = ExchangeTypes.HEADERS),
-            arguments = {
-                    @Argument(name = "headerValue", value = "AntBlack")
-            }
-    ))
-    public void processA(String message) {
-        logger.info("------> FanoutA 发送接收成功  :{}<-------", message);
-    }
+    //    @RabbitListener(bindings = @QueueBinding(
+//            value = @Queue("HeaderA"),
+//            key = "ONE",
+//            exchange = @Exchange(name = "HeaderExchange", type = ExchangeTypes.FANOUT)
+////            arguments = {
+////                    @Argument(name = "headerValue", value = "AntBlack")
+////            }
+//    ))
 
-    @RabbitListener(bindings = @QueueBinding(
-            value = @Queue(value = "HeaderB", autoDelete = "true",
-                    arguments = @Argument(name = "x-message-ttl", value = "10000",
-                            type = "java.lang.Integer")),
-            exchange = @Exchange(value = "HeaderExchange", type = ExchangeTypes.HEADERS, autoDelete = "true"),
-            arguments = {
-                    @Argument(name = "x-match", value = "all"),
-                    @Argument(name = "thing1", value = "somevalue"),
-                    @Argument(name = "thing2")
-            })
-    )
+//    @RabbitListener(bindings = @QueueBinding(
+//            value = @Queue("HeaderB"),
+//            key = "TWO",
+//            exchange = @Exchange(name = "HeaderExchange", type = ExchangeTypes.DIRECT)
+//    ))
+//    public void processC(String message) {
+//        logger.info("------> HeaderA 发送接收成功  :{}<-------", message);
+//    }
+
+    //    @RabbitListener(bindings = @QueueBinding(
+//            value = @Queue(value = "HeaderB", autoDelete = "true",
+//                    arguments = @Argument(name = "x-message-ttl", value = "10000",
+//                            type = "java.lang.Integer")),
+//            exchange = @Exchange(value = "HeaderExchange", type = ExchangeTypes.HEADERS, autoDelete = "true"),
+//            arguments = {
+//                    @Argument(name = "x-match", value = "all")
+//            })
+//    )
     public void processB(String message) {
         logger.info("------> FanoutB 发送接收成功  :{}<-------", message);
     }

@@ -7,6 +7,7 @@ import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,9 +26,20 @@ public class TestDirectService {
             key = "ONE",
             exchange = @Exchange(name = "DirectExchange", type = ExchangeTypes.DIRECT)
     ))
+    @SendTo("TWO")
     public void processA(String message) {
         logger.info("------> DirectA 发送接收成功  :{}<-------", message);
     }
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue("HeaderA"),
+            key = "ONE",
+            exchange = @Exchange(name = "TestExchange", type = ExchangeTypes.DIRECT)
+    ))
+    public void processC(String message) {
+        logger.info("------> HeaderA 发送接收成功  :{}<-------", message);
+    }
+
 
     @RabbitListener(bindings = @QueueBinding(
             value = @Queue("DirectB"),

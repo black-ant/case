@@ -2,6 +2,10 @@ package com.gang.simplemq.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageDeliveryMode;
+import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.rabbit.connection.ThreadChannelConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +27,8 @@ public class TestTypeController {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    ThreadChannelConnectionFactory factory;
 
     @GetMapping("direct")
     public String getDirect(@RequestParam("msg") String msg) throws Exception {
@@ -128,7 +134,19 @@ public class TestTypeController {
     @GetMapping("header")
     public String getHeader(@RequestParam("msg") String msg) throws Exception {
         logger.info("------> fanout type 测试发送 No Exchange  开始 :[{}] <-------", msg);
-        rabbitTemplate.convertAndSend("ONE", "发送消息 :" + msg);
+
+        MessageProperties messageProperties = new MessageProperties();
+        // 设置消息是否持久化。Persistent表示持久化，Non-persistent表示不持久化
+        messageProperties.setDeliveryMode(MessageDeliveryMode.NON_PERSISTENT);
+        messageProperties.setContentType("UTF-8");
+        messageProperties.setHeader("headerValue", "AntBlack");
+
+        Message message = new Message("hello,rabbit headers no！".getBytes(), messageProperties);
+
+//        rabbitTemplate.convertAndSend("HeaderExchange", "ONE", message);
+        rabbitTemplate.convertAndSend("HeaderExchange", "ONE", "发送消息 :" + msg);
+
+        rabbitTemplate.convertAndSend("HeaderExchange", "TWO", "发送消息 :" + msg);
 
         return "success";
     }
