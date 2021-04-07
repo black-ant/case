@@ -1,6 +1,7 @@
 package com.gang.study.source.demo.configuration;
 
 import com.gang.study.source.demo.logic.BeanAnnotationTestService;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @Created by zengzg
  */
 @Configuration
+@EnableAutoConfiguration
 public class BeanAnnotationConfig {
 
     @Bean
