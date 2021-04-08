@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title></title>
+    <script type='text/javascript' src='/dwr/engine.js'></script>
+    <script type='text/javascript' src='/dwr/util.js'></script>
+    <script type='text/javascript' src='/dwr/interface/Demo2Service.js'></script>
+    <script type='text/javascript' src='/dwr/interface/Demo1Service.js'></script>
+</head>
+
+<div>hello</div>
+<input type="button" onclick="onpage()" value="接收后端推送消息">
+<script>
+    //  激活ajax
+    dwr.engine.setActiveReverseAjax(true)
+    // 页面未加载的时候是否发送通知
+    dwr.engine.setNotifyServerOnPageUnload(true, true)
+    // 出现错误后的处理方法
+    dwr.engine.setErrorHandler(function () {
+        console.log("Handler error")
+    })
+
+    Demo2Service.echo('回声测试', function (str) {
+        alert(str);
+    });
+
+    function onpage() {
+        // 页面加载直接调用这个函数，我这块使用点击按钮
+        Demo1Service.onPageLoad("后端功能开启");
+    }
+
+    // 后端会调用这个函数
+    function getmessage(data) {
+        console.log("data =" + data)
+        alert(data);
+    }
+
+
+</script>
+</html>
