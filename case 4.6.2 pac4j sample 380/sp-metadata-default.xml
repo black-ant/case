@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="_s9mlb4ki8yumjurdzsypdvvhnrmx5ig8smvkqfw" entityID="http://127.0.0.1:8088/saml/callback" validUntil="2041-04-14T07:20:50.332Z">
+    <md:Extensions xmlns:alg="urn:oasis:names:tc:SAML:metadata:algsupport">
+        <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+        <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"/>
+        <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/>
+        <alg:SigningMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+        <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256"/>
+        <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha384"/>
+        <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha512"/>
+        <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha1"/>
+        <alg:SigningMethod Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
+        <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#hmac-sha256"/>
+        <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#hmac-sha384"/>
+        <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#hmac-sha512"/>
+        <alg:SigningMethod Algorithm="http://www.w3.org/2000/09/xmldsig#hmac-sha1"/>
+        <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+        <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#sha384"/>
+        <alg:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+    </md:Extensions>
+    <md:SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.0:protocol urn:oasis:names:tc:SAML:1.1:protocol">
+        <md:Extensions xmlns:init="urn:oasis:names:tc:SAML:profiles:SSO:request-init">
+            <init:RequestInitiator Binding="urn:oasis:names:tc:SAML:profiles:SSO:request-init" Location="http://127.0.0.1:8088/saml/callback"/>
+        </md:Extensions>
+        <md:KeyDescriptor use="signing">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>MIICrTCCAZWgAwIBAgIBATANBgkqhkiG9w0BAQUFADAaMRgwFgYDVQQDDA9ERVNLVE9QLVRTTlBU
+QUswHhcNMjEwNDE0MDcyMDQ5WhcNMjIwNDE0MDcyMDUwWjAaMRgwFgYDVQQDDA9ERVNLVE9QLVRT
+TlBUQUswggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCV5mBBm5zTMIGtu9OXjaEeS6nh
+l2a0Zd/WpxTU5GNWLSjd/+xwy1Ocb87T4oxKu3EbtO1Vr5oTFmuEVHD70jqxagcVUW7JTQai+jMd
+fAdR8WY6zeyXcWz8wvplnWUz+3zuRH0lL+SYCTwMsey8UWSqamYxOnWlR4m+KKn6QQ9M2vXBbUmh
+BWCRcQV28SqV2Ku1K/H+RHKfiv3hwLK2aO7Rmbb4lGybGAaA7HM7kLUgg3hjrR5oMsliBHZBZePX
+pacQJbzYILOPw/ueCRVFzSxUsh5RJZGbxjZrwPDZmMUl/e6eqQLFmfMdDQBg7mEyGIrsBkYcG8qi
+EvtM7Hd6LYzzAgMBAAEwDQYJKoZIhvcNAQEFBQADggEBACOR2cG6o/R/Yc0NFYss5R6E5O0jzmhT
++e9Ga73W82XGFr38w2vMYqKu2S2owgdJ7eteB72sNXCz+yOi7Bf03KUEVN1v8/6Uy6CEANReBQ2i
+LQmYMwJlkjUVjWOYVGFIpqt3M3GYeqTK81899BAxznW6dEPTe9UNIH9v+iaog0hmf+SLBIQAdDQU
+PcfwMEkoCy3IA4oBTw0XwmZ/F9f8WA7+1GwVemw/4yHvOFjOgYc05tAZh20NNlHiDELcQbkw1XPt
+e8ntdGnfQrgLXo03M/HR9L81aKER9jIbNFUrnEKoGr8fxheiBtvOeGarGqxbA0UHpX8fKV00MXU+
+BE+Nhjc=</ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </md:KeyDescriptor>
+        <md:KeyDescriptor use="encryption">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>MIICrTCCAZWgAwIBAgIBATANBgkqhkiG9w0BAQUFADAaMRgwFgYDVQQDDA9ERVNLVE9QLVRTTlBU
+QUswHhcNMjEwNDE0MDcyMDQ5WhcNMjIwNDE0MDcyMDUwWjAaMRgwFgYDVQQDDA9ERVNLVE9QLVRT
+TlBUQUswggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCV5mBBm5zTMIGtu9OXjaEeS6nh
+l2a0Zd/WpxTU5GNWLSjd/+xwy1Ocb87T4oxKu3EbtO1Vr5oTFmuEVHD70jqxagcVUW7JTQai+jMd
+fAdR8WY6zeyXcWz8wvplnWUz+3zuRH0lL+SYCTwMsey8UWSqamYxOnWlR4m+KKn6QQ9M2vXBbUmh
+BWCRcQV28SqV2Ku1K/H+RHKfiv3hwLK2aO7Rmbb4lGybGAaA7HM7kLUgg3hjrR5oMsliBHZBZePX
+pacQJbzYILOPw/ueCRVFzSxUsh5RJZGbxjZrwPDZmMUl/e6eqQLFmfMdDQBg7mEyGIrsBkYcG8qi
+EvtM7Hd6LYzzAgMBAAEwDQYJKoZIhvcNAQEFBQADggEBACOR2cG6o/R/Yc0NFYss5R6E5O0jzmhT
++e9Ga73W82XGFr38w2vMYqKu2S2owgdJ7eteB72sNXCz+yOi7Bf03KUEVN1v8/6Uy6CEANReBQ2i
+LQmYMwJlkjUVjWOYVGFIpqt3M3GYeqTK81899BAxznW6dEPTe9UNIH9v+iaog0hmf+SLBIQAdDQU
+PcfwMEkoCy3IA4oBTw0XwmZ/F9f8WA7+1GwVemw/4yHvOFjOgYc05tAZh20NNlHiDELcQbkw1XPt
+e8ntdGnfQrgLXo03M/HR9L81aKER9jIbNFUrnEKoGr8fxheiBtvOeGarGqxbA0UHpX8fKV00MXU+
+BE+Nhjc=</ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </md:KeyDescriptor>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://127.0.0.1:8088/saml/callback?logoutendpoint=true"/>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="http://127.0.0.1:8088/saml/callback?logoutendpoint=true"/>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="http://127.0.0.1:8088/saml/callback?logoutendpoint=true"/>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="http://127.0.0.1:8088/saml/callback?logoutendpoint=true"/>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat>
+        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://127.0.0.1:8088/saml/callback" index="0"/>
+    </md:SPSSODescriptor>
+</md:EntityDescriptor>

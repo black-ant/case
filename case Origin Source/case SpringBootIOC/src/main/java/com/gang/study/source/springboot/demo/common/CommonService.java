@@ -15,6 +15,11 @@ public class CommonService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+//    @Bean
+//    public Other2Service getOtherService() {
+//        return new Other2Service();
+//    }
+
     /**
      * 测试方法
      *

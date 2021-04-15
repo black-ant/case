@@ -1,4 +1,6 @@
-package com.gang.study.pac4j.demo.callback;
+package com.gang.study.pac4j.demo.oauth;
+
+import org.springframework.stereotype.Component;
 
 /**
  * @Classname OAuthCallbackController
@@ -6,5 +8,6 @@ package com.gang.study.pac4j.demo.callback;
  * @Date 2021/4/13
  * @Created by zengzg
  */
+@Component
 public class OAuthCallbackController {
 }

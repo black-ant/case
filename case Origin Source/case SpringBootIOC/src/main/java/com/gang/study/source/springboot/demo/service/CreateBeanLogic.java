@@ -22,13 +22,7 @@ public class CreateBeanLogic {
 
     /**
      * 测试方法
-     *
-     *
-     *
      * C- AbstractAutowireCapableBeanFactory
-     *
-     *
-     *
      *
      * @return
      */

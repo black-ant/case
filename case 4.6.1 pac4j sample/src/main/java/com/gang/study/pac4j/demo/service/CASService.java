@@ -6,5 +6,5 @@ package com.gang.study.pac4j.demo.service;
  * @Date 2021/4/13
  * @Created by zengzg
  */
-public class CASService {
+public class CASService  {
 }

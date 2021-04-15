@@ -1,0 +1,40 @@
+<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui"
+                  entityID="http://127.0.0.1/sso/idp">
+    <IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol urn:mace:shibboleth:1.0">
+        <Extensions>
+            <shibmd:Scope regexp="false">scope</shibmd:Scope>
+        </Extensions>
+        <KeyDescriptor use="signing">
+            <ds:KeyInfo>
+                <ds:X509Data>
+                    <ds:X509Certificate>MIIDBTCCAe2gAwIBAgIUUgGoU7VvJ8mniQjUBtGuFL8mNOIwDQYJKoZIhvcNAQEL BQAwFDESMBAGA1UEAwwJMTI3LjAuMC4xMB4XDTIwMDgyODA5NTkyMFoXDTQwMDgy ODA5NTkyMFowFDESMBAGA1UEAwwJMTI3LjAuMC4xMIIBIjANBgkqhkiG9w0BAQEF
+                        AAOCAQ8AMIIBCgKCAQEAq8Ez3Galq53mLioID3++NrMoonE2F/AoER+ITfMg1549 apaSwkxDFW1Ouj5F+mnvhRNt+VgriKRNEIOg9yVQEuFuiV2xWRhLWC50w+gHfaYC igXG2cDadFpbtOp8hZHfmesleyWLcpD0ew4GyCECcWUTd74QrfRC1640xWk1PwEx
+                        hqP3+gUXM8j+uHwqXJWKiOX3DPw2crWHyau2w6KSwGWySSjHiVzaMOdxvV7bGZ9a ZlGojwxuAYKsec6R/R8+SZSwNaTkGD32oSyl8ey2Dn7rCqHzYcqlb38gP0yW1CVD xQA8vsJffarQbheup2qPQGh0xiDfzlNixRnhJTeI9wIDAQABo08wTTAdBgNVHQ4E
+                        FgQU1K5t7l7xmBsWc9rZfYR5UlqSdwwwLAYDVR0RBCUwI4IJMTI3LjAuMC4xhhYx MjcuMC4wLjEvaWRwL21ldGFkYXRhMA0GCSqGSIb3DQEBCwUAA4IBAQAlCx7I2+1Y YlMEfN4N0ZwApGgEZRNo9ZV0GdhPXVvIe9RxQFJlpjoCWosdC8xqUSGtoIZU1u//
+                        MHNaGqA0kVVA/PPBG9aZY+tvr2zASbBaQZgYKFWaMdX9GCpsOXnQEVHce4qoT/4o ik6KAC2/ZD35Jyx5764aTWsT5bHhuf23QJ+eStuFXRXoO4zIzjbmj0mnQ1MESIiN EDm4dgwJLyxTiWtEpV31tUEMMZLrhhSpZBei2sxvMFgVJ1Vac9nMKgHJl7x9KZXR
+                        wR1MY4ZBmZshoWAn3DstWWhh416nJF+EFvcLGqK4yLyeIoBKCp/PM6eiaWoAshnI hP5cag8wjvOr
+                    </ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </KeyDescriptor>
+        <KeyDescriptor use="encryption">
+            <ds:KeyInfo>
+                <ds:X509Data>
+                    <ds:X509Certificate>MIIDBjCCAe6gAwIBAgIVANLWNc8bMI/nVwO94DY6bx21uZyJMA0GCSqGSIb3DQEB CwUAMBQxEjAQBgNVBAMMCTEyNy4wLjAuMTAeFw0yMDA4MjgwOTU5MjFaFw00MDA4 MjgwOTU5MjFaMBQxEjAQBgNVBAMMCTEyNy4wLjAuMTCCASIwDQYJKoZIhvcNAQEB
+                        BQADggEPADCCAQoCggEBAMXyWlM6zaDluANqi48pbJLhIc1PmPURmpH2NetyksxT S8KIV/wEOp/Hv5AtSiadBq+QXMupT2AVZZgZw7tsA27TkONOlpcD2XANcPalDtUy 7Srnxc00fDd/Z04U8kqg0GSVcereEC2EPNWfKHTQVej+zcQhi5Q638Vs7ax4E/40
+                        wiJper2G0g8dmegwJgGHbwglyzma1T7TkXeHPPYR73uzL3zpGxNrHW6YL+gvMgOe nc73tTCBNfj60DZa7jFTDlhmeNZkFZ7miR7aDVKM/aBdmtSsoKiGnnCkNTRRUwr7 3l6UaOeXT8k4xCSMnBMD8P3AIiqqB8F9gu1ZraYUwccCAwEAAaNPME0wHQYDVR0O
+                        BBYEFN/83IapmeS6HhOGUU3hR4+BR1+uMCwGA1UdEQQlMCOCCTEyNy4wLjAuMYYW MTI3LjAuMC4xL2lkcC9tZXRhZGF0YTANBgkqhkiG9w0BAQsFAAOCAQEAdeuTCOaq kxnZJjLo9xUwKguAlU1591/iCY735/2dk9DvBTgQfL1LXAEJOCwqvAk7oTgElY0I
+                        +RKXa2gIGeoZy2RrRhgWRCUK/sKqMLsnomp29QLn/lL/1nr4ipwXhgDID8QJLfyA TToAoLxpkg1qoQ5qzkqL9/T+R6QIXQN6X25kfmdRu3yIdwGzX9DxvIOJ7Ibe8NmZ XX3/t2/O1oPrsMjcE1MitGfgRmevjlXX7/qXTr/kwgM7WW8qKXeoVh2Pki/SOTkv
+                        RN4y2hPYvJuDSMKN4gQ2bCtU6HuRcDMafgNNdfoxKhJ6dwCKLuIQmErgg1s3o/iG iVTBcNUzp4J5hQ==
+                    </ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </KeyDescriptor>
+        <NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://127.0.0.1/sso/idp/profile/SAML2/POST/SLO"/>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://127.0.0.1/sso/idp/profile/SAML2/POST/SSO"/>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="http://127.0.0.1/sso/idp/profile/SAML2/Redirect/SSO"/>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="http://127.0.0.1/sso/idp/profile/SAML2/SOAP/ECP"/>
+    </IDPSSODescriptor>
+</EntityDescriptor>
