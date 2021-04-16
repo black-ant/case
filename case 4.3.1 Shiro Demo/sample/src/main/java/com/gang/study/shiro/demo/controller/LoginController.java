@@ -55,6 +55,14 @@ public class LoginController {
         return "login success";
     }
 
+    @GetMapping("/logout")
+    public String logout() {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return "success";
+    }
+
+
     @RequiresRoles("admin")
     @GetMapping("/admin")
     public String admin() {

@@ -3,9 +3,6 @@ package com.gang.study.shiro.demo.service;
 import com.gang.study.shiro.demo.to.Permissions;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * @Classname PermissionServiceImpl
  * @Description TODO

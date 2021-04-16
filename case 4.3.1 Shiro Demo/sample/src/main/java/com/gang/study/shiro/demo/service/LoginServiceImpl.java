@@ -47,7 +47,7 @@ public class LoginServiceImpl implements LoginService {
         Set<Role> roleSet1 = new HashSet<>();
         roleSet1.add(role1);
 
-        User user = new User("1", "wsl", "123456", roleSet);
+        User user = new User("1", "root", "123456", roleSet);
         Map<String, User> map = new HashMap<>();
         map.put(user.getUserName(), user);
 
@@ -64,7 +64,7 @@ public class LoginServiceImpl implements LoginService {
         Set<Permissions> permissionsSet = new HashSet<>();
         permissionsSet.add(permissionService.getPermsByUserId("1"));
         permissionsSet.add(permissionService.getPermsByUserId("2"));
-        return getAllPermission();
+        return permissionsSet;
     }
 
     /**
