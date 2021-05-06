@@ -23,7 +23,14 @@ public class KafkaConsumerService {
     }
 
     @KafkaListener(id = "one", topics = "start", clientIdPrefix = "myClientId")
+    @KafkaListener(id = "two", topics = "topic1", clientIdPrefix = "myClientId")
     public void listener0(ConsumerRecord<?, ?> record) {
+        logger.info("------> this is in listerner 0:{}<-------", record.value());
+    }
+
+
+    @KafkaListener(id = "three", topics = "topic2", clientIdPrefix = "myClientId")
+    public void listener2(ConsumerRecord<?, ?> record) {
         logger.info("------> this is in listerner 0:{}<-------", record.value());
     }
 

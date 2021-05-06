@@ -22,10 +22,10 @@ public class StartService {
 
     public void run() throws SQLException {
         try {
-//            orderService.initEnvironment();
+            orderService.initEnvironment();
             orderService.processSuccess();
         } finally {
-//            orderService.cleanEnvironment();
+            orderService.cleanEnvironment();
         }
     }
 

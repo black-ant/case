@@ -13,8 +13,9 @@ public class DemoApplication {
     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(DemoApplication.class, args);
 
-        DispatcherServlet dispatcherServlet = (DispatcherServlet) ctx.getBean("dispatcherServlet");
-        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
+        // 对 404 进行拦截
+//        DispatcherServlet dispatcherServlet = (DispatcherServlet) ctx.getBean("dispatcherServlet");
+//        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
     }
 
 }

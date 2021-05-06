@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gang.study.sharding.demo.dao.TestMapper">
+
+    <select id="getListByDb" resultType="java.util.HashMap">
+        select * from t_test t
+    </select>
+
+    <insert id="insertTest" parameterType="java.util.HashMap">
+        insert into t_test (title,author,date,title_id,column_id)values(#{title},#{author},now(),#{titleId},#{columnId})
+    </insert>
+</mapper>

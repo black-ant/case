@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
@@ -31,12 +32,13 @@ public class StarService implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         consumerService.init();
-        produceMsg();
+//        produceMsg();
     }
 
     /**
      * 生产数据
      */
+    @Scheduled(fixedDelay = 30000, initialDelay = 5000)
     public void produceMsg() {
         logger.info("------> [生产数据 ] <-------");
         produceService.produce();

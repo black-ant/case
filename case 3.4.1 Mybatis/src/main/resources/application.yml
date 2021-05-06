@@ -1,4 +1,4 @@
-spring:图形界面
+spring:
   main:
     allow-bean-definition-overriding: true
   datasource:

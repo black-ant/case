@@ -82,11 +82,11 @@ public class OrderServiceImpl implements ExampleService {
         // 测试插入单行
         insertOne();
 
-//        List<Long> orderIds = insertData(keyFirst.intValue());
-//
-//        printData();
-//        deleteData(orderIds);
-//        printData();
+        List<Long> orderIds = insertData(keyFirst.intValue());
+
+        printData();
+        deleteData(orderIds);
+        printData();
 
         System.out.println("-------------- Process Success Finish --------------");
     }
@@ -114,7 +114,7 @@ public class OrderServiceImpl implements ExampleService {
         Long keyFirst = orderOld == null ? 0 : orderOld.getAddressId();
         logger.info("------> [获取 Order 表主键 :{}] <-------", keyFirst);
 
-//        insertData(firstKey);
+        insertData(keyFirst.intValue());
         System.out.println("-------------- Process Failure Finish --------------");
         throw new RuntimeException("Exception occur for transaction test.");
     }
@@ -135,7 +135,7 @@ public class OrderServiceImpl implements ExampleService {
             item.setOrderId(order.getOrderId());
             item.setUserId(i);
             item.setStatus("INSERT_TEST_JPA");
-//            orderItemRepository.insert(item);
+            orderItemRepository.insert(item);
             result.add(order.getOrderId());
         }
         return result;
@@ -145,19 +145,19 @@ public class OrderServiceImpl implements ExampleService {
         System.out.println("---------------------------- Delete Data ----------------------------");
         for (Long each : orderIds) {
             selfOrderRepository.deleteById(each);
-//            orderItemRepository.delete(each);
+            orderItemRepository.delete(each);
         }
     }
 
     @Override
     public void printData() throws SQLException {
         System.out.println("---------------------------- Print Order Data -----------------------");
-//        for (Object each : selfOrderRepository.findAll()) {
-//            System.out.println(each);
-//        }
+        for (Object each : selfOrderRepository.findAll()) {
+            System.out.println(each);
+        }
         System.out.println("---------------------------- Print OrderItem Data -------------------");
-//        for (Object each : orderItemRepository.selectAll()) {
-//            System.out.println(each);
-//        }
+        for (Object each : orderItemRepository.selectAll()) {
+            System.out.println(each);
+        }
     }
 }

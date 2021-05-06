@@ -27,6 +27,7 @@ public class UserController {
 
     @GetMapping("get/test")
     public String test() {
+        logger.info("------> this is test method :{} <-------", "test");
         return "test";
     }
 
