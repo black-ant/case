@@ -30,7 +30,7 @@ public class SaveController {
 
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername("gang");
-        userEntity.setOrgid("!");
+        userEntity.setOrgid("1");
 
         saveService.saveStep1(userEntity);
         saveService.saveStep2(userEntity);

@@ -16,6 +16,7 @@ import java.util.List;
  **/
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
+    public static String test = "//* 我是注释 //*";
 
     @Query("select c from UserEntity c where username = :username")
     List<UserEntity> getByUserName(@Param("username") String username);
