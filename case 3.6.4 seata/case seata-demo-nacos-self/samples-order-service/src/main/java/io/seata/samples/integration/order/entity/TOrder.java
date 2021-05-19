@@ -2,28 +2,43 @@ package io.seata.samples.integration.order.entity;
 
 import java.io.Serializable;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * <p>
  *
  * </p>
- *
+ * <p>
  * * @author lidong
+ *
  * @since 2019-09-04
  */
-public class TOrder extends Model<TOrder> {
+@Entity
+@Table(name = "t_order")
+public class TOrder {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
+    @Id
     private Integer id;
+
+    @Column(name = "order_no")
     private String orderNo;
+
+    @Column(name = "user_id")
     private String userId;
+
+    @Column(name = "commodity_code")
     private String commodityCode;
+
+    @Column(name = "count")
     private Integer count;
+
+    @Column(name = "amount")
     private Double amount;
 
 
@@ -75,7 +90,6 @@ public class TOrder extends Model<TOrder> {
         this.amount = amount;
     }
 
-    @Override
     protected Serializable pkVal() {
         return this.id;
     }
@@ -83,12 +97,12 @@ public class TOrder extends Model<TOrder> {
     @Override
     public String toString() {
         return "TOrder{" +
-        ", id=" + id +
-        ", orderNo=" + orderNo +
-        ", userId=" + userId +
-        ", commodityCode=" + commodityCode +
-        ", count=" + count +
-        ", amount=" + amount +
-        "}";
+                ", id=" + id +
+                ", orderNo=" + orderNo +
+                ", userId=" + userId +
+                ", commodityCode=" + commodityCode +
+                ", count=" + count +
+                ", amount=" + amount +
+                "}";
     }
 }

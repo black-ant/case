@@ -1,26 +1,31 @@
 package io.seata.samples.integration.account.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
-
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
 
 /**
  * <p>
  *
  * </p>
- *
+ * <p>
  * * @author lidong
+ *
  * @since 2019-09-04
  */
-public class TAccount extends Model<TAccount> {
+@Entity
+@Table(name = "t_account")
+public class TAccount {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
+    @Id
     private Integer id;
+    @Column(name = "user_id")
     private String userId;
+    @Column(name = "amount")
     private Double amount;
 
 
@@ -48,7 +53,6 @@ public class TAccount extends Model<TAccount> {
         this.amount = amount;
     }
 
-    @Override
     protected Serializable pkVal() {
         return this.id;
     }
@@ -56,9 +60,9 @@ public class TAccount extends Model<TAccount> {
     @Override
     public String toString() {
         return "TAccount{" +
-        ", id=" + id +
-        ", userId=" + userId +
-        ", amount=" + amount +
-        "}";
+                ", id=" + id +
+                ", userId=" + userId +
+                ", amount=" + amount +
+                "}";
     }
 }

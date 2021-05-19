@@ -9,10 +9,9 @@
         <result column="type_name" jdbcType="VARCHAR" property="typeName"/>
         <result column="supplier_id" jdbcType="VARCHAR" property="supplierId"/>
         <result column="supplier_name" jdbcType="VARCHAR" property="supplierName"/>
-        <result column="data_type" jdbcType="VARCHAR" property="dataType"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, type_code, type_class, type_policy, type_name, supplier_id, supplier_name, data_type
+    id, type_code, type_class, type_policy, type_name, supplier_id, supplier_name
   </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -34,12 +33,12 @@
   </delete>
 
     <insert id="insert" parameterType="com.gang.study.pagehelper.demo.entity.SyncType">
-    insert into sync_type (id, type_code, type_class, 
-      type_policy, type_name, supplier_id, 
-      supplier_name, data_type)
-    values (#{id,jdbcType=VARCHAR}, #{typeCode,jdbcType=VARCHAR}, #{typeClass,jdbcType=VARCHAR}, 
-      #{typePolicy,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, 
-      #{supplierName,jdbcType=VARCHAR}, #{dataType,jdbcType=VARCHAR})
+    insert into sync_type (id, type_code, type_class,
+      type_policy, type_name, supplier_id,
+      supplier_name)
+    values (#{id,jdbcType=VARCHAR}, #{typeCode,jdbcType=VARCHAR}, #{typeClass,jdbcType=VARCHAR},
+      #{typePolicy,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR},
+      #{supplierName,jdbcType=VARCHAR})
   </insert>
 
     <insert id="insertSelective" parameterType="com.gang.study.pagehelper.demo.entity.SyncType">
@@ -66,9 +65,6 @@
             <if test="supplierName != null">
                 supplier_name,
             </if>
-            <if test="dataType != null">
-                data_type,
-            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -91,9 +87,6 @@
             </if>
             <if test="supplierName != null">
                 #{supplierName,jdbcType=VARCHAR},
-            </if>
-            <if test="dataType != null">
-                #{dataType,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -118,9 +111,6 @@
             <if test="supplierName != null">
                 supplier_name = #{supplierName,jdbcType=VARCHAR},
             </if>
-            <if test="dataType != null">
-                data_type = #{dataType,jdbcType=VARCHAR},
-            </if>
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
@@ -131,8 +121,7 @@
       type_policy = #{typePolicy,jdbcType=VARCHAR},
       type_name = #{typeName,jdbcType=VARCHAR},
       supplier_id = #{supplierId,jdbcType=VARCHAR},
-      supplier_name = #{supplierName,jdbcType=VARCHAR},
-      data_type = #{dataType,jdbcType=VARCHAR}
+      supplier_name = #{supplierName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

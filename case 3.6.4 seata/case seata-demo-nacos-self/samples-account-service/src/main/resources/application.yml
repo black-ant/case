@@ -27,15 +27,6 @@ dubbo:
     address: nacos://127.0.0.1:8848
   metadata-report:
     address: nacos://127.0.0.1:8848
-#====================================mybatis-plus config===============================================
-mybatis-plus:
-  mapper-locations: classpath*:/mapper/*.xml
-  typeAliasesPackage: io.seata.samples.integration.*.entity
-  configuration:
-    map-underscore-to-camel-case: true
-  global-config:
-    db-config:
-      id-type: auto
 
 #====================================Seata Config===============================================
 

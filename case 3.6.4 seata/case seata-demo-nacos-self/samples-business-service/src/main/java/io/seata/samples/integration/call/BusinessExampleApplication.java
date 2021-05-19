@@ -10,6 +10,12 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 @EnableDubbo(scanBasePackages = "io.seata.samples.integration.call")
 public class BusinessExampleApplication {
 
+    /**
+     * 127.0.0.1:8104//business/dubbo/buy
+     * 127.0.0.1:8104//business/dubbo/buy2
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         SpringApplication.run(BusinessExampleApplication.class, args);
     }
