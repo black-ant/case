@@ -1,5 +1,8 @@
 package com.gang.study.java.invoke.demo.logic;
 
+import com.gang.study.java.invoke.demo.service.ExcuterServiceImpl;
+import com.gang.study.java.invoke.demo.service.IExcuterService;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -10,19 +13,19 @@ import java.lang.reflect.Proxy;
  * @Date 2020/6/2 23:14
  * @Created by zengzg
  */
-public class JDKProxyService implements InvocationHandler {
+public class JDKProxyLogic implements InvocationHandler {
 
-    private ExcuterServiceImpl target;
+    private IExcuterService target;
 
-    private JDKProxyService(ExcuterServiceImpl target) {
+    private JDKProxyLogic(IExcuterService target) {
         this.target = target;
     }
 
-    public static ExcuterServiceImpl newProxyInstance(ExcuterServiceImpl target) {
+    public static ExcuterServiceImpl newProxyInstance(IExcuterService target) {
         return (ExcuterServiceImpl) Proxy
-                .newProxyInstance(JDKProxyService.class.getClassLoader(),
+                .newProxyInstance(JDKProxyLogic.class.getClassLoader(),
                         new Class<?>[]{ExcuterServiceImpl.class},
-                        new JDKProxyService(target));
+                        new JDKProxyLogic(target));
 
     }
 

@@ -1,4 +1,4 @@
-package com.gang.study.java.invoke.demo.logic;
+package com.gang.study.java.invoke.demo.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

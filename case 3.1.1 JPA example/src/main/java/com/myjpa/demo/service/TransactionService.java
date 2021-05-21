@@ -38,7 +38,7 @@ public class TransactionService {
     public String doExceptionTrans() {
         logger.info("------> this is in doExceptionTrans <-------");
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             userRepository.save(buildUserEntity());
             logger.info("------> this is in userRepository build <-------");
             if (new Random().nextInt(999) > 800) {
@@ -54,7 +54,7 @@ public class TransactionService {
     public String doExceptionTransOther() {
         logger.info("------> this is in doExceptionTransOther <-------");
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             userRepository.save(buildUserEntity());
 
             if (new Random().nextInt(999) > 800) {
@@ -68,7 +68,7 @@ public class TransactionService {
     public String doExceptionTransNo() {
         logger.info("------> this is in doExceptionTrans <-------");
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             userRepository.save(buildUserEntity());
 
             if (new Random().nextInt(999) > 800) {
@@ -79,11 +79,11 @@ public class TransactionService {
         return "success";
     }
 
-
+    @org.springframework.transaction.annotation.Transactional
     public String doTrans() {
         logger.info("------> this is in doTrans <-------");
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             userRepository.save(buildUserEntity());
             orgRepository.save(buildOrgEntity());
         }

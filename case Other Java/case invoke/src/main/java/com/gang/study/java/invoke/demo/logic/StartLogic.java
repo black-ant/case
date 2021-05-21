@@ -1,5 +1,6 @@
 package com.gang.study.java.invoke.demo.logic;
 
+import com.gang.study.java.invoke.demo.service.ExcuterServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -31,7 +32,7 @@ public class StartLogic implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         logger.info("this is in logic");
-        testJDKProxy();
+//        testJDKProxy();
     }
 
 
@@ -39,8 +40,8 @@ public class StartLogic implements ApplicationRunner {
         //创建测试对象；
         ExcuterServiceImpl nativeTest = new ExcuterServiceImpl();
         ExcuterServiceImpl decorator = new ExcuterServiceImpl();
-        ExcuterServiceImpl jdkProxy = JDKProxyService.newProxyInstance(nativeTest);
-        ExcuterServiceImpl cglibProxy = CglibProxyService.newProxyInstance(ExcuterServiceImpl.class);
+        ExcuterServiceImpl jdkProxy = JDKProxyLogic.newProxyInstance(nativeTest);
+        ExcuterServiceImpl cglibProxy = CglibProxyLogic.newProxyInstance(ExcuterServiceImpl.class);
 
         //预热一下；
         int preRunCount = 10000;
@@ -90,8 +91,8 @@ public class StartLogic implements ApplicationRunner {
 
     public void doExampleOne() {
         try {
-            Class clazz = Class.forName("com.gang.study.java.invoke.demo.logic.ExcuterServiceImpl");
-            this.getClass().getClassLoader().loadClass("com.gang.study.java.invoke.demo.logic.ExcuterServiceImpl");
+            Class clazz = Class.forName("com.gang.study.java.invoke.demo.service.ExcuterServiceImpl");
+            this.getClass().getClassLoader().loadClass("com.gang.study.java.invoke.demo.service.ExcuterServiceImpl");
             Method method = clazz.getMethod("doExcuter");
             method.invoke(clazz);
         } catch (Exception e) {
