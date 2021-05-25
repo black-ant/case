@@ -1,4 +1,4 @@
-package com.gang.nacos.config;
+package com.gang.nacos.config.controller;
 
 import com.alibaba.nacos.api.annotation.NacosInjected;
 import com.alibaba.nacos.api.config.ConfigService;

@@ -1,4 +1,4 @@
-package com.alibaba.nacos.example.spring.controller;
+package com.alibaba.nacos.discovery.controller;
 
 import com.alibaba.nacos.api.annotation.NacosInjected;
 import com.alibaba.nacos.api.exception.NacosException;
