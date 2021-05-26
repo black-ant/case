@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 @Configuration
 @EnableDiscoveryClient
+@EnableFeignClients
 public class NacosConfigApplication {
 
     public static void main(String[] args) {

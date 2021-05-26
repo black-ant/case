@@ -19,6 +19,8 @@
     <modules>
         <module>com-gang-nacos-config</module>
         <module>com-gang-nacos-discovery</module>
+<!--        <module>com-gang-nacos-discovery-b</module>-->
+<!--        <module>com-gang-nacos-discovery-c</module>-->
     </modules>
 
     <properties>

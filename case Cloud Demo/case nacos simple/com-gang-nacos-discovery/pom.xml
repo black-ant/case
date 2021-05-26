@@ -33,5 +33,28 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>2.2.3.RELEASE</version>
         </dependency>
+
+        <!-- 使用 Nacos Inject -->
+        <dependency>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>nacos-config-spring-boot-starter</artifactId>
+            <version>0.2.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>nacos-discovery-spring-boot-starter</artifactId>
+            <version>0.2.7</version>
+        </dependency>
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
