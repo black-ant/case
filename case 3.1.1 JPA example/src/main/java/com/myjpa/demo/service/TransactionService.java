@@ -83,8 +83,13 @@ public class TransactionService {
     public String doTrans() {
         logger.info("------> this is in doTrans <-------");
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 5; i++) {
             userRepository.save(buildUserEntity());
+            try {
+                Thread.sleep(10001);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             orgRepository.save(buildOrgEntity());
         }
         return "success";

@@ -7,5 +7,22 @@ spring:
         server-addr: 127.0.0.1:8848
       discovery:
         server-addr: 127.0.0.1:8848
+        metadata:
+          version: v1
 server:
   port: 8086
+
+#spring:
+#  application:
+#    name: nacos-config-server
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: 127.0.0.1:8848
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+#        cluster-name: BJ
+#        namespace: a2476468-0b45-4bc8-b886-817e021d6f46
+#        metadata:
+#          instance: abc
+#          version: v20210527

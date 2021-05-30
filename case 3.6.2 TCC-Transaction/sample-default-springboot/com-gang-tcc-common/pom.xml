@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>com-gang-tcc-springboot</artifactId>
+        <groupId>com.gang.tcc</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>com-gang-tcc-common</artifactId>
+
+    <!--    <dependencies>-->
+    <!--        &lt;!&ndash;tcc-transaction核心包&ndash;&gt;-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.mengyun</groupId>-->
+    <!--            <artifactId>tcc-transaction-spring</artifactId>-->
+    <!--            <version>1.2.12</version>-->
+    <!--        </dependency>-->
+    <!--        &lt;!&ndash;tcc-transaction整合dubbo核心包&ndash;&gt;-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.mengyun</groupId>-->
+    <!--            <artifactId>tcc-transaction-dubbo</artifactId>-->
+    <!--            <version>1.2.12</version>-->
+    <!--            <exclusions>-->
+    <!--                <exclusion>-->
+    <!--                    <groupId>org.apache.dubbo</groupId>-->
+    <!--                    <artifactId>dubbo</artifactId>-->
+    <!--                </exclusion>-->
+    <!--                <exclusion>-->
+    <!--                    <artifactId>zookeeper</artifactId>-->
+    <!--                    <groupId>org.apache.zookeeper</groupId>-->
+    <!--                </exclusion>-->
+    <!--                <exclusion>-->
+    <!--                    <artifactId>curator-recipes</artifactId>-->
+    <!--                    <groupId>org.apache.curator</groupId>-->
+    <!--                </exclusion>-->
+    <!--            </exclusions>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.cloud</groupId>-->
+    <!--            <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>-->
+    <!--            <version>2.2.1.RELEASE</version>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>com.alibaba.cloud</groupId>-->
+    <!--            <artifactId>spring-cloud-starter-dubbo</artifactId>-->
+    <!--            <version>2.2.1.RELEASE</version>-->
+    <!--            <exclusions>-->
+    <!--                <exclusion>-->
+    <!--                    <groupId>org.apache.dubbo</groupId>-->
+    <!--                    <artifactId>dubbo</artifactId>-->
+    <!--                </exclusion>-->
+    <!--            </exclusions>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.apache.dubbo</groupId>-->
+    <!--            <artifactId>dubbo</artifactId>-->
+    <!--            <version>2.7.7</version>-->
+    <!--        </dependency>-->
+    <!--    </dependencies>-->
+
+</project>
