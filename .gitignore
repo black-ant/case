@@ -12,3 +12,4 @@ build
 /.checkstyle
 *.iml
 *.jar
+*.rar
