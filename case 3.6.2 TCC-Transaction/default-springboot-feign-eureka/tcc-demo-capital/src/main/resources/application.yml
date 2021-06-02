@@ -1,0 +1,60 @@
+server:
+  port: 9010
+spring:
+  application:
+    name: tcc-capital
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    # druid 详细配置说明请参看官网 https://github.com/alibaba/druid/tree/master/druid-spring-boot-starter
+    # 连接池配置 默认值请参看com.alibaba.druid.pool.DruidAbstractDataSource
+    druid:
+      filters: stat
+      max-active: 10
+      min-idle: 3
+      max-pool-prepared-statement-per-connection-size: 50
+      max-wait: 600000 #获取连接等待超时的时间
+      pool-prepared-statements: true
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      validation-query: SELECT 1 FROM DUAL
+    url: jdbc:mysql://192.168.158.149:3306/group_a_tcc_cap?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+
+    # 配置 TCC框架使用的数据源
+    tcc:
+      url: jdbc:mysql://192.168.158.149:3306/TCC?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+      # 使用druid数据源
+      type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis: # mybatis配置官方说明 http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/
+  configuration:
+    default-fetch-size: 100
+    default-statement-timeout: 30
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: io.prong.cloud.tcc.capital.model
+pagehelper:
+  helperDialect: mysql
+  params: count=countSql
+  #分页合理化，true开启，如果分页参数不合理会自动修正。默认false不启用。 如果开启了超出页码时会自动修正为上一个页码，但是我们需要超出页码返回空的list所以这里设置false
+  reasonable: false
+  supportMethodsArguments: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+# 配置日志级别，让 hibernate 打印执行的SQL
+logging:
+  level:
+    root: INFO
+    com.tcc: DEBUG
+    # TCC 框架的日志级别
+    org.mengyun.tcctransaction: DEBUG
+
+
