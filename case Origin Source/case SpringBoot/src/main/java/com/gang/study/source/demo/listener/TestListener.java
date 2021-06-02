@@ -43,7 +43,13 @@ public class TestListener implements ApplicationRunner {
         tranTO.setEventName("DefaultListener");
 
         context.publishEvent(new DefaultEvent(tranTO));
+        // 测试 Listener 的异步情况
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        logger.info("------> Default Event Publish End >>>>> [{}]  <-------", tranTO.toString());
+        logger.info("------> Default Event Publish End >>>>> [{}]  -- [{}] <-------", tranTO.toString(), Thread.currentThread().getId());
     }
 }

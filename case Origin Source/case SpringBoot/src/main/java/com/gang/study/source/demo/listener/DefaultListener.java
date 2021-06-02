@@ -20,5 +20,7 @@ public class DefaultListener implements ApplicationListener<DefaultEvent> {
     @Override
     public void onApplicationEvent(DefaultEvent event) {
         logger.info("------> DefaultEvent Listner , Properties [{}] <-------", String.valueOf(event.getSource()));
+        logger.info("------> Listener Thread 情况 :[{}] <-------", Thread.currentThread().getId());
+
     }
 }
