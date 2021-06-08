@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatistest.demo.mapper.UserMapper">
 
+    <parameterMap id="customerMap" type="java.util.Map">
+        <parameter property="id" javaType="java.lang.Integer"></parameter>
+    </parameterMap>
+
     <resultMap id="BaseResultMap" type="com.mybatistest.demo.entity.User">
         <!--
           WARNING - @mbg.generated

@@ -43,6 +43,10 @@ public class TemplateController {
         return cloudTemplateEntity;
     }
 
+    /**
+     * 127.0.0.1:8083/template/feign
+     * @return
+     */
     @GetMapping("/feign")
     public String get() {
         logger.info("------> [测试 UserServer NacosTemplateController  ] <-------");

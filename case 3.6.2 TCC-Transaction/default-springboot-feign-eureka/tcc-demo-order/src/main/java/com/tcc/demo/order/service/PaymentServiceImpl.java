@@ -45,7 +45,7 @@ public class PaymentServiceImpl {
      * @param redPacketPayAmount
      * @param capitalPayAmount
      */
-    @Compensable(confirmMethod = "confirmMakePayment", cancelMethod = "cancelMakePayment", asyncConfirm = true)
+    @Compensable(confirmMethod = "confirmMakePayment", cancelMethod = "cancelMakePayment", asyncConfirm = false, asyncCancel = false)
     public void makePayment(Order order, BigDecimal redPacketPayAmount, BigDecimal capitalPayAmount) {
 
 

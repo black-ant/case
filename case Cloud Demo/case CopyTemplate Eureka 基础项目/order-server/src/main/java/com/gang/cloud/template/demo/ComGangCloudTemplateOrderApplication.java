@@ -10,6 +10,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 public class ComGangCloudTemplateOrderApplication {
 
+    /**
+     * 调用地址 :
+     * @param args
+     */
     public static void main(String[] args) {
         SpringApplication.run(ComGangCloudTemplateOrderApplication.class, args);
     }
