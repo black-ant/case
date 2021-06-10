@@ -1,0 +1,9 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1003/eureka/
+server:
+  port: 8086
+spring:
+  application:
+    name: product-server

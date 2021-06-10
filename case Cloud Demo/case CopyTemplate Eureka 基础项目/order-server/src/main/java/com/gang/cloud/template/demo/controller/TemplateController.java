@@ -51,7 +51,7 @@ public class TemplateController {
     public String get() {
         logger.info("------> [测试 UserServer NacosTemplateController  ] <-------");
         logger.info("------> {} <-------", JSONObject.toJSONString(accountFeignClient.get("order-server")));
-        logger.info("------> {} <-------", JSONObject.toJSONString(productFeignClient.get("order-server")));
+//        logger.info("------> {} <-------", JSONObject.toJSONString(productFeignClient.get("order-server")));
         return "success";
     }
 
