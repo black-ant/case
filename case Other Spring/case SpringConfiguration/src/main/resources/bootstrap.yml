@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: foo
+default:
+  boot:
+    username : gang
+server:
+  port: 8085

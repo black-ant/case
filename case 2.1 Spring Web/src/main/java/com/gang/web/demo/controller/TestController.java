@@ -43,4 +43,9 @@ public class TestController {
         moduleTO.setName(moduleTO.getName() + "Inner");
         return moduleTO;
     }
+
+    @GetMapping("cloud")
+    public String cloud() {
+        return "";
+    }
 }
