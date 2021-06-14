@@ -1,0 +1,25 @@
+table {
+    margin: 20px auto;
+    background-color: #DDDDDD;
+    width: 60%;
+    min-width: 900px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #666666;
+    border-right: 1px solid #666666;
+    cursor: hand;
+}
+
+td:hover {
+    padding: 9px;
+    border: 1px solid #AAAAAA;
+    border-bottom: 2px solid #666666;
+    border-right: 2px solid #666666;
+}
+
+h1, h2, p, div {
+    text-align: center;
+    width: 100%;
+}

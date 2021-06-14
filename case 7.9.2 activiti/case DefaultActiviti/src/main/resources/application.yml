@@ -1,0 +1,15 @@
+server:
+  port: 8087
+spring:
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:dbc2m
+    driver-class-name: org.h2.Driver
+    username: root
+    password: 123456
+  # activiti default configuration
+  activiti:
+    database-schema-update: true
+    check-process-definitions: true
+    process-definition-location-prefix: classpath:/processes/
+    history-level: full

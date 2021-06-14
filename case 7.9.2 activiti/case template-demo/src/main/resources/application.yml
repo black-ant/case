@@ -1,0 +1,38 @@
+server:
+  port: 8080
+  session-timeout: 60
+  tomcat:
+    max-threads: 100
+    uri-encoding: UTF-8
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  activiti:
+    database-schema-update: false
+    history-level: full
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: 123456
+    url: jdbc:mysql://localhost:3306/activiti?characterEncoding=utf-8&useSSL=false
+    username: root
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 5
+      jdbc-url: ${spring.datasource.url}
+      username: ${spring.datasource.username}
+      password: ${spring.datasource.password}
+      allow-pool-suspension: true
+      auto-commit: true
+      idle-timeout: 300000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 300000
+      connection-test-query: SELECT 1
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true

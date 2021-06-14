@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>用户管理</title>
+    <script src="../static/js/163-angular.min.js"></script>
+    <script src="../static/js/userEntity.js"></script>
+    <link rel="stylesheet" href="../static/css/style.css" type="text/css"/>
+</head>
+<body ng-app="userApp">
+<div ng-controller="userCtrl">
+    <h1>用户管理</h1>
+    <p>
+        <a href="/index">index</a>
+        <a href="/exit">exit</a>
+    </p>
+    <div ng-init="getAllUser()">
+        <h2>注册的用户</h2>
+        <table border="0">
+            <tr>
+                <td>用户名</td>
+                <td>密码</td>
+            </tr>
+            <tr ng-repeat="userEntity in userList">
+                <td>{{userEntity.userName}}</td>
+                <td>{{userEntity.password}}</td>
+            </tr>
+        </table>
+    </div>
+    <div ng-init="getAllGroup()">
+        <h2>用户组</h2>
+        <table border="0">
+            <tr>
+                <td>组标识</td>
+                <td>组名称</td>
+                <td>查看成员</td>
+            </tr>
+            <tr ng-repeat="group in groupList">
+                <td>{{group.id}}</td>
+                <td>{{group.name}}</td>
+                <td>
+                    <button ng-click="getGroupUser(group)">查看成员</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div ng-if="currentGroup != null">
+        <h2>{{currentGroup}} 的成员</h2>
+        <table border="0">
+            <tr>
+                <td>用户名</td>
+                <td>密码</td>
+            </tr>
+            <tr ng-repeat="userEntity in groupUserList">
+                <td>{{userEntity.userName}}</td>
+                <td>{{userEntity.password}}</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h2>添加用户</h2>
+            <table border="0">
+                <tr>
+                    <td>用户名</td>
+                    <td>
+                        <input ng-model="userEntity.userName"/>
+                    </td>
+                    <td rowspan="3">
+                        <button ng-click="addUser()">添加</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>密码</td>
+                    <td>
+                        <input ng-model="userEntity.password" value="123456"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>用户组</td>
+                    <td>
+                        <select ng-model="userEntity.groupId" ng-options="group.id as group.name for group in groupList"/>
+                    </td>
+                </tr>
+            </table>
+    </div>
+</div>
+
+</body>
+</html>

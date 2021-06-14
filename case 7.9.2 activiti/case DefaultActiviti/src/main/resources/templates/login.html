@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="../static/js/163-angular.min.js"></script>
+    <script src="../static/js/login.js"></script>
+
+</head>
+<body ng-app="vacApp">
+<div ng-controller="loginCtrl">
+    <h1>login</h1>
+    <p>
+        userName: <input ng-model="userName" type="text" value="{{userName}}"/>
+    </p>
+    <p>
+        password: <input ng-model="password" type="password" value="{{password}}"/>
+    </p>
+    <button type="button" ng-click="login()">login</button>
+</div>
+</body>
+</html>

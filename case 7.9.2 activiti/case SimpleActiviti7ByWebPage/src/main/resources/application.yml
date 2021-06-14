@@ -1,0 +1,23 @@
+server:
+  port: 8086
+spring:
+  activiti:
+    database-schema-update: true
+    db-history-used: true
+    deployment-mode: never-fail
+    history-level: full
+    historyLevel: audit
+  application:
+    name: SpringActivitiByWeb
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: 123456
+    url: jdbc:mysql://localhost:3306/activiti?serverTimezone=GMT&characterEncoding=utf-8&nullCatalogMeansCurrent=true
+    username: root
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+  thymeleaf:
+    prefix: classpath:/view/
