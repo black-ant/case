@@ -2,6 +2,7 @@ package com.gang.acttivity.controller;
 
 //import com.gang.acttivity.config.SecurityUtil;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gang.acttivity.config.SecurityUtil;
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.model.ProcessInstance;
@@ -68,10 +69,14 @@ public class StartController {
         securityUtil.logInAs("root");
         Page<Task> taskPage = taskRuntime.tasks(Pageable.of(0, 10));
         if (taskPage.getTotalItems() > 0) {
-            logger.info("------> 剩余任务 :[{}] <-------", taskPage.getContent());
+            taskPage.getContent().forEach(item -> {
+                logger.info("------> 剩余任务 :[{}] <-------", JSONObject.toJSONString(item));
+            });
         } else {
             logger.info("------> 任务全部执行完成 <-------", taskPage.getContent());
         }
+
+
         return "查询 Flow : " + taskPage.getTotalItems();
     }
 
@@ -107,6 +112,24 @@ public class StartController {
         }
 
         return "Success : Do Flow Business 处理完成";
+    }
+
+
+    @GetMapping("deleteFlow")
+    public String deleteFlow() {
+        // PS : 此处如果是多个用户 , 需要切换用户
+        // securityUtil.logInAs("admin");
+        Page<Task> temTaskList = taskRuntime.tasks((Pageable.of(0, 10)));
+        temTaskList.getContent().forEach(item -> {
+            try {
+                logger.info("------> Step 4 item : 删除Task :{} <-------", item.getId());
+                taskRuntime.delete(TaskPayloadBuilder.delete().withTaskId(item.getId()).build());
+            } catch (Exception e) {
+                logger.error("E----> error :{} -- content :{}", e.getClass(), e.getMessage());
+            }
+
+        });
+        return "success";
     }
 
 

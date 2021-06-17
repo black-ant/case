@@ -31,6 +31,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Commonn -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.73</version>
+        </dependency>
+
         <!-- DAO -->
         <dependency>
             <groupId>mysql</groupId>

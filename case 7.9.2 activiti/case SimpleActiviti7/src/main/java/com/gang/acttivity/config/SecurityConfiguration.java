@@ -11,32 +11,30 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Configuration
-public class DemoApplicationConfiguration {
+public class SecurityConfiguration {
 
-    private Logger logger = LoggerFactory.getLogger(DemoApplicationConfiguration.class);
+    private Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
 
     @Bean
     public UserDetailsService myUserDetailsService() {
 
         InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
+        logger.info("> Registering new user: " + "root" + " with the following Authorities[ 'ACTIVE' , 'ADMIN' ]");
 
-        String[][] usersGroupsAndRoles = {
-                {"root", "123456", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
-                {"admin", "password", "ROLE_ACTIVITI_ADMIN"},
-        };
+        // 构建 Group 组信息
+        List<SimpleGrantedAuthority> groupList = new ArrayList<>();
+        groupList.add(new SimpleGrantedAuthority("ROLE_ACTIVITI_USER"));
+        groupList.add(new SimpleGrantedAuthority("ADMIN"));
 
-        for (String[] user : usersGroupsAndRoles) {
-            List<String> authoritiesStrings = Arrays.asList(Arrays.copyOfRange(user, 2, user.length));
-            logger.info("> Registering new user: " + user[0] + " with the following Authorities[" + authoritiesStrings + "]");
-            inMemoryUserDetailsManager.createUser(new User(user[0], passwordEncoder().encode(user[1]),
-                    authoritiesStrings.stream().map(s -> new SimpleGrantedAuthority(s)).collect(Collectors.toList())));
-        }
-
+        // 准备2个用户 : Root , Admin
+        inMemoryUserDetailsManager.createUser(new User("root", passwordEncoder().encode("123456"), groupList));
+        inMemoryUserDetailsManager.createUser(new User("admin", passwordEncoder().encode("123456"), groupList));
 
         return inMemoryUserDetailsManager;
     }

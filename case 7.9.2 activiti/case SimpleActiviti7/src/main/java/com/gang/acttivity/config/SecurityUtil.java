@@ -3,12 +3,14 @@ package com.gang.acttivity.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -21,49 +23,22 @@ public class SecurityUtil {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public void logInAs(String username) {
 
         UserDetails user = userDetailsService.loadUserByUsername(username);
+
+        logger.info("> 用户安全配置 (1) : 简单校验用户是否存在 [{}]", username);
         if (user == null) {
             throw new IllegalStateException("User " + username + " doesn't exist, please provide a valid user");
         }
-        logger.info("> Logged in as: " + username);
-        SecurityContextHolder.setContext(new SecurityContextImpl(new Authentication() {
-            @Override
-            public Collection<? extends GrantedAuthority> getAuthorities() {
-                return user.getAuthorities();
-            }
 
-            @Override
-            public Object getCredentials() {
-                return user.getPassword();
-            }
+        logger.info("------> 用户安全配置 (2) , Security 中模拟登录对象 :{} <-------", username);
+        SecurityContextHolder.setContext(new SecurityContextImpl(new UsernamePasswordAuthenticationToken(user.getUsername(), "123456")));
 
-            @Override
-            public Object getDetails() {
-                return user;
-            }
-
-            @Override
-            public Object getPrincipal() {
-                return user;
-            }
-
-            @Override
-            public boolean isAuthenticated() {
-                return true;
-            }
-
-            @Override
-            public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-
-            }
-
-            @Override
-            public String getName() {
-                return user.getUsername();
-            }
-        }));
+        logger.info("------> 用户安全配置 (3) , Activiti 中设置对象 :{} <-------", username);
         org.activiti.engine.impl.identity.Authentication.setAuthenticatedUserId(username);
     }
 }
