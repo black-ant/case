@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 
 @Component
@@ -26,6 +27,7 @@ public class SecurityUtil {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Transactional
     public void logInAs(String username) {
 
         UserDetails user = userDetailsService.loadUserByUsername(username);
