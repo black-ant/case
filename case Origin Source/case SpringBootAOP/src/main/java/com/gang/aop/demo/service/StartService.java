@@ -17,13 +17,17 @@ public class StartService implements ApplicationRunner {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        logger.info("------> [测试 Application 启动时调用开始] <-------");
+        get();
+        logger.info("------> [测试 Application 启动时调用结束] <-------");
+    }
+
     public String get() {
         logger.info("------> this is in StartService <-------");
         return "success";
     }
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-        get();
-    }
+
 }
