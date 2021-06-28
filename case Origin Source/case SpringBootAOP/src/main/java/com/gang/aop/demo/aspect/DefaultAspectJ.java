@@ -1,5 +1,6 @@
 package com.gang.aop.demo.aspect;
 
+import com.alibaba.fastjson.JSONObject;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -28,6 +29,11 @@ public class DefaultAspectJ {
         logger.info("------> [进入 before 逻辑 ] <-------");
     }
 
+    @Before("execution(* com.gang.aop.demo.service.OtherService.get(..))")
+    public void before2() {
+        logger.info("------> [进入 before 逻辑 ] <-------");
+    }
+
     @After("execution(* com.gang.aop.demo.service.StartService.get(..))")
     public void after() {
         logger.info("------> [进入 After 逻辑 ] <-------");
@@ -39,13 +45,15 @@ public class DefaultAspectJ {
     }
 
     @Around("execution(* com.gang.aop.demo.service.StartService.get(..))")
-    public void around(ProceedingJoinPoint pj) {
+    public Object around(ProceedingJoinPoint pj) {
+        Object response = null;
         try {
             logger.info("------> [进入 around 逻辑 - before ] <-------");
-            pj.proceed();
-            logger.info("------> [进入 around 逻辑 - after ] <-------");
+            response = pj.proceed();
+            logger.info("------> [进入 around 逻辑 - after -{} ] <-------", JSONObject.toJSONString(response));
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
+        return response;
     }
 }

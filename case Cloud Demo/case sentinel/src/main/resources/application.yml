@@ -4,7 +4,6 @@ spring:
   sentinel:
     transport:
       dashboard: 127.0.0.1:8080
-#暴露的健康检查服务端点
 management:
   endpoints:
     web:
