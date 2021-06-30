@@ -1,0 +1,8 @@
+# 基本使用 :http://127.0.0.1:8088/test/demo/start/get -> http://127.0.0.1:8086/demo/start/get
+#zuul:
+#  routes:
+#    test:
+#      url: http://127.0.0.1:8086/
+
+server:
+  port: 8088
