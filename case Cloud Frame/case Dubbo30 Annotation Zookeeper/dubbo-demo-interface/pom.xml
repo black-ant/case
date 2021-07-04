@@ -41,6 +41,11 @@
             <artifactId>dubbo-rpc-rest</artifactId>
             <version>3.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-registry-zookeeper</artifactId>
+            <version>3.0.1</version>
+        </dependency>
     </dependencies>
 
 </project>
