@@ -3,11 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
+
     <modules>
-        <module>com-gang-cloud-dubbo-server</module>
-        <module>com-gang-cloud-dubbo-client</module>
-        <module>com-gang-cloud-dubbo-consumer</module>
-        <module>com-gang-cloud-dubbo-interface</module>
+        <module>dubbo-demo-interface</module>
+        <module>dubbo-demo-annotation-consumer</module>
+        <module>dubbo-demo-annotation-provider</module>
     </modules>
 
     <parent>
@@ -18,7 +18,7 @@
     </parent>
 
     <groupId>com.gang.cloud.dubbo</groupId>
-    <artifactId>cloud-dubbo-nacos</artifactId>
+    <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo</name>
     <description>Demo project for Spring Boot</description>
@@ -27,22 +27,7 @@
         <java.version>1.8</java.version>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.gang.cloud.dubbo</groupId>
-                <artifactId>com-gang-cloud-dubbo-interface</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -54,6 +39,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
     </dependencies>
 
 

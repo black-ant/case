@@ -42,14 +42,13 @@ public class BaseStream implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         test();
-        new Thread()
     }
 
     public void test() {
         logger.info("------> this is in test <-------");
-        baseFunction -> {
-            return 20;
-        };
-        logger.info("------> num is :{} <-------", num);
+//        baseFunction -> {
+//            return 20;
+//        };
+//        logger.info("------> num is :{} <-------", num);
     }
 }

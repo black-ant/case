@@ -1,4 +1,4 @@
-package com.gang.cloud.consumer.demo.service;
+package com.gang.cloud.client.demo.service;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.gang.cloud.dubbo.service.IUserService;
