@@ -90,6 +90,11 @@ public class FunctionService extends SuperFunctionService implements Application
 
         Stream<Collection<String>> stream = Stream.of(set);
         stream.forEach(consumer);
+
+        Stream<String> streamBuilder =
+                Stream.<String>builder().add("a").add("b").add("c").build();
+
+        stream.parallel().toArray();
     }
 
 
