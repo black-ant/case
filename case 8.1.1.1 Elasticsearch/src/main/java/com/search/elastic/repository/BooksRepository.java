@@ -21,15 +21,15 @@ import java.util.List;
 public interface BooksRepository extends ElasticsearchRepository<Books, Integer> {
 
 
-    Page<Book> findByAuthor(String name, Pageable pageable);
+//    Page<Books> findByAuthor(String name, Pageable pageable);
 
     List<Books> findByTitle(String title);
 
-    List<Books> findByTitleAndAuthor(String title,String author);
+    List<Books> findByTitleAndAuthor(String title, String author);
 
-    List<Books> findByTitleAndDesc(String title,String desc);
+    List<Books> findByTitleAndDesc(String title, String desc);
 
     List<Books> findByTitleOrderByPubdate(String title);
 
-    List<Books> findByTitle(String title,Sort sort);
+    List<Books> findByTitle(String title, Sort sort);
 }

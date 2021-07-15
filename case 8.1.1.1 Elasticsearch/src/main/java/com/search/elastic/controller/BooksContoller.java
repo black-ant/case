@@ -38,6 +38,15 @@ public class BooksContoller extends BaseController {
         return apiResponse(booksRepository.findAll());
     }
 
+
+    /**
+     * 127.0.0.1:8086/books
+     *
+     * @param type
+     * @param value
+     * @param other
+     * @return
+     */
     @PostMapping("getBooksfilter")
     public String getBooksByFilter(@RequestParam("type") String type, @RequestParam("value") String value, @RequestParam("other") String other) {
         List<Books> list;
@@ -61,7 +70,7 @@ public class BooksContoller extends BaseController {
                 break;
             //标题和发布时间Sort 对象版
             case "TSD":
-                Sort sort = new Sort(Sort.Direction.DESC, "pubdate");
+                Sort sort = Sort.by(Sort.Direction.DESC, "pubdate");
                 list = booksRepository.findByTitle(value, sort);
                 break;
             default:
