@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -40,7 +42,22 @@ public class SampleController {
     }
 
     /**
-     * 127.0.0.1:8086/add/successUser
+     * 127.0.0.1:8086/sample/getAll
+     * @return
+     */
+    @GetMapping("/getAll")
+    public ResponseTO<List<SampleEntity>> getSampleDataList() {
+        Iterable<SampleEntity> iterable = sampleRepository.findAll();
+
+        List<SampleEntity> sampleEntities = new ArrayList<>();
+        iterable.forEach(item -> {
+            sampleEntities.add(item);
+        });
+        return ResponseTO.commonResponse(sampleEntities);
+    }
+
+    /**
+     * 127.0.0.1:8086/sample/add/successUser
      *
      * @param data
      * @return
@@ -56,6 +73,12 @@ public class SampleController {
         return ResponseTO.commonResponse(sampleRepository.save(sample));
     }
 
+    /**
+     * 127.0.0.1:8086/sample/addList/successUser
+     *
+     * @param data
+     * @return
+     */
     @GetMapping("/addList/{data}")
     public ResponseTO<String> addSampleDataList(@PathVariable("data") String data) {
 
@@ -65,6 +88,7 @@ public class SampleController {
             SampleEntity sample = new SampleEntity();
             sample.setInfoTitle(data + new Random().nextInt(999999999));
             sample.setInfoDetails(data + "title:" + i);
+            logger.info("------> 创建 [{}] <-------", sample.getInfoTitle());
             sampleRepository.save(sample);
         }
         return ResponseTO.commonResponse("success");
