@@ -70,7 +70,7 @@ public class BusinessServiceImpl implements BusinessService{
      * @param businessDTO
      * @return
      */
-    @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata-example")
+    @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata-example-ex")
     @Override
     public ObjectResponse handleBusiness2(BusinessDTO businessDTO) {
         log.info("开始全局事务，XID = " + RootContext.getXID());
