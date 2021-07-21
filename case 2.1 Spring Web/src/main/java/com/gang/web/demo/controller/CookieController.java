@@ -30,9 +30,17 @@ public class CookieController {
     @GetMapping("/set")
     public void setCookie(HttpServletRequest request, HttpServletResponse responsec) {
         logger.info("------> [为请求设置 Cookie] <-------");
-        setCookie("Test001", "1", 2592000, "/esc-sso", "127.0.0.1", request, responsec);
+        setCookie("Test001", "1", 2592000, "/cookie", "127.0.0.1", request, responsec);
         setCookie("Test002", "2", 2592000, "/", "localhost", request, responsec);
-        setCookie("Test003", "3", 2592000, "/esc-sso", "localhost", request, responsec);
+        setCookie("Test003", "3", 2592000, "/cookie", "localhost", request, responsec);
+    }
+
+    @GetMapping("/remove")
+    public void removeCookie(HttpServletRequest request, HttpServletResponse responsec) {
+        logger.info("------> [为请求设置 Cookie] <-------");
+        setCookie("Test001", null, 0, "/cookie", "127.0.0.1", request, responsec);
+        setCookie("Test002", null, 0, "/", "localhost", request, responsec);
+        setCookie("Test003", null, 0, "/cookie", "localhost", request, responsec);
     }
 
     @GetMapping("/get")
