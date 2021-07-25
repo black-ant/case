@@ -24,11 +24,11 @@ public class StartService implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        try {
-            testFileChannel();
-        } catch (Exception e) {
-            logger.error("E----> error :{} -- content :{}", e.getClass(), e.getMessage());
-        }
+//        try {
+//            testFileChannel();
+//        } catch (Exception e) {
+//            logger.error("E----> error :{} -- content :{}", e.getClass(), e.getMessage());
+//        }
 
     }
 
