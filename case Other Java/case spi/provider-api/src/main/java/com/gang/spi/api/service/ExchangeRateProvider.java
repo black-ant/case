@@ -7,7 +7,5 @@ package com.gang.spi.api.service;
  * @Created by zengzg
  */
 public interface ExchangeRateProvider {
-
     QuoteManager create();
-
 }

@@ -18,7 +18,6 @@ import java.util.ServiceLoader;
 public class ProviderManager {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    private Boolean refresh = Boolean.TRUE;
 
     public Iterator<ExchangeRateProvider> providers(boolean refresh) {
         logger.info("------> [Step 1 : 进入 Provider 处理流程] <-------");

@@ -1,7 +1,5 @@
 package com.gang.spi.api.service;
 
-import com.gang.spi.api.model.Quote;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,6 +11,6 @@ import java.util.List;
  */
 public interface QuoteManager {
 
-    List<Quote> getQuotes(String baseCurrency, LocalDate date);
+    List<String> getQuotes(String baseCurrency, LocalDate date);
 
 }

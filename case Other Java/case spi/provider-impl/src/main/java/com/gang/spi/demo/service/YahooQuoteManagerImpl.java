@@ -1,6 +1,5 @@
 package com.gang.spi.demo.service;
 
-import com.gang.spi.api.model.Quote;
 import com.gang.spi.api.service.QuoteManager;
 
 import java.time.LocalDate;
@@ -16,9 +15,7 @@ import java.util.List;
 public class YahooQuoteManagerImpl implements QuoteManager {
 
     @Override
-    public List<Quote> getQuotes(String baseCurrency, LocalDate date) {
-        // fetch from Yahoo API
-
+    public List<String> getQuotes(String baseCurrency, LocalDate date) {
         return new ArrayList<>();
     }
 }
