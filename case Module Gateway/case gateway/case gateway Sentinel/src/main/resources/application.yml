@@ -1,0 +1,30 @@
+server:
+  port: 9092
+spring:
+  cloud:
+#    nacos:
+#      discovery:
+#        register-enabled: false
+#        server-addr: localhost:8848
+#        namespace: c22e5019-0bee-43b1-b80b-fc0b9d847501
+    sentinel:
+      transport:
+        dashboard: localhost:8880
+        port: 8880
+      scg:
+        fallback:
+          mode: response
+          response-status: 455
+          response-body: error!
+#    gateway:
+#      routes:
+#        - id: demo_route
+#        uri: lb://demo
+#        predicates:
+#          - path: /demo/**
+#          - id: demo2_test
+#        uri: lb://demo2
+#        predicates:
+#          - path: /user/**
+  application:
+    name: gateway-sentinel

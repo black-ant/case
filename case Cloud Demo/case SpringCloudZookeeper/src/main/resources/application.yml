@@ -1,0 +1,37 @@
+spring.cloud.zookeeper:
+  connect-string: localhost:2181
+#  dependencies:
+#    newsletter:
+#      path: /path/where/newsletter/has/registered/in/zookeeper
+#      loadBalancerType: ROUND_ROBIN
+#      contentTypeTemplate: application/vnd.newsletter.$version+json
+#      version: v1
+#      headers:
+#        header1:
+#          - value1
+#        header2:
+#          - value2
+#      required: false
+#      stubs: org.springframework:foo:stubs
+#    mailing:
+#      path: /path/where/mailing/has/registered/in/zookeeper
+#      loadBalancerType: ROUND_ROBIN
+#      contentTypeTemplate: application/vnd.mailing.$version+json
+#      version: v1
+#      required: true
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+logging.level:
+  org.apache.zookeeper.ClientCnxn: ERROR
+
+management:
+  security:
+    enabled: false
+server:
+  port: 8086
