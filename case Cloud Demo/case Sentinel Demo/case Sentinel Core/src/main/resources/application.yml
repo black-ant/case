@@ -1,0 +1,13 @@
+server:
+  port: 8082
+spring:
+  sentinel:
+    transport:
+      dashboard: 127.0.0.1:8880
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+application:
+  name: sentinelDefault

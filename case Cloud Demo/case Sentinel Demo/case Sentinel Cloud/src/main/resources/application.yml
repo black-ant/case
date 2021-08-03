@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: cloudSentinel
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8880
+      #eager: true
+server:
+  port: 8083
