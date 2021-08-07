@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: gateway-service
+          uri: http://httpbin.org:80
+          order: 0
+          # 通过请求参数判断
+          # http://127.0.0.1:8082/get?queryType=test
+          predicates:
+            - Query=queryType

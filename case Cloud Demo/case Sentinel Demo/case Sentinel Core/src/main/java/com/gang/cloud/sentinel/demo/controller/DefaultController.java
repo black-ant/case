@@ -37,7 +37,7 @@ public class DefaultController {
      * @return
      */
     @GetMapping("flowControl")
-    public String flowControl(@RequestParam(name = "qps", defaultValue = "1") Integer qps) {
+    public String flowControl(@RequestParam(name = "qps", defaultValue = "30") Integer qps) {
         logger.info("------> [Sentinel 流量控制 Demo] <-------");
         return startService.flowControl(qps);
     }

@@ -1,0 +1,23 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: spring-cloud-gateway
+  cloud:
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          lower-case-service-id: true
+      routes:
+        # Add your routes here.
+        - id: aliyun_route
+          uri: http://www.antblack.xyz
+          predicates:
+            - Path=/aliyun
+        - id: httpbin_route
+          uri: https://www.baidu.com
+          predicates:
+            - Path=/baidu
+          filters:
+            - RewritePath=/httpbin/(?<segment>.*), /$\{segment}

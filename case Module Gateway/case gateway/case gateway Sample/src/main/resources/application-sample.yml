@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: url-proxy-1
+          uri: https://juejin.cn/
+          predicates:
+            - Path=/juejin
+        - id: url-proxy-2
+          uri: https://juejin.cn/
+          filter:
+            - PreserveHostHeader
+          predicates:
+            - Path=/rjuejin
+        - id: url-proxy-3
+          uri: http://httpbin.org:80
+          predicates:
+            - Path=/get

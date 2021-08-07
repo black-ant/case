@@ -62,7 +62,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
         config.setOriginParser(request -> request.getHeader("S-user"));
 
         // Add sentinel interceptor
-        registry.addInterceptor(new SentinelWebInterceptor(config)).addPathPatterns("/**");
+//        registry.addInterceptor(new SentinelWebInterceptor(config)).addPathPatterns("/**");
+        addSpringMvcTotalInterceptor(registry);
     }
 
     private void addSpringMvcTotalInterceptor(InterceptorRegistry registry) {

@@ -32,8 +32,9 @@ public class DefaultService implements ApplicationRunner {
         // 此处是手动代码中添加流量策略 , 可以通过可视化界面完成
         logger.info("------> [Step First : 手动构建 Flow Rule Config , 配置限流策略] <-------");
         buildRule("FlowControl");
-        buildRule("FlowControlByAnnotation");
-        buildRule("FlowControlSync");
+        // 测试重复添加情况
+//        buildRule("FlowControlByAnnotation");
+//        buildRule("FlowControlSync");
     }
 
     public String get() {
@@ -57,6 +58,7 @@ public class DefaultService implements ApplicationRunner {
                 SphU.entry("FlowControl");
                 logger.info("------> [进入 Flow Control 业务逻辑 :{}] <-------", i);
             } catch (BlockException e) {
+                e.printStackTrace();
                 logger.error("E----> error :{} -- content :{}", e.getClass(), e.getMessage());
             } finally {
                 if (entry != null) {
