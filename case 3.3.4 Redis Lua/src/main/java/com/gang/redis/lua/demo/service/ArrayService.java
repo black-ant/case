@@ -34,7 +34,7 @@ public class ArrayService implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 //        doArraySimple();
-        doArrayBack();
+//        doArrayBack();
     }
 
     public void doArraySimple() {
