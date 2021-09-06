@@ -69,9 +69,7 @@ public class SingleThreadScheduledExecutorService {
     }
 
 
-    public void testScheduledFutureTask(){
-        ScheduledFutureTask task;
-    }
+
 }
 
 

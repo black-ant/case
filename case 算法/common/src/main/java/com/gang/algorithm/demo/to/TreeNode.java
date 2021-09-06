@@ -8,28 +8,28 @@ package com.gang.algorithm.demo.to;
  */
 public class TreeNode {
 
-    int val;
+    Object val;
     TreeNode left;
     TreeNode right;
 
-    TreeNode() {
+    public TreeNode() {
     }
 
-    TreeNode(int val) {
+    public TreeNode(Integer val) {
         this.val = val;
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
+    public TreeNode(Integer val, TreeNode left, TreeNode right) {
         this.val = val;
         this.left = left;
         this.right = right;
     }
 
-    public int getVal() {
-        return val;
+    public Integer getVal() {
+        return (Integer) val;
     }
 
-    public void setVal(int val) {
+    public void setVal(Object val) {
         this.val = val;
     }
 

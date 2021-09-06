@@ -26,19 +26,19 @@ public class ZkClientJavaUtil {
     private static String zkPath = "master:2181,slave1:2181,slave2:2181/zfpt";
     static CountDownLatch connectedSemaphore = new CountDownLatch(1);
 
-    static {
-        try {
-            zk = new ZooKeeper(zkPath, 1000, new Watcher() {
-                // 监控所有被触发的事件
-                public void process(WatchedEvent event) {
-                    logger.info("已经触发了 {} 事件！ ", event.getType());
-                    connectedSemaphore.countDown();
-                }
-            });
-        } catch (Exception e) {
-            System.err.println("系统异常");
-        }
-    }
+//    static {
+//        try {
+//            zk = new ZooKeeper(zkPath, 1000, new Watcher() {
+//                // 监控所有被触发的事件
+//                public void process(WatchedEvent event) {
+//                    logger.info("已经触发了 {} 事件！ ", event.getType());
+//                    connectedSemaphore.countDown();
+//                }
+//            });
+//        } catch (Exception e) {
+//            System.err.println("系统异常");
+//        }
+//    }
 
     public static ZooKeeper getZKConnection() {
         try {

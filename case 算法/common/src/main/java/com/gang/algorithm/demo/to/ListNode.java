@@ -7,10 +7,11 @@ package com.gang.algorithm.demo.to;
  * @Created by zengzg
  */
 public class ListNode {
-    int val;
+
+    Integer val;
     ListNode next;
 
-    public ListNode(int x) {
+    public ListNode(Integer x) {
         val = x;
     }
 
@@ -20,6 +21,14 @@ public class ListNode {
 
     public void setNext(ListNode next) {
         this.next = next;
+    }
+
+    public Integer getVal() {
+        return val;
+    }
+
+    public void setVal(Integer val) {
+        this.val = val;
     }
 
     @Override

@@ -24,10 +24,10 @@ public class CustomerService {
     public void run() throws Exception {
         logger.info("------> CustomerService <-------");
 
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 6, 3, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(3));
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 6, 3, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(15));
 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
             executor.submit(() -> {
                 logger.info("------> this is run 22222 <-------");
                 Thread.sleep(50000);

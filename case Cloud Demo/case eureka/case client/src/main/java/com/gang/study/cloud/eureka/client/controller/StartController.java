@@ -47,6 +47,14 @@ public class StartController {
         return "success";
     }
 
+    @GetMapping("/test")
+    public String test() {
+        logger.info("------> Step 1 : 获取所有的实例 <-------");
+
+        return "success";
+    }
+
+
     @GetMapping("getServicesList")
     @ResponseBody
     public Object getServicesList() {

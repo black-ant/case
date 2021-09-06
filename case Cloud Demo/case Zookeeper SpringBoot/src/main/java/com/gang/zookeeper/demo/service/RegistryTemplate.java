@@ -28,12 +28,13 @@ import java.util.function.Consumer;
  * @Created by zengzg
  */
 @Component
-public class RegistryTemplate implements ApplicationRunner {
+public class RegistryTemplate {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final static String ROOT = "/root";
     private final static String MESSAGE = "Hello World ! ";
+
     CyclicBarrier cyclicBarrier = new CyclicBarrier(2, new Runnable() {
         @Override
         public void run() {
@@ -42,8 +43,7 @@ public class RegistryTemplate implements ApplicationRunner {
     });
 
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run() throws Exception {
         logger.info("------> [Step 1 : 构建一个 Zookeeper 连接] <-------");
 
         String connectAddress = "127.0.0.1:2181";
