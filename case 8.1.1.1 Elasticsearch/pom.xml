@@ -19,6 +19,7 @@
     </properties>
 
     <dependencies>
+        <!-- 注意 , 每个 Elastic 对应的版本变化很大 !! -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>

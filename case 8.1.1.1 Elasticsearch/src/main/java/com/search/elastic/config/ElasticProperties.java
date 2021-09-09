@@ -12,10 +12,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ElasticProperties {
 
+    // PS :RUN EditConfiguration 中也有
     @Value("${remoteHost:127.0.0.1}")
     private String host;
 
-    @Value("${remotePort:9300}")
+    @Value("${remotePort:9200}")
     private String port;
 
     public String getHost() {

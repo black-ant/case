@@ -1,0 +1,6 @@
+rocketmq:
+  name-server: 192.168.158.30:9876;192.168.158.30:9877
+  producer:
+    group: rocketmq-group
+server:
+  port: 8087

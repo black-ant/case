@@ -4,11 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Service;
 
 import java.util.Random;
 import java.util.concurrent.CyclicBarrier;
 
-//@Service
+@Service
 public class JUCCyclicBarrierUtils implements ApplicationRunner {
 
     private static Logger logger = LoggerFactory.getLogger(JUCCyclicBarrierUtils.class);
@@ -16,8 +17,7 @@ public class JUCCyclicBarrierUtils implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-
-        test();
+//        test();
     }
 
     public void test() throws Exception {
@@ -28,6 +28,11 @@ public class JUCCyclicBarrierUtils implements ApplicationRunner {
             @Override
             public void run() {
                 System.out.println("人到齐了，开会吧....");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -51,10 +56,10 @@ public class JUCCyclicBarrierUtils implements ApplicationRunner {
         public void run() {
             try {
                 System.out.println(getName() + " 到达栅栏 A");
-                Thread.sleep(new Random().nextInt(1000));
+                Thread.sleep(new Random().nextInt(3000));
                 logger.info("------> this is sleep out <-------");
                 barrier.await();
-//                System.out.println(getName() + " 冲破栅栏 A");
+                System.out.println(getName() + " 冲破栅栏 A");
 //
 //                Thread.sleep(2000);
 //                System.out.println(getName() + " 到达栅栏 B");
