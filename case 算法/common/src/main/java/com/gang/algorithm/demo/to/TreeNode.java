@@ -8,9 +8,9 @@ package com.gang.algorithm.demo.to;
  */
 public class TreeNode {
 
-    Object val;
-    TreeNode left;
-    TreeNode right;
+    public Object val;
+    public TreeNode left;
+    public TreeNode right;
 
     public TreeNode() {
     }

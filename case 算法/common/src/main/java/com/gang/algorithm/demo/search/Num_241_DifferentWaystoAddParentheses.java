@@ -21,10 +21,9 @@ public class Num_241_DifferentWaystoAddParentheses extends AbstractAlgorithmServ
 
     @Override
     public void run() {
-
+        diffWaysToCompute("2-1-1");
         logger.info("------> {} <-------", "2-1-1");
     }
-
 
     //添加一个 map
     HashMap<String, List<Integer>> map = new HashMap<>();
@@ -53,6 +52,7 @@ public class Num_241_DifferentWaystoAddParentheses extends AbstractAlgorithmServ
         for (int i = 0; i < input.length(); i++) {
             if (isOperation(input.charAt(i))) {
                 List<Integer> result1 = diffWaysToCompute(input.substring(0, i));
+                //一个不同的递归就是一个括号选择
                 List<Integer> result2 = diffWaysToCompute(input.substring(i + 1));
                 for (int j = 0; j < result1.size(); j++) {
                     for (int k = 0; k < result2.size(); k++) {

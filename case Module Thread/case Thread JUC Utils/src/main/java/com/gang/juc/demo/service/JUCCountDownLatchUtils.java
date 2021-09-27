@@ -34,6 +34,7 @@ public class JUCCountDownLatchUtils implements ApplicationRunner {
 
         //Boss线程启动
         new BossThread(countDownLatch).start();
+        new BossThread(countDownLatch).start(); // 测试多个等待
 
         for (Long i = Long.valueOf("0"), j = countDownLatch.getCount(); i < j; i++) {
             FutureTask<String> backMsgResult = new FutureTask<String>(

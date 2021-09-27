@@ -19,7 +19,7 @@ public class JUCExchangerUtils implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        doExchange();
+//        doExchange();
     }
 
     public void doExchange() {

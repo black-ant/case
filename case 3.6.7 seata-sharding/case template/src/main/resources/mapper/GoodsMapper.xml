@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gang.seata.sharding.demo.mapper.GoodsMapper">
+	<select id="selectOneGoods" parameterType="long" resultType="com.gang.seata.sharding.demo.pojo.Goods">
+        select * from goods where goodsId=#{goodsId}
+    </select>
+    <update id="updateGoodsStock">
+        UPDATE goods SET
+        stock = stock+#{changeAmount,jdbcType=INTEGER}
+        WHERE goodsId = #{goodsId,jdbcType=BIGINT}
+    </update>
+</mapper>

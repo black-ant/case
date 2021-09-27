@@ -8,8 +8,8 @@ package com.gang.algorithm.demo.to;
  */
 public class ListNode {
 
-    Integer val;
-    ListNode next;
+    public Integer val;
+    public ListNode next;
 
     public ListNode(Integer x) {
         val = x;
