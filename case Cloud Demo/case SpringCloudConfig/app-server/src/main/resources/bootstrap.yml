@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: app-server
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: config-server
+      # 多配置文件 , 拍到后面的优先级更高
+      name: app-server,default
+#      name: app-server
+      profile: dev
+      label: master
+server:
+  port: 1009
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1003/eureka/

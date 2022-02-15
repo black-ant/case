@@ -12,7 +12,7 @@ import com.gang.exchangesource.demo.to.MailSystemConfig;
 public class ExchangeHelp {
 
     public static MailSystemConfig getConfig() {
-        MailSystemConfig config = new MailSystemConfig("127.0.0.1", 8885, "wdhacpoc\\administrator", "zzg!@19950824");
+        MailSystemConfig config = new MailSystemConfig("127.0.0.1", 8885, "test\\administrator", "123456");
         return config;
     }
 

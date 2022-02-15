@@ -34,6 +34,12 @@ public class TransController {
         return transactionService.doExceptionTrans();
     }
 
+    @GetMapping("doExeTransInner")
+    public String doExeTransInner() {
+        logger.info("------> 执行 Inner<-------");
+        return transactionService.doExceptionTransInner();
+    }
+
     @GetMapping("doExeTransOther")
     public String doExeTransOther() {
         logger.info("------> 执行 javax.transaction.Transactional <-------");

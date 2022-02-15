@@ -31,7 +31,7 @@ public class CustomTargetSourceCreatorConfig implements BeanPostProcessor, Prior
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        logger.info("------> 进入 CustomTargetSourceCreatorConfig 初始化加载逻辑 , 返回默认创建者  <-------");
+//        logger.info("------> 进入 CustomTargetSourceCreatorConfig 初始化加载逻辑 , 返回默认创建者  <-------");
         if (bean instanceof AnnotationAwareAspectJAutoProxyCreator) {
             AnnotationAwareAspectJAutoProxyCreator annotationAwareAspectJAutoProxyCreator = (AnnotationAwareAspectJAutoProxyCreator) bean;
             DefaultCustomerTargetSourceCreator customTargetSourceCreator = new DefaultCustomerTargetSourceCreator();

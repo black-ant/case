@@ -30,4 +30,5 @@ public class UserController {
     public List<UserEntity> findByUsername() {
         return userService.findByUsername();
     }
+
 }

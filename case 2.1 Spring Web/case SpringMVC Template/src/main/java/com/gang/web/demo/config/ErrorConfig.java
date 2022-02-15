@@ -17,7 +17,7 @@ import java.io.IOException;
  * @Date 2021/1/7 17:47
  * @Created by zengzg
  */
-//@ControllerAdvice
+@ControllerAdvice
 public class ErrorConfig {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -27,6 +27,11 @@ public class ErrorConfig {
     public void dealWithNoHandlerFoundException(NoHandlerFoundException exception, HttpServletResponse response) {
         logger.info("------> this is 404 exception <-------");
 //        sendRedirectSSO(response, exception.getClass().getSimpleName());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public void deaCommonException(Exception exception, HttpServletResponse response) {
+        logger.info("------> 处理通用异常 <-------");
     }
 
 

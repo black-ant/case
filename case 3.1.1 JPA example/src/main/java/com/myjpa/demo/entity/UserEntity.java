@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_1")
 @Data
 public class UserEntity {
 
@@ -34,8 +34,8 @@ public class UserEntity {
 
     @Column(name = "orgid")
     private String orgid;
-
-    @OneToOne
-    @JoinColumn(name = "userid", insertable = false, updatable = false)
-    private OrgEntity orglist;
+//
+//    @OneToOne
+//    @JoinColumn(name = "userid", insertable = false, updatable = false)
+//    private OrgEntity orglist;
 }

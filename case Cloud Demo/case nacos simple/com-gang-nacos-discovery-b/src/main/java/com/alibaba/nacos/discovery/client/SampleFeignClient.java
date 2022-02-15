@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Date 2021/3/4 21:21
  * @Created by zengzg
  */
-@FeignClient("nacos-account-server")
+@FeignClient("nacos-user-server")
 @Component
 public interface SampleFeignClient {
 
-//    @GetMapping("/template/get")
-//    CloudTemplateEntity get(@RequestParam("desc") String desc);
+    @GetMapping("/config/get")
+    String get(@RequestParam("dataId") String dataId, @RequestParam("groupId") String groupId);
 
+
+    @GetMapping("/discovery/user")
+    String getUser();
 
 }

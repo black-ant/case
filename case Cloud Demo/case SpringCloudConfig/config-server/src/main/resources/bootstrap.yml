@@ -1,0 +1,32 @@
+# Native 方式
+#spring:
+#  cloud:
+#    config:
+#      server:
+#        native:
+#          search-locations: classpath:properties/
+#  profiles:
+#    active: native
+#server:
+#  port: 1008
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:1003/eureka/
+
+# Git 方式 -======================
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          search-paths: config-yml
+          uri: https://gitee.com/antblack/config.git
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1003/eureka/
+server:
+  port: 1008

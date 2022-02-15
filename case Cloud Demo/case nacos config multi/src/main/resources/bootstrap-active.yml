@@ -1,0 +1,13 @@
+  // 测试 nacos-ant-test.properties 正常 , 推荐 dataId 使用全路径
+  spring:
+    profiles:
+      active: test
+    application:
+      name: nacos-ant
+    cloud:
+      nacos:
+        config:
+          server-addr: 127.0.0.1:8848
+          file-extension: properties
+        discovery:
+          server-addr: 127.0.0.1:8848

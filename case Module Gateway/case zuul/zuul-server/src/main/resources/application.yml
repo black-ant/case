@@ -1,8 +1,8 @@
-# »ù±¾Ê¹ÓÃ :http://127.0.0.1:8088/test/demo/start/get -> http://127.0.0.1:8086/demo/start/get
-#zuul:
-#  routes:
-#    test:
-#      url: http://127.0.0.1:8086/
+# ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ :http://127.0.0.1:8088/test/demo/start/get -> http://127.0.0.1:8086/demo/start/get
+zuul:
+  routes:
+    test:
+      url: http://127.0.0.1:8086/
 
 server:
   port: 8088

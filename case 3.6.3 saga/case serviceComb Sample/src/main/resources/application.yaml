@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: clienta
+  cloud:
+    consul:
+      enabled: false
+    zookeeper:
+      enabled: false
+    nacos:
+      discovery:
+        enabled: false
+alpha:
+  cluster:
+    address: alpha-server.servicecomb.io:8080
+
+
+server:
+  port: 8082

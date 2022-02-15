@@ -9,11 +9,13 @@ spring:
         server-addr: 127.0.0.1:8848
 server:
   port: 8089
-
-# nacos-config-spring-boot-starter 专属配置
-nacos:
-  config:
-    maxRetry: 3
-    configRetryTime: 2000
-    configLongPollTimeout: 30000
-    enableRemoteSyncConfig: false
+logging:
+  level:
+    root: debug
+## nacos-config-spring-boot-starter 专属配置
+#nacos:
+#  config:
+#    maxRetry: 3
+#    configRetryTime: 2000
+#    configLongPollTimeout: 30000
+#    enableRemoteSyncConfig: false

@@ -33,7 +33,7 @@ public class SaveController {
         userEntity.setOrgid("1");
 
         saveService.saveStep1(userEntity);
-        saveService.saveStep2(userEntity);
+//        saveService.saveStep2(userEntity);
 
     }
 

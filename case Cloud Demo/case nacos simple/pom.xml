@@ -19,8 +19,8 @@
     <modules>
         <module>com-gang-nacos-config</module>
         <module>com-gang-nacos-discovery</module>
-<!--        <module>com-gang-nacos-discovery-b</module>-->
-<!--        <module>com-gang-nacos-discovery-c</module>-->
+        <module>com-gang-nacos-discovery-b</module>
+        <module>com-gang-nacos-discovery-c</module>
     </modules>
 
     <properties>
@@ -64,6 +64,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>2.2.3.RELEASE</version>
             </dependency>
 
             <!-- Utils Dependencies -->

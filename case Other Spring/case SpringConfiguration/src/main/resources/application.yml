@@ -1,3 +1,4 @@
+LINE_COMMAND: applicationYml
 gang:
   name: ant-black
   url:  https://blog.csdn.net/zzg19950824
@@ -22,6 +23,8 @@ gang:
       }
   class:
     ignoreExceptions: com.gang.demo.exception.BaseException
+  line:
+    command: ${LINE_COMMAND:NO}
 spring:
   profiles:
     active: test

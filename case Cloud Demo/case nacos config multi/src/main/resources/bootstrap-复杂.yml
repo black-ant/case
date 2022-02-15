@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: nacos-multi-config
+  cloud:
+    nacos:
+      config:
+        extension-configs:
+          - data-id: nacos-multi-config-A.yaml
+            group: DEFAULT_RSM
+          - data-id: nacos-multi-config-B.yaml
+            group: DEFAULT_RSM
+          - data-id: nacos-multi-config-C.yaml
+            group: DEFAULT_RSM
+            refresh: true
+          - data-id: nacos-multi-config-D.yaml
+          group: DEFAULT_SRM
+        file-extension: yaml
+        server-addr: 127.0.0.1:8848
+      discovery:
+        server-addr: 127.0.0.1:8848

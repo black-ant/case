@@ -102,3 +102,31 @@ sh run.sh -e canal.auto.scan=false \
 		  -e canal.instance.gtidon=false  \
 ```
 
+## 辅助功能
+
+```
+
+> 只查看第一个binlog文件的内容
+show binlog events;
+
+> 查看指定binlog文件的内容
+show binlog events in 'mysql-bin.000018';
+
+> 查看当前正在写入的binlog文件
+show master status\G;
+
+> 获取binlog文件列表
+show binary logs;
+```
+
+
+## Mysql
+```
+
+// 注意设置 ServerID
+server_id
+
+
+
+
+```

@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
  * @Created by zengzg
  */
 @Component
-//public class DateStartService  implements ApplicationRunner{
-public class DateStartService {
+public class DateStartService  implements ApplicationRunner{
+//public class DateStartService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 

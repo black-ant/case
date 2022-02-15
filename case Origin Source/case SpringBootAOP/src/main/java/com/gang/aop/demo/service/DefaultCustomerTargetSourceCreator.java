@@ -18,7 +18,7 @@ public class DefaultCustomerTargetSourceCreator extends AbstractBeanFactoryBased
 
     @Override
     protected AbstractBeanFactoryBasedTargetSource createBeanFactoryBasedTargetSource(Class<?> beanClass, String beanName) {
-        logger.info("------> CustomerTargetSourceCreator build : [进入流程创建过程 , 返回默认资源类 DefaultCustomTargetSource] <-------");
+//        logger.info("------> CustomerTargetSourceCreator build : [进入流程创建过程 , 返回默认资源类 DefaultCustomTargetSource] <-------");
         if (getBeanFactory() instanceof ConfigurableListableBeanFactory) {
             if (beanClass.isAssignableFrom(OtherService.class)) {
                 return new DefaultCustomTargetSource();

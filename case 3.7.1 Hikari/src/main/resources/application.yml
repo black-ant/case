@@ -3,12 +3,12 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://rm-bp13ob37pbw72yp1kso.mysql.rds.aliyuncs.com:3306/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://rm-123123123.mysql.rds.aliyuncs.com:3306/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.jdbc.Driver
     username: gang
     continue-on-error: true
     sql-script-encoding: UTF-8
-    password: zzg!@19950824
+    password: zzg!@123456
     data-username: gang
     hikari:
       maximum-pool-size: 15
