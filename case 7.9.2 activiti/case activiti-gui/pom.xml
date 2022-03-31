@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>1.5.10.RELEASE</version>
+			<version>2.5.12</version>
 			<exclusions><!-- 去掉springboot默认配置 -->  
 		        <exclusion>  
 		            <groupId>org.springframework.boot</groupId>  
