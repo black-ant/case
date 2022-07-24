@@ -21,11 +21,11 @@ public class JUCSemaphoreUtils implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Parking parking = new Parking(3);
-
-        for (int i = 0; i < 10; i++) {
-            new Car(parking).start();
-        }
+//        Parking parking = new Parking(3);
+//
+//        for (int i = 0; i < 10; i++) {
+//            new Car(parking).start();
+//        }
     }
 
     static class Parking {

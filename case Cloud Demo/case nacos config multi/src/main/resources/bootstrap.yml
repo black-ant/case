@@ -1,20 +1,10 @@
 spring:
   application:
-    name: nacos-multi-config
+    name: nacos-config
   cloud:
     nacos:
       config:
-        prefix: nacos-gang
-        extension-configs:
-          - data-id: nacos-multi-config-A.yaml
-            group: DEFAULT_RSM
-          - data-id: nacos-multi-config-B.yaml
-            group: DEFAULT_RSM
-          - data-id: nacos-multi-config-C.yaml
-            group: DEFAULT_RSM
-        file-extension: properties
         server-addr: 127.0.0.1:8848
+        namespace: public
       discovery:
         server-addr: 127.0.0.1:8848
-  profiles:
-    active: test

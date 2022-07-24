@@ -1,4 +1,8 @@
-package com.gang.study.pagehelper.demo.mapper;
+package com.gang.study.druid.demo.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.gang.study.druid.demo.entity.SyncType;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @Classname StartMapper
@@ -6,5 +10,6 @@ package com.gang.study.pagehelper.demo.mapper;
  * @Date 2020/1/21 20:54
  * @Created by zengzg
  */
-public class StartMapper {
+@Mapper
+public interface StartMapper extends BaseMapper<SyncType> {
 }

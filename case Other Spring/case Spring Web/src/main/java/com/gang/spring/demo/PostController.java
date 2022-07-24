@@ -3,6 +3,7 @@ package com.gang.spring.demo;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,12 @@ public class PostController {
     @PostMapping("post")
     public String post(@RequestBody User user) {
         logger.info("------> this is post :{} <-------", JSONObject.toJSONString(user));
+        return "success";
+    }
+
+    @GetMapping("get")
+    public String get() {
+        logger.info("------> this is get <-------");
         return "success";
     }
 }

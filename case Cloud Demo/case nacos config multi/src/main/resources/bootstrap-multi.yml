@@ -12,8 +12,8 @@ spring:
           - data-id: nacos-multi-config-C.yaml
             group: DEFAULT_RSM
             refresh: true
-           - data-id: nacos-multi-config-D.yaml
-            group: DEFAULT_SRM
+          - data-id: nacos-multi-config-D.yaml
+          group: DEFAULT_SRM
         file-extension: yaml
         server-addr: 127.0.0.1:8848
       discovery:

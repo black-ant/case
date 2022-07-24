@@ -1,5 +1,7 @@
 package com.gang.study.thread.consumerproduce.demo.logic4;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -13,9 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class Start4Logic implements ApplicationRunner {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-
+        logger.info("------> 开始进行消费 <-------");
         final ProducerAndConsumer td = new ProducerAndConsumer();
         Runnable producerRunnable = new Runnable() {
             public void run() {

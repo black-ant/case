@@ -1,4 +1,4 @@
-package com.gang.study.pagehelper.demo.entity;
+package com.gang.study.druid.demo.entity;
 
 import java.io.Serializable;
 
@@ -9,42 +9,21 @@ import java.io.Serializable;
  */
 public class SyncType implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
     private String id;
 
     private String typeCode;
 
-    /**
-     * 加载类
-     */
     private String typeClass;
 
-    /**
-     * 策略类型
-     */
     private String typePolicy;
 
-    /**
-     * 类型名
-     */
     private String typeName;
 
-    /**
-     * 供应商类型
-     */
     private String supplierId;
 
-    /**
-     * 供应商名称
-     */
     private String supplierName;
-
-    /**
-     * 处理类型
-     */
-    private String dataType;
-
-    private static final long serialVersionUID = 1L;
 
     public String getId() {
         return id;
@@ -102,14 +81,6 @@ public class SyncType implements Serializable {
         this.supplierName = supplierName;
     }
 
-    public String getDataType() {
-        return dataType;
-    }
-
-    public void setDataType(String dataType) {
-        this.dataType = dataType;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -134,9 +105,7 @@ public class SyncType implements Serializable {
                 && (this.getSupplierId() == null ? other.getSupplierId() == null :
                 this.getSupplierId().equals(other.getSupplierId()))
                 && (this.getSupplierName() == null ? other.getSupplierName() == null :
-                this.getSupplierName().equals(other.getSupplierName()))
-                && (this.getDataType() == null ? other.getDataType() == null :
-                this.getDataType().equals(other.getDataType()));
+                this.getSupplierName().equals(other.getSupplierName()));
     }
 
     @Override
@@ -150,7 +119,6 @@ public class SyncType implements Serializable {
         result = prime * result + ((getTypeName() == null) ? 0 : getTypeName().hashCode());
         result = prime * result + ((getSupplierId() == null) ? 0 : getSupplierId().hashCode());
         result = prime * result + ((getSupplierName() == null) ? 0 : getSupplierName().hashCode());
-        result = prime * result + ((getDataType() == null) ? 0 : getDataType().hashCode());
         return result;
     }
 
@@ -167,7 +135,6 @@ public class SyncType implements Serializable {
         sb.append(", typeName=").append(typeName);
         sb.append(", supplierId=").append(supplierId);
         sb.append(", supplierName=").append(supplierName);
-        sb.append(", dataType=").append(dataType);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
