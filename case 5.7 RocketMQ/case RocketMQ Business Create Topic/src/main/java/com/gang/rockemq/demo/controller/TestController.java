@@ -35,6 +35,7 @@ public class TestController {
         logger.info("------> 测试 Template 发送消息 <-------");
         OrderTO orderTO = new OrderTO();
         orderTO.setOrderId("123456");
+        orderTO.setProductNum(123);
         rocketMQTemplate.convertAndSend("ant-topic", orderTO);
         return "success";
     }

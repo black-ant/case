@@ -1,10 +1,14 @@
 package com.gang.nacos.demo.controller;
 
+import com.gang.nacos.demo.service.StartService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @Classname ConfigController
@@ -30,6 +34,12 @@ public class ConfigController {
 
     @Value("${gang.test.add:湖南}")
     private String address;
+
+    @Resource
+    private StartController startController;
+
+    @Autowired
+    private StartService service;
 
     @RequestMapping("/get")
     public boolean get() {

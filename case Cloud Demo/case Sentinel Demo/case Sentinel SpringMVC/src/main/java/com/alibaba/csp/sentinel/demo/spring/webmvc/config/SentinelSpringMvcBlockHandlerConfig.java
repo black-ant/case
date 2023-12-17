@@ -40,7 +40,7 @@ public class SentinelSpringMvcBlockHandlerConfig {
     @ExceptionHandler(BlockException.class)
     @ResponseBody
     public ResultWrapper sentinelBlockHandler(BlockException e) {
-        logger.warn("Blocked by Sentinel: {}", e.getRule());
+        logger.warn("ERROR.业务被阻塞!: {}", e.getRule());
         // Return the customized result.
         return ResultWrapper.blocked();
     }
