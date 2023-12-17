@@ -1,5 +1,8 @@
 package com.gang.mongodb.demo.entity;
 
+import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
@@ -8,15 +11,14 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @Date 2021/9/21
  * @Created by zengzg
  */
-public class Person implements Comparable {
+@Data
+@Document(collection = "person")
+public class Person  {
 
-    ArrayBlockingQueue
+    private Long id;
 
-    String name;
-    int age;
+    private String username;
 
-    @Override
-    public int compareTo(Object o) {
-        return 0;
-    }
+    private Integer age;
+
 }

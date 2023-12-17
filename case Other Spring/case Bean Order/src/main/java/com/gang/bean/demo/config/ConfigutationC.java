@@ -14,7 +14,7 @@ import org.springframework.core.annotation.Order;
  * @Date 2021/10/21
  * @Created by zengzg
  */
-@Configuration
+//@Configuration
 //@Order(0)
 public class ConfigutationC {
 
@@ -26,7 +26,7 @@ public class ConfigutationC {
 
     @Bean(name = "configBeanC")
     public ConfigBeanC getConfigBeanC() {
-        System.out.println("ConfigBeanC 加载了");
+//        System.out.println("ConfigBeanC 加载了");
         return new ConfigBeanC();
     }
 }

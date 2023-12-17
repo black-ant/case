@@ -19,6 +19,7 @@
     <modules>
         <module>netty-client</module>
         <module>netty-server</module>
+        <module>netty-simple-demo</module>
     </modules>
 
     <properties>

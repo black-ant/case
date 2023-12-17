@@ -9,6 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.CollectionUtils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Spring 的单元测试方式是最容易的
@@ -30,7 +35,14 @@ public class DemoApplicationTests {
         //        logger.info("------> this is in loads <-------");
         //        logic.test();
 
-        userService.getUser();
+//        userService.getUser();
+        List<Long> activityIds = new ArrayList<>();
+        activityIds.add(null);
+        if (CollectionUtils.isEmpty(activityIds)) {
+            logger.info("------>  <-------");
+        }else{
+            logger.info("------>  <-------");
+        }
     }
 
 

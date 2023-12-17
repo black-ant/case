@@ -1,5 +1,6 @@
 package com.myjpa.demo.controller;
 
+import cn.hutool.core.util.RandomUtil;
 import com.myjpa.demo.entity.UserEntity;
 import com.myjpa.demo.service.SaveService;
 import org.slf4j.Logger;
@@ -8,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Classname SaveController
@@ -23,6 +29,8 @@ public class SaveController {
 
     @Autowired
     private SaveService saveService;
+
+    private static AtomicInteger intNum = new AtomicInteger(0);
 
     @GetMapping("/one")
     public void testSave() {
@@ -41,7 +49,18 @@ public class SaveController {
     @GetMapping("/performance")
     public void performance() {
         logger.info("------> this is in saveOne <-------");
-        saveService.updateTest();
+        saveService.updateTest(1);
     }
 
+    @GetMapping("/batch")
+    public void batch() {
+        logger.info("------> this is in saveOne :{}<-------", System.currentTimeMillis());
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
+        for (int j = 0; j < 30; j++) {
+            fixedThreadPool.submit(() -> {
+                int currentNum = intNum.addAndGet(1);
+                saveService.updateTest(currentNum * 10000);
+            });
+        }
+    }
 }

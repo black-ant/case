@@ -1,6 +1,6 @@
 package com.gang.rockemq.demo.service;
 
-import com.gang.rockemq.demo.to.Message;
+import com.gang.rockemq.demo.to.SelfMessage;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.slf4j.Logger;
@@ -20,9 +20,9 @@ public class ConsumerService {
 
     @Service
     @RocketMQMessageListener(topic = "topic-queue-one", consumerGroup = "consumer_topic-queue-one")
-    public class ConsumerOne implements RocketMQListener<Message> {
+    public class ConsumerOne implements RocketMQListener<SelfMessage> {
         @Override
-        public void onMessage(Message message) {
+        public void onMessage(SelfMessage message) {
             logger.info("consumer-one received message: {}", message);
         }
     }

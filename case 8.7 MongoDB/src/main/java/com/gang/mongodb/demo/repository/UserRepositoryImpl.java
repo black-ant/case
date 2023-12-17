@@ -55,7 +55,7 @@ public class UserRepositoryImpl {
      */
     public long updateUser(User user) {
         Query query = new Query(Criteria.where("id").is(user.getId()));
-        Update update = new Update().set("userName", user.getUserName()).set("passWord", user.getPassword());
+        Update update = new Update().set("userName", user.getUsername()).set("passWord", user.getPassword());
         //更新查询返回结果集的第一条
         UpdateResult result = mongoTemplate.updateFirst(query, update, User.class);
         //更新查询返回结果集的所有

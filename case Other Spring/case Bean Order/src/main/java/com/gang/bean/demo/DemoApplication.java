@@ -3,7 +3,7 @@ package com.gang.bean.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.gang.bean"})
 public class DemoApplication {
 
     public static void main(String[] args) {
@@ -40,7 +40,7 @@ public class DemoApplication {
      * @ComponentScan(excludeFilters = {
      *                        @Filter(type = FilterType.REGEX, pattern = {
      * 				"com.ruoyi.framework.config.ShiroConfig"})
-     * 	})
+     *    })
      *
      * - TypeExcludeFilter 自定义排除 + ApplicationContextInitializer + factories
      *
