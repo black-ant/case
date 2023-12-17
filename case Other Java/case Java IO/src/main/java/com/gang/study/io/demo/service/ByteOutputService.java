@@ -22,7 +22,7 @@ public class ByteOutputService implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        byteRead();
+//        byteRead();
 //        byteRead2();
     }
 

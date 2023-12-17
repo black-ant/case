@@ -1,47 +1,48 @@
 package com.gang.mongodb.demo.entity;
 
+import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
+
 /**
  * @Classname User
  * @Description TODO
  * @Date 2021/9/21
  * @Created by zengzg
  */
+@Data
+@Document(collection = "user")
 public class User {
 
     private Long id;
-    private String userName;
+
+    private String username;
+
+    private Integer age;
+
+    private String address;
+
+    private String mobile;
+
+    private String email;
+
     private String password;
 
-    public User() {
-    }
+    private Integer status;
 
-    public User(Long id, String userName, String password) {
-        this.id = id;
-        this.userName = userName;
-        this.password = password;
-    }
+    private Long idCard;
 
-    public Long getId() {
-        return id;
-    }
+    private Integer sex;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String role;
 
-    public String getUserName() {
-        return userName;
-    }
+    private String type;
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    private String innerAddress;
 
-    public String getPassword() {
-        return password;
-    }
+    private String nickName;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    private Date createTime;
+
 }

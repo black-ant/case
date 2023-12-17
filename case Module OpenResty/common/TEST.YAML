@@ -1,0 +1,11 @@
+
+server {
+listen 8086;
+location / {
+default_type text/html;
+content_by_lua_block {
+ngx.say("<p>hello, world</p>")
+}
+}
+
+

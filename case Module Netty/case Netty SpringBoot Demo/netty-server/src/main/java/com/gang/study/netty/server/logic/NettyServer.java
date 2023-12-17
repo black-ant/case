@@ -27,6 +27,7 @@ public class NettyServer {
         ServerBootstrap bootstrap = new ServerBootstrap()
                 .group(bossGroup, workGroup)
                 .channel(NioServerSocketChannel.class)
+//                .childHandler(new NettyServerHandler())
                 .childHandler(new ServerChannelInitializer())
                 .localAddress(socketAddress)
                 //设置队列大小

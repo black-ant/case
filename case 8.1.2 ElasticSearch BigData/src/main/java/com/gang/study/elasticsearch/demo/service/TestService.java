@@ -1,8 +1,7 @@
 package com.gang.study.elasticsearch.demo.service;
 
-import java.util.Date;
-
-import cn.hutool.core.util.HashUtil;
+import cn.hutool.core.collection.CollectionUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.gang.study.elasticsearch.demo.entity.AOrder;
 import com.gang.study.elasticsearch.demo.entity.BOrder;
 import com.gang.study.elasticsearch.demo.entity.COrder;
@@ -10,16 +9,28 @@ import com.gang.study.elasticsearch.demo.repository.AOrderRepository;
 import com.gang.study.elasticsearch.demo.repository.BOrderRepository;
 import com.gang.study.elasticsearch.demo.repository.COrderRepository;
 import com.gang.study.elasticsearch.demo.utils.MD5;
+import org.apache.http.HttpHost;
+import org.elasticsearch.action.bulk.BackoffPolicy;
+import org.elasticsearch.action.bulk.BulkProcessor;
+import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @Classname TestService
@@ -48,22 +59,100 @@ public class TestService {
 
     public void add() {
         logger.info("测试创建");
-        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(12);
-        for (int i = 0; i < 30000; i++) {
-            int item = i;
-            executor.submit(() -> {
-                AOrder order = createOrderA(item);
-                aorderRepository.save(order);
+//        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(12);
+//        for (int i = 0; i < 30000; i++) {
+//            int item = i;
+//            executor.submit(() -> {
+//                AOrder order = createOrderA(item);
+//                aorderRepository.save(order);
+//
+//                BOrder order2 = createOrderB(item);
+//                bOrderRepository.save(order2);
+//
+//                COrder order3 = createOrderC(item);
+//                cOrderRepository.save(order3);
+//
+//                logger.info("------> 创建完成 :{}<-------", item);
+//            });
+//        }
 
-                BOrder order2 = createOrderB(item);
-                bOrderRepository.save(order2);
+        logger.info("------> 开始 <-------");
+        long start = System.currentTimeMillis();
+        addProcessor();
+        long end = System.currentTimeMillis();
+        logger.info("------> 结束 ：{} <-------", end - start);
 
-                COrder order3 = createOrderC(item);
-                cOrderRepository.save(order3);
+    }
 
-                logger.info("------> 创建完成 :{}<-------", item);
-            });
+    public void addProcessor() {
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("81.69.59.111", 9200, "http")));
+
+        BulkProcessor bulkProcessor = BulkProcessor.builder(
+                        (request, bulkListener) ->
+                                client.bulkAsync(request, RequestOptions.DEFAULT, bulkListener),
+                        new BulkProcessor.Listener() {
+                            @Override
+                            public void beforeBulk(long executionId, BulkRequest request) {
+                                // 在执行批量操作之前调用
+                            }
+
+                            @Override
+                            public void afterBulk(long executionId, BulkRequest request, BulkResponse response) {
+                                // 在执行批量操作之后调用，可以处理响应结果
+                            }
+
+                            @Override
+                            public void afterBulk(long executionId, BulkRequest request, Throwable failure) {
+                                // 在执行批量操作出现错误时调用
+                            }
+                        })
+                .setBulkActions(1000) // 设置触发批量操作的文档数量
+                .setConcurrentRequests(1) // 设置并发请求数量
+                .setFlushInterval(TimeValue.timeValueSeconds(5)) // 设置自动刷新间隔
+                .setBackoffPolicy(BackoffPolicy.constantBackoff(TimeValue.timeValueSeconds(1), 3)) // 设置重试策略
+                .build();
+
+        for (int i = 0; i < 3000; i++) {
+            AOrder order = createOrderA(i);
+            String json = JSONObject.toJSONString(order);
+            IndexRequest request = new IndexRequest("order").source(json, XContentType.JSON);
+            bulkProcessor.add(request);
+            logger.info("------> 保存 ：{} <-------", order);
         }
+
+        bulkProcessor.close();
+        try {
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public void addSingle() {
+        logger.info("测试创建");
+        for (int i = 0; i < 30; i++) {
+            AOrder order = createOrderA(i);
+            aorderRepository.save(order);
+            logger.info("------> 保存 ：{} <-------", order);
+        }
+    }
+
+    public void addBatch() {
+        logger.info("测试创建");
+        List<AOrder> orderList = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            AOrder order = createOrderA(i);
+            orderList.add(order);
+        }
+        List<List<AOrder>> splitList = CollectionUtil.split(orderList, 10);
+        splitList.forEach(itemList -> {
+            aorderRepository.saveAll(itemList);
+            logger.info("------> 保存 ：{} <-------", itemList.size());
+        });
+
     }
 
     public AOrder createOrderA(int i) {
