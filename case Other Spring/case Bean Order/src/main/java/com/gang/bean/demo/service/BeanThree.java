@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ import javax.annotation.Resource;
  * @Created by zengzg
  */
 @Service
-@Order(30)
-public class BeanThree implements ApplicationRunner, Ordered {
+@Order(70)
+public class BeanThree implements ApplicationRunner,IBaseBean{
 
 //    @Autowired
 //    private CBean cBean;
@@ -30,17 +31,9 @@ public class BeanThree implements ApplicationRunner, Ordered {
         logger.info("------> 创建 BeanThree <-------");
     }
 
-    public void run() {
-        logger.info("------> this is in bean TWO <-------");
-    }
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//        logger.info("------> BeanThree Run <-------");
+        logger.info("------> BeanThree Run <-------");
     }
 
-    @Override
-    public int getOrder() {
-        return 20;
-    }
 }

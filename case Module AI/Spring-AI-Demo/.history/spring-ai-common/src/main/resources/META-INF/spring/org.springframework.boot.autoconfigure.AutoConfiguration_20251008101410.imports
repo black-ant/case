@@ -1,0 +1,3 @@
+com.example.common.audit.AuditAutoConfiguration
+com.example.common.config.CorsConfig
+com.example.common.config.WebFluxCorsConfig

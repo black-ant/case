@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Workflow Demo - 智能体工作流演示</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #333; margin-bottom: 30px; text-align: center; }
+        .workflow-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab { padding: 10px 20px; background: white; border: 2px solid #ddd; border-radius: 8px 8px 0 0; cursor: pointer; }
+        .tab.active { background: #3498db; color: white; border-color: #3498db; }
+        .demo-section { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .demo-section h2 { color: #2c3e50; margin-bottom: 15px; font-size: 18px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #555; font-weight: 500; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+        textarea { min-height: 100px; resize: vertical; font-family: inherit; }
+        button { background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        button:hover { background: #2980b9; }
+        .response { margin-top: 15px; padding: 15px; background: #f8f9fa; border-left: 4px solid #3498db; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
+        .error { border-left-color: #e74c3c; background: #fee; }
+        .loading { color: #3498db; font-style: italic; }
+        .workflow-diagram { background: #ecf0f1; padding: 15px; border-radius: 4px; margin: 10px 0; font-family: monospace; font-size: 13px; }
+        .example-queries { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .example-btn { background: #ecf0f1; color: #2c3e50; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; border: 1px solid #bdc3c7; }
+        .example-btn:hover { background: #d5dbdb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Agent Workflow Demo - 智能体工作流演示</h1>
+
+        <div class="workflow-tabs">
+            <div class="tab active" onclick="showTab('chain')">链式工作流</div>
+            <div class="tab" onclick="showTab('parallel')">并行工作流</div>
+            <div class="tab" onclick="showTab('routing')">路由工作流</div>
+        </div>
+
+        <!-- 链式工作流 -->
+        <div id="chainTab" class="workflow-content">
+            <div class="demo-section">
+                <h2>1. 文档分析链</h2>
+                <div class="workflow-diagram">文档 → 提取关键信息 → 情感分析 → 生成摘要</div>
+                <div class="input-group">
+                    <label>输入文档内容：</label>
+                    <textarea id="chainDoc" placeholder="例如：人工智能正在改变世界...">人工智能正在改变世界，它在医疗、教育、交通等领域都有广泛应用。</textarea>
+                </div>
+                <button onclick="analyzeDocument()">分析文档</button>
+                <div id="chainDocResponse"></div>
+            </div>
+
+            <div class="demo-section">
+                <h2>2. 内容创作链</h2>
+                <div class="workflow-diagram">主题 → 头脑风暴 → 创建大纲 → 撰写内容 → 润色</div>
+                <div class="input-group">
+                    <label>输入主题：</label>
+                    <input type="text" id="chainContent" placeholder="例如：人工智能的未来">
+                    <div class="example-queries">
+                        <span class="example-btn" onclick="setQuery('chainContent', '人工智能的未来')">AI 未来</span>
+                        <span class="example-btn" onclick="setQuery('chainContent', '可持续发展')">可持续发展</span>
+                    </div>
+                </div>
+                <button onclick="createContent()">创作内容</button>
+                <div id="chainContentResponse"></div>
+            </div>
+
+            <div class="demo-section">
+                <h2>3. 代码审查链</h2>
+                <div class="workflow-diagram">代码 → 语法检查 → 性能分析 → 安全审查 → 综合建议</div>
+                <div class="input-group">
+                    <label>输入代码：</label>
+                    <textarea id="chainCode" placeholder="粘贴你的代码...">public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}</textarea>
+                </div>
+                <button onclick="reviewCode()">审查代码</button>
+                <div id="chainCodeResponse"></div>
+            </div>
+        </div>
+
+        <!-- 并行工作流 -->
+        <div id="parallelTab" class="workflow-content" style="display:none;">
+            <div class="demo-section">
+                <h2>1. 市场分析（并行）</h2>
+                <div class="workflow-diagram">市场数据 → ┌─ 技术分析 ─┐
+           ├─ 基本面分析 ─┤ → 综合分析 → 投资建议
+           ├─ 情绪分析 ─┤
+           └─ 风险评估 ─┘</div>
+                <div class="input-group">
+                    <label>输入市场数据：</label>
+                    <textarea id="parallelMarket" placeholder="例如：股票代码 AAPL，当前价格 $150...">股票代码 AAPL，当前价格 $150，近期上涨 5%，市值 2.5 万亿美元。</textarea>
+                </div>
+                <button onclick="analyzeMarket()">分析市场</button>
+                <div id="parallelMarketResponse"></div>
+            </div>
+
+            <div class="demo-section">
+                <h2>2. 产品评估（并行）</h2>
+                <div class="workflow-diagram">产品 → ┌─ 用户体验 ─┐
+       ├─ 技术实现 ─┤
+       ├─ 市场竞争力 ─┤ → 综合评估
+       ├─ 商业价值 ─┤
+       └─ 创新性 ─┘</div>
+                <div class="input-group">
+                    <label>输入产品描述：</label>
+                    <textarea id="parallelProduct" placeholder="例如：这是一款智能手表...">这是一款智能手表，具有健康监测、运动追踪、移动支付等功能。</textarea>
+                </div>
+                <button onclick="evaluateProduct()">评估产品</button>
+                <div id="parallelProductResponse"></div>
+            </div>
+
+            <div class="demo-section">
+                <h2>3. 多角度分析（并行）</h2>
+                <div class="input-group">
+                    <label>输入主题：</label>
+                    <input type="text" id="parallelTopic" placeholder="例如：电动汽车市场">
+                    <div class="example-queries">
+                        <span class="example-btn" onclick="setQuery('parallelTopic', '电动汽车市场')">电动汽车</span>
+                        <span class="example-btn" onclick="setQuery('parallelTopic', '远程办公趋势')">远程办公</span>
+                    </div>
+                </div>
+                <button onclick="analyzeParallel()">多角度分析</button>
+                <div id="parallelTopicResponse"></div>
+            </div>
+        </div>
+
+        <!-- 路由工作流 -->
+        <div id="routingTab" class="workflow-content" style="display:none;">
+            <div class="demo-section">
+                <h2>1. 智能路由查询</h2>
+                <div class="workflow-diagram">查询 → 分类 → 路由到专业处理器 → 专业回答</div>
+                <div class="input-group">
+                    <label>输入问题：</label>
+                    <textarea id="routingQuery" placeholder="例如：如何优化 Java 代码性能？"></textarea>
+                    <div class="example-queries">
+                        <span class="example-btn" onclick="setQuery('routingQuery', '如何优化 Java 代码性能？')">技术问题</span>
+                        <span class="example-btn" onclick="setQuery('routingQuery', '如何提高销售额？')">商业问题</span>
+                        <span class="example-btn" onclick="setQuery('routingQuery', '写一首关于春天的诗')">创意问题</span>
+                    </div>
+                </div>
+                <button onclick="routingQuery()">智能路由</button>
+                <div id="routingQueryResponse"></div>
+            </div>
+
+            <div class="demo-section">
+                <h2>2. 复杂度路由</h2>
+                <div class="workflow-diagram">查询 → 评估复杂度 → 选择处理策略 → 执行</div>
+                <div class="input-group">
+                    <label>输入问题：</label>
+                    <textarea id="routingComplexity" placeholder="例如：解释量子计算的原理"></textarea>
+                    <div class="example-queries">
+                        <span class="example-btn" onclick="setQuery('routingComplexity', '1+1等于几？')">简单问题</span>
+                        <span class="example-btn" onclick="setQuery('routingComplexity', '解释机器学习的基本原理')">中等问题</span>
+                        <span class="example-btn" onclick="setQuery('routingComplexity', '解释量子计算的原理及其在密码学中的应用')">复杂问题</span>
+                    </div>
+                </div>
+                <button onclick="routingComplexity()">复杂度路由</button>
+                <div id="routingComplexityResponse"></div>
+            </div>
+
+            <div class="demo-section">
+                <h2>3. 情感路由</h2>
+                <div class="workflow-diagram">消息 → 识别情感 → 选择回应风格 → 生成回应</div>
+                <div class="input-group">
+                    <label>输入消息：</label>
+                    <textarea id="routingEmotion" placeholder="例如：我今天很开心！"></textarea>
+                    <div class="example-queries">
+                        <span class="example-btn" onclick="setQuery('routingEmotion', '我今天很开心，学会了 Spring AI！')">开心</span>
+                        <span class="example-btn" onclick="setQuery('routingEmotion', '我的代码总是出错，很沮丧')">沮丧</span>
+                        <span class="example-btn" onclick="setQuery('routingEmotion', '我不明白这个概念')">困惑</span>
+                    </div>
+                </div>
+                <button onclick="routingEmotion()">情感路由</button>
+                <div id="routingEmotionResponse"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8080/api/workflow';
+
+        function showTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.workflow-content').forEach(c => c.style.display = 'none');
+            event.target.classList.add('active');
+            document.getElementById(tab + 'Tab').style.display = 'block';
+        }
+
+        function setQuery(elementId, query) {
+            document.getElementById(elementId).value = query;
+        }
+
+        async function callAPI(endpoint, data, responseId) {
+            const responseDiv = document.getElementById(responseId);
+            responseDiv.innerHTML = '<div class="response loading">正在处理...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const text = await response.text();
+                responseDiv.innerHTML = `<div class="response">${text}</div>`;
+            } catch (error) {
+                responseDiv.innerHTML = `<div class="response error">错误: ${error.message}</div>`;
+            }
+        }
+
+        // 链式工作流
+        function analyzeDocument() {
+            const content = document.getElementById('chainDoc').value;
+            if (!content) return alert('请输入文档内容');
+            callAPI('/chain/analyze-document', { content }, 'chainDocResponse');
+        }
+
+        function createContent() {
+            const query = document.getElementById('chainContent').value;
+            if (!query) return alert('请输入主题');
+            callAPI('/chain/create-content', { query }, 'chainContentResponse');
+        }
+
+        function reviewCode() {
+            const content = document.getElementById('chainCode').value;
+            if (!content) return alert('请输入代码');
+            callAPI('/chain/review-code', { content }, 'chainCodeResponse');
+        }
+
+        // 并行工作流
+        function analyzeMarket() {
+            const marketData = document.getElementById('parallelMarket').value;
+            if (!marketData) return alert('请输入市场数据');
+            callAPI('/parallel/analyze-market', { marketData }, 'parallelMarketResponse');
+        }
+
+        function evaluateProduct() {
+            const content = document.getElementById('parallelProduct').value;
+            if (!content) return alert('请输入产品描述');
+            callAPI('/parallel/evaluate-product', { content }, 'parallelProductResponse');
+        }
+
+        function analyzeParallel() {
+            const input = document.getElementById('parallelTopic').value;
+            if (!input) return alert('请输入主题');
+            const data = {
+                input,
+                perspectives: ["技术发展", "市场趋势", "环境影响", "政策支持"]
+            };
+            callAPI('/parallel/analyze', data, 'parallelTopicResponse');
+        }
+
+        // 路由工作流
+        function routingQuery() {
+            const query = document.getElementById('routingQuery').value;
+            if (!query) return alert('请输入问题');
+            callAPI('/routing/query', { query }, 'routingQueryResponse');
+        }
+
+        function routingComplexity() {
+            const query = document.getElementById('routingComplexity').value;
+            if (!query) return alert('请输入问题');
+            callAPI('/routing/by-complexity', { query }, 'routingComplexityResponse');
+        }
+
+        function routingEmotion() {
+            const query = document.getElementById('routingEmotion').value;
+            if (!query) return alert('请输入消息');
+            callAPI('/routing/by-emotion', { query }, 'routingEmotionResponse');
+        }
+    </script>
+</body>
+</html>

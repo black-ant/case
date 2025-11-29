@@ -1,0 +1,1 @@
+org.springframework.context.ApplicationContextInitializer=com.gang.bean.demo.config.SelfApplicationContextInitializer

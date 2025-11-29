@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: sample-spring-ai
+  
+  # 引入通用配置
+  config:
+    import: optional:file:../application-common.yml
+  
+  ai:
+    openai:
+      # API Key 和 Base URL 从通用配置或环境变量读取
+      api-key: ${OPENAI_API_KEY:sk-vgerpwjpbonxajygdzkqjkitstqjshsikflawxzqhcgzecum}
+      base-url: ${OPENAI_BASE_URL:https://api.siliconflow.cn}
+      chat:
+        options:
+          model: ${OPENAI_MODEL:deepseek-ai/DeepSeek-V3}
+          temperature: ${OPENAI_TEMPERATURE:0.7}
+
+server:
+  port: ${SERVER_PORT:8083}
+
+logging:
+  level:
+    org.springframework.ai: ${LOG_LEVEL_AI:DEBUG}
+    com.example: ${LOG_LEVEL_APP:DEBUG}

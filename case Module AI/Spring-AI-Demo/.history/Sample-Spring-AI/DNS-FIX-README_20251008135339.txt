@@ -1,0 +1,86 @@
+========================================
+DNS 解析超时问题 - 修复说明
+========================================
+
+## 问题根源
+错误: io.netty.resolver.dns.DnsNameResolverTimeoutException
+原因: 本地 DNS 服务器 (192.168.0.1) 无法解析 api.siliconflow.cn
+
+## 已实施的修复
+
+✅ 1. 使用 JVM DNS 解析器
+   - 修改了 WebClientConfig.java
+   - 配置使用 DefaultAddressResolverGroup.INSTANCE
+   - 绕过 Netty 的异步 DNS，使用系统 DNS
+
+✅ 2. 增加超时时间
+   - 连接超时: 30 秒
+   - 读取超时: 60 秒
+
+✅ 3. 支持代理配置
+   - 可在 application.yml 中启用 HTTP 代理
+
+## 快速解决方案（按优先级）
+
+### 方案 1: 直接启动（最简单）
+已经配置好 JVM DNS 解析器，直接启动即可：
+
+  mvn spring-boot:run
+
+或使用启动脚本：
+
+  start-with-custom-dns.bat
+
+### 方案 2: 如果方案 1 失败，启用代理
+如果你有代理服务器（如 Clash、V2Ray 等），修改 application.yml:
+
+  http:
+    proxy:
+      enabled: true      # 改为 true
+      host: 127.0.0.1   # 你的代理地址
+      port: 7890        # 你的代理端口
+
+### 方案 3: 修改系统 DNS（推荐）
+运行以下脚本（需要管理员权限）：
+
+  change-dns-windows.bat
+
+选择阿里云 DNS (223.5.5.5) 或腾讯 DNS (119.29.29.29)
+
+### 方案 4: 诊断网络问题
+运行诊断脚本：
+
+  test-network.bat
+
+查看具体是哪个环节出问题
+
+## 技术细节
+
+Netty 默认使用异步 DNS 解析器，在某些网络环境下会超时：
+- 路由器 DNS 不稳定
+- DNS 污染
+- 网络限制
+
+通过使用 JVM 的阻塞式 DNS 解析器，可以：
+- 使用系统配置的 DNS 服务器
+- 更好的兼容性
+- 更稳定的解析结果
+
+## 如果所有方案都失败
+
+考虑更换 API 提供商，修改 application.yml:
+
+  spring:
+    ai:
+      openai:
+        base-url: https://你的API地址
+        api-key: 你的API密钥
+
+国内可用的替代方案：
+- 智谱 AI: https://open.bigmodel.cn
+- 百度文心: https://aip.baidubce.com
+- 阿里通义: https://dashscope.aliyuncs.com
+
+========================================
+更多详细信息请查看: NETWORK-TROUBLESHOOTING.txt
+========================================

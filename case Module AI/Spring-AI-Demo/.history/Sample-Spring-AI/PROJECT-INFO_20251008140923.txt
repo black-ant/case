@@ -1,0 +1,123 @@
+Sample-Spring-AI 项目说明
+==========================
+
+这是一个简单的 Spring AI 入门项目，展示基础功能。
+
+项目特点
+--------
+✅ 简单纯净 - 没有复杂的依赖
+✅ WebFlux - 支持响应式和流式响应
+✅ CORS 配置 - 支持跨域请求
+✅ 统一规范 - JSON 请求/响应，DTO 模式
+
+技术栈
+------
+- Spring Boot 3.2.5
+- Spring AI 1.0.0-M4
+- Spring WebFlux (响应式)
+- OpenAI API
+
+项目结构
+--------
+src/main/java/com/example/springai/
+├── controller/
+│   ├── ChatController.java          # 基础对话 API (带审计日志)
+│   └── AdvancedChatController.java  # 高级配置 API (带审计日志)
+├── service/
+│   ├── ChatService.java             # 对话服务 (20 个配置方法)
+│   └── AdvancedChatService.java     # 高级服务 (13 个示例方法)
+├── model/
+│   ├── ChatRequest.java             # 请求 DTO
+│   └── AdvancedChatRequest.java     # 高级请求 DTO
+├── config/
+│   ├── WebConfig.java               # CORS 配置
+│   └── WebClientConfig.java         # DNS 和代理配置
+└── SampleSpringAiApplication.java   # 启动类
+
+API 接口
+--------
+1. POST /api/chat/simple
+   - 简单对话（同步）
+   - 请求：{"message": "你好"}
+   - 响应：字符串
+
+2. POST /api/chat/stream
+   - 流式对话（SSE）
+   - 请求：{"message": "你好"}
+   - 响应：流式文本
+
+3. POST /api/advanced/*
+   - 高级配置接口
+   - 支持自定义系统提示词、模板、参数等
+
+配置说明
+--------
+application.yml:
+- server.port: 8083
+- spring.ai.openai.api-key: 你的 API Key
+- spring.ai.openai.base-url: API 地址
+- spring.ai.openai.chat.options.model: 模型名称
+
+启动方式
+--------
+1. 配置 API Key（在 application.yml 中）
+2. 运行：mvn spring-boot:run
+3. 访问：http://localhost:8083
+4. 打开 demo.html 测试
+
+特性说明
+--------
+✅ 支持同步和流式响应
+✅ 支持自定义系统提示词
+✅ 支持模板和变量
+✅ 支持高级参数配置（temperature、max_tokens 等）
+✅ 完整的 CORS 跨域支持
+✅ 统一的 JSON API 规范
+✅ 审计日志 - 自动记录所有 API 调用
+✅ DNS 优化 - 解决网络连接问题
+✅ 代理支持 - 支持 HTTP 代理访问
+
+ChatService 方法 (20 个)
+------------------------
+基础用法:
+  1. chat - 简单对话
+  2. streamChat - 流式对话
+
+系统提示词:
+  3. chatWithSystem - 自定义系统提示词
+  4. chatAsTechExpert - 技术专家角色
+  5. translate - 翻译助手
+
+参数配置:
+  6. chatWithTemperature - 控制随机性
+  7. chatWithMaxTokens - 限制输出长度
+  8. chatWithFullOptions - 完整参数配置
+
+模型选择:
+  9. chatWithModel - 指定模型
+  10. chatFast - 快速模型
+  11. chatAdvanced - 高级模型
+
+特殊场景:
+  12. creativeWriting - 创造性写作
+  13. preciseAnswer - 精确回答
+  14. generateCode - 代码生成
+  15. summarize - 文本摘要
+
+高级用法:
+  16. chatWithPromptObject - Prompt 对象
+  17. chatWithMetadata - 获取元数据
+  18. streamWithOptions - 流式带配置
+  19. chatWithContext - 多轮对话
+  20. chatWithCustomClient - 自定义客户端
+
+依赖说明
+--------
+- spring-boot-starter-webflux: WebFlux 支持
+- spring-ai-openai-spring-boot-starter: Spring AI OpenAI 集成
+
+注意事项
+--------
+1. 需要有效的 OpenAI API Key
+2. 端口 8083 需要未被占用
+3. 流式响应需要支持 SSE 的客户端

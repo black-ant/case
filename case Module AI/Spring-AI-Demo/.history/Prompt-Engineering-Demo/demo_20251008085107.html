@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Engineering Demo - 提示工程演示</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #333; margin-bottom: 30px; text-align: center; }
+        .demo-section { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .demo-section h2 { color: #2c3e50; margin-bottom: 15px; font-size: 18px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #555; font-weight: 500; }
+        input, textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+        textarea { min-height: 80px; resize: vertical; font-family: inherit; }
+        button { background: #9b59b6; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; margin-right: 10px; }
+        button:hover { background: #8e44ad; }
+        .response { margin-top: 15px; padding: 15px; background: #f8f9fa; border-left: 4px solid #9b59b6; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
+        .error { border-left-color: #e74c3c; background: #fee; }
+        .loading { color: #9b59b6; font-style: italic; }
+        .chat-history { max-height: 300px; overflow-y: auto; background: #f8f9fa; padding: 10px; border-radius: 4px; margin-top: 10px; }
+        .chat-message { margin-bottom: 10px; padding: 8px; background: white; border-radius: 4px; }
+        .chat-message.user { background: #e3f2fd; }
+        .chat-message.assistant { background: #f1f8e9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Prompt Engineering Demo - 提示工程演示</h1>
+
+        <!-- 复杂分析模板 -->
+        <div class="demo-section">
+            <h2>1. 复杂分析模板</h2>
+            <div class="input-group">
+                <label>领域：</label>
+                <input type="text" id="analysisDomain" value="市场营销" placeholder="例如：市场营销">
+            </div>
+            <div class="input-group">
+                <label>经验年限：</label>
+                <input type="number" id="analysisExp" value="10" placeholder="例如：10">
+            </div>
+            <div class="input-group">
+                <label>背景信息：</label>
+                <textarea id="analysisContext" placeholder="例如：电商行业竞争激烈">电商行业竞争激烈</textarea>
+            </div>
+            <div class="input-group">
+                <label>任务描述：</label>
+                <textarea id="analysisTask" placeholder="例如：分析当前市场趋势">分析当前市场趋势</textarea>
+            </div>
+            <button onclick="callAnalysis()">生成分析</button>
+            <div id="analysisResponse"></div>
+        </div>
+
+        <!-- 角色扮演模板 -->
+        <div class="demo-section">
+            <h2>2. 角色扮演模板</h2>
+            <div class="input-group">
+                <label>角色：</label>
+                <input type="text" id="rolePlayRole" value="资深软件架构师" placeholder="例如：资深软件架构师">
+            </div>
+            <div class="input-group">
+                <label>场景：</label>
+                <input type="text" id="rolePlayScenario" value="正在进行系统架构评审" placeholder="例如：正在进行系统架构评审">
+            </div>
+            <div class="input-group">
+                <label>用户输入：</label>
+                <textarea id="rolePlayInput" placeholder="例如：我们应该使用微服务架构吗？">我们应该使用微服务架构吗？</textarea>
+            </div>
+            <button onclick="callRolePlay()">开始对话</button>
+            <div id="rolePlayResponse"></div>
+        </div>
+
+        <!-- Few-Shot 学习 -->
+        <div class="demo-section">
+            <h2>3. Few-Shot 学习模板</h2>
+            <div class="input-group">
+                <label>任务：</label>
+                <input type="text" id="fewShotTask" value="情感分类" placeholder="例如：情感分类">
+            </div>
+            <div class="input-group">
+                <label>待分类文本：</label>
+                <textarea id="fewShotInput" placeholder="例如：还可以，有待改进">还可以，有待改进</textarea>
+            </div>
+            <button onclick="callFewShot()">分类</button>
+            <div id="fewShotResponse"></div>
+        </div>
+
+        <!-- Chain-of-Thought -->
+        <div class="demo-section">
+            <h2>4. Chain-of-Thought（思维链）</h2>
+            <div class="input-group">
+                <label>问题：</label>
+                <textarea id="cotMessage" placeholder="例如：如果一个房间里有3只猫，每只猫抓到2只老鼠，总共抓到多少只老鼠？">如果一个房间里有3只猫，每只猫抓到2只老鼠，总共抓到多少只老鼠？</textarea>
+            </div>
+            <button onclick="callCoT()">思考</button>
+            <div id="cotResponse"></div>
+        </div>
+
+        <!-- 对话记忆 -->
+        <div class="demo-section">
+            <h2>5. 对话记忆管理</h2>
+            <div class="input-group">
+                <label>会话 ID：</label>
+                <input type="text" id="sessionId" value="user123" placeholder="例如：user123">
+            </div>
+            <div class="input-group">
+                <label>消息：</label>
+                <textarea id="memoryMessage" placeholder="例如：我叫张三，是一名程序员"></textarea>
+            </div>
+            <button onclick="chatWithMemory()">发送消息</button>
+            <button onclick="getHistory()">查看历史</button>
+            <button onclick="clearMemory()">清除记忆</button>
+            <div id="memoryResponse"></div>
+            <div id="chatHistory" class="chat-history" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8083/api/prompt';
+
+        async function callAPI(endpoint, data, responseId, method = 'POST') {
+            const responseDiv = document.getElementById(responseId);
+            responseDiv.innerHTML = '<div class="response loading">正在处理...</div>';
+            
+            try {
+                const options = {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' }
+                };
+                if (method === 'POST') {
+                    options.body = JSON.stringify(data);
+                }
+                
+                const response = await fetch(`${API_BASE}${endpoint}`, options);
+                const text = await response.text();
+                responseDiv.innerHTML = `<div class="response">${text}</div>`;
+            } catch (error) {
+                responseDiv.innerHTML = `<div class="response error">错误: ${error.message}</div>`;
+            }
+        }
+
+        function callAnalysis() {
+            const data = {
+                domain: document.getElementById('analysisDomain').value,
+                experienceLevel: parseInt(document.getElementById('analysisExp').value),
+                context: document.getElementById('analysisContext').value,
+                task: document.getElementById('analysisTask').value,
+                requirements: ["数据驱动", "可执行建议", "风险评估"],
+                outputFormat: "结构化报告",
+                constraints: "1000字以内"
+            };
+            callAPI('/template/analysis', data, 'analysisResponse');
+        }
+
+        function callRolePlay() {
+            const data = {
+                role: document.getElementById('rolePlayRole').value,
+                scenario: document.getElementById('rolePlayScenario').value,
+                userInput: document.getElementById('rolePlayInput').value
+            };
+            callAPI('/template/role-play', data, 'rolePlayResponse');
+        }
+
+        function callFewShot() {
+            const data = {
+                task: document.getElementById('fewShotTask').value,
+                examples: [
+                    { input: "这个产品太棒了！", output: "积极" },
+                    { input: "质量很差，不推荐", output: "消极" }
+                ],
+                input: document.getElementById('fewShotInput').value
+            };
+            callAPI('/template/few-shot', data, 'fewShotResponse');
+        }
+
+        function callCoT() {
+            const data = {
+                message: document.getElementById('cotMessage').value
+            };
+            callAPI('/template/chain-of-thought', data, 'cotResponse');
+        }
+
+        function chatWithMemory() {
+            const data = {
+                sessionId: document.getElementById('sessionId').value,
+                message: document.getElementById('memoryMessage').value
+            };
+            if (!data.message) return alert('请输入消息');
+            callAPI('/memory/chat', data, 'memoryResponse');
+        }
+
+        async function getHistory() {
+            const sessionId = document.getElementById('sessionId').value;
+            const historyDiv = document.getElementById('chatHistory');
+            
+            try {
+                const response = await fetch(`${API_BASE}/memory/history/${sessionId}`);
+                const history = await response.json();
+                
+                historyDiv.style.display = 'block';
+                historyDiv.innerHTML = history.map(msg => 
+                    `<div class="chat-message ${msg.role}">${msg.role}: ${msg.content}</div>`
+                ).join('');
+            } catch (error) {
+                alert('获取历史失败: ' + error.message);
+            }
+        }
+
+        async function clearMemory() {
+            const sessionId = document.getElementById('sessionId').value;
+            try {
+                await fetch(`${API_BASE}/memory/clear/${sessionId}`, { method: 'DELETE' });
+                alert('记忆已清除');
+                document.getElementById('chatHistory').style.display = 'none';
+            } catch (error) {
+                alert('清除失败: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

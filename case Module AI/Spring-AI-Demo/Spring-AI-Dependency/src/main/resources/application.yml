@@ -1,0 +1,161 @@
+spring:
+  application:
+    name: spring-ai-dependency-demo
+  
+  # ========== LLM 提供商配置 ==========
+  ai:
+    # OpenAI 配置
+    openai:
+      api-key: ${OPENAI_API_KEY:demo-key}
+      base-url: https://api.openai.com
+      chat:
+        options:
+          model: gpt-4
+          temperature: 0.7
+          max-tokens: 1000
+      embedding:
+        options:
+          model: text-embedding-3-small
+    
+    # Azure OpenAI 配置
+    azure:
+      openai:
+        api-key: ${AZURE_OPENAI_API_KEY:demo-key}
+        endpoint: ${AZURE_OPENAI_ENDPOINT:https://your-resource.openai.azure.com}
+        chat:
+          options:
+            deployment-name: gpt-4
+        embedding:
+          options:
+            deployment-name: text-embedding-ada-002
+    
+    # Ollama 配置（本地模型）
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: llama3
+          temperature: 0.7
+      embedding:
+        options:
+          model: nomic-embed-text
+    
+    # Anthropic Claude 配置
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY:demo-key}
+      chat:
+        options:
+          model: claude-3-opus-20240229
+          max-tokens: 4096
+    
+    # Google Gemini 配置
+    gemini:
+      api-key: ${GEMINI_API_KEY:demo-key}
+      chat:
+        options:
+          model: gemini-pro
+    
+    # Cohere 配置
+    cohere:
+      api-key: ${COHERE_API_KEY:demo-key}
+    
+    # Mistral AI 配置
+    mistral:
+      api-key: ${MISTRAL_API_KEY:demo-key}
+    
+    # HuggingFace 配置
+    huggingface:
+      api-key: ${HUGGINGFACE_API_KEY:demo-key}
+    
+    # Vertex AI 配置
+    vertexai:
+      project-id: ${GCP_PROJECT_ID:demo-project}
+      location: us-central1
+    
+    # ========== 向量存储配置 ==========
+    vectorstore:
+      # PGVector 配置
+      pgvector:
+        host: ${POSTGRES_HOST:localhost}
+        port: ${POSTGRES_PORT:5432}
+        database: ${POSTGRES_DB:vectordb}
+        username: ${POSTGRES_USER:postgres}
+        password: ${POSTGRES_PASSWORD:postgres}
+        schema-name: public
+        table-name: vector_store
+        dimensions: 1536
+        distance-type: COSINE_DISTANCE
+      
+      # Redis 配置
+      redis:
+        host: ${REDIS_HOST:localhost}
+        port: ${REDIS_PORT:6379}
+        index-name: spring-ai-index
+      
+      # Milvus 配置
+      milvus:
+        host: ${MILVUS_HOST:localhost}
+        port: ${MILVUS_PORT:19530}
+        collection-name: spring_ai_collection
+      
+      # Qdrant 配置
+      qdrant:
+        host: ${QDRANT_HOST:localhost}
+        port: ${QDRANT_PORT:6333}
+        collection-name: spring_ai_collection
+      
+      # Chroma 配置
+      chroma:
+        base-url: ${CHROMA_URL:http://localhost:8000}
+        collection-name: spring_ai_collection
+      
+      # Elasticsearch 配置
+      elasticsearch:
+        uris: ${ELASTICSEARCH_URIS:http://localhost:9200}
+        index-name: spring-ai-index
+
+  # ========== 数据源配置 ==========
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:vectordb}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  
+  # ========== Redis 配置 ==========
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+  # ========== 文件上传配置 ==========
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+# ========== 服务器配置 ==========
+server:
+  port: 8080
+
+# ========== 日志配置 ==========
+logging:
+  level:
+    root: INFO
+    org.springframework.ai: DEBUG
+    com.example.springaidep: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# ========== Actuator 配置 ==========
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    export:
+      prometheus:
+        enabled: true

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring AI 流式响应演示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .demo-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .demo-card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .response-box {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            min-height: 150px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 2px solid #e0e0e0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.6;
+            font-family: 'Courier New', monospace;
+        }
+
+        .response-box.streaming {
+            border-color: #667eea;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { border-color: #667eea; }
+            50% { border-color: #764ba2; }
+        }
+
+        .status {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .status.info {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status.success {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .status.error {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+
+        .config-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ Spring AI 流式响应演示</h1>
+
+        <div class="demo-card">
+            <h2>服务器配置</h2>
+            <input type="text" id="apiUrl" class="config-input" value="http://localhost:8080" 
+                   placeholder="输入 Spring Boot 服务地址">
+        </div>
+
+        <div class="demo-card">
+            <h2>1. 基础流式响应</h2>
+            <div class="input-group">
+                <label>输入你的问题：</label>
+                <textarea id="basicInput" placeholder="例如：请写一首关于春天的诗">请用三句话介绍 Spring AI</textarea>
+            </div>
+            <button onclick="basicStream()">发送（流式）</button>
+            <div id="basicResponse" class="response-box">等待发送...</div>
+            <div id="basicStatus" class="status info">实时流式响应</div>
+        </div>
+
+        <div class="demo-card">
+            <h2>2. 带延迟的流式响应（打字机效果）</h2>
+            <div class="input-group">
+                <label>输入你的问题：</label>
+                <textarea id="delayedInput" placeholder="例如：写一个故事">你好，请介绍一下自己</textarea>
+            </div>
+            <div class="input-group">
+                <label>延迟时间（毫秒）：</label>
+                <input type="number" id="delayMillis" value="50" min="0" max="500">
+            </div>
+            <button onclick="delayedStream()">发送（打字机效果）</button>
+            <div id="delayedResponse" class="response-box">等待发送...</div>
+            <div id="delayedStatus" class="status info">模拟打字机效果</div>
+        </div>
+
+        <div class="demo-card">
+            <h2>3. 带系统提示词的流式响应</h2>
+            <div class="input-group">
+                <label>系统提示词：</label>
+                <input type="text" id="systemPrompt" value="你是一个幽默风趣的编程导师" 
+                       placeholder="定义 AI 的角色">
+            </div>
+            <div class="input-group">
+                <label>用户问题：</label>
+                <textarea id="systemInput" placeholder="例如：解释什么是递归">介绍一下 Java 编程语言</textarea>
+            </div>
+            <button onclick="streamWithSystem()">发送（带系统提示词）</button>
+            <div id="systemResponse" class="response-box">等待发送...</div>
+            <div id="systemStatus" class="status info">自定义 AI 角色</div>
+        </div>
+    </div>
+
+    <script>
+        function getApiUrl() {
+            return document.getElementById('apiUrl').value.trim();
+        }
+
+        // 1. 基础流式响应
+        async function basicStream() {
+            const input = document.getElementById('basicInput').value.trim();
+            const responseBox = document.getElementById('basicResponse');
+            const statusBox = document.getElementById('basicStatus');
+
+            if (!input) {
+                alert('请输入问题');
+                return;
+            }
+
+            responseBox.className = 'response-box streaming';
+            responseBox.textContent = '';
+            statusBox.className = 'status info';
+            statusBox.textContent = '正在接收流式响应...';
+
+            const startTime = Date.now();
+            let chunkCount = 0;
+
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 600000); // 600秒超时
+                
+                const response = await fetch(`${getApiUrl()}/api/stream/basic`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: input }),
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value, { stream: true });
+                    const lines = chunk.split('\n');
+                    
+                    for (const line of lines) {
+                        if (line.startsWith('data:')) {
+                            const data = line.substring(5).trim();
+                            if (data) {
+                                responseBox.textContent += data;
+                                chunkCount++;
+                                responseBox.scrollTop = responseBox.scrollHeight;
+                            }
+                        } else if (line.trim() && !line.startsWith(':')) {
+                            responseBox.textContent += line;
+                            chunkCount++;
+                            responseBox.scrollTop = responseBox.scrollHeight;
+                        }
+                    }
+                }
+
+                const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+                responseBox.className = 'response-box';
+                statusBox.className = 'status success';
+                statusBox.textContent = `✓ 完成！耗时 ${duration} 秒，接收 ${chunkCount} 个数据块`;
+            } catch (error) {
+                responseBox.className = 'response-box';
+                responseBox.textContent = `错误：${error.message}`;
+                statusBox.className = 'status error';
+                statusBox.textContent = '❌ 请求失败';
+                console.error('Error:', error);
+            }
+        }
+
+        // 2. 带延迟的流式响应
+        async function delayedStream() {
+            const input = document.getElementById('delayedInput').value.trim();
+            const delayMillis = parseInt(document.getElementById('delayMillis').value);
+            const responseBox = document.getElementById('delayedResponse');
+            const statusBox = document.getElementById('delayedStatus');
+
+            if (!input) {
+                alert('请输入问题');
+                return;
+            }
+
+            responseBox.className = 'response-box streaming';
+            responseBox.textContent = '';
+            statusBox.className = 'status info';
+            statusBox.textContent = `正在接收流式响应（延迟 ${delayMillis}ms）...`;
+
+            const startTime = Date.now();
+
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 600000); // 600秒超时
+                
+                const response = await fetch(`${getApiUrl()}/api/stream/delayed`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        message: input,
+                        delayMillis: delayMillis
+                    }),
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value, { stream: true });
+                    const lines = chunk.split('\n');
+                    
+                    for (const line of lines) {
+                        if (line.startsWith('data:')) {
+                            const data = line.substring(5).trim();
+                            if (data) {
+                                responseBox.textContent += data;
+                                responseBox.scrollTop = responseBox.scrollHeight;
+                            }
+                        } else if (line.trim() && !line.startsWith(':')) {
+                            responseBox.textContent += line;
+                            responseBox.scrollTop = responseBox.scrollHeight;
+                        }
+                    }
+                }
+
+                const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+                responseBox.className = 'response-box';
+                statusBox.className = 'status success';
+                statusBox.textContent = `✓ 完成！耗时 ${duration} 秒`;
+            } catch (error) {
+                responseBox.className = 'response-box';
+                responseBox.textContent = `错误：${error.message}`;
+                statusBox.className = 'status error';
+                statusBox.textContent = '❌ 请求失败';
+                console.error('Error:', error);
+            }
+        }
+
+        // 3. 带系统提示词的流式响应
+        async function streamWithSystem() {
+            const systemPrompt = document.getElementById('systemPrompt').value.trim();
+            const input = document.getElementById('systemInput').value.trim();
+            const responseBox = document.getElementById('systemResponse');
+            const statusBox = document.getElementById('systemStatus');
+
+            if (!input) {
+                alert('请输入问题');
+                return;
+            }
+
+            responseBox.className = 'response-box streaming';
+            responseBox.textContent = '';
+            statusBox.className = 'status info';
+            statusBox.textContent = '正在接收流式响应...';
+
+            const startTime = Date.now();
+
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 600000); // 600秒超时
+                
+                const response = await fetch(`${getApiUrl()}/api/stream/with-system`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        systemPrompt: systemPrompt,
+                        message: input
+                    }),
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value, { stream: true });
+                    const lines = chunk.split('\n');
+                    
+                    for (const line of lines) {
+                        if (line.startsWith('data:')) {
+                            const data = line.substring(5).trim();
+                            if (data) {
+                                responseBox.textContent += data;
+                                responseBox.scrollTop = responseBox.scrollHeight;
+                            }
+                        } else if (line.trim() && !line.startsWith(':')) {
+                            responseBox.textContent += line;
+                            responseBox.scrollTop = responseBox.scrollHeight;
+                        }
+                    }
+                }
+
+                const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+                responseBox.className = 'response-box';
+                statusBox.className = 'status success';
+                statusBox.textContent = `✓ 完成！耗时 ${duration} 秒`;
+            } catch (error) {
+                responseBox.className = 'response-box';
+                responseBox.textContent = `错误：${error.message}`;
+                statusBox.className = 'status error';
+                statusBox.textContent = '❌ 请求失败';
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

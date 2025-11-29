@@ -1,0 +1,77 @@
+spring:
+  application:
+    name: multi-llm-provider
+  ai:
+    # OpenAI 配置
+    openai:
+      api-key: ${OPENAI_API_KEY:your-openai-api-key}
+      chat:
+        options:
+          model: gpt-3.5-turbo
+          temperature: 0.7
+    
+    # Azure OpenAI 配置
+    azure:
+      openai:
+        api-key: ${AZURE_OPENAI_API_KEY:your-azure-api-key}
+        endpoint: ${AZURE_OPENAI_ENDPOINT:https://your-resource.openai.azure.com}
+        chat:
+          options:
+            deployment-name: ${AZURE_OPENAI_DEPLOYMENT:gpt-35-turbo}
+            temperature: 0.7
+    
+    # Anthropic Claude 配置
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY:your-anthropic-api-key}
+      chat:
+        options:
+          model: claude-3-sonnet-20240229
+          temperature: 0.7
+    
+    # Ollama 配置（本地模型）
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      chat:
+        options:
+          model: llama2
+          temperature: 0.7
+    
+    # Google Vertex AI (Gemini) 配置
+    vertex:
+      ai:
+        gemini:
+          project-id: ${VERTEX_AI_PROJECT_ID:your-project-id}
+          location: ${VERTEX_AI_LOCATION:us-central1}
+          chat:
+            options:
+              model: gemini-pro
+              temperature: 0.7
+
+server:
+  port: 8080
+
+# 日志配置
+logging:
+  level:
+    # 根日志级别
+    root: INFO
+    # Spring AI 框架日志
+    org.springframework.ai: DEBUG
+    # 项目日志
+    com.example.multillm: INFO
+    # Controller 层日志（请求/响应）
+    com.example.multillm.controller: INFO
+    # Service 层日志（详细执行过程）
+    com.example.multillm.service: INFO
+    # 自定义渠道服务日志（可设置为 DEBUG 查看详细信息）
+    com.example.multillm.service.CustomChannelService: INFO
+  pattern:
+    # 控制台日志格式
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    # 文件日志格式（如果启用文件日志）
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  # 文件日志配置（可选）
+  # file:
+  #   name: logs/multi-llm-provider.log
+  #   max-size: 10MB
+  #   max-history: 30

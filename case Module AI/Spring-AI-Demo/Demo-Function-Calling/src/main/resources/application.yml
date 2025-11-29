@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: function-calling-demo
+  
+  # 引入通用配置
+  config:
+    import: optional:file:../application-common.yml
+  
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:sk-vgerpwjpbonxajygdzkqjkitstqjshsikflawxzqhcgzecum}
+      base-url: ${OPENAI_BASE_URL:https://api.siliconflow.cn}
+      chat:
+        options:
+          model: ${OPENAI_MODEL:deepseek-ai/DeepSeek-V3}
+          temperature: ${OPENAI_TEMPERATURE:0.7}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+logging:
+  level:
+    org.springframework.ai: ${LOG_LEVEL_AI:DEBUG}
+    com.example: ${LOG_LEVEL_APP:DEBUG}

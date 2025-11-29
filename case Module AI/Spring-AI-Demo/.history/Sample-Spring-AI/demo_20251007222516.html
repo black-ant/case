@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring AI Demo - 对话演示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .demo-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .demo-card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .demo-card h2::before {
+            content: '💬';
+            font-size: 1.2em;
+        }
+
+        .demo-card:nth-child(2) h2::before {
+            content: '⚡';
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .response-box {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            min-height: 150px;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 2px solid #e0e0e0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.6;
+        }
+
+        .response-box.loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        .response-box.streaming {
+            border-color: #667eea;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { border-color: #667eea; }
+            50% { border-color: #764ba2; }
+        }
+
+        .status {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .status.info {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status.success {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .status.error {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+
+        .config-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .config-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .config-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .tips {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #856404;
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Spring AI 对话演示</h1>
+
+        <div class="config-card">
+            <h3>⚙️ 服务器配置</h3>
+            <input type="text" id="apiUrl" class="config-input" value="http://localhost:8080" 
+                   placeholder="输入 Spring Boot 服务地址">
+            <div class="tips">
+                💡 提示：请确保 Spring Boot 应用已启动（默认端口 8080）
+            </div>
+        </div>
+
+        <div class="demo-grid">
+            <!-- 简单对话 -->
+            <div class="demo-card">
+                <h2>简单对话</h2>
+                <div class="input-group">
+                    <textarea id="simpleInput" placeholder="输入你的问题，例如：请介绍一下 Spring AI">你好，请用一句话介绍 Spring AI</textarea>
+                </div>
+                <button id="simpleBtn" onclick="sendSimpleChat()">发送消息</button>
+                <div id="simpleResponse" class="response-box">等待发送...</div>
+                <div id="simpleStatus" class="status info">一次性返回完整响应</div>
+            </div>
+
+            <!-- 流式对话 -->
+            <div class="demo-card">
+                <h2>流式对话</h2>
+                <div class="input-group">
+                    <textarea id="streamInput" placeholder="输入你的问题，例如：请用三句话介绍 Java">请用三句话介绍 Java 编程语言</textarea>
+                </div>
+                <button id="streamBtn" onclick="sendStreamChat()">发送消息（流式）</button>
+                <div id="streamResponse" class="response-box">等待发送...</div>
+                <div id="streamStatus" class="status info">实时流式返回（打字机效果）</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取 API 基础 URL
+        function getApiUrl() {
+            return document.getElementById('apiUrl').value.trim();
+        }
+
+        // 简单对话
+        async function sendSimpleChat() {
+            const input = document.getElementById('simpleInput').value.trim();
+            const responseBox = document.getElementById('simpleResponse');
+            const statusBox = document.getElementById('simpleStatus');
+            const btn = document.getElementById('simpleBtn');
+
+            if (!input) {
+                alert('请输入消息');
+                return;
+            }
+
+            btn.disabled = true;
+            responseBox.className = 'response-box loading';
+            responseBox.textContent = '正在思考中...';
+            statusBox.className = 'status info';
+            statusBox.textContent = '请求中...';
+
+            const startTime = Date.now();
+
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 600000); // 600秒超时
+                
+                const response = await fetch(`${getApiUrl()}/api/chat/simple`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    },
+                    body: input,
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const result = await response.text();
+                const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+
+                responseBox.className = 'response-box';
+                responseBox.textContent = result;
+                statusBox.className = 'status success';
+                statusBox.textContent = `✓ 完成！耗时 ${duration} 秒`;
+            } catch (error) {
+                responseBox.className = 'response-box';
+                responseBox.textContent = `错误：${error.message}`;
+                statusBox.className = 'status error';
+                statusBox.textContent = '❌ 请求失败，请检查服务器是否启动';
+                console.error('Error:', error);
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        // 流式对话
+        async function sendStreamChat() {
+            const input = document.getElementById('streamInput').value.trim();
+            const responseBox = document.getElementById('streamResponse');
+            const statusBox = document.getElementById('streamStatus');
+            const btn = document.getElementById('streamBtn');
+
+            if (!input) {
+                alert('请输入消息');
+                return;
+            }
+
+            btn.disabled = true;
+            responseBox.className = 'response-box streaming';
+            responseBox.textContent = '';
+            statusBox.className = 'status info';
+            statusBox.textContent = '正在接收流式响应...';
+
+            const startTime = Date.now();
+            let chunkCount = 0;
+
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 600000); // 600秒超时
+                
+                const response = await fetch(`${getApiUrl()}/api/chat/stream?message=${encodeURIComponent(input)}`, {
+                    method: 'POST',
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    
+                    if (done) {
+                        break;
+                    }
+
+                    const chunk = decoder.decode(value, { stream: true });
+                    
+                    // 处理 SSE 格式的数据
+                    const lines = chunk.split('\n');
+                    for (const line of lines) {
+                        if (line.startsWith('data:')) {
+                            const data = line.substring(5).trim();
+                            if (data) {
+                                responseBox.textContent += data;
+                                chunkCount++;
+                                // 自动滚动到底部
+                                responseBox.scrollTop = responseBox.scrollHeight;
+                            }
+                        } else if (line.trim() && !line.startsWith(':')) {
+                            // 非 SSE 格式，直接显示
+                            responseBox.textContent += line;
+                            chunkCount++;
+                            responseBox.scrollTop = responseBox.scrollHeight;
+                        }
+                    }
+                }
+
+                const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+                responseBox.className = 'response-box';
+                statusBox.className = 'status success';
+                statusBox.textContent = `✓ 流式传输完成！耗时 ${duration} 秒，接收 ${chunkCount} 个数据块`;
+            } catch (error) {
+                responseBox.className = 'response-box';
+                if (responseBox.textContent === '') {
+                    responseBox.textContent = `错误：${error.message}`;
+                }
+                statusBox.className = 'status error';
+                statusBox.textContent = '❌ 请求失败，请检查服务器是否启动';
+                console.error('Error:', error);
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        // 支持回车键发送（Ctrl+Enter）
+        document.getElementById('simpleInput').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                sendSimpleChat();
+            }
+        });
+
+        document.getElementById('streamInput').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                sendStreamChat();
+            }
+        });
+    </script>
+</body>
+</html>

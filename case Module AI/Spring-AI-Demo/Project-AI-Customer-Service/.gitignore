@@ -53,3 +53,7 @@ web/.env.production.local
 web/npm-debug.log*
 web/yarn-debug.log*
 web/yarn-error.log*
+
+### Vector Store Data ###
+data/
+vector-store.json

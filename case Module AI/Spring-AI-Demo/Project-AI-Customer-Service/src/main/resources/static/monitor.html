@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Key 监控面板</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .summary-card h3 {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .summary-card .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .healthy { color: #27ae60; }
+        .unhealthy { color: #e74c3c; }
+        
+        .keys-grid {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .key-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .key-header {
+            padding: 15px 20px;
+            background: #34495e;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .key-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-healthy {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .status-unhealthy {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .key-body {
+            padding: 20px;
+        }
+        
+        .key-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+        
+        .error {
+            background: #e74c3c;
+            color: white;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .last-updated {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔑 API Key 监控面板</h1>
+            <p>实时监控 API Key 使用情况和健康状态</p>
+        </div>
+        
+        <div id="error-message" class="error" style="display: none;"></div>
+        
+        <div id="loading" class="loading">
+            <p>正在加载监控数据...</p>
+        </div>
+        
+        <div id="dashboard" style="display: none;">
+            <div class="summary" id="summary">
+                <!-- 摘要信息将在这里动态生成 -->
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-primary" onclick="refreshData()">🔄 刷新数据</button>
+                <button class="btn btn-secondary" onclick="switchChatKey()">🔀 切换 Chat Key</button>
+                <button class="btn btn-secondary" onclick="switchEmbeddingsKey()">🔀 切换 Embeddings Key</button>
+            </div>
+            
+            <div class="keys-grid" id="keys-grid">
+                <!-- API Key 卡片将在这里动态生成 -->
+            </div>
+            
+            <div class="last-updated" id="last-updated"></div>
+        </div>
+    </div>
+
+    <script>
+        let refreshInterval;
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboard();
+            // 每30秒自动刷新
+            refreshInterval = setInterval(loadDashboard, 30000);
+        });
+        
+        // 加载监控面板数据
+        async function loadDashboard() {
+            try {
+                const response = await fetch('/api/monitor/dashboard');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                renderDashboard(data);
+                hideError();
+                
+            } catch (error) {
+                console.error('Failed to load dashboard:', error);
+                showError('加载监控数据失败: ' + error.message);
+            }
+        }
+        
+        // 渲染监控面板
+        function renderDashboard(data) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            
+            // 渲染摘要信息
+            renderSummary(data.summary);
+            
+            // 渲染 API Key 卡片
+            renderKeys(data.keys);
+            
+            // 更新时间戳
+            document.getElementById('last-updated').textContent = 
+                '最后更新: ' + new Date(data.timestamp).toLocaleString('zh-CN');
+        }
+        
+        // 渲染摘要信息
+        function renderSummary(summary) {
+            const summaryContainer = document.getElementById('summary');
+            summaryContainer.innerHTML = `
+                <div class="summary-card">
+                    <h3>总 Key 数量</h3>
+                    <div class="value">${summary.totalKeys}</div>
+                </div>
+                <div class="summary-card">
+                    <h3>健康 Key 数量</h3>
+                    <div class="value healthy">${summary.healthyKeys}</div>
+                </div>
+                <div class="summary-card">
+                    <h3>异常 Key 数量</h3>
+                    <div class="value unhealthy">${summary.unhealthyKeys}</div>
+                </div>
+                <div class="summary-card">
+                    <h3>今日总使用量</h3>
+                    <div class="value">${summary.totalUsageToday}</div>
+                </div>
+                <div class="summary-card">
+                    <h3>健康率</h3>
+                    <div class="value ${summary.healthRate >= 0.8 ? 'healthy' : 'unhealthy'}">
+                        ${(summary.healthRate * 100).toFixed(1)}%
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 渲染 API Key 卡片
+        function renderKeys(keys) {
+            const keysContainer = document.getElementById('keys-grid');
+            keysContainer.innerHTML = '';
+            
+            Object.entries(keys).forEach(([keyId, keyData]) => {
+                const keyCard = document.createElement('div');
+                keyCard.className = 'key-card';
+                keyCard.innerHTML = `
+                    <div class="key-header">
+                        <span>🔑 ${keyData.maskedKey}</span>
+                        <span class="key-status ${keyData.healthy ? 'status-healthy' : 'status-unhealthy'}">
+                            ${keyData.healthy ? '健康' : '异常'}
+                        </span>
+                    </div>
+                    <div class="key-body">
+                        <div class="key-stats">
+                            <div class="stat-item">
+                                <div class="stat-label">今日使用</div>
+                                <div class="stat-value">${keyData.todayUsage}</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">总使用量</div>
+                                <div class="stat-value">${keyData.totalUsage}</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">错误次数</div>
+                                <div class="stat-value ${keyData.errorCount > 0 ? 'unhealthy' : ''}">${keyData.errorCount}</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">连续错误</div>
+                                <div class="stat-value ${keyData.consecutiveErrors > 0 ? 'unhealthy' : ''}">${keyData.consecutiveErrors}</div>
+                            </div>
+                        </div>
+                        ${keyData.lastErrorMessage ? `
+                            <div style="margin-top: 15px; padding: 10px; background: #ffeaa7; border-radius: 4px; font-size: 12px;">
+                                <strong>最近错误:</strong> ${keyData.lastErrorMessage}
+                            </div>
+                        ` : ''}
+                        ${keyData.lastUsedTime ? `
+                            <div style="margin-top: 10px; font-size: 12px; color: #7f8c8d;">
+                                最后使用: ${new Date(keyData.lastUsedTime).toLocaleString('zh-CN')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                keysContainer.appendChild(keyCard);
+            });
+        }
+        
+        // 刷新数据
+        function refreshData() {
+            loadDashboard();
+        }
+        
+        // 切换 Chat Key
+        async function switchChatKey() {
+            try {
+                const response = await fetch('/api/monitor/switch/chat', { method: 'POST' });
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                alert('✅ ' + result.message);
+                loadDashboard(); // 刷新数据
+                
+            } catch (error) {
+                alert('❌ 切换失败: ' + error.message);
+            }
+        }
+        
+        // 切换 Embeddings Key
+        async function switchEmbeddingsKey() {
+            try {
+                const response = await fetch('/api/monitor/switch/embeddings', { method: 'POST' });
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                alert('✅ ' + result.message);
+                loadDashboard(); // 刷新数据
+                
+            } catch (error) {
+                alert('❌ 切换失败: ' + error.message);
+            }
+        }
+        
+        // 显示错误信息
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            document.getElementById('loading').style.display = 'none';
+        }
+        
+        // 隐藏错误信息
+        function hideError() {
+            document.getElementById('error-message').style.display = 'none';
+        }
+        
+        // 页面卸载时清除定时器
+        window.addEventListener('beforeunload', function() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: rag-demo
+  
+  # 引入通用配置
+  config:
+    import: optional:file:../application-common.yml
+  
+  # OpenAI 配置
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:your-openai-api-key}
+      base-url: ${OPENAI_BASE_URL:https://api.openai.com}
+      chat:
+        options:
+          model: ${OPENAI_MODEL:gpt-3.5-turbo}
+          temperature: ${OPENAI_TEMPERATURE:0.7}
+      embedding:
+        options:
+          model: ${OPENAI_EMBEDDING_MODEL:text-embedding-ada-002}
+  
+  # PostgreSQL 配置（用于 PGVector）
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:vectordb}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  
+  # 文件上传配置
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  port: 8080
+
+# RAG 配置
+rag:
+  # 文档分块配置
+  chunking:
+    chunk-size: 500
+    chunk-overlap: 100
+    min-chunk-size: 50
+    max-chunk-size: 2000
+  
+  # 检索配置
+  retrieval:
+    top-k: 5
+    similarity-threshold: 0.7
+  
+  # 向量存储类型：simple（内存）或 pgvector（PostgreSQL）
+  vector-store:
+    type: ${VECTOR_STORE_TYPE:simple}
+
+logging:
+  level:
+    org.springframework.ai: DEBUG
+    com.example: DEBUG

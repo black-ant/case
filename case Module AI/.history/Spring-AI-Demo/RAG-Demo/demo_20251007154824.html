@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Demo - 检索增强生成演示</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #333; margin-bottom: 30px; text-align: center; }
+        .demo-section { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .demo-section h2 { color: #2c3e50; margin-bottom: 15px; font-size: 18px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #555; font-weight: 500; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+        textarea { min-height: 100px; resize: vertical; font-family: inherit; }
+        button { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; margin-right: 10px; }
+        button:hover { background: #229954; }
+        button.danger { background: #e74c3c; }
+        button.danger:hover { background: #c0392b; }
+        .response { margin-top: 15px; padding: 15px; background: #f8f9fa; border-left: 4px solid #27ae60; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
+        .error { border-left-color: #e74c3c; background: #fee; }
+        .loading { color: #27ae60; font-style: italic; }
+        .file-input { padding: 8px; }
+        .sources { margin-top: 10px; padding: 10px; background: #e8f5e9; border-radius: 4px; }
+        .source-item { margin: 5px 0; padding: 5px; background: white; border-radius: 3px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 RAG Demo - 检索增强生成演示</h1>
+
+        <!-- 文档上传 -->
+        <div class="demo-section">
+            <h2>1. 文档管理</h2>
+            <div class="input-group">
+                <label>上传文件（PDF/TXT/DOCX）：</label>
+                <input type="file" id="fileUpload" class="file-input" accept=".pdf,.txt,.docx">
+                <button onclick="uploadFile()">上传文件</button>
+            </div>
+            <div class="input-group">
+                <label>或直接输入文本：</label>
+                <input type="text" id="textTitle" placeholder="文档标题">
+                <textarea id="textContent" placeholder="文档内容..."></textarea>
+                <button onclick="ingestText()">添加文本</button>
+                <button class="danger" onclick="clearDocuments()">清空所有文档</button>
+            </div>
+            <div id="uploadResponse"></div>
+        </div>
+
+        <!-- 基础 RAG 查询 -->
+        <div class="demo-section">
+            <h2>2. 基础 RAG 查询</h2>
+            <div class="input-group">
+                <label>输入问题：</label>
+                <textarea id="queryBasic" placeholder="例如：什么是 Spring AI？"></textarea>
+            </div>
+            <button onclick="queryBasic()">查询</button>
+            <div id="queryBasicResponse"></div>
+        </div>
+
+        <!-- 相似度搜索 -->
+        <div class="demo-section">
+            <h2>3. 相似度搜索（不生成回答）</h2>
+            <div class="input-group">
+                <label>搜索关键词：</label>
+                <input type="text" id="searchQuery" placeholder="例如：向量数据库">
+                <label>返回结果数量：</label>
+                <input type="number" id="searchTopK" value="5" min="1" max="10">
+            </div>
+            <button onclick="searchSimilar()">搜索</button>
+            <div id="searchResponse"></div>
+        </div>
+
+        <!-- 带引用的查询 -->
+        <div class="demo-section">
+            <h2>4. 带引用的 RAG 查询</h2>
+            <div class="input-group">
+                <label>输入问题：</label>
+                <textarea id="queryCitation" placeholder="例如：Spring AI 支持哪些 LLM？"></textarea>
+            </div>
+            <button onclick="queryCitation()">查询（带引用）</button>
+            <div id="queryCitationResponse"></div>
+        </div>
+
+        <!-- 多步骤查询 -->
+        <div class="demo-section">
+            <h2>5. 多步骤 RAG 查询（复杂问题）</h2>
+            <div class="input-group">
+                <label>输入复杂问题：</label>
+                <textarea id="queryMultiStep" placeholder="例如：比较 Spring AI 和 LangChain 的优缺点"></textarea>
+            </div>
+            <button onclick="queryMultiStep()">深度分析</button>
+            <div id="queryMultiStepResponse"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8080/api';
+
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileUpload');
+            const file = fileInput.files[0];
+            if (!file) return alert('请选择文件');
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const responseDiv = document.getElementById('uploadResponse');
+            responseDiv.innerHTML = '<div class="response loading">正在上传...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/documents/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+                const text = await response.text();
+                responseDiv.innerHTML = `<div class="response">✅ ${text}</div>`;
+                fileInput.value = '';
+            } catch (error) {
+                responseDiv.innerHTML = `<div class="response error">错误: ${error.message}</div>`;
+            }
+        }
+
+        async function ingestText() {
+            const title = document.getElementById('textTitle').value;
+            const text = document.getElementById('textContent').value;
+            if (!title || !text) return alert('请输入标题和内容');
+
+            const responseDiv = document.getElementById('uploadResponse');
+            responseDiv.innerHTML = '<div class="response loading">正在处理...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/documents/ingest/text`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, text })
+                });
+                const result = await response.text();
+                responseDiv.innerHTML = `<div class="response">✅ ${result}</div>`;
+                document.getElementById('textTitle').value = '';
+                document.getElementById('textContent').value = '';
+            } catch (error) {
+                responseDiv.innerHTML = `<div class="response error">错误: ${error.message}</div>`;
+            }
+        }
+
+        async function clearDocuments() {
+            if (!confirm('确定要清空所有文档吗？')) return;
+
+            const responseDiv = document.getElementById('uploadResponse');
+            responseDiv.innerHTML = '<div class="response loading">正在清空...</div>';
+
+            try {
+                await fetch(`${API_BASE}/documents/clear`, { method: 'DELETE' });
+                responseDiv.innerHTML = '<div class="response">✅ 已清空所有文档</div>';
+            } catch (error) {
+                responseDiv.innerHTML = `<div class="response error">错误: ${error.message}</div>`;
+            }
+        }
+
+        async function queryBasic() {
+            const query = document.getElementById('queryBasic').value;
+            if (!query) return alert('请输入问题');
+
+            const responseDiv = document.getElementById('queryBasicResponse');
+            responseDiv.innerHTML = '<div class="response loading">正在查询...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/rag/query`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query })
+                });
+                const result = await response.json();
+                
+                let html = `<div class="response">${result.response}</div>`;
+                if (result.sources && result.sources.length > 0) {
+                    html += '<div class="sources"><strong>来源：</strong>';
+                    result.sources.forEach(source => {
+                        html += `<div class="source-item">📄 ${source}</div>`;
+                    });
+                    html += '</div>';
+                }
+                responseDiv.innerHTML = html;
+            } catch (error) {
+                responseDiv.innerHTML = `<div class="response error">错误: ${error.message}</div>`;
+            }
+        }
+
+        async function searchSimilar() {
+            const query = document.getElementById('searchQuery').value;
+            const topK = parseInt(document.getElementById('searchTopK').value);
+            if (!query) return alert('请输入搜索关键词');
+
+            const responseDiv = document.getElementById('searchResponse');
+            responseDiv.innerHTML = '<div class="response loading">正在搜索...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/rag/search`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query, topK })
+                });
+                const results = await response.json();
+                
+                let html = '<div class="response"><strong>搜索结果：</strong><br><br>';
+                results.forEach((doc, index) => {
+                    html += `<div class="source-item">
+                        <strong>${index + 1}. ${doc.metadata?.source || '未知来源'}</strong><br>
+                        ${doc.content.substring(0, 200)}...
+                    </div>`;
+                });
+                html += '</div>';
+                responseDiv.innerHTML = html;
+            } catch (error) {
+                responseDiv.innerHTML = `<div class="response error">错误: ${error.message}</div>`;
+            }
+        }
+
+        async function queryCitation() {
+            const query = document.getElementById('queryCitation').value;
+            if (!query) return alert('请输入问题');
+
+            const responseDiv = document.getElementById('queryCitationResponse');
+            responseDiv.innerHTML = '<div class="response loading">正在查询...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/rag/query/with-citations`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query })
+                });
+                const result = await response.json();
+                
+                let html = `<div class="response">${result.response}</div>`;
+                if (result.citations && result.citations.length > 0) {
+                    html += '<div class="sources"><strong>引用来源：</strong>';
+                    result.citations.forEach((citation, index) => {
+                        html += `<div class="source-item">
+                            [${index + 1}] ${citation.source}<br>
+                            <small>${citation.content_preview}</small>
+                        </div>`;
+                    });
+                    html += '</div>';
+                }
+                responseDiv.innerHTML = html;
+            } catch (error) {
+                responseDiv.innerHTML = `<div class="response error">错误: ${error.message}</div>`;
+            }
+        }
+
+        async function queryMultiStep() {
+            const query = document.getElementById('queryMultiStep').value;
+            if (!query) return alert('请输入问题');
+
+            const responseDiv = document.getElementById('queryMultiStepResponse');
+            responseDiv.innerHTML = '<div class="response loading">正在深度分析（可能需要较长时间）...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/rag/query/multi-step`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query })
+                });
+                const text = await response.text();
+                responseDiv.innerHTML = `<div class="response">${text}</div>`;
+            } catch (error) {
+                responseDiv.innerHTML = `<div class="response error">错误: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>

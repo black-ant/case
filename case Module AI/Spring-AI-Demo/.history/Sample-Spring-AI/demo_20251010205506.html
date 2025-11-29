@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring AI Demo - 完整功能测试</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 32px; margin-bottom: 10px; }
+        .header p { font-size: 16px; opacity: 0.9; }
+        .stream-content {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.6;
+            color: #333;
+            min-height: 50px;
+        }
+        .stream-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+            margin-left: 5px;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .tabs {
+            display: flex;
+            background: #f5f5f5;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            text-align: center;
+            cursor: pointer;
+            background: #f5f5f5;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s;
+            color: #666;
+        }
+        .tab:hover { background: #e8e8e8; }
+        .tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+        .tab-content { display: none; padding: 30px; }
+        .tab-content.active { display: block; }
+        .form-group { margin-bottom: 20px; }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn:active { transform: translateY(0); }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-clear {
+            background: #f44336;
+            margin-left: 10px;
+        }
+        .response-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+        .response-box.show { display: block; }
+        .response-box h3 {
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+        .response-content {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.6;
+            color: #333;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .loading.show { display: block; }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .history-list {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .history-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+        .history-item:last-child { margin-bottom: 0; }
+        .history-role {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        .history-content {
+            color: #555;
+            line-height: 1.5;
+        }
+        .error {
+            color: #f44336;
+            padding: 15px;
+            background: #ffebee;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+        .error.show { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Spring AI Demo</h1>
+            <p>完整功能测试 - 直接询问 | 流式询问 | 历史记录</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('direct')">📝 直接询问</button>
+            <button class="tab" onclick="switchTab('stream')">⚡ 流式询问</button>
+            <button class="tab" onclick="switchTab('history')">💬 历史记录</button>
+        </div>
+        
+        <!-- 直接询问 Tab -->
+        <div id="direct" class="tab-content active">
+            <h2>📝 直接询问（一次性返回完整结果）</h2>
+            <p style="color: #666; margin-bottom: 20px;">
+                使用 <code>/api/chat/simple</code> 接口，等待 AI 生成完整回复后一次性返回。适合需要完整结果的场景。
+            </p>
+            
+            <div class="form-group">
+                <label for="directMessage">输入消息：</label>
+                <textarea id="directMessage" placeholder="请输入你的问题...">你好，请用一句话介绍一下 Spring AI 框架</textarea>
+            </div>
+            <button class="btn" onclick="sendDirectMessage()">发送</button>
+            
+            <div class="loading" id="directLoading">
+                <div class="spinner"></div>
+                <p>正在等待完整响应...</p>
+            </div>
+            
+            <div class="error" id="directError"></div>
+            
+            <div class="response-box" id="directResponse">
+                <h3>AI 回复：</h3>
+                <div class="response-content" id="directResponseContent"></div>
+            </div>
+        </div>
+        
+        <!-- 流式询问 Tab -->
+        <div id="stream" class="tab-content">
+            <h2>⚡ 流式询问（实时显示生成过程）</h2>
+            <p style="color: #666; margin-bottom: 20px;">
+                使用 <code>/api/chat/stream</code> 接口，通过 Server-Sent Events (SSE) 实时接收 AI 生成的每个文本片段。提供更好的用户体验。
+            </p>
+            
+            <div class="form-group">
+                <label for="streamMessage">输入消息：</label>
+                <textarea id="streamMessage" placeholder="请输入你的问题...">请详细介绍一下 Spring Boot 的核心特性</textarea>
+            </div>
+            <button class="btn" onclick="sendStreamMessage()">发送</button>
+            <button class="btn btn-clear" onclick="stopStream()" id="stopStreamBtn" style="display: none;">停止</button>
+            
+            <div class="loading" id="streamLoading">
+                <div class="spinner"></div>
+                <p>正在连接流式服务...</p>
+            </div>
+            
+            <div class="error" id="streamError"></div>
+            
+            <div class="response-box" id="streamResponse">
+                <h3>AI 回复：<span class="stream-indicator" id="streamIndicator" style="display: none;"></span></h3>
+                <div class="stream-content" id="streamResponseContent"></div>
+            </div>
+        </div>
+        
+        <!-- 历史记录 Tab -->
+        <div id="history" class="tab-content">
+            <h2>💬 多轮对话（带历史记录）</h2>
+            <p style="color: #666; margin-bottom: 20px;">
+                使用 <code>/api/advanced/chat-with-history</code> 接口，AI 会记住之前的对话内容，实现上下文连贯的多轮对话。
+            </p>
+            
+            <div class="form-group">
+                <label>对话历史：</label>
+                <div class="history-list" id="historyList">
+                    <p style="text-align: center; color: #999;">暂无对话历史</p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="historyMessage">输入消息：</label>
+                <textarea id="historyMessage" placeholder="请输入你的问题..." rows="3">我的名字是张三，我喜欢编程</textarea>
+            </div>
+            
+            <button class="btn" onclick="sendHistoryMessage()">发送</button>
+            <button class="btn btn-clear" onclick="clearHistory()">清空历史</button>
+            
+            <div class="loading" id="historyLoading">
+                <div class="spinner"></div>
+                <p>正在处理...</p>
+            </div>
+            
+            <div class="error" id="historyError"></div>
+            
+            <div class="response-box" id="historyResponse">
+                <h3>AI 回复：</h3>
+                <div class="response-content" id="historyResponseContent"></div>
+            </div>
+        </div>
+        
+
+    </div>
+
+    <script>
+        // API 基础 URL
+        const CHAT_API_URL = 'http://localhost:8080/api/chat';
+        const ADVANCED_API_URL = 'http://localhost:8080/api/advanced';
+        
+        // 对话历史存储
+        let conversationHistory = [];
+        
+        // 流式请求控制
+        let streamController = null;
+        
+        // 切换 Tab
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // ==================== 直接询问 ====================
+        async function sendDirectMessage() {
+            const message = document.getElementById('directMessage').value.trim();
+            if (!message) {
+                showError('directError', '请输入消息');
+                return;
+            }
+            
+            showLoading('directLoading', true);
+            hideError('directError');
+            hideResponse('directResponse');
+            
+            try {
+                const response = await fetch(`${CHAT_API_URL}/simple`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.text();
+                showResponse('directResponse', 'directResponseContent', data);
+            } catch (error) {
+                showError('directError', `请求失败: ${error.message}`);
+            } finally {
+                showLoading('directLoading', false);
+            }
+        }
+        
+        // ==================== 流式询问 ====================
+        async function sendStreamMessage() {
+            const message = document.getElementById('streamMessage').value.trim();
+            if (!message) {
+                showError('streamError', '请输入消息');
+                return;
+            }
+            
+            showLoading('streamLoading', true);
+            hideError('streamError');
+            hideResponse('streamResponse');
+            document.getElementById('streamResponseContent').textContent = '';
+            document.getElementById('stopStreamBtn').style.display = 'inline-block';
+            
+            try {
+                streamController = new AbortController();
+                const response = await fetch(`${CHAT_API_URL}/stream`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message }),
+                    signal: streamController.signal
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                showLoading('streamLoading', false);
+                showResponse('streamResponse', 'streamResponseContent', '');
+                document.getElementById('streamIndicator').style.display = 'inline-block';
+                
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+                
+                while (true) {
+                    const { done, value } = await reader.read();
+                    
+                    if (done) {
+                        document.getElementById('streamIndicator').style.display = 'none';
+                        document.getElementById('stopStreamBtn').style.display = 'none';
+                        break;
+                    }
+                    
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop();
+                    
+                    for (const line of lines) {
+                        if (line.startsWith('data:')) {
+                            const data = line.substring(5).trim();
+                            if (data && data !== '[DONE]') {
+                                const contentElement = document.getElementById('streamResponseContent');
+                                contentElement.textContent += data;
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    showError('streamError', '流式请求已停止');
+                } else {
+                    showError('streamError', `请求失败: ${error.message}`);
+                }
+                document.getElementById('streamIndicator').style.display = 'none';
+                document.getElementById('stopStreamBtn').style.display = 'none';
+            } finally {
+                showLoading('streamLoading', false);
+            }
+        }
+        
+        function stopStream() {
+            if (streamController) {
+                streamController.abort();
+                streamController = null;
+                document.getElementById('streamIndicator').style.display = 'none';
+                document.getElementById('stopStreamBtn').style.display = 'none';
+            }
+        }
+        
+        // ==================== 多轮对话（带历史） ====================
+        async function sendHistoryMessage() {
+            const message = document.getElementById('historyMessage').value.trim();
+            if (!message) {
+                showError('historyError', '请输入消息');
+                return;
+            }
+            
+            showLoading('historyLoading', true);
+            hideError('historyError');
+            hideResponse('historyResponse');
+            
+            try {
+                const requestBody = {
+                    message: message,
+                    history: conversationHistory
+                };
+                
+                const response = await fetch(`${ADVANCED_API_URL}/chat-with-history`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const aiResponse = await response.text();
+                
+                // 添加到历史记录
+                conversationHistory.push(`User: ${message}`);
+                conversationHistory.push(`Assistant: ${aiResponse}`);
+                
+                // 更新历史显示
+                updateHistoryDisplay();
+                
+                // 显示响应
+                showResponse('historyResponse', 'historyResponseContent', aiResponse);
+                
+                // 清空输入框
+                document.getElementById('historyMessage').value = '';
+            } catch (error) {
+                showError('historyError', `请求失败: ${error.message}`);
+            } finally {
+                showLoading('historyLoading', false);
+            }
+        }
+        
+        // 更新历史记录显示
+        function updateHistoryDisplay() {
+            const historyList = document.getElementById('historyList');
+            
+            if (conversationHistory.length === 0) {
+                historyList.innerHTML = '<p style="text-align: center; color: #999;">暂无对话历史</p>';
+                return;
+            }
+            
+            let html = '';
+            conversationHistory.forEach((item, index) => {
+                const isUser = item.startsWith('User:');
+                const role = isUser ? '👤 用户' : '🤖 AI';
+                const content = item.substring(item.indexOf(':') + 1).trim();
+                
+                html += `
+                    <div class="history-item">
+                        <div class="history-role">${role}</div>
+                        <div class="history-content">${escapeHtml(content)}</div>
+                    </div>
+                `;
+            });
+            
+            historyList.innerHTML = html;
+            historyList.scrollTop = historyList.scrollHeight;
+        }
+        
+        // 清空历史记录
+        function clearHistory() {
+            if (conversationHistory.length === 0) return;
+            
+            if (confirm('确定要清空对话历史吗？')) {
+                conversationHistory = [];
+                updateHistoryDisplay();
+                hideResponse('historyResponse');
+                hideError('historyError');
+            }
+        }
+        
+        // ==================== 工具函数 ====================
+        function showLoading(id, show) {
+            const element = document.getElementById(id);
+            if (show) {
+                element.classList.add('show');
+            } else {
+                element.classList.remove('show');
+            }
+        }
+        
+        function showResponse(boxId, contentId, text) {
+            document.getElementById(boxId).classList.add('show');
+            document.getElementById(contentId).textContent = text;
+        }
+        
+        function hideResponse(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+        
+        function showError(id, message) {
+            const element = document.getElementById(id);
+            element.textContent = message;
+            element.classList.add('show');
+        }
+        
+        function hideError(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

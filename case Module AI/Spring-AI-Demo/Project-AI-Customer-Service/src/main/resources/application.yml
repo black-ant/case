@@ -1,0 +1,98 @@
+spring:
+  application:
+    name: ai-customer-service
+  
+  # 使用传统 Web MVC（非响应式）
+  main:
+    web-application-type: servlet
+  
+  # 数据库配置
+  datasource:
+    url: jdbc:h2:mem:customerservice
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  
+  # 禁用 SQL 脚本自动执行（使用 DataInitializer 代替）
+  sql:
+    init:
+      mode: never
+  
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  
+  # AI 配置 - 保留原有配置作为备用
+  ai:
+    openai:
+      api-key: ${DEEPSEEK_API_KEY:sk-4ZkNj89GHt26K4lyfl1JNOQuPtUeV5ktXUs8T1VbJ1iS7R5Y}
+      base-url: ${DEEPSEEK_API_URL:https://992236.xyz}
+      chat:
+        options:
+          model: ${DEEPSEEK_MODEL:gemini-2.5-pro}
+          temperature: 0.7
+          max-tokens: 2000
+          stream: false
+
+# 多 API Key 配置
+api-keys:
+  # Chat API Keys 配置
+  chat:
+    - key: ${DEEPSEEK_API_KEY_1:sk-4ZkNj89GHt26K4lyfl1JNOQuPtUeV5ktXUs8T1VbJ1iS7R5Y}
+      base-url: ${DEEPSEEK_API_URL_1:https://992236.xyz}
+      model: ${DEEPSEEK_MODEL_1:gemini-2.5-pro}
+      daily-limit: 1000
+      priority: 1
+      enabled: true
+    - key: ${DEEPSEEK_API_KEY_2:sk-backup-key-2}
+      base-url: ${DEEPSEEK_API_URL_2:https://api.deepseek.com}
+      model: ${DEEPSEEK_MODEL_2:deepseek-chat}
+      daily-limit: 500
+      priority: 2
+      enabled: true
+    - key: ${OPENAI_API_KEY:sk-openai-backup}
+      base-url: ${OPENAI_API_URL:https://api.openai.com}
+      model: ${OPENAI_MODEL:gpt-3.5-turbo}
+      daily-limit: 200
+      priority: 3
+      enabled: false
+  
+  # Embeddings API Keys 配置
+  embeddings:
+    - key: ${EMBEDDINGS_API_KEY_1:sk-vgerpwjpbonxajygdzkqjkitstqjshsikflawxzqhcgzecum}
+      base-url: ${EMBEDDINGS_API_URL_1:https://api.siliconflow.cn}
+      model: ${EMBEDDINGS_MODEL_1:BAAI/bge-large-zh-v1.5}
+      daily-limit: 2000
+      priority: 1
+      enabled: true
+    - key: ${EMBEDDINGS_API_KEY_2:sk-backup-embeddings}
+      base-url: ${EMBEDDINGS_API_URL_2:https://api.openai.com}
+      model: ${EMBEDDINGS_MODEL_2:text-embedding-ada-002}
+      daily-limit: 1000
+      priority: 2
+      enabled: false
+
+# 自定义配置 - 保留向后兼容
+embeddings:
+  api-key: ${EMBEDDINGS_API_KEY:sk-vgerpwjpbonxajygdzkqjkitstqjshsikflawxzqhcgzecum}
+  base-url: ${EMBEDDINGS_API_URL:https://api.siliconflow.cn}
+  model: ${EMBEDDINGS_MODEL:BAAI/bge-large-zh-v1.5}
+
+# 服务器配置
+server:
+  port: 8080
+
+# 日志配置
+logging:
+  level:
+    com.example.customerservice: DEBUG
+    org.springframework.ai: DEBUG

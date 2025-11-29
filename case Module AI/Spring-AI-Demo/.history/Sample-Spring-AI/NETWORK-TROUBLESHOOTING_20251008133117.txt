@@ -1,0 +1,59 @@
+# 网络连接问题排查指南
+
+## 错误原因
+DNS 解析失败: 无法解析 api.siliconflow.cn 域名
+
+## 解决方案
+
+### 方案 1: 检查网络连接
+1. 测试是否能访问外网:
+   ping api.siliconflow.cn
+   
+2. 测试 DNS 解析:
+   nslookup api.siliconflow.cn
+
+### 方案 2: 配置系统代理（如果你有代理服务器）
+在启动应用时添加 JVM 参数:
+java -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7890 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7890 -jar app.jar
+
+或在 application.yml 中配置 WebClient 使用代理（需要代码修改）
+
+### 方案 3: 更换 DNS 服务器
+当前使用的 DNS: 192.168.0.1
+建议更换为公共 DNS:
+- 阿里 DNS: 223.5.5.5, 223.6.6.6
+- 腾讯 DNS: 119.29.29.29
+- Google DNS: 8.8.8.8, 8.8.4.4
+
+Windows 修改 DNS:
+1. 控制面板 -> 网络和共享中心 -> 更改适配器设置
+2. 右键网络连接 -> 属性
+3. 选择 Internet 协议版本 4 (TCP/IPv4) -> 属性
+4. 使用下面的 DNS 服务器地址
+
+### 方案 4: 使用其他 API 提供商
+如果 siliconflow 无法访问，可以更换为其他兼容 OpenAI 的 API:
+
+1. OpenAI 官方 (需要国际网络):
+   base-url: https://api.openai.com
+
+2. 国内其他提供商:
+   - 智谱 AI: https://open.bigmodel.cn
+   - 百度文心: https://aip.baidubce.com
+   - 阿里通义: https://dashscope.aliyuncs.com
+
+修改 application.yml:
+spring:
+  ai:
+    openai:
+      base-url: https://你的API地址
+      api-key: 你的API密钥
+
+### 方案 5: 配置超时和重试
+增加超时时间和重试机制，在代码中配置 WebClient
+
+### 推荐操作步骤
+1. 先执行 ping api.siliconflow.cn 确认网络连通性
+2. 如果 ping 不通，检查是否需要代理或更换 DNS
+3. 如果有代理，使用方案 2 配置代理
+4. 如果无法解决网络问题，考虑更换 API 提供商（方案 4）

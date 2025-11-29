@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Calling Demo - 函数调用演示</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #333; margin-bottom: 30px; text-align: center; }
+        .demo-section { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .demo-section h2 { color: #2c3e50; margin-bottom: 15px; font-size: 18px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #555; font-weight: 500; }
+        input, textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+        textarea { min-height: 80px; resize: vertical; font-family: inherit; }
+        button { background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        button:hover { background: #2980b9; }
+        button:disabled { background: #95a5a6; cursor: not-allowed; }
+        .response { margin-top: 15px; padding: 15px; background: #f8f9fa; border-left: 4px solid #3498db; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
+        .error { border-left-color: #e74c3c; background: #fee; }
+        .loading { color: #3498db; font-style: italic; }
+        .example-queries { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .example-btn { background: #ecf0f1; color: #2c3e50; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; border: 1px solid #bdc3c7; }
+        .example-btn:hover { background: #d5dbdb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Function Calling Demo - 函数调用演示</h1>
+
+        <!-- 自动函数调用 -->
+        <div class="demo-section">
+            <h2>1. 自动函数调用（推荐）</h2>
+            <div class="input-group">
+                <label>输入问题：</label>
+                <textarea id="autoMessage" placeholder="例如：北京今天天气怎么样？"></textarea>
+                <div class="example-queries">
+                    <span class="example-btn" onclick="setQuery('autoMessage', '北京今天天气怎么样？')">天气查询</span>
+                    <span class="example-btn" onclick="setQuery('autoMessage', '苹果公司的股票现在多少钱？')">股票查询</span>
+                    <span class="example-btn" onclick="setQuery('autoMessage', '帮我算一下 123 加 456')">计算器</span>
+                    <span class="example-btn" onclick="setQuery('autoMessage', '北京和上海今天哪个城市更热？')">复杂查询</span>
+                </div>
+            </div>
+            <button onclick="callAuto()">发送</button>
+            <div id="autoResponse"></div>
+        </div>
+
+        <!-- 单个函数调用 -->
+        <div class="demo-section">
+            <h2>2. 单个函数调用</h2>
+            <div class="input-group">
+                <label>选择函数：</label>
+                <select id="singleFunction">
+                    <option value="weatherFunction">天气查询</option>
+                    <option value="stockPriceFunction">股票查询</option>
+                    <option value="calculatorFunction">计算器</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>输入问题：</label>
+                <textarea id="singleMessage" placeholder="例如：上海的温度是多少？"></textarea>
+            </div>
+            <button onclick="callSingle()">发送</button>
+            <div id="singleResponse"></div>
+        </div>
+
+        <!-- 多函数调用 -->
+        <div class="demo-section">
+            <h2>3. 多函数调用（AI 自动选择）</h2>
+            <div class="input-group">
+                <label>输入问题：</label>
+                <textarea id="multipleMessage" placeholder="例如：北京天气怎么样？苹果股票多少钱？"></textarea>
+                <div class="example-queries">
+                    <span class="example-btn" onclick="setQuery('multipleMessage', '北京天气怎么样？苹果股票多少钱？')">混合查询</span>
+                </div>
+            </div>
+            <button onclick="callMultiple()">发送</button>
+            <div id="multipleResponse"></div>
+        </div>
+
+        <!-- 链式调用 -->
+        <div class="demo-section">
+            <h2>4. 链式函数调用</h2>
+            <div class="input-group">
+                <label>输入问题：</label>
+                <textarea id="chainMessage" placeholder="例如：北京和上海哪个更热？温差是多少？"></textarea>
+                <div class="example-queries">
+                    <span class="example-btn" onclick="setQuery('chainMessage', '北京和上海哪个更热？温差是多少？')">温差计算</span>
+                </div>
+            </div>
+            <button onclick="callChain()">发送</button>
+            <div id="chainResponse"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8080/api/function';
+
+        function setQuery(elementId, query) {
+            document.getElementById(elementId).value = query;
+        }
+
+        async function callAPI(endpoint, data, responseId) {
+            const responseDiv = document.getElementById(responseId);
+            responseDiv.innerHTML = '<div class="response loading">正在调用 AI...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const text = await response.text();
+                responseDiv.innerHTML = `<div class="response">${text}</div>`;
+            } catch (error) {
+                responseDiv.innerHTML = `<div class="response error">错误: ${error.message}</div>`;
+            }
+        }
+
+        function callAuto() {
+            const message = document.getElementById('autoMessage').value;
+            if (!message) return alert('请输入问题');
+            callAPI('/auto', { message }, 'autoResponse');
+        }
+
+        function callSingle() {
+            const message = document.getElementById('singleMessage').value;
+            const functionName = document.getElementById('singleFunction').value;
+            if (!message) return alert('请输入问题');
+            callAPI('/single', { message, functionName }, 'singleResponse');
+        }
+
+        function callMultiple() {
+            const message = document.getElementById('multipleMessage').value;
+            if (!message) return alert('请输入问题');
+            callAPI('/multiple', { message }, 'multipleResponse');
+        }
+
+        function callChain() {
+            const message = document.getElementById('chainMessage').value;
+            if (!message) return alert('请输入问题');
+            callAPI('/chain', { message }, 'chainResponse');
+        }
+    </script>
+</body>
+</html>

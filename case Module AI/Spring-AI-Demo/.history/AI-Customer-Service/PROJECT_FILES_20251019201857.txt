@@ -1,0 +1,248 @@
+AI 智能客服系统 - 项目文件清单
+=====================================
+
+📁 项目结构
+-----------
+
+AI-Customer-Service/
+│
+├── 📄 pom.xml                                    # Maven 项目配置
+├── 📄 .gitignore                                 # Git 忽略文件
+├── 📄 .env.example                               # 环境变量示例
+├── 📄 Dockerfile                                 # Docker 镜像构建
+├── 📄 docker-compose.yml                         # Docker Compose 配置
+│
+├── 🚀 启动脚本
+│   ├── start.sh                                  # Linux/Mac 启动脚本
+│   └── start.bat                                 # Windows 启动脚本
+│
+├── 🧪 测试脚本
+│   ├── test-api.sh                               # Linux/Mac API 测试
+│   ├── test-api.bat                              # Windows API 测试
+│   └── postman_collection.json                   # Postman 测试集合
+│
+├── 📚 文档
+│   ├── README.md                                 # 项目说明文档
+│   ├── QUICK_START.md                            # 快速启动指南
+│   ├── ARCHITECTURE.md                           # 架构设计文档
+│   ├── PROJECT_OVERVIEW.md                       # 项目概览
+│   └── PROJECT_FILES.txt                         # 本文件
+│
+└── src/
+    ├── main/
+    │   ├── java/com/example/customerservice/
+    │   │   │
+    │   │   ├── 📦 主应用
+    │   │   │   └── AiCustomerServiceApplication.java
+    │   │   │
+    │   │   ├── 📦 config/ (配置类)
+    │   │   │   ├── DataInitializer.java         # 测试数据初始化
+    │   │   │   ├── FunctionConfig.java           # Function Calling 配置
+    │   │   │   └── VectorStoreConfig.java        # 向量存储配置
+    │   │   │
+    │   │   ├── 📦 controller/ (控制器)
+    │   │   │   └── CustomerServiceController.java # REST API 控制器
+    │   │   │
+    │   │   ├── 📦 dto/ (数据传输对象)
+    │   │   │   ├── ChatRequest.java              # 聊天请求 DTO
+    │   │   │   └── ChatResponse.java             # 聊天响应 DTO
+    │   │   │
+    │   │   ├── 📦 entity/ (实体类)
+    │   │   │   ├── ChatMessage.java              # 聊天消息实体
+    │   │   │   ├── ChatSession.java              # 聊天会话实体
+    │   │   │   ├── CustomerTicket.java           # 客服工单实体
+    │   │   │   └── Order.java                    # 订单实体
+    │   │   │
+    │   │   ├── 📦 function/ (Function Calling 工具)
+    │   │   │   ├── OrderQueryFunction.java       # 订单查询工具
+    │   │   │   ├── TrackingQueryFunction.java    # 物流追踪工具
+    │   │   │   ├── TicketCreateFunction.java     # 工单创建工具
+    │   │   │   └── TicketQueryFunction.java      # 工单查询工具
+    │   │   │
+    │   │   ├── 📦 repository/ (数据访问层)
+    │   │   │   ├── ChatMessageRepository.java    # 消息仓库
+    │   │   │   ├── ChatSessionRepository.java    # 会话仓库
+    │   │   │   ├── CustomerTicketRepository.java # 工单仓库
+    │   │   │   └── OrderRepository.java          # 订单仓库
+    │   │   │
+    │   │   └── 📦 service/ (服务层)
+    │   │       ├── CustomerServiceAgent.java     # 核心客服代理
+    │   │       └── KnowledgeBaseService.java     # 知识库服务 (RAG)
+    │   │
+    │   └── resources/
+    │       ├── application.yml                   # 应用配置
+    │       ├── data.sql                          # SQL 初始化脚本
+    │       └── static/
+    │           └── index.html                    # Web 前端界面
+    │
+    └── test/
+        ├── java/com/example/customerservice/
+        │   └── AiCustomerServiceApplicationTests.java
+        └── resources/
+            └── application-test.yml              # 测试环境配置
+
+
+🎯 核心功能模块
+--------------
+
+1. RAG (检索增强生成)
+   - KnowledgeBaseService.java
+   - VectorStoreConfig.java
+   ✅ 知识库初始化、语义搜索、上下文增强
+
+2. Function Calling (工具调用)
+   - OrderQueryFunction.java
+   - TrackingQueryFunction.java
+   - TicketCreateFunction.java
+   - TicketQueryFunction.java
+   - FunctionConfig.java
+   ✅ 订单查询、物流追踪、工单管理
+
+3. Streaming (流式响应)
+   - CustomerServiceAgent.chatStream()
+   - CustomerServiceController.chatStream()
+   ✅ SSE 流式输出、实时响应
+
+4. Prompt Engineering (提示工程)
+   - CustomerServiceAgent.SYSTEM_PROMPT
+   ✅ 专业客服提示词、角色定义
+
+5. Agent Workflow (智能工作流)
+   - CustomerServiceAgent.java
+   ✅ 多步骤处理、上下文管理、工具编排
+
+6. 会话管理
+   - ChatSession.java
+   - ChatMessage.java
+   - ChatSessionRepository.java
+   - ChatMessageRepository.java
+   ✅ 会话持久化、消息历史、多轮对话
+
+7. 审计日志
+   - 集成 spring-ai-common
+   ✅ API 调用记录、审计追踪
+
+
+📊 数据库表结构
+--------------
+
+1. chat_sessions      - 会话记录
+2. chat_messages      - 消息历史
+3. orders             - 订单信息
+4. customer_tickets   - 客服工单
+
+
+🌐 API 接口
+----------
+
+POST /api/customer-service/session              - 创建会话
+POST /api/customer-service/chat                 - 发送消息（非流式）
+POST /api/customer-service/chat/stream          - 发送消息（流式）
+POST /api/customer-service/session/{id}/end     - 结束会话
+
+
+🎨 前端界面
+----------
+
+index.html
+- 现代化渐变色设计
+- 流式/非流式切换
+- 快捷操作按钮
+- 响应式布局
+- 动画效果
+
+
+🔧 配置文件
+----------
+
+application.yml       - 主配置文件
+application-test.yml  - 测试配置
+.env.example          - 环境变量示例
+
+
+📦 依赖项
+--------
+
+- Spring Boot 3.x
+- Spring AI (OpenAI)
+- Spring WebFlux
+- Spring Data JPA
+- H2 Database
+- Lombok
+- Jackson
+
+
+🚀 快速启动
+----------
+
+1. 设置环境变量:
+   export OPENAI_API_KEY=your-key
+
+2. 启动应用:
+   ./start.sh (Linux/Mac)
+   start.bat (Windows)
+
+3. 访问界面:
+   http://localhost:8080
+
+
+🧪 测试方法
+----------
+
+1. Web 界面测试:
+   打开 http://localhost:8080
+
+2. API 测试:
+   ./test-api.sh (Linux/Mac)
+   test-api.bat (Windows)
+
+3. Postman 测试:
+   导入 postman_collection.json
+
+4. H2 控制台:
+   http://localhost:8080/h2-console
+
+
+📝 文档说明
+----------
+
+README.md            - 完整的项目说明，包含功能介绍、使用方法
+QUICK_START.md       - 快速启动指南，包含测试场景
+ARCHITECTURE.md      - 架构设计文档，包含流程图、设计模式
+PROJECT_OVERVIEW.md  - 项目概览，包含亮点、对比、扩展方向
+PROJECT_FILES.txt    - 本文件，项目文件清单
+
+
+✨ 项目特点
+----------
+
+✅ 功能完整 - 集成 6 个 Demo 的所有功能
+✅ 生产就绪 - 企业级代码质量
+✅ 文档齐全 - 详细的说明和注释
+✅ 易于扩展 - 模块化设计
+✅ 开箱即用 - 最少配置
+✅ 真实场景 - 可直接应用的客服系统
+
+
+🎓 学习价值
+----------
+
+- Spring AI 完整用法
+- 企业级架构设计
+- AI 应用最佳实践
+- 全栈开发技能
+- RAG 实现方法
+- Function Calling 使用
+- 流式响应处理
+
+
+📄 许可证
+--------
+
+MIT License
+
+
+=====================================
+项目创建完成！
+开始你的 AI 客服之旅吧！ 🚀
+=====================================

@@ -1,0 +1,2 @@
+com.example.common.audit.AuditAutoConfiguration
+com.example.common.config.CorsConfig

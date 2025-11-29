@@ -1,0 +1,105 @@
+spring:
+  application:
+    name: all-dependencies-demo
+  
+  # ========== OpenAI 配置 ==========
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:demo-key}
+      base-url: https://api.openai.com
+      chat:
+        options:
+          model: gpt-4o
+          temperature: 0.7
+      embedding:
+        options:
+          model: text-embedding-3-small
+    
+    # ========== Azure OpenAI 配置 ==========
+    azure:
+      openai:
+        api-key: ${AZURE_OPENAI_API_KEY:demo-key}
+        endpoint: ${AZURE_OPENAI_ENDPOINT:https://your-resource.openai.azure.com}
+        chat:
+          options:
+            deployment-name: gpt-4
+        embedding:
+          options:
+            deployment-name: text-embedding-ada-002
+    
+    # ========== Anthropic 配置 ==========
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY:demo-key}
+      chat:
+        options:
+          model: claude-3-opus-20240229
+          max-tokens: 4096
+    
+    # ========== Ollama 配置 ==========
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: llama3
+          temperature: 0.7
+      embedding:
+        options:
+          model: nomic-embed-text
+    
+    # ========== Vertex AI 配置 ==========
+    vertex:
+      ai:
+        gemini:
+          project-id: ${GCP_PROJECT_ID:demo-project}
+          location: us-central1
+          chat:
+            options:
+              model: gemini-pro
+    
+    # ========== Vector Store 配置 ==========
+    vectorstore:
+      pgvector:
+        host: localhost
+        port: 5432
+        database: vectordb
+        username: ${POSTGRES_USER:postgres}
+        password: ${POSTGRES_PASSWORD:postgres}
+        schema-name: public
+        table-name: vector_store
+        dimensions: 1536
+      
+      redis:
+        host: localhost
+        port: 6379
+        index-name: spring-ai-index
+      
+      pinecone:
+        api-key: ${PINECONE_API_KEY:demo-key}
+        environment: ${PINECONE_ENVIRONMENT:us-east-1-aws}
+        index-name: spring-ai-index
+      
+      chroma:
+        base-url: http://localhost:8000
+        collection-name: spring-ai-collection
+
+# ========== 服务器配置 ==========
+server:
+  port: 8080
+
+# ========== 日志配置 ==========
+logging:
+  level:
+    root: INFO
+    org.springframework.ai: DEBUG
+    com.example.alldeps: DEBUG
+
+# ========== Actuator 配置 ==========
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true

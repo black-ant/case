@@ -1,0 +1,19 @@
+server:
+  port: 8098
+
+spring:
+  application:
+    name: chat-memory-demo
+  ai:
+    openai:
+      api-key: "sk-4ZkNj89GHt26K4lyfl1JNOQuPtUeV5ktXUs8T1VbJ1iS7R5Y"
+      base-url: "https://992236.xyz"
+      chat:
+        options:
+          model: "gemini-2.5-pro"
+          stream: false
+
+logging:
+  level:
+    root: info
+    org.springframework.ai: info

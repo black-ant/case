@@ -1,0 +1,132 @@
+========================================
+✅ 审计日志集成完成
+========================================
+
+## 集成内容
+
+已成功集成 spring-ai-common 审计日志功能到 Sample-Spring-AI 项目。
+
+## 功能说明
+
+### 1. 自动审计日志
+所有 API 接口都已添加 @ApiAuditLog 注解，会自动记录：
+- API 调用时间
+- 请求方法和路径
+- 请求参数
+- 响应结果
+- 执行时长
+- 异常信息（如果有）
+
+### 2. 已添加审计的接口
+
+#### ChatController (基础对话)
+- POST /api/chat/simple - 简单对话
+- POST /api/chat/stream - 流式对话
+
+#### AdvancedChatController (高级配置)
+- POST /api/advanced/basic-options - 基础选项配置
+- POST /api/advanced/system-prompt - 自定义系统提示词
+- POST /api/advanced/template - 模板和变量
+- POST /api/advanced/advanced-options - 高级选项配置
+- POST /api/advanced/stream-options - 流式响应配置
+- POST /api/advanced/prompt-object - Prompt 对象
+- POST /api/advanced/full-response - 完整响应信息
+- POST /api/advanced/specific-model - 指定模型
+- POST /api/advanced/creative-writing - 创造性写作
+- POST /api/advanced/precise-answer - 精确回答
+
+## 日志示例
+
+启动应用后，每次 API 调用都会在控制台看到类似日志：
+
+```
+2025-10-08 14:01:00.123 INFO  [ApiAuditAspect] ========== API 审计日志 ==========
+2025-10-08 14:01:00.123 INFO  [ApiAuditAspect] 操作: 简单对话
+2025-10-08 14:01:00.123 INFO  [ApiAuditAspect] 方法: POST /api/chat/simple
+2025-10-08 14:01:00.123 INFO  [ApiAuditAspect] 请求参数: {"message":"你好"}
+2025-10-08 14:01:02.456 INFO  [ApiAuditAspect] 响应结果: "你好！有什么我可以帮助你的吗？"
+2025-10-08 14:01:02.456 INFO  [ApiAuditAspect] 执行时长: 2333ms
+2025-10-08 14:01:02.456 INFO  [ApiAuditAspect] =====================================
+```
+
+## 配置说明
+
+### 默认配置
+审计日志功能已自动启用，无需额外配置。
+
+### 自定义配置（可选）
+如果需要自定义审计日志行为，可以在 application.yml 中添加：
+
+```yaml
+# 审计日志配置（可选）
+logging:
+  level:
+    com.example.common.audit: DEBUG  # 审计日志级别
+```
+
+### 注解参数说明
+
+@ApiAuditLog 注解支持以下参数：
+- value: 操作描述（必填）
+- logRequest: 是否记录请求参数（默认 true）
+- logResponse: 是否记录响应结果（默认 true）
+- logException: 是否记录异常信息（默认 true）
+
+示例：
+```java
+@ApiAuditLog(value = "简单对话", logResponse = false)
+```
+
+## 技术实现
+
+### AOP 切面
+使用 Spring AOP 在方法执行前后自动记录日志，对业务代码无侵入。
+
+### 支持响应式
+完美支持 WebFlux 的 Mono 和 Flux 响应类型。
+
+### 异常处理
+自动捕获并记录方法执行过程中的异常。
+
+## 依赖关系
+
+```
+Sample-Spring-AI
+  └── spring-ai-common (1.0.0)
+      ├── Spring AOP
+      ├── Spring WebFlux
+      └── Jackson
+```
+
+## 编译状态
+
+✅ spring-ai-common 编译成功并安装到本地仓库
+✅ Sample-Spring-AI 编译成功
+✅ 所有接口已添加审计日志注解
+
+## 测试方法
+
+1. 启动应用：
+   ```
+   mvn spring-boot:run
+   ```
+
+2. 调用任意 API：
+   ```
+   curl -X POST http://localhost:8786/api/chat/simple \
+     -H "Content-Type: application/json" \
+     -d '{"message":"你好"}'
+   ```
+
+3. 查看控制台日志，会看到完整的审计日志输出
+
+## 注意事项
+
+1. 审计日志会记录请求和响应内容，注意敏感信息
+2. 对于大量数据的响应，日志可能会很长
+3. 流式响应（Flux）会在流结束时记录完整内容
+4. 如果不需要记录某些信息，可以通过注解参数关闭
+
+========================================
+更多信息请查看 spring-ai-common 项目文档
+========================================

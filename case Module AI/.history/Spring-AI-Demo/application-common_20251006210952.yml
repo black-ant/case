@@ -1,0 +1,32 @@
+# Spring AI Demo 通用配置文件
+# 所有项目共享此配置，只需配置一次
+
+spring:
+  ai:
+    openai:
+      # OpenAI API Key（必填）
+      api-key: ${OPENAI_API_KEY:your-openai-api-key}
+      
+      # OpenAI Base URL（可选，用于代理或自定义端点）
+      base-url: ${OPENAI_BASE_URL:https://api.openai.com}
+      
+      # 聊天模型配置
+      chat:
+        options:
+          model: ${OPENAI_MODEL:gpt-3.5-turbo}
+          temperature: ${OPENAI_TEMPERATURE:0.7}
+      
+      # 嵌入模型配置（用于 RAG）
+      embedding:
+        options:
+          model: ${OPENAI_EMBEDDING_MODEL:text-embedding-ada-002}
+
+# 日志配置
+logging:
+  level:
+    org.springframework.ai: ${LOG_LEVEL_AI:INFO}
+    com.example: ${LOG_LEVEL_APP:INFO}
+
+# 服务器配置
+server:
+  port: ${SERVER_PORT:8080}

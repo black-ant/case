@@ -1,0 +1,32 @@
+# Spring AI Demo 通用配置文件
+# 所有项目共享此配置，只需配置一次
+
+spring:
+  ai:
+    openai:
+      # API Key（使用 SiliconFlow）
+      api-key: ${OPENAI_API_KEY:sk-vgerpwjpbonxajygdzkqjkitstqjshsikflawxzqhcgzecum}
+      
+      # Base URL（使用 SiliconFlow）
+      base-url: ${OPENAI_BASE_URL:https://api.siliconflow.cn}
+      
+      # 聊天模型配置（使用 DeepSeek-V3）
+      chat:
+        options:
+          model: ${OPENAI_MODEL:deepseek-ai/DeepSeek-V3}
+          temperature: ${OPENAI_TEMPERATURE:0.7}
+      
+      # 嵌入模型配置（使用中文嵌入模型）
+      embedding:
+        options:
+          model: ${OPENAI_EMBEDDING_MODEL:BAAI/bge-large-zh-v1.5}
+
+# 日志配置
+logging:
+  level:
+    org.springframework.ai: ${LOG_LEVEL_AI:INFO}
+    com.example: ${LOG_LEVEL_APP:INFO}
+
+# 服务器配置
+server:
+  port: ${SERVER_PORT:8083}

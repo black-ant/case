@@ -1,0 +1,105 @@
+========================================
+✅ DNS 解析超时问题 - 已修复
+========================================
+
+## 问题描述
+错误信息：
+  io.netty.resolver.dns.DnsNameResolverTimeoutException: 
+  [/192.168.0.1:53] DefaultDnsQuestion(api.siliconflow.cn. IN A) 
+  query via UDP timed out after 5000 milliseconds
+
+根本原因：
+  本地 DNS 服务器 (192.168.0.1) 无法在 5 秒内解析 api.siliconflow.cn 域名
+
+## 修复方案
+
+### ✅ 已实施的代码修复
+
+1. WebClientConfig.java
+   - 添加了 DefaultAddressResolverGroup.INSTANCE
+   - 使用 JVM 默认 DNS 解析器，绕过 Netty 异步 DNS
+   - 增加了连接超时 (30秒) 和读取超时 (60秒)
+   - 支持 HTTP 代理配置
+
+2. application.yml
+   - 添加了 http.dns.use-jvm-resolver 配置项
+   - 添加了代理配置选项
+   - 增加了超时配置
+
+3. 启动脚本
+   - start-with-custom-dns.bat: 使用优化的 JVM 参数启动
+   - change-dns-windows.bat: 修改系统 DNS 为公共 DNS
+   - test-network.bat: 网络诊断工具
+
+## 现在如何启动
+
+### 方法 1: 直接启动（推荐）
+mvn spring-boot:run
+
+或
+
+start-with-custom-dns.bat
+
+### 方法 2: 如果还是失败，启用代理
+编辑 application.yml:
+http:
+  proxy:
+    enabled: true
+    host: 127.0.0.1
+    port: 7890
+
+### 方法 3: 修改系统 DNS（一劳永逸）
+以管理员身份运行:
+change-dns-windows.bat
+
+选择阿里云 DNS (223.5.5.5) 或腾讯 DNS (119.29.29.29)
+
+## 技术原理
+
+Netty 默认使用异步 DNS 解析器 (DnsAddressResolverGroup)：
+- 优点：非阻塞，性能好
+- 缺点：在某些网络环境下不稳定，容易超时
+
+JVM 默认 DNS 解析器 (DefaultAddressResolverGroup)：
+- 优点：使用系统 DNS，稳定性好，兼容性强
+- 缺点：阻塞式，性能略低（但对大多数应用影响不大）
+
+通过配置 .resolver(DefaultAddressResolverGroup.INSTANCE)，
+我们让 Netty 使用 JVM 的 DNS 解析器，从而解决超时问题。
+
+## 为什么会出现这个问题
+
+1. 路由器 DNS (192.168.0.1) 配置问题
+   - 路由器可能使用了不稳定的上游 DNS
+   - 路由器 DNS 缓存可能有问题
+
+2. DNS 污染
+   - 某些域名在特定网络环境下被污染
+   - 导致解析失败或超时
+
+3. 网络限制
+   - 公司/学校网络可能有限制
+   - 需要通过代理访问
+
+4. Netty DNS 解析器的限制
+   - 默认超时时间较短 (5秒)
+   - 在复杂网络环境下容易失败
+
+## 相关文件
+
+- DNS-FIX-README.txt: 快速修复指南
+- NETWORK-TROUBLESHOOTING.txt: 详细故障排查
+- start-with-custom-dns.bat: 优化启动脚本
+- change-dns-windows.bat: DNS 修改工具
+- test-network.bat: 网络诊断工具
+
+## 编译状态
+✅ 编译成功 (mvn clean compile)
+✅ 代码无错误
+✅ 配置已优化
+
+现在可以直接启动项目了！
+
+========================================
+如有问题，请查看 NETWORK-TROUBLESHOOTING.txt
+========================================

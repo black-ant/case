@@ -1,0 +1,8 @@
+spring:
+  ai:
+    openai:
+      api-key: test-key
+      
+logging:
+  level:
+    com.example.customerservice: INFO

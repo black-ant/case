@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ import org.springframework.stereotype.Service;
  * @Created by zengzg
  */
 @Service
-@Order(100)
-public class BeanOne implements ApplicationRunner, Ordered {
+@Order(1000)
+public class BeanOne implements ApplicationRunner,IBaseBean{
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -26,17 +27,10 @@ public class BeanOne implements ApplicationRunner, Ordered {
         logger.info("------> 创建 BeanOne <-------");
     }
 
-    public void run() {
-        logger.info("------> this is in bean TWO <-------");
-    }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//        logger.info("------> BeanOne Run <-------");
+        logger.info("------> BeanOne Run <-------");
     }
 
-    @Override
-    public int getOrder() {
-        return 10;
-    }
 }

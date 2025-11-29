@@ -1,0 +1,137 @@
+========================================
+AI 智能客服系统 - 使用说明
+========================================
+
+🎉 恭喜！项目已创建完成！
+
+📦 项目位置
+----------
+AI-Customer-Service/
+
+
+🚀 快速启动（3步）
+-----------------
+
+第 1 步：设置 API Key
+-------------------
+Windows CMD:
+  set OPENAI_API_KEY=your-api-key-here
+
+Windows PowerShell:
+  $env:OPENAI_API_KEY="your-api-key-here"
+
+Linux/Mac:
+  export OPENAI_API_KEY=your-api-key-here
+
+
+第 2 步：启动应用
+---------------
+Windows:
+  cd AI-Customer-Service
+  start.bat
+
+Linux/Mac:
+  cd AI-Customer-Service
+  chmod +x start.sh
+  ./start.sh
+
+或者直接使用 Maven:
+  cd AI-Customer-Service
+  mvn spring-boot:run
+
+
+第 3 步：访问应用
+---------------
+打开浏览器访问：
+  http://localhost:8080
+
+
+🎯 功能测试
+----------
+
+1. Web 界面测试
+   - 打开 http://localhost:8080
+   - 点击快捷按钮或输入问题
+   - 尝试切换流式/非流式模式
+
+2. 测试场景
+   ✅ 查询订单：输入 "查询我的订单"
+   ✅ 物流追踪：输入 "查询订单 ORD20251019001 的物流"
+   ✅ 知识库：输入 "退货政策是什么？"
+   ✅ 创建工单：输入 "我收到的商品有问题"
+
+3. API 测试
+   Windows:
+     test-api.bat
+   
+   Linux/Mac:
+     chmod +x test-api.sh
+     ./test-api.sh
+
+4. Postman 测试
+   - 导入 postman_collection.json
+   - 按顺序执行请求
+
+
+📊 查看数据库
+------------
+访问 H2 控制台：
+  http://localhost:8080/h2-console
+
+连接信息：
+  JDBC URL: jdbc:h2:mem:customerservice
+  Username: sa
+  Password: (留空)
+
+
+📚 文档说明
+----------
+README.md            - 完整项目说明
+QUICK_START.md       - 快速启动指南
+ARCHITECTURE.md      - 架构设计文档
+PROJECT_OVERVIEW.md  - 项目概览
+PROJECT_FILES.txt    - 文件清单
+
+
+✨ 核心功能
+----------
+✅ RAG 知识库检索
+✅ Function Calling 工具调用
+✅ 流式实时响应
+✅ 智能工作流
+✅ 会话管理
+✅ 消息历史
+✅ 审计日志
+
+
+🎓 学习建议
+----------
+1. 先运行 Web 界面，体验功能
+2. 查看 README.md 了解架构
+3. 阅读 ARCHITECTURE.md 理解设计
+4. 查看源代码，学习实现
+5. 尝试扩展新功能
+
+
+🔧 常见问题
+----------
+Q: 启动失败？
+A: 检查 JDK 版本（需要 17+）和 API Key
+
+Q: AI 不回复？
+A: 检查 API Key 是否有效，查看控制台日志
+
+Q: 端口被占用？
+A: 修改 application.yml 中的 server.port
+
+
+📞 获取帮助
+----------
+- 查看控制台日志
+- 检查 H2 数据库数据
+- 阅读详细文档
+
+
+========================================
+开始你的 AI 客服之旅吧！🚀
+========================================

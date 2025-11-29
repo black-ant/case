@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
  * @Created by zengzg
  */
 @Service
-@Order(20)
-public class BeanTwo implements ApplicationRunner, Ordered {
+@Order(300)
+public class BeanTwo implements ApplicationRunner,IBaseBean {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -24,17 +24,9 @@ public class BeanTwo implements ApplicationRunner, Ordered {
         logger.info("------> 创建 BeanTwo <-------");
     }
 
-    public void run() {
-        logger.info("------> this is in bean TWO <-------");
-    }
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//        logger.info("------> BeanTwo Run <-------");
+        logger.info("------> BeanTwo Run <-------");
     }
 
-    @Override
-    public int getOrder() {
-        return 30;
-    }
 }

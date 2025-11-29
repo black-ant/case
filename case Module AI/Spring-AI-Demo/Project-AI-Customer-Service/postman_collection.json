@@ -1,0 +1,207 @@
+{
+  "info": {
+    "name": "AI Customer Service API",
+    "description": "AI 智能客服系统 API 测试集合",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. 创建会话",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customerId\": \"CUST001\",\n  \"customerName\": \"张三\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/customer-service/session",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "customer-service", "session"]
+        },
+        "description": "创建新的客服会话，返回 sessionId"
+      },
+      "response": []
+    },
+    {
+      "name": "2. 发送消息（非流式）",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"customerId\": \"CUST001\",\n  \"message\": \"查询我的订单\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/customer-service/chat",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "customer-service", "chat"]
+        },
+        "description": "发送消息并获取 AI 回复（非流式）"
+      },
+      "response": []
+    },
+    {
+      "name": "3. 发送消息（流式）",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"customerId\": \"CUST001\",\n  \"message\": \"退货政策是什么？\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/customer-service/chat/stream",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "customer-service", "chat", "stream"]
+        },
+        "description": "发送消息并获取流式 AI 回复"
+      },
+      "response": []
+    },
+    {
+      "name": "4. 结束会话",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/customer-service/session/{{sessionId}}/end",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "customer-service", "session", "{{sessionId}}", "end"]
+        },
+        "description": "结束当前会话"
+      },
+      "response": []
+    },
+    {
+      "name": "测试场景 - 查询订单",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"customerId\": \"CUST001\",\n  \"message\": \"查询订单号 ORD20251019001\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/customer-service/chat",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "customer-service", "chat"]
+        },
+        "description": "测试订单查询功能（Function Calling）"
+      },
+      "response": []
+    },
+    {
+      "name": "测试场景 - 查询物流",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"customerId\": \"CUST001\",\n  \"message\": \"查询订单 ORD20251019001 的物流信息\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/customer-service/chat",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "customer-service", "chat"]
+        },
+        "description": "测试物流追踪功能（Function Calling）"
+      },
+      "response": []
+    },
+    {
+      "name": "测试场景 - 知识库查询",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"customerId\": \"CUST001\",\n  \"message\": \"退货政策是什么？\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/customer-service/chat",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "customer-service", "chat"]
+        },
+        "description": "测试知识库检索功能（RAG）"
+      },
+      "response": []
+    },
+    {
+      "name": "测试场景 - 创建工单",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"customerId\": \"CUST001\",\n  \"message\": \"我收到的商品有质量问题，屏幕有划痕，请帮我创建工单\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/customer-service/chat",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "customer-service", "chat"]
+        },
+        "description": "测试工单创建功能（Function Calling）"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "sessionId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

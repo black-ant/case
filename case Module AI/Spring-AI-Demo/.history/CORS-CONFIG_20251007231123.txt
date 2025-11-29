@@ -1,0 +1,38 @@
+CORS 跨域配置说明
+==================
+
+已在 spring-ai-common 模块中添加全局 CORS 配置，所有项目自动生效。
+
+配置位置：
+spring-ai-common/src/main/java/com/example/common/config/CorsConfig.java
+
+配置内容：
+- 允许所有域名跨域 (*)
+- 允许所有请求头 (*)
+- 允许所有请求方法 (GET, POST, PUT, DELETE, etc.)
+- 允许携带凭证 (Credentials)
+- 预检请求有效期：3600 秒
+
+生效范围：
+所有依赖 spring-ai-common 的项目都会自动启用 CORS 配置，无需额外配置。
+
+已生效的项目：
+✅ Sample-Spring-AI
+✅ Multi-LLM-Provider
+✅ Function-Calling-Demo
+✅ Agent-Workflow-Demo
+✅ RAG-Demo
+✅ Streaming-Demo
+✅ Prompt-Engineering-Demo
+
+使用方式：
+无需任何配置，启动项目即可。所有跨域请求都会被自动处理。
+
+测试方法：
+1. 启动任意项目
+2. 在浏览器中打开 demo.html
+3. 发送请求，不会再有 CORS 错误
+
+注意事项：
+- 生产环境建议修改 addAllowedOriginPattern("*") 为具体的域名
+- 如需禁用 CORS，可在项目的 application.yml 中排除自动配置

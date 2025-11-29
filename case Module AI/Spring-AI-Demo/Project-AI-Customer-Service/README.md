@@ -1,0 +1,271 @@
+# AI 智能客服系统
+
+集成了 Spring AI 多项功能的完整 AI 客服应用，展示了 RAG、Function Calling、Streaming、Agent Workflow 等核心功能。
+
+## 🎯 功能特性
+
+- ✅ **RAG（检索增强生成）** - 使用 SiliconFlow Embeddings 进行语义搜索
+- ✅ **Function Calling（工具调用）** - 订单查询、物流追踪、工单管理
+- ✅ **Streaming（流式响应）** - SSE 实时输出，提升用户体验
+- ✅ **Prompt Engineering（提示工程）** - 专业客服话术
+- ✅ **Agent Workflow（智能工作流）** - 多步骤问题解决
+- ✅ **会话管理** - 完整的对话历史记录
+- ✅ **Web 界面** - 现代化的聊天界面
+
+> **技术亮点**：Chat 和 Embeddings 使用不同的 API 提供商，实现最优配置。
+
+## 🚀 快速开始
+
+### 1. 环境要求
+
+- JDK 21
+- Maven 3.6+
+
+### 2. 配置 API
+
+项目已配置 DeepSeek API（OpenAI 兼容），无需额外设置。
+
+**默认配置：**
+
+Chat API (DeepSeek):
+```yaml
+DEEPSEEK_API_KEY: sk-4ZkNj89GHt26K4lyfl1JNOQuPtUeV5ktXUs8T1VbJ1iS7R5Y
+DEEPSEEK_API_URL: https://992236.xyz
+DEEPSEEK_MODEL: gemini-2.5-pro
+```
+
+Embeddings API (SiliconFlow):
+```yaml
+EMBEDDINGS_API_KEY: sk-vgerpwjpbonxajygdzkqjkitstqjshsikflawxzqhcgzecum
+EMBEDDINGS_API_URL: https://api.siliconflow.cn/v1
+EMBEDDINGS_MODEL: BAAI/bge-large-zh-v1.5
+```
+
+**自定义配置（可选）：**
+```bash
+# Windows
+set DEEPSEEK_API_KEY=your-key
+set DEEPSEEK_API_URL=https://your-api-url/v1
+set DEEPSEEK_MODEL=your-model
+
+# Linux/Mac
+export DEEPSEEK_API_KEY=your-key
+export DEEPSEEK_API_URL=https://your-api-url/v1
+export DEEPSEEK_MODEL=your-model
+```
+
+### 3. 启动应用
+
+```bash
+cd AI-Customer-Service
+mvn clean spring-boot:run
+```
+
+### 4. 访问应用
+
+打开浏览器访问：**http://localhost:8080**
+
+## 💡 使用示例
+
+### 场景 1：查询订单
+```
+用户：查询我的订单
+AI：[自动调用 orderQueryFunction 查询订单信息]
+```
+
+### 场景 2：物流追踪
+```
+用户：查询订单 ORD20251019001 的物流
+AI：[自动调用 trackingQueryFunction 获取物流信息]
+```
+
+### 场景 3：知识库问答
+```
+用户：退货政策是什么？
+AI：[从知识库检索相关信息并回答]
+```
+
+### 场景 4：创建工单
+```
+用户：我收到的商品有质量问题
+AI：[引导用户描述问题，自动调用 ticketCreateFunction 创建工单]
+```
+
+## 🏗️ 项目结构
+
+```
+AI-Customer-Service/
+├── src/main/java/com/example/customerservice/
+│   ├── config/              # 配置类
+│   ├── controller/          # REST API
+│   ├── dto/                 # 数据传输对象
+│   ├── entity/              # 实体类
+│   ├── function/            # Function Calling 工具
+│   ├── repository/          # 数据访问层
+│   └── service/             # 业务逻辑
+├── src/main/resources/
+│   ├── application.yml      # 应用配置
+│   └── static/
+│       └── index.html       # Web 界面
+└── pom.xml
+```
+
+## 📊 核心组件
+
+### 1. CustomerServiceAgent
+核心客服代理，负责：
+- 会话管理
+- 消息历史维护
+- AI 调用编排
+- Function Calling 集成
+
+### 2. KnowledgeBaseService
+知识库服务，提供：
+- 文档向量化
+- 语义搜索
+- 上下文增强
+
+### 3. Function Tools
+- **OrderQueryFunction** - 订单查询
+- **TrackingQueryFunction** - 物流追踪
+- **TicketCreateFunction** - 工单创建
+- **TicketQueryFunction** - 工单查询
+
+## 🔧 配置说明
+
+### application.yml
+
+```yaml
+spring:
+  ai:
+    openai:
+      api-key: ${DEEPSEEK_API_KEY}
+      base-url: ${DEEPSEEK_API_URL}
+      chat:
+        options:
+          model: ${DEEPSEEK_MODEL}
+          temperature: 0.7
+          max-tokens: 2000
+```
+
+### 数据库
+
+使用 H2 内存数据库，包含以下表：
+- `chat_sessions` - 会话记录
+- `chat_messages` - 消息历史
+- `orders` - 订单信息
+- `customer_tickets` - 客服工单
+
+访问 H2 控制台：http://localhost:8080/h2-console
+- JDBC URL: `jdbc:h2:mem:customerservice`
+- Username: `sa`
+- Password: (空)
+
+## 📡 API 接口
+
+### 创建会话
+```http
+POST /api/customer-service/session
+Content-Type: application/json
+
+{
+  "customerId": "CUST001",
+  "customerName": "张三"
+}
+```
+
+### 发送消息（非流式）
+```http
+POST /api/customer-service/chat
+Content-Type: application/json
+
+{
+  "sessionId": "xxx",
+  "customerId": "CUST001",
+  "message": "查询我的订单"
+}
+```
+
+### 发送消息（流式）
+```http
+POST /api/customer-service/chat/stream
+Content-Type: application/json
+
+{
+  "sessionId": "xxx",
+  "customerId": "CUST001",
+  "message": "退货政策是什么？"
+}
+```
+
+### 结束会话
+```http
+POST /api/customer-service/session/{sessionId}/end
+```
+
+## 🎨 Web 界面特色
+
+- 现代化渐变色设计
+- 流畅的动画效果
+- 支持流式/非流式切换
+- 快捷操作按钮
+- 响应式布局
+
+## 🧪 测试数据
+
+系统预置了测试数据：
+
+**客户：张三 (CUST001)**
+- 订单 ORD20251019001：iPhone 15 Pro（已发货，物流号：SF1234567890）
+- 订单 ORD20251019002：AirPods Pro（已送达）
+
+**客户：李四 (CUST002)**
+- 订单 ORD20251019003：MacBook Pro（已确认）
+
+## 🔍 技术栈
+
+- Spring Boot 3.x
+- Spring AI
+- Spring Web MVC + WebFlux
+- Spring Data JPA
+- H2 Database
+- Lombok
+- Jackson
+
+## 📝 开发说明
+
+### 添加新的 Function
+
+1. 创建 Function 类实现 `Function<Request, Response>`
+2. 在 `FunctionConfig` 中注册 Bean
+3. 添加 `@Description` 注解描述功能
+
+### 扩展知识库
+
+在 `KnowledgeBaseService.initKnowledgeBase()` 中添加文档：
+```java
+new Document("知识内容", Map.of("category", "分类"))
+```
+
+### 自定义提示词
+
+修改 `CustomerServiceAgent.SYSTEM_PROMPT` 常量。
+
+## 🐛 常见问题
+
+**Q: 端口被占用？**
+A: 修改 `application.yml` 中的 `server.port`
+
+**Q: API 调用失败？**
+A: 检查 API Key 和 base-url 配置是否正确
+
+**Q: 知识库检索不准确？**
+A: 调整 Top-K 值或优化文档内容
+
+## 📄 许可证
+
+MIT License
+
+---
+
+[返回主页](../README.md)

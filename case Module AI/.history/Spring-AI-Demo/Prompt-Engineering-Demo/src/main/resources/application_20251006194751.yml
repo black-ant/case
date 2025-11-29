@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: prompt-engineering-demo
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:your-openai-api-key}
+      chat:
+        options:
+          model: gpt-3.5-turbo
+          temperature: 0.7
+
+server:
+  port: 8080
+
+# 对话记忆配置
+conversation:
+  memory:
+    max-messages: 10
+    compression-threshold: 20
+    vector-similarity-threshold: 0.7
+
+logging:
+  level:
+    org.springframework.ai: DEBUG
+    com.example: DEBUG

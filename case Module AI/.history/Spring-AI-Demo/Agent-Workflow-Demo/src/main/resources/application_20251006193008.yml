@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: agent-workflow-demo
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:your-openai-api-key}
+      chat:
+        options:
+          model: gpt-3.5-turbo
+          temperature: 0.7
+  
+  # 线程池配置（用于并行工作流）
+  task:
+    execution:
+      pool:
+        core-size: 10
+        max-size: 20
+        queue-capacity: 100
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.ai: DEBUG
+    com.example: DEBUG

@@ -2,9 +2,12 @@ package com.gang.bean.demo.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Classname BeanTwo
@@ -12,10 +15,13 @@ import org.springframework.stereotype.Service;
  * @Date 2021/10/21
  * @Created by zengzg
  */
-//@Service
+@Service
 public class CBean implements ApplicationRunner {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private List<IBaseBean> baseBeanList;
 
     public CBean() {
         logger.info("------> 创建  CBean <-------");

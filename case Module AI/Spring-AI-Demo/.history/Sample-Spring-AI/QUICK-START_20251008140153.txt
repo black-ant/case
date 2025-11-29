@@ -1,0 +1,107 @@
+Sample-Spring-AI 快速启动指南
+==============================
+
+这是一个简单的 Spring AI 入门项目。
+
+快速启动
+--------
+1. 配置 API Key
+   编辑 src/main/resources/application.yml
+   修改 spring.ai.openai.api-key 为你的 API Key
+
+2. 启动项目
+   mvn spring-boot:run
+
+3. 测试 API
+   打开浏览器访问：file:///[项目路径]/Sample-Spring-AI/demo.html
+
+项目信息
+--------
+- 端口：8083
+- 主类：SampleSpringAiApplication
+- Web 框架：Spring WebFlux (响应式)
+
+API 接口
+--------
+1. POST http://localhost:8083/api/chat/simple
+   请求：{"message": "你好"}
+   响应：字符串
+
+2. POST http://localhost:8083/api/chat/stream
+   请求：{"message": "你好"}
+   响应：SSE 流式文本
+
+3. POST http://localhost:8083/api/advanced/*
+   高级配置接口
+
+项目结构
+--------
+controller/
+  ├── ChatController.java          # 基础对话 API
+  └── AdvancedChatController.java  # 高级配置 API
+service/
+  ├── ChatService.java             # 对话服务
+  └── AdvancedChatService.java     # 高级服务
+model/
+  ├── ChatRequest.java             # 请求 DTO
+  └── AdvancedChatRequest.java     # 高级请求 DTO
+config/
+  └── WebConfig.java               # CORS 配置
+
+特性
+----
+✅ 简单纯净 - 只依赖必要组件
+✅ WebFlux - 支持响应式和流式
+✅ CORS - 支持跨域请求
+✅ JSON API - 统一的 REST 规范
+✅ 超时保护 - 600 秒请求超时
+✅ 审计日志 - 自动记录所有 API 调用
+✅ DNS 优化 - 解决网络连接问题
+
+依赖
+----
+- spring-boot-starter-webflux
+- spring-ai-openai-spring-boot-starter
+- spring-ai-common (审计日志)
+
+配置说明
+--------
+application.yml 中的关键配置：
+- server.port: 8083
+- spring.ai.openai.api-key: 你的 API Key
+- spring.ai.openai.base-url: API 地址
+- spring.ai.openai.chat.options.model: 模型名称
+- spring.ai.openai.chat.options.temperature: 温度参数
+
+注意事项
+--------
+1. 需要有效的 OpenAI API Key
+2. 确保 8083 端口未被占用
+3. 流式响应需要支持 SSE 的客户端
+4. 建议使用 Chrome 或 Firefox 浏览器测试
+
+常见问题
+--------
+❌ DNS 解析超时错误？
+   → 查看 DNS-FIX-README.txt
+   → 项目已配置 JVM DNS 解析器，直接启动即可
+   → 如果还是失败，运行 change-dns-windows.bat 修改系统 DNS
+
+❌ 需要代理访问？
+   → 修改 application.yml 中 http.proxy.enabled=true
+   → 配置你的代理地址和端口
+
+❌ 端口被占用？
+   → 修改 application.yml 中 server.port 为其他端口
+
+测试命令
+--------
+# 使用 curl 测试
+curl -X POST http://localhost:8083/api/chat/simple \
+  -H "Content-Type: application/json" \
+  -d '{"message":"你好"}'
+
+# 测试流式响应
+curl -X POST http://localhost:8083/api/chat/stream \
+  -H "Content-Type: application/json" \
+  -d '{"message":"写一首诗"}'

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-LLM Provider Demo - 多 LLM 提供商演示</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 { color: #333; margin-bottom: 30px; text-align: center; }
+        .providers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 20px; }
+        .provider-card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .provider-card h2 { color: #2c3e50; margin-bottom: 15px; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+        .provider-icon { font-size: 24px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #555; font-weight: 500; font-size: 14px; }
+        textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; min-height: 80px; resize: vertical; font-family: inherit; }
+        .button-group { display: flex; gap: 10px; }
+        button { flex: 1; color: white; border: none; padding: 10px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        button:hover { opacity: 0.9; }
+        .btn-chat { background: #3498db; }
+        .btn-stream { background: #9b59b6; }
+        .response { margin-top: 15px; padding: 15px; background: #f8f9fa; border-left: 4px solid #3498db; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; max-height: 300px; overflow-y: auto; }
+        .error { border-left-color: #e74c3c; background: #fee; }
+        .loading { color: #3498db; font-style: italic; }
+        .provider-info { font-size: 12px; color: #7f8c8d; margin-bottom: 10px; }
+        .openai { border-top: 3px solid #10a37f; }
+        .azure { border-top: 3px solid #0078d4; }
+        .anthropic { border-top: 3px solid #d97757; }
+        .gemini { border-top: 3px solid #4285f4; }
+        .ollama { border-top: 3px solid #000000; }
+        .health-check { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
+        .health-status { display: inline-block; padding: 8px 16px; border-radius: 4px; font-weight: 500; }
+        .health-ok { background: #d4edda; color: #155724; }
+        .health-error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 Multi-LLM Provider Demo - 多 LLM 提供商演示</h1>
+
+        <div class="health-check">
+            <button onclick="checkHealth()" style="background: #27ae60;">检查服务状态</button>
+            <div id="healthStatus"></div>
+        </div>
+
+        <div class="providers-grid">
+            <!-- OpenAI -->
+            <div class="provider-card openai">
+                <h2><span class="provider-icon">🤖</span> OpenAI (GPT-3.5/GPT-4)</h2>
+                <div class="provider-info">最流行的商业 LLM，API 简单易用</div>
+                <div class="input-group">
+                    <label>输入消息：</label>
+                    <textarea id="openaiMessage" placeholder="例如：请介绍一下 Spring AI">请介绍一下 Spring AI</textarea>
+                </div>
+                <div class="button-group">
+                    <button class="btn-chat" onclick="chat('openai')">普通对话</button>
+                    <button class="btn-stream" onclick="stream('openai')">流式对话</button>
+                </div>
+                <div id="openaiResponse"></div>
+            </div>
+
+            <!-- Azure OpenAI -->
+            <div class="provider-card azure">
+                <h2><span class="provider-icon">☁️</span> Azure OpenAI</h2>
+                <div class="provider-info">企业级部署，数据隐私保护，SLA 保障</div>
+                <div class="input-group">
+                    <label>输入消息：</label>
+                    <textarea id="azureMessage" placeholder="例如：什么是云计算？">什么是云计算？</textarea>
+                </div>
+                <div class="button-group">
+                    <button class="btn-chat" onclick="chat('azure')">普通对话</button>
+                    <button class="btn-stream" onclick="stream('azure')">流式对话</button>
+                </div>
+                <div id="azureResponse"></div>
+            </div>
+
+            <!-- Anthropic Claude -->
+            <div class="provider-card anthropic">
+                <h2><span class="provider-icon">🧠</span> Anthropic Claude</h2>
+                <div class="provider-info">长上下文（200K tokens），安全性强</div>
+                <div class="input-group">
+                    <label>输入消息：</label>
+                    <textarea id="anthropicMessage" placeholder="例如：解释一下机器学习">解释一下机器学习</textarea>
+                </div>
+                <div class="button-group">
+                    <button class="btn-chat" onclick="chat('anthropic')">普通对话</button>
+                    <button class="btn-stream" onclick="stream('anthropic')">流式对话</button>
+                </div>
+                <div id="anthropicResponse"></div>
+            </div>
+
+            <!-- Google Gemini -->
+            <div class="provider-card gemini">
+                <h2><span class="provider-icon">✨</span> Google Gemini</h2>
+                <div class="provider-info">多模态支持，Google 生态集成</div>
+                <div class="input-group">
+                    <label>输入消息：</label>
+                    <textarea id="geminiMessage" placeholder="例如：介绍一下 Google AI">介绍一下 Google AI</textarea>
+                </div>
+                <div class="button-group">
+                    <button class="btn-chat" onclick="chat('gemini')">普通对话</button>
+                    <button class="btn-stream" onclick="stream('gemini')">流式对话</button>
+                </div>
+                <div id="geminiResponse"></div>
+            </div>
+
+            <!-- Ollama -->
+            <div class="provider-card ollama">
+                <h2><span class="provider-icon">🦙</span> Ollama (本地模型)</h2>
+                <div class="provider-info">完全本地运行，数据私有，免费使用</div>
+                <div class="input-group">
+                    <label>输入消息：</label>
+                    <textarea id="ollamaMessage" placeholder="例如：你好，介绍一下自己">你好，介绍一下自己</textarea>
+                </div>
+                <div class="button-group">
+                    <button class="btn-chat" onclick="chat('ollama')">普通对话</button>
+                    <button class="btn-stream" onclick="stream('ollama')">流式对话</button>
+                </div>
+                <div id="ollamaResponse"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8080/api/llm';
+
+        async function checkHealth() {
+            const statusDiv = document.getElementById('healthStatus');
+            statusDiv.innerHTML = '<div class="loading">正在检查...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                
+                let html = '<div style="margin-top: 15px;">';
+                for (const [provider, status] of Object.entries(data)) {
+                    const statusClass = status === 'OK' ? 'health-ok' : 'health-error';
+                    html += `<span class="health-status ${statusClass}" style="margin: 5px;">${provider}: ${status}</span>`;
+                }
+                html += '</div>';
+                statusDiv.innerHTML = html;
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="health-status health-error" style="margin-top: 15px;">检查失败: ${error.message}</div>`;
+            }
+        }
+
+        async function chat(provider) {
+            const message = document.getElementById(`${provider}Message`).value;
+            if (!message) return alert('请输入消息');
+
+            const responseDiv = document.getElementById(`${provider}Response`);
+            responseDiv.innerHTML = '<div class="response loading">正在请求...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/${provider}/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+
+                const data = await response.json();
+                const duration = data.duration ? ` (${data.duration}ms)` : '';
+                responseDiv.innerHTML = `<div class="response">
+                    <strong>${data.provider} - ${data.model}${duration}</strong><br><br>
+                    ${data.response}
+                </div>`;
+            } catch (error) {
+                responseDiv.innerHTML = `<div class="response error">错误: ${error.message}<br><br>提示：请确保已配置 API Key 并且服务正常运行</div>`;
+            }
+        }
+
+        async function stream(provider) {
+            const message = document.getElementById(`${provider}Message`).value;
+            if (!message) return alert('请输入消息');
+
+            const responseDiv = document.getElementById(`${provider}Response`);
+            responseDiv.innerHTML = '<div class="response loading">正在连接流式响应...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/${provider}/stream`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let fullText = '';
+
+                responseDiv.innerHTML = '<div class="response"></div>';
+                const contentDiv = responseDiv.querySelector('.response');
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n');
+                    
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            const text = line.substring(6);
+                            if (text && text !== '[DONE]') {
+                                fullText += text;
+                                contentDiv.textContent = fullText;
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                responseDiv.innerHTML = `<div class="response error">错误: ${error.message}<br><br>提示：请确保已配置 API Key 并且服务正常运行</div>`;
+            }
+        }
+
+        // 页面加载时自动检查健康状态
+        window.onload = () => {
+            checkHealth();
+        };
+    </script>
+</body>
+</html>

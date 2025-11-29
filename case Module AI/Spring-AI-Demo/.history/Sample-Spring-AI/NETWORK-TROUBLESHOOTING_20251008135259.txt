@@ -1,0 +1,88 @@
+# 网络连接问题排查指南
+
+## 错误原因
+DNS 解析超时: io.netty.resolver.dns.DnsNameResolverTimeoutException
+- 你的本地 DNS 服务器 (192.168.0.1) 无法在 5 秒内解析 api.siliconflow.cn
+- 可能原因：DNS 污染、网络限制、路由器 DNS 配置问题
+
+## 已实施的修复
+✅ 配置使用 JVM 默认 DNS 解析器（绕过 Netty 异步 DNS）
+✅ 增加连接和读取超时时间
+✅ 支持 HTTP 代理配置
+
+## 解决方案
+
+### 方案 1: 检查网络连接
+1. 测试是否能访问外网:
+   ping api.siliconflow.cn
+   
+2. 测试 DNS 解析:
+   nslookup api.siliconflow.cn
+
+### 方案 2: 配置系统代理（如果你有代理服务器）
+在启动应用时添加 JVM 参数:
+java -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7890 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7890 -jar app.jar
+
+或在 application.yml 中配置 WebClient 使用代理（需要代码修改）
+
+### 方案 3: 更换 DNS 服务器
+当前使用的 DNS: 192.168.0.1
+建议更换为公共 DNS:
+- 阿里 DNS: 223.5.5.5, 223.6.6.6
+- 腾讯 DNS: 119.29.29.29
+- Google DNS: 8.8.8.8, 8.8.4.4
+
+Windows 修改 DNS:
+1. 控制面板 -> 网络和共享中心 -> 更改适配器设置
+2. 右键网络连接 -> 属性
+3. 选择 Internet 协议版本 4 (TCP/IPv4) -> 属性
+4. 使用下面的 DNS 服务器地址
+
+### 方案 4: 使用其他 API 提供商
+如果 siliconflow 无法访问，可以更换为其他兼容 OpenAI 的 API:
+
+1. OpenAI 官方 (需要国际网络):
+   base-url: https://api.openai.com
+
+2. 国内其他提供商:
+   - 智谱 AI: https://open.bigmodel.cn
+   - 百度文心: https://aip.baidubce.com
+   - 阿里通义: https://dashscope.aliyuncs.com
+
+修改 application.yml:
+spring:
+  ai:
+    openai:
+      base-url: https://你的API地址
+      api-key: 你的API密钥
+
+### 方案 5: 配置超时和重试
+增加超时时间和重试机制，在代码中配置 WebClient
+
+### 方案 6: 使用修复后的配置（推荐）
+项目已经配置使用 JVM DNS 解析器，直接启动即可：
+
+方式 1 - 使用 Maven 启动:
+mvn spring-boot:run
+
+方式 2 - 使用启动脚本:
+start-with-custom-dns.bat
+
+方式 3 - 如果需要代理，修改 application.yml:
+http:
+  proxy:
+    enabled: true
+    host: 127.0.0.1
+    port: 7890
+
+### 推荐操作步骤
+1. 【最简单】直接运行 start-with-custom-dns.bat 或 mvn spring-boot:run
+2. 如果还是失败，执行 test-network.bat 诊断网络
+3. 如果 ping 不通，检查是否需要代理（修改 application.yml 启用代理）
+4. 如果有代理但还是失败，在启动脚本中取消代理配置的注释
+5. 如果所有方法都失败，考虑更换 API 提供商（方案 4）
+
+### 技术说明
+Netty 默认使用异步 DNS 解析器，在某些网络环境下会超时。
+通过配置 DefaultAddressResolverGroup.INSTANCE，改用 JVM 的阻塞式 DNS 解析，
+这样会使用系统配置的 DNS 服务器，通常更稳定。
