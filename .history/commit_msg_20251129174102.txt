@@ -1,0 +1,7 @@
+fix: resolve RESTEasy version compatibility issues
+
+- Downgrade resteasy-spring-boot-starter from 5.0.0.Final to 4.7.9.Final
+- Replace resteasy-validator-provider with resteasy-jackson2-provider
+- Fix application.properties: remove reference to non-existent class
+- RESTEasy 4.x is compatible with javax.ws.rs API
+

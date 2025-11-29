@@ -1,0 +1,8 @@
+chore: add new modules and fix nested git repos
+
+- Add case Module AI (Spring AI, MCP, Deeplearning4j demos)
+- Add case Solon (Solon framework demo)
+- Add case Other Spring (Bean Order demo)
+- Remove nested .git directories to fix git add errors
+- Update gradle cache files
+
