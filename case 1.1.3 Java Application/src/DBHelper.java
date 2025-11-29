@@ -1,10 +1,3 @@
-/**
- * @Classname DBHelper
- * @Description TODO
- * @Date 2021/1/2 17:01
- * @Created by zengzg
- */
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,51 +5,145 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * JavaÖĞÊ¹ÓÃJDBCÁ¬½ÓÊı¾İ¿â
- * 1£© ¼ÓÔØÇı¶¯ 2£© ´´½¨Êı¾İ¿âÁ¬½Ó
- * 3£© ´´½¨Ö´ĞĞsqlµÄÓï¾ä 4£© Ö´ĞĞÓï¾ä 5£© ´¦ÀíÖ´ĞĞ½á¹û 6£© ÊÍ·Å×ÊÔ´
+ * æ•°æ®åº“å¸®åŠ©ç±»
+ * <p>
+ * æ¼”ç¤º Java ä¸­ä½¿ç”¨ JDBC è¿æ¥æ•°æ®åº“çš„å®Œæ•´æµç¨‹ï¼š
+ * <ol>
+ *     <li>åŠ è½½æ•°æ®åº“é©±åŠ¨</li>
+ *     <li>å»ºç«‹æ•°æ®åº“è¿æ¥</li>
+ *     <li>åˆ›å»º SQL æ‰§è¡Œå¯¹è±¡</li>
+ *     <li>æ‰§è¡Œ SQL è¯­å¥</li>
+ *     <li>å¤„ç†æ‰§è¡Œç»“æœ</li>
+ *     <li>é‡Šæ”¾èµ„æº</li>
+ * </ol>
+ * </p>
+ * 
+ * <h3>Statement vs PreparedStatementï¼š</h3>
+ * <ul>
+ *     <li>PreparedStatement ç»§æ‰¿è‡ª Statementï¼Œéƒ½æ˜¯æ¥å£</li>
+ *     <li>PreparedStatement å¯ä»¥ä½¿ç”¨å ä½ç¬¦ï¼Œæ”¯æŒé¢„ç¼–è¯‘</li>
+ *     <li>PreparedStatement æ•ˆç‡æ›´é«˜ï¼Œä¸”å¯é˜²æ­¢ SQL æ³¨å…¥</li>
+ * </ul>
  *
- * @author liu.hb
+ * @author zengzg
+ * @since 2021/1/2
  */
 public class DBHelper {
 
+    /** æ•°æ®åº“è¿æ¥ URL */
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/gang?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC";
+    
+    /** æ•°æ®åº“ç”¨æˆ·å */
+    private static final String USER = "root";
+    
+    /** æ•°æ®åº“å¯†ç  */
+    private static final String PASSWORD = "123456";
+
     /**
-     * Statement ºÍ PreparedStatementÖ®¼äµÄ¹ØÏµºÍÇø±ğ.
-     * ¹ØÏµ£ºPreparedStatement¼Ì³Ğ×ÔStatement,¶¼ÊÇ½Ó¿Ú
-     * Çø±ğ£ºPreparedStatement¿ÉÒÔÊ¹ÓÃÕ¼Î»·û£¬ÊÇÔ¤±àÒëµÄ£¬Åú´¦Àí±ÈStatementĞ§ÂÊ¸ß
+     * è¿æ¥æ•°æ®åº“å¹¶æŸ¥è¯¢ç”¨æˆ·ä¿¡æ¯
+     * <p>
+     * æ¼”ç¤ºä½¿ç”¨ PreparedStatement è¿›è¡Œå‚æ•°åŒ–æŸ¥è¯¢ï¼Œ
+     * è¿™ç§æ–¹å¼å¯ä»¥æœ‰æ•ˆé˜²æ­¢ SQL æ³¨å…¥æ”»å‡»ã€‚
+     * </p>
      */
     public static void conn() {
-        String URL = "jdbc:mysql://127.0.0.1:3306/gang?characterEncoding=utf-8";
-        String USER = "root";
-        String PASSWORD = "123456";
-        // 1.¼ÓÔØÇı¶¯³ÌĞò
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            // 2.»ñµÃÊı¾İ¿âÁ´½Ó
-            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            // 3.Í¨¹ıÊı¾İ¿âµÄÁ¬½Ó²Ù×÷Êı¾İ¿â£¬ÊµÏÖÔöÉ¾¸Ä²é£¨Ê¹ÓÃStatementÀà£©
+            // 1. åŠ è½½æ•°æ®åº“é©±åŠ¨
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("Database driver loaded successfully.");
+            
+            // 2. å»ºç«‹æ•°æ®åº“è¿æ¥
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            System.out.println("Database connection established.");
+            
+            // 3. é€šè¿‡æ•°æ®åº“è¿æ¥æ“ä½œæ•°æ®åº“ï¼ˆä½¿ç”¨ PreparedStatementï¼‰
             String name = "gang";
-            //Ô¤±àÒë
-            String sql = "select * from user where username=?";
-            PreparedStatement statement = conn.prepareStatement(sql);
+            String sql = "SELECT * FROM user WHERE username = ?";
+            
+            // é¢„ç¼–è¯‘ SQL
+            statement = conn.prepareStatement(sql);
             statement.setString(1, name);
-            ResultSet rs = statement.executeQuery();
-//			String sql="select * from userinfo where UserName='"+name+"'";
-//			Statement statement = conn.createStatement();
-//			ResultSet rs = statement.executeQuery(sql);
-            // 4.´¦ÀíÊı¾İ¿âµÄ·µ»Ø½á¹û(Ê¹ÓÃResultSetÀà)
+            
+            // 4. æ‰§è¡ŒæŸ¥è¯¢
+            rs = statement.executeQuery();
+            System.out.println("Query executed: " + sql);
+            System.out.println("Parameter: username = " + name);
+            System.out.println();
+            
+            // 5. å¤„ç†ç»“æœé›†
+            System.out.println("Query Results:");
+            System.out.println("----------------------------------------");
+            int count = 0;
             while (rs.next()) {
-                System.out.println(rs.getString("username") + " " + rs.getString("user_org"));
+                String username = rs.getString("username");
+                String userOrg = rs.getString("user_org");
+                System.out.println("Username: " + username + ", Organization: " + userOrg);
+                count++;
             }
-
-            // ¹Ø±Õ×ÊÔ´
-            conn.close();
-            rs.close();
-            statement.close();
+            System.out.println("----------------------------------------");
+            System.out.println("Total records: " + count);
+            
         } catch (ClassNotFoundException e) {
+            System.err.println("Error: Database driver not found!");
             e.printStackTrace();
         } catch (SQLException e) {
+            System.err.println("Error: SQL execution failed!");
             e.printStackTrace();
+        } finally {
+            // 6. é‡Šæ”¾èµ„æºï¼ˆæ³¨æ„å…³é—­é¡ºåºï¼šResultSet -> Statement -> Connectionï¼‰
+            closeQuietly(rs);
+            closeQuietly(statement);
+            closeQuietly(conn);
+        }
+    }
+
+    /**
+     * é™é»˜å…³é—­ ResultSet
+     *
+     * @param rs è¦å…³é—­çš„ ResultSet
+     */
+    private static void closeQuietly(ResultSet rs) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                System.err.println("Warning: Failed to close ResultSet");
+            }
+        }
+    }
+
+    /**
+     * é™é»˜å…³é—­ PreparedStatement
+     *
+     * @param statement è¦å…³é—­çš„ PreparedStatement
+     */
+    private static void closeQuietly(PreparedStatement statement) {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                System.err.println("Warning: Failed to close PreparedStatement");
+            }
+        }
+    }
+
+    /**
+     * é™é»˜å…³é—­ Connection
+     *
+     * @param conn è¦å…³é—­çš„ Connection
+     */
+    private static void closeQuietly(Connection conn) {
+        if (conn != null) {
+            try {
+                conn.close();
+                System.out.println("Database connection closed.");
+            } catch (SQLException e) {
+                System.err.println("Warning: Failed to close Connection");
+            }
         }
     }
 }

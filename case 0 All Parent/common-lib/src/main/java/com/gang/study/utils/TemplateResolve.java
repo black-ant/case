@@ -1,7 +1,6 @@
 package com.gang.study.utils;
 
-
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,56 +9,104 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
- * @Classname TemplateUtil
- * @Description TODO
- * @Date 2019/10/31 22:46
- * @Created by ant-black 1016930479@qq.com
+ * 模板解析工具类
+ * <p>
+ * 提供字符串模板的占位符替换功能，支持多种替换方式：
+ * <ul>
+ *     <li>按顺序替换：使用 ${} 占位符按顺序替换</li>
+ *     <li>按名称替换：使用 ${name} 占位符按名称替换</li>
+ *     <li>自定义规则替换：使用回调函数自定义替换逻辑</li>
+ * </ul>
+ * </p>
+ *
+ * <h3>使用示例：</h3>
+ * <pre>{@code
+ * // 按顺序替换
+ * String result = TemplateResolve.resolve("Hello, ${}!", "World");
+ * // 输出：Hello, World!
+ *
+ * // 按名称替换
+ * Map<String, Object> params = new HashMap<>();
+ * params.put("name", "张三");
+ * String result = TemplateResolve.resolveByMap("Hello, ${name}!", params);
+ * // 输出：Hello, 张三!
+ *
+ * // 使用 JEXL 表达式
+ * String result = TemplateResolve.jexlResolve("Hello, ${name}!", "name", "World");
+ * // 输出：Hello, World!
+ * }</pre>
+ *
+ * @author ant-black
+ * @since 2019/10/31
  */
 public class TemplateResolve {
 
-    public static Map<String, String> getTemplateParamMap(String templateBody) {
-        HashMap backMap = new HashMap<String, String>();
-        return backMap;
-    }
-
-    /**
-     * 默认前缀占位符
-     */
+    /** 默认前缀占位符 */
     public static final String DEFAULT_PLACEHOLDER_PREFIX = "${";
 
-    /**
-     * 默认后缀占位符
-     */
+    /** 默认后缀占位符 */
     public static final String DEFAULT_PLACEHOLDER_SUFFIX = "}";
 
-    /**
-     * 默认单例解析器
-     */
-    private static TemplateResolve defaultResolver = new TemplateResolve();
+    /** 默认单例解析器 */
+    private static final TemplateResolve DEFAULT_RESOLVER = new TemplateResolve();
 
     private TemplateResolve() {
+        // 私有构造函数
     }
 
     /**
-     * 获取默认的占位符解析器，即占位符前缀为"${", 后缀为"}"
+     * 获取模板参数映射（预留接口）
      *
-     * @return
+     * @param templateBody 模板内容
+     * @return 参数映射
      */
-    public TemplateResolve getDefaultResolver() {
-        return defaultResolver;
+    public static Map<String, String> getTemplateParamMap(String templateBody) {
+        return new HashMap<>();
     }
 
+    /**
+     * 获取默认的占位符解析器
+     *
+     * @return 默认解析器实例
+     */
+    public TemplateResolve getDefaultResolver() {
+        return DEFAULT_RESOLVER;
+    }
+
+    /**
+     * 使用 JEXL 表达式引擎解析模板（单个参数）
+     *
+     * @param template 模板字符串
+     * @param key      参数名
+     * @param value    参数值
+     * @return 解析后的字符串
+     */
     public static String jexlResolve(String template, String key, String value) {
         Map<String, Object> map = new HashMap<>();
         map.put(key, value);
         return JexlUtils.evaluate(template, map);
     }
 
+    /**
+     * 使用 JEXL 表达式引擎解析模板（JSON 参数）
+     *
+     * @param template 模板字符串
+     * @param content  JSON 格式的参数字符串
+     * @return 解析后的字符串
+     */
     public static String jexlResolve(String template, String content) {
         Map<String, Object> map = JSONObject.parseObject(content);
         return JexlUtils.evaluate(template, map);
     }
 
+    /**
+     * 使用单个键值对解析模板
+     *
+     * @param template 模板字符串
+     * @param key      参数名
+     * @param value    参数值
+     * @return 解析后的字符串
+     */
     public static String resolve(String template, String key, String value) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(key, value);
@@ -67,21 +114,21 @@ public class TemplateResolve {
     }
 
     /**
-     * 解析带有指定占位符的模板字符串，默认占位符为前缀：${  后缀：}<br/><br/>
-     * 如：templates = category:${}:product:${}<br/>
-     * values = {"1", "2"}<br/>
-     * 返回 category:1:product:2<br/>
+     * 按顺序解析模板中的占位符
+     * <p>
+     * 例如：template = "category:${}:product:${}"，values = {"1", "2"}
+     * 返回：category:1:product:2
+     * </p>
      *
-     * @param content 要解析的带有占位符的模板字符串
-     * @param values  按照模板占位符索引位置设置对应的值
-     * @return
+     * @param content 模板字符串
+     * @param values  按顺序替换的值
+     * @return 解析后的字符串
      */
     public static String resolve(String content, String... values) {
         int start = content.indexOf(DEFAULT_PLACEHOLDER_PREFIX);
         if (start == -1) {
             return content;
         }
-        //值索引
         int valueIndex = 0;
         StringBuilder result = new StringBuilder(content);
         while (start != -1) {
@@ -94,25 +141,22 @@ public class TemplateResolve {
     }
 
     /**
-     * 解析带有指定占位符的模板字符串，默认占位符为前缀：${  后缀：}<br/><br/>
-     * 如：templates = category:${}:product:${}<br/>
-     * values = {"1", "2"}<br/>
-     * 返回 category:1:product:2<br/>
+     * 按顺序解析模板中的占位符（对象数组版本）
      *
-     * @param content 要解析的带有占位符的模板字符串
-     * @param values  按照模板占位符索引位置设置对应的值
-     * @return
+     * @param content 模板字符串
+     * @param values  按顺序替换的值
+     * @return 解析后的字符串
      */
     public static String resolve(String content, Object[] values) {
         return resolve(content, Stream.of(values).map(String::valueOf).toArray(String[]::new));
     }
 
     /**
-     * 根据替换规则来替换指定模板中的占位符值
+     * 根据自定义规则解析模板
      *
-     * @param content 要解析的字符串
-     * @param rule    解析规则回调
-     * @return
+     * @param content 模板字符串
+     * @param rule    解析规则回调函数，接收占位符名称，返回替换值
+     * @return 解析后的字符串
      */
     public static String resolveByRule(String content, Function<String, String> rule) {
         int start = content.indexOf(DEFAULT_PLACEHOLDER_PREFIX);
@@ -122,9 +166,7 @@ public class TemplateResolve {
         StringBuilder result = new StringBuilder(content);
         while (start != -1) {
             int end = result.indexOf(DEFAULT_PLACEHOLDER_SUFFIX, start);
-            //获取占位符属性值，如${id}, 即获取id
             String placeholder = result.substring(start + DEFAULT_PLACEHOLDER_PREFIX.length(), end);
-            //替换整个占位符内容，即将${id}值替换为替换规则回调中的内容
             String replaceContent = placeholder.trim().isEmpty() ? "" : rule.apply(placeholder);
             result.replace(start, end + DEFAULT_PLACEHOLDER_SUFFIX.length(), replaceContent);
             start = result.indexOf(DEFAULT_PLACEHOLDER_PREFIX, start + replaceContent.length());
@@ -133,46 +175,47 @@ public class TemplateResolve {
     }
 
     /**
-     * 替换模板中占位符内容，占位符的内容即为map key对应的值，key为占位符中的内容。<br/><br/>
-     * 如：content = product:${id}:detail:${did}<br/>
-     * valueMap = id -> 1; pid -> 2<br/>
-     * 经过解析返回 product:1:detail:2<br/>
+     * 使用 Map 解析模板中的占位符
+     * <p>
+     * 例如：content = "product:${id}:detail:${did}"，valueMap = {id: 1, did: 2}
+     * 返回：product:1:detail:2
+     * </p>
      *
-     * @param content  模板内容。
-     * @param valueMap 值映射
-     * @return 替换完成后的字符串。
+     * @param content  模板字符串
+     * @param valueMap 参数映射
+     * @return 解析后的字符串
      */
     public static String resolveByMap(String content, final Map<String, Object> valueMap) {
         return resolveByRule(content, placeholderValue -> String.valueOf(valueMap.get(placeholderValue)));
     }
 
     /**
-     * 根据properties文件替换占位符内容
+     * 使用 Properties 解析模板中的占位符
      *
-     * @param content
-     * @param properties
-     * @return
+     * @param content    模板字符串
+     * @param properties 属性配置
+     * @return 解析后的字符串
      */
     public static String resolveByProperties(String content, final Properties properties) {
-        return resolveByRule(content, placeholderValue -> properties.getProperty(placeholderValue));
+        return resolveByRule(content, properties::getProperty);
     }
 
     /**
-     * 根据对象中字段路径(即类似js访问对象属性值)替换模板中的占位符 <br/><br/>
-     * 如 content = product:${id}:detail:${detail.id} <br/>
-     * obj = Product.builder().id(1).detail(Detail.builder().id(2).build()).build(); <br/>
-     * 经过解析返回 product:1:detail:2 <br/>
+     * 使用对象的字段路径解析模板
+     * <p>
+     * 支持嵌套属性访问，例如：${user.address.city}
+     * </p>
      *
-     * @param content 要解析的内容
-     * @param obj     填充解析内容的对象(如果是基本类型，则所有占位符替换为相同的值)
-     * @return
+     * @param content 模板字符串
+     * @param obj     填充对象（支持 Map 和 POJO）
+     * @return 解析后的字符串
      */
+    @SuppressWarnings("unchecked")
     public static String resolveByObject(String content, final Object obj) {
         if (obj instanceof Map) {
-            return resolveByMap(content, (Map) obj);
+            return resolveByMap(content, (Map<String, Object>) obj);
         }
-        return resolveByRule(content, placeholderValue -> String.valueOf(ReflectionUtils.getValueByFieldPath(obj,
-                placeholderValue)));
+        return resolveByRule(content, placeholderValue -> 
+                String.valueOf(ReflectionUtils.getValueByFieldPath(obj, placeholderValue)));
     }
-
 }

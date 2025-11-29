@@ -1,2 +1,75 @@
-server.port=8089
-#server.servlet.context-path=/gang
+server:
+  port: 8089
+# ???????
+app:
+  database:
+    primary:
+      host: localhost
+      port: 3306
+      username: root
+      password: 123456
+
+    secondary:
+      host: 192.168.1.100
+      port: 3307
+      username: backup
+      password: backup123
+
+  # ????????????
+  user-service:
+    max-connections: 100
+    connection-timeout: 5000
+  timeout: 5s       # ??????
+  size: 10MB        # ??????
+  retry-count: 3    # ??
+  is-enabled: true  # ???
+  feature:
+    # ??????????
+    user-registration:
+      enabled: true
+      require-email-verification: false
+      min-password-length: 8
+
+    # ???????
+    admin-panel:
+      enabled: true
+      allowed-ips:
+        - 127.0.0.1
+        - 192.168.1.100
+      max-login-attempts: 3
+
+    # ??????
+    advanced:
+      debug-mode: false
+      performance-tracking: true
+
+    # ?????
+    integrations:
+      github:
+        enabled: true
+        webhook-secret: ${GITHUB_WEBHOOK_SECRET:defaultSecret}
+
+      slack:
+        enabled: false
+        channel: "#project-updates"
+
+    # ????
+    rate-limits:
+      api:
+        enabled: true
+        requests-per-minute: 100
+
+      login:
+        enabled: true
+        max-attempts: 5
+        lockout-duration: 15m
+
+    # ?????
+    experiments:
+      new-dashboard:
+        enabled: false
+        rollout-percentage: 10
+
+      ai-suggestions:
+        enabled: true
+        model: "gpt-3.5-turbo"

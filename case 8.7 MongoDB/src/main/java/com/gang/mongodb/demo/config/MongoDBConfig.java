@@ -18,14 +18,13 @@ public class MongoDBConfig extends AbstractMongoClientConfiguration {
 
     @Override
     protected String getDatabaseName() {
-        return "ANT_TEST";
+        return "testDB";
     }
 
     @Override
     public MongoClient mongoClient() {
         MongoClientSettings settings = MongoClientSettings.builder()
-                .applyConnectionString(new ConnectionString("mongodb://root:zzg!%4019950824@dds-uf60001a5575c6a41526-pub.mongodb.rds.aliyuncs.com:3717,dds-uf60001a5575c6a42136-pub.mongodb.rds.aliyuncs" +
-                        ".com:3717/admin?replicaSet=mgset-70763253"))
+                .applyConnectionString(new ConnectionString("mongodb://root:r123oot@182.92.129.97:7017/?authSource=testDB"))
                 .build();
 
         return MongoClients.create(settings);

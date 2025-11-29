@@ -2,19 +2,15 @@ package com.gang.mongodb.demo.controller;
 
 import com.gang.mongodb.demo.entity.Person;
 import com.gang.mongodb.demo.entity.User;
-import com.gang.mongodb.demo.repository.PersonRepositoryImpl;
 import com.gang.mongodb.demo.repository.UserRepositoryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -22,6 +18,10 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Classname UserController
@@ -37,11 +37,13 @@ public class UserController {
 
     private static final List<String> TYPE = Arrays.asList("湖北", "湖南", "福建", "四川");
 
+    private static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 20, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(5000), new ThreadPoolExecutor.CallerRunsPolicy());
+
+    private static AtomicInteger num = new AtomicInteger(0);
+
     @Resource
     private UserRepositoryImpl repository;
 
-    @Resource
-    private PersonRepositoryImpl personRepository;
 
     @GetMapping("save")
     public String save() {
@@ -56,18 +58,24 @@ public class UserController {
         logger.info("------> this is in saveList <-------");
         num = num == null ? 30 : num;
         for (int i = 0; i < num; i++) {
-            logger.info("------> 创建 :{} <-------", i);
             Long id = new Date().getTime() + new Random().nextInt(999999);
-            repository.saveUser(buildUser(id));
-            personRepository.save(buildPerson(id));
+            threadPoolExecutor.submit(() -> {
+                logger.info("------> 创建 :{} <-------", id);
+                repository.saveUser(buildUser(id));
+            });
         }
         return "sccuess";
     }
 
     private User buildUser(Long id) {
         User user = new User();
+        user.setAddress("address");
+        user.setNickName("nickName:" + new Random().nextInt(999));
         setDefaultValue(user, null, "");
-        user.setId(id);
+        user.setSelfId(id);
+        user.setCreateTime(new Date());
+        user.setStatus(new Random().nextInt(5));
+        user.setSex(new Random().nextInt(3));
         return user;
     }
 

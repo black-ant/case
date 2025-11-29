@@ -1,53 +1,28 @@
 package com.gang.webflux.demo.entity;
 
-import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * @Classname Person
- * @Description TODO
- * @Date 2021/8/9
- * @Created by zengzg
+ * 人员实体类
+ * <p>
+ * 用于演示 Mono 数据转换。
+ * </p>
+ *
+ * @author zengzg
+ * @since 2021/8/9
  */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Person {
+
+    /** 姓名 */
     private String name;
+    
+    /** 年龄 */
     private Integer age;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Person)) return false;
-        Person person = (Person) o;
-        return Objects.equals(getName(), person.getName()) &&
-                Objects.equals(getAge(), person.getAge());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getName(), getAge());
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
-
 }
