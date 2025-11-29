@@ -160,3 +160,19 @@
 - 消息队列项目需要对应的 MQ 服务
 - 微服务项目需要注册中心
 
+---
+
+## ✅ Bug 修复记录
+
+### 2024-11 RESTEasy 兼容性修复
+
+**问题：**
+- `case 2.3 easyrest` 项目 RESTEasy 版本不兼容
+- `resteasy-spring-boot-starter` 5.0.0.Final 使用 Jakarta EE
+- 代码使用 `javax.ws.rs` API
+
+**修复：**
+- 降级到 RESTEasy 4.7.9.Final
+- 移除配置文件中不存在的类引用
+- 添加 `resteasy-jackson2-provider` 依赖
+
