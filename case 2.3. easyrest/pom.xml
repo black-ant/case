@@ -39,16 +39,15 @@
             <optional>true</optional>
         </dependency>
         
-        <!-- RESTEasy JAX-RS -->
+        <!-- RESTEasy JAX-RS (使用 4.x 版本兼容 javax.ws.rs) -->
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-spring-boot-starter</artifactId>
-            <version>5.0.0.Final</version>
-            <scope>runtime</scope>
+            <version>4.7.9.Final</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-validator-provider</artifactId>
+            <artifactId>resteasy-jackson2-provider</artifactId>
             <version>${resteasy.version}</version>
         </dependency>
 
